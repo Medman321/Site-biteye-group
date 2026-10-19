@@ -451,11 +451,17 @@ a{color:inherit;text-decoration:none}
 /* Bandeau de logos qui défile sous le héros */
 .ticker{margin:-40px 0 clamp(72px,9vw,120px);text-align:center}
 .ticker-lbl{font:600 12px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--f-ink-2);margin-bottom:24px}
-.logo-marq{margin-top:0}
-.logo-marq .row{gap:16px;animation-duration:150s}
-.logo-marq:hover .row{animation-play-state:paused}
-.tk{display:grid;place-items:center;height:72px;padding:10px 18px;border-radius:16px;background:var(--logo-bg);flex:none;transition:transform .4s var(--ease)}
-.tk:hover{transform:translateY(-4px) scale(1.04)}
+.logo-marq{margin-top:0;perspective:1100px;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;padding-block:18px}
+.logo-marq.grab{cursor:grabbing}
+.logo-marq .row{gap:16px;animation-duration:150s;transform-style:preserve-3d}
+.logo-marq.js .row{animation:none}
+.tk{display:grid;place-items:center;height:72px;padding:10px 18px;border-radius:16px;background:var(--logo-bg);flex:none;will-change:transform;box-shadow:0 18px 30px -20px rgba(0,0,0,.6)}
+.tk img{pointer-events:none}
+.ticker-hint{display:none;margin-top:14px;font-size:13px;color:var(--f-ink-2)}
+.logo-marq.js + .ticker-hint{display:block}
+.ticker-hint span{display:inline-block;color:var(--lime);font-weight:700;animation:nudge 1.6s ease-in-out infinite}
+.ticker-hint span:last-child{animation-direction:reverse}
+@keyframes nudge{50%{transform:translateX(-5px)}}
 .tk img{height:52px;width:auto;max-width:160px;object-fit:contain}
 @media (max-width:734px){.logos{grid-template-columns:repeat(2,1fr)}}
 
@@ -655,6 +661,91 @@ html.lenis,html.lenis body{height:auto}
 @property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes spin{to{--ang:360deg}}
 
+/* ============ HORIZONTAL ET FORMES ============ */
+/* Formes géométriques qui flottent et dérivent au défilement */
+.deco{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.deco.v2{transform:scaleX(-1)}
+.sh{position:absolute;display:block}
+.sh.ring{top:7%;left:3%;width:120px;height:120px;border:2px solid rgba(3,218,159,.35);border-radius:50%;animation:spinf 18s linear infinite}
+.sh.ring::after{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime)}
+.sh.dots{top:12%;right:5%;width:140px;height:100px;background:radial-gradient(rgba(3,218,159,.5) 2px,transparent 2.6px) 0 0/20px 20px;animation:bob 7s ease-in-out infinite}
+.sh.plus{bottom:14%;left:8%;width:30px;height:30px;background:linear-gradient(var(--lime),var(--lime)) center/100% 3px no-repeat,linear-gradient(var(--lime),var(--lime)) center/3px 100% no-repeat;animation:spinf 9s linear infinite}
+.sh.half{bottom:8%;right:9%;width:120px;height:60px;border-radius:120px 120px 0 0;background:linear-gradient(135deg,rgba(3,218,159,.3),rgba(3,218,159,.04));animation:rock 8s ease-in-out infinite;transform-origin:50% 100%}
+.sh.zig{top:50%;right:2%;width:140px;height:18px;opacity:.6;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='18'%3E%3Cpath d='M0 14 L7 4 L14 14 L21 4 L28 14' fill='none' stroke='%2303DA9F' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") 0 0/28px 18px repeat-x;animation:zig 2.4s linear infinite}
+@keyframes spinf{to{rotate:360deg}}
+@keyframes rock{50%{rotate:14deg}}
+@keyframes zig{to{background-position:28px 0}}
+@media (max-width:734px){.sh.dots,.sh.zig{display:none}.sh.ring{width:72px;height:72px}.sh.half{width:72px;height:36px}}
+
+/* Trait menthe tracé sous les mots-clés des titres */
+.h2 em{position:relative}
+.swoosh{position:absolute;left:0;bottom:-.06em;width:100%;height:.3em;overflow:visible;pointer-events:none}
+.swoosh path{fill:none;stroke:var(--lime);stroke-width:5;stroke-linecap:round;opacity:.65;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1.3s var(--ease) .5s}
+.swoosh.on path{stroke-dashoffset:0}
+
+/* Mot qui tourne dans le titre du contact */
+.rot{display:inline-grid;vertical-align:bottom;overflow:hidden;padding-bottom:.08em}
+.rot > span{grid-area:1/1;transition:transform .8s var(--ease),opacity .5s}
+.fx .rot > span{transform:translateY(105%);opacity:0}
+.fx .rot > span.on{transform:none;opacity:1}
+.fx .rot > span.out{transform:translateY(-105%);opacity:0}
+.rot > span:not(.on){visibility:hidden}
+.fx .rot > span{visibility:visible}
+
+/* Fonctionnalités : grands mots qui glissent latéralement */
+.kinetic{display:grid;gap:4px;margin:-40px 0 clamp(56px,7vw,96px);overflow:hidden}
+.k-row{display:flex;gap:40px;width:max-content;font:700 clamp(54px,9vw,140px)/1 var(--display);letter-spacing:-.04em;white-space:nowrap;will-change:transform}
+.k-row[data-dir="1"]{margin-left:-40%}
+.k-row span{color:transparent;-webkit-text-stroke:1.5px rgba(234,238,241,.22)}
+.k-row span.fill{color:var(--lime);-webkit-text-stroke:0;opacity:.9}
+/* Galerie horizontale : les cartes défilent de droite à gauche */
+.h-pin{position:relative}
+.h-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px max(24px,calc((100vw - var(--max)) / 2 + 24px)) 40px;perspective:1400px;scrollbar-width:none}
+.h-track::-webkit-scrollbar{display:none}
+.fx .h-track{overflow:visible;width:max-content;scroll-snap-type:none}
+.feat-card{flex:none;width:min(420px,78vw);scroll-snap-align:center;display:grid;gap:10px;align-content:start;padding:22px 24px 28px;border-radius:var(--r);
+  background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);box-shadow:0 40px 80px -50px rgba(0,0,0,.9);will-change:transform}
+.feat-card small{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-top:8px}
+.feat-card h3{font-size:clamp(24px,2.4vw,30px);font-weight:700}
+.feat-card p{color:var(--f-ink-2)}
+.fc-art{width:100%;height:auto;border-radius:18px;background:rgba(1,26,41,.55);border:1px solid var(--f-rule)}
+.h-progress{height:3px;border-radius:2px;background:var(--f-rule);overflow:hidden;margin-top:8px}
+.h-progress i{display:block;height:100%;background:var(--lime);transform:scaleX(0);transform-origin:0 50%}
+/* Mini-animations des cartes */
+.fc-art .g{fill:var(--f-rule)}
+.fc-art .m{fill:var(--lime)}
+.fc-art .gs{fill:none;stroke:var(--f-rule);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.fc-art .ms{fill:none;stroke:var(--lime);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.fc-art .v{transform-box:fill-box;transform-origin:0 50%;animation:growx 3.4s var(--ease) infinite}
+.a-cols .v{transform-origin:50% 100%;animation-name:growy}
+@keyframes growx{0%{transform:scaleX(0)}45%,88%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+@keyframes growy{0%{transform:scaleY(0)}45%,88%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.a-line .fill{stroke-dasharray:100;animation:dash 3.4s var(--ease) infinite}
+.a-line .node{fill:var(--forest);stroke:var(--lime);stroke-width:3;transform-box:fill-box;transform-origin:center;animation:pop 3.4s var(--ease) infinite}
+@keyframes dash{0%{stroke-dashoffset:100}60%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+@keyframes pop{0%,10%{transform:scale(.6);fill:var(--forest)}25%,90%{transform:scale(1);fill:var(--lime)}100%{transform:scale(.6);fill:var(--forest)}}
+.a-chart .area{fill:rgba(3,218,159,.12);animation:fadein 3.6s ease infinite}
+.a-chart .draw{stroke-dasharray:100;animation:dash 3.6s var(--ease) infinite}
+.a-chart .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 1.2s ease-in-out infinite}
+@keyframes fadein{0%,20%{opacity:0}60%,90%{opacity:1}100%{opacity:0}}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.6}}
+.a-check .box{fill:none;stroke:var(--f-rule);stroke-width:2.5}
+.a-check .tick{fill:none;stroke:var(--lime);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;animation:tick 3.6s var(--ease) infinite}
+@keyframes tick{0%,15%{stroke-dashoffset:100}35%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
+.a-funnel .drop{fill:var(--f-ink-2);animation:drop 2s ease-in infinite}
+.a-funnel .out{animation:pulse 1s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes drop{0%{transform:translateY(0);opacity:0}15%{opacity:1}70%{transform:translateY(92px);opacity:1;fill:var(--lime)}100%{transform:translateY(110px);opacity:0}}
+.a-doc .page{fill:rgba(234,238,241,.06);stroke:var(--f-rule);stroke-width:2}
+.a-doc .sign{stroke-dasharray:100;animation:dash 3.4s var(--ease) infinite 1.2s}
+.a-donut .seg{fill:none;stroke-width:16}
+.a-donut .s1{stroke:var(--lime);stroke-dasharray:38 62}
+.a-donut .s2{stroke:#02A27A;stroke-dasharray:24 76;stroke-dashoffset:-38}
+.a-donut .s3{stroke:rgba(234,238,241,.45);stroke-dasharray:22 78;stroke-dashoffset:-62}
+.a-donut .s4{stroke:rgba(234,238,241,.18);stroke-dasharray:16 84;stroke-dashoffset:-84}
+.a-donut .spin{transform-origin:140px 80px;animation:spinf 12s linear infinite}
+.a-donut .core{animation:pulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .tilt-inner,.card3d{transform:none!important}
@@ -682,6 +773,7 @@ html.lenis,html.lenis body{height:auto}
       <li><a href="#chantier">VISION Build</a></li>
       <li><a href="#cycle">VISION Co-Owner</a></li>
       <li><a href="#mobile">Mobile et CRM</a></li>
+      <li><a href="#fonctions">Fonctionnalités</a></li>
       <li><a href="#pourquoi">BitEye</a></li>
     </ul>
     <a class="btn" href="#contact">Demander une démo</a>
@@ -711,9 +803,11 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= APERÇU ================= -->
 <section class="band forest" id="apercu">
+  <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="ticker" id="ticker" hidden>
     <p class="ticker-lbl">Ils pilotent leurs projets avec VISION</p>
     <div class="marquee logo-marq" aria-hidden="true"><div class="row" id="tickerRow"></div></div>
+    <p class="ticker-hint" aria-hidden="true"><span>‹</span> Glissez pour parcourir <span>›</span></p>
   </div>
   <div class="wrap">
     <div class="head center">
@@ -771,6 +865,7 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= TROIS MÉTIERS ================= -->
 <section class="band paper" id="metiers">
+  <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Une plateforme</span>
@@ -935,6 +1030,7 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= CYCLE ================= -->
 <section class="band paper" id="cycle">
+  <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Un seul parcours</span>
@@ -963,6 +1059,7 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= MIEUX ENSEMBLE ================= -->
 <section class="band forest" id="ensemble">
+  <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Estate × Build</span>
@@ -981,6 +1078,7 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= MOBILE ================= -->
 <section class="band paper" id="mobile">
+  <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap mobile">
     <div class="phone-stage" id="phoneStage">
       <div class="phone" id="phone" role="img" aria-label="Maquette de l'application mobile VISION">
@@ -1012,6 +1110,7 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= CHIFFRES ================= -->
 <section class="band forest" id="confiance">
+  <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Depuis 2014</span>
@@ -1232,6 +1331,7 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= POURQUOI ================= -->
 <section class="band paper" id="pourquoi">
+  <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Pourquoi BitEye</span>
@@ -1252,13 +1352,66 @@ html.lenis,html.lenis body{height:auto}
   </div>
 </section>
 
+<!-- ================= FONCTIONNALITÉS (défilement horizontal) ================= -->
+<section class="band forest" id="fonctions">
+  <div class="kinetic" aria-hidden="true">
+    <div class="k-row" data-dir="-1"><span class="">Quantités</span><span class="fill">Échéanciers</span><span class="">Trésorerie</span><span class="fill">Situations</span><span class="">Contrats</span><span class="fill">Copropriété</span><span class="">Quantités</span><span class="fill">Échéanciers</span><span class="">Trésorerie</span><span class="fill">Situations</span><span class="">Contrats</span><span class="fill">Copropriété</span></div>
+    <div class="k-row" data-dir="1"><span class="fill">Promotion</span><span class="">Réalisation</span><span class="fill">CRM</span><span class="">Mobile</span><span class="fill">Documents</span><span class="">Charges</span><span class="fill">Promotion</span><span class="">Réalisation</span><span class="fill">CRM</span><span class="">Mobile</span><span class="fill">Documents</span><span class="">Charges</span></div>
+  </div>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Fonctionnalités</span>
+      <h2 class="h2">Tout ce qu'il faut. <em>Rien de trop.</em></h2>
+      <p class="lead">Huit outils parmi d'autres, chacun montré en mouvement.</p>
+    </div>
+  </div>
+  <div class="h-pin" id="hPin">
+    <div class="h-track" id="hTrack">
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-bars"><rect class="g" x="24" y="28" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.0s" x="92" y="28" width="150" height="10" rx="5"/><rect class="g" x="24" y="56" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.25s" x="92" y="56" width="110" height="10" rx="5"/><rect class="g" x="24" y="84" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.5s" x="92" y="84" width="164" height="10" rx="5"/><rect class="g" x="24" y="112" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.75s" x="92" y="112" width="90" height="10" rx="5"/></g></svg>
+          <small>VISION Build</small><h3>Du métré au budget.</h3><p>Quantités prévisionnelles par lot : béton armé, revêtements, VRD, électricité, plomberie.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-line"><line class="gs" x1="30" y1="80" x2="250" y2="80"/><line class="ms fill" x1="30" y1="80" x2="250" y2="80" pathLength="100"/><circle class="node" style="animation-delay:0.0s" cx="30" cy="80" r="9"/><circle class="node" style="animation-delay:0.45s" cx="85" cy="80" r="9"/><circle class="node" style="animation-delay:0.9s" cx="140" cy="80" r="9"/><circle class="node" style="animation-delay:1.35s" cx="195" cy="80" r="9"/><circle class="node" style="animation-delay:1.8s" cx="250" cy="80" r="9"/></g></svg>
+          <small>VISION Estate</small><h3>Chaque tranche, à sa date.</h3><p>Échéanciers acquéreurs à la date ou à l'avancement, avec relances.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-cols"><rect class="g" x="34" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.0s" x="34" y="34" width="22" height="96" rx="6"/><rect class="g" x="70" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.18s" x="70" y="52" width="22" height="78" rx="6"/><rect class="g" x="106" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.36s" x="106" y="70" width="22" height="60" rx="6"/><rect class="g" x="142" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.54s" x="142" y="42" width="22" height="88" rx="6"/><rect class="g" x="178" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.72s" x="178" y="90" width="22" height="40" rx="6"/><rect class="g" x="214" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="214" y="106" width="22" height="24" rx="6"/><line class="gs" x1="24" y1="134" x2="256" y2="134"/></g></svg>
+          <small>VISION Build</small><h3>L'avancement, lot par lot.</h3><p>Situations de travaux et attachements suivis depuis le chantier.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-chart"><path class="area" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52 L260 140 L20 140Z"/><path class="ms draw" pathLength="100" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52"/><circle class="m pulse" cx="260" cy="52" r="6"/></g></svg>
+          <small>VISION Estate</small><h3>La trésorerie, en direct.</h3><p>Encaissements, décaissements et caisses de chaque projet.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-check"><rect class="box" x="40" y="26" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.0s" pathLength="100" d="M46 38 l5 5 9-10"/><rect class="g" x="78" y="33" width="140" height="10" rx="5"/><rect class="box" x="40" y="66" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.6s" pathLength="100" d="M46 78 l5 5 9-10"/><rect class="g" x="78" y="73" width="110" height="10" rx="5"/><rect class="box" x="40" y="106" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:1.2s" pathLength="100" d="M46 118 l5 5 9-10"/><rect class="g" x="78" y="113" width="160" height="10" rx="5"/></g></svg>
+          <small>VISION Estate</small><h3>Les démarches, cochées.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque dossier a son statut.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-funnel"><path class="gs" d="M70 30 H210 L160 90 V128 H120 V90 Z"/><circle class="drop" style="animation-delay:0.0s" cx="100" cy="14" r="6"/><circle class="drop" style="animation-delay:0.5s" cx="120" cy="14" r="6"/><circle class="drop" style="animation-delay:1.0s" cx="140" cy="14" r="6"/><circle class="drop" style="animation-delay:1.5s" cx="160" cy="14" r="6"/><circle class="m out" cx="140" cy="140" r="7"/></g></svg>
+          <small>CRM</small><h3>Aucun prospect perdu.</h3><p>Les contacts du site et de Meta arrivent directement dans le CRM.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-doc"><rect class="page" x="90" y="14" width="100" height="132" rx="10"/><rect class="m v" style="animation-delay:0.0s" x="104" y="34" width="72" height="6" rx="3"/><rect class="m v" style="animation-delay:0.3s" x="104" y="50" width="60" height="6" rx="3"/><rect class="m v" style="animation-delay:0.6s" x="104" y="66" width="70" height="6" rx="3"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="104" y="82" width="48" height="6" rx="3"/><rect class="m v" style="animation-delay:1.2s" x="104" y="98" width="66" height="6" rx="3"/><path class="ms sign" pathLength="100" d="M108 128 c8-14 14 6 22-4 s10-8 16 2 s12-6 20-2"/></g></svg>
+          <small>Documents</small><h3>Les contrats, en un clic.</h3><p>Conventions, attestations et appels de fonds générés depuis le dossier.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-donut"><g class="spin"><circle class="seg s1" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s2" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s3" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s4" cx="140" cy="80" r="50" pathLength="100"/></g><circle class="m core" cx="140" cy="80" r="14"/></g></svg>
+          <small>VISION Co-Owner</small><h3>Des charges bien réparties.</h3><p>Tantièmes, appels de charges et budget de chaque copropriété.</p>
+        </article>
+    </div>
+    <div class="wrap"><div class="h-progress" aria-hidden="true"><i id="hBar"></i></div></div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section class="band forest" id="contact" style="overflow:hidden">
+  <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="contact-glow" aria-hidden="true"></div>
   <div class="wrap contact">
     <div>
       <span class="eyebrow">Démonstration</span>
-      <h2 class="h2" style="margin-top:22px" data-reveal>Voyons <em>votre projet.</em></h2>
+      <h2 class="h2 no-split" style="margin-top:22px">Voyons <em>votre <span class="rot" id="rot"><span class="on">projet.</span><span>promotion.</span><span>chantier.</span><span>copropriété.</span></span></em></h2>
       <p class="lead" style="margin-top:22px" data-reveal>Une démonstration sur un projet qui ressemble au vôtre.</p>
       <div class="coords">
         <div><small>Téléphone</small><b>0560 06 36 41</b></div>
@@ -1381,7 +1534,56 @@ html.lenis,html.lenis body{height:auto}
     var c = im.cloneNode(); c.alt = ''; c.loading = 'eager'; t.appendChild(c); tickerRow.appendChild(t);
   });
   document.getElementById('ticker').hidden = false;
+  tickerRow.querySelectorAll('img').forEach(function(im){ im.draggable = false; });
+
+  /* Bandeau de logos : défilement automatique, glisser au doigt ou à la souris avec inertie,
+     et courbure 3D (les logos tournent comme sur un cylindre en s'éloignant du centre) */
+  (function(){
+    var mq = document.querySelector('.logo-marq'), tiles = Array.prototype.slice.call(tickerRow.children);
+    var x = 0, v = 0, auto = reduce ? 0 : -.45, dragging = false, hover = false, lastX = 0, lastT = 0, half = 0, W = 0, pos = [];
+    function measure(){
+      W = mq.clientWidth; half = tickerRow.scrollWidth / 2;
+      pos = tiles.map(function(t){ return t.offsetLeft + t.offsetWidth / 2; });
+    }
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    measure();
+    mq.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; lastT = performance.now(); v = 0; mq.classList.add('grab'); mq.setPointerCapture(e.pointerId); });
+    mq.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var now = performance.now(), dx = e.clientX - lastX;
+      x += dx; v = dx / Math.max(8, now - lastT) * 16; lastX = e.clientX; lastT = now;
+    });
+    function release(){ dragging = false; mq.classList.remove('grab'); }
+    mq.addEventListener('pointerup', release); mq.addEventListener('pointercancel', release);
+    mq.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse') hover = true; });
+    mq.addEventListener('pointerleave', function(){ hover = false; });
+    mq.classList.add('js');
+    (function loop(){
+      requestAnimationFrame(loop);
+      if (!dragging) { x += v + (hover ? 0 : auto); v *= .94; if (Math.abs(v) < .01) v = 0; }
+      if (half > 0) x = ((x % half) - half) % half;
+      tickerRow.style.transform = 'translate3d(' + x + 'px,0,0)';
+      if (reduce || !W) return;
+      var tilt = Math.max(-25, Math.min(25, v * 2.5));
+      for (var i = 0; i < tiles.length; i++) {
+        var d = (pos[i] + x - W / 2) / (W / 2);
+        if (d < -1.4 || d > 1.4) continue;
+        var a = Math.max(-1, Math.min(1, d));
+        tiles[i].style.transform = 'rotateY(' + (a * -38 + tilt).toFixed(1) + 'deg) translateZ(' + (-Math.abs(a) * 140).toFixed(0) + 'px) scale(' + (1 - Math.abs(a) * .1).toFixed(3) + ')';
+      }
+    })();
+  })();
   if (reduce) document.querySelectorAll('svg').forEach(function(sv){ if (sv.pauseAnimations) sv.pauseAnimations(); });
+
+  /* Contact : le mot du titre change toutes les deux secondes */
+  var rotWords = document.querySelectorAll('#rot > span'), rotI = 0;
+  if (!reduce && rotWords.length) setInterval(function(){
+    var cur = rotWords[rotI]; rotI = (rotI + 1) % rotWords.length;
+    cur.classList.remove('on'); cur.classList.add('out');
+    rotWords[rotI].classList.remove('out'); rotWords[rotI].classList.add('on');
+    setTimeout(function(){ cur.classList.remove('out'); }, 800);
+  }, 2200);
 
   /* Chantier 3D : rotation à la main (souris ou doigt) */
   var scene = document.getElementById('scene'), world = document.getElementById('world');
@@ -1464,12 +1666,12 @@ html.lenis,html.lenis body{height:auto}
   gsap.to('.aurora', {yPercent:25, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
 
   /* Révélations génériques */
-  gsap.utils.toArray('[data-reveal]:not(.h2):not(.ledger)').forEach(function(el){
+  gsap.utils.toArray('[data-reveal]:not(.h2):not(.ledger):not(.lead):not(.card3d):not(.pub-card):not(.stat)').forEach(function(el){
     gsap.from(el, {y:50, opacity:0, duration:1.1, ease:'power3.out', clearProps:'transform,opacity', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
   });
 
   /* Titres : les mots montent un à un */
-  gsap.utils.toArray('.h2').forEach(function(h){
+  gsap.utils.toArray('.h2:not(.no-split)').forEach(function(h){
     splitWords(h, function(word){
       var w = document.createElement('span'), i = document.createElement('span');
       w.className = 'w'; i.textContent = word; w.appendChild(i); return w;
@@ -1477,6 +1679,63 @@ html.lenis,html.lenis body{height:auto}
     gsap.from(h.querySelectorAll('.w > span'), {yPercent:115, rotate:3, duration:1.1, ease:'power4.out', stagger:.06,
       scrollTrigger:{trigger:h, start:'top 88%', once:true}});
   });
+
+  /* Trait menthe tracé sous le mot-clé de chaque titre */
+  document.querySelectorAll('.h2 em').forEach(function(em){
+    em.insertAdjacentHTML('beforeend', '<svg class="swoosh" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M3 13 C 50 3, 130 3, 197 9"/></svg>');
+    var sw = em.lastElementChild;
+    ScrollTrigger.create({trigger:em, start:'top 85%', once:true, onEnter:function(){ sw.classList.add('on'); }});
+  });
+  gsap.from('#contact .h2', {y:40, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:'#contact .h2', start:'top 88%', once:true}});
+
+  /* Paragraphes d'introduction : les mots apparaissent un à un */
+  gsap.utils.toArray('.lead:not([data-hero]), .feat-card p, .phases > li > p').forEach(function(el){
+    el.removeAttribute('data-reveal');
+    splitWords(el, function(word){ var s = document.createElement('span'); s.className = 'lw'; s.style.display = 'inline-block'; s.textContent = word; return s; });
+    gsap.from(el.querySelectorAll('.lw'), {opacity:0, y:14, duration:.6, stagger:.025, ease:'power2.out', scrollTrigger:{trigger:el, start:'top 90%', once:true}});
+  });
+
+  /* Formes : chacune dérive à sa façon, en diagonale ou à l'horizontale, au rythme du défilement */
+  gsap.utils.toArray('.deco').forEach(function(dc){
+    dc.querySelectorAll('.sh').forEach(function(sh, i){
+      gsap.fromTo(sh, {x:(i % 2 ? -1 : 1) * 90, y:60 - i * 15}, {x:(i % 2 ? 1 : -1) * 90, y:-60 + i * 15, ease:'none',
+        scrollTrigger:{trigger:dc.parentNode, start:'top bottom', end:'bottom top', scrub:true}});
+    });
+  });
+
+  /* Entrées horizontales : les cartes arrivent par les côtés */
+  gsap.utils.toArray('.card3d').forEach(function(c, i){
+    c.removeAttribute('data-reveal');
+    gsap.from(c, {x:[-140, 0, 140][i % 3], y:[0, 80, 0][i % 3], rotateY:[30, 0, -30][i % 3], opacity:0, duration:1.2, ease:'power3.out', clearProps:'transform,opacity',
+      scrollTrigger:{trigger:c, start:'top 88%', once:true}});
+  });
+  gsap.utils.toArray('.pub-card, .stat').forEach(function(c, i){
+    c.removeAttribute('data-reveal');
+    gsap.from(c, {x:i % 2 ? 120 : -120, opacity:0, duration:1.1, ease:'power3.out', clearProps:'transform,opacity', scrollTrigger:{trigger:c, start:'top 90%', once:true}});
+  });
+
+  /* Fonctionnalités : grands mots qui glissent en sens opposés */
+  gsap.utils.toArray('.k-row').forEach(function(r){
+    var dir = +r.getAttribute('data-dir');
+    gsap.fromTo(r, {xPercent:dir > 0 ? -10 : 0}, {xPercent:dir > 0 ? 10 : -25, ease:'none', scrollTrigger:{trigger:'#fonctions', start:'top bottom', end:'bottom top', scrub:true}});
+  });
+
+  /* Fonctionnalités : la galerie défile à l'horizontale pendant qu'on fait défiler la page,
+     chaque carte pivote en 3D selon sa distance au centre */
+  var hTrack = document.getElementById('hTrack'), hCards = hTrack.querySelectorAll('.feat-card'), hBar = document.getElementById('hBar');
+  function hDist(){ return Math.max(0, hTrack.scrollWidth - window.innerWidth); }
+  function hTilt(){
+    var cx = window.innerWidth / 2;
+    hCards.forEach(function(c){
+      var r = c.getBoundingClientRect(), d = Math.max(-1.2, Math.min(1.2, (r.left + r.width / 2 - cx) / cx));
+      c.style.transform = 'rotateY(' + (d * -22).toFixed(1) + 'deg) scale(' + (1 - Math.abs(d) * .08).toFixed(3) + ')';
+      c.style.opacity = (1 - Math.max(0, Math.abs(d) - .95) * 1.2).toFixed(2);
+    });
+  }
+  gsap.to(hTrack, {x:function(){ return -hDist(); }, ease:'none',
+    scrollTrigger:{trigger:'#hPin', start:'center center', end:function(){ return '+=' + hDist(); }, pin:true, scrub:.6, invalidateOnRefresh:true, refreshPriority:-1,
+      onUpdate:function(self){ hBar.style.transform = 'scaleX(' + self.progress + ')'; hTilt(); }, onRefresh:hTilt}});
+  hTilt();
 
   /* Héros : le titre s'éloigne quand on quitte la section */
   gsap.to('.hero3d .wrap', {yPercent:-18, opacity:0, scale:.96, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'55% top', scrub:true}});
@@ -1545,9 +1804,9 @@ html.lenis,html.lenis body{height:auto}
   }
 
   /* Bandeaux défilants : ils s'inclinent selon la vitesse de défilement */
-  var skewTo = gsap.quickTo('.marquee', 'skewX', {duration:.6, ease:'power3'}), settle;
+  var skewTo = gsap.quickTo('.k-row', 'skewX', {duration:.6, ease:'power3'}), settle;
   ScrollTrigger.create({onUpdate:function(self){
-    skewTo(gsap.utils.clamp(-8, 8, self.getVelocity() / -300));
+    skewTo(gsap.utils.clamp(-10, 10, self.getVelocity() / -250));
     clearTimeout(settle); settle = setTimeout(function(){ skewTo(0); }, 140);
   }});
 
@@ -1617,6 +1876,9 @@ html.lenis,html.lenis body{height:auto}
     var dx = e.clientX - ref[0], dy = e.clientY - ref[1], L = Math.hypot(dx, dy) || 1, k = Math.min(1, L / 320) * 14;
     gsap.to(pupil, {attr:{cx:220 + dx / L * k, cy:137.5 + dy / L * k}, duration:.35, ease:'power2.out', overwrite:true});
   });
+
+  /* Les épinglages s'empilent : on recalcule tout une fois les images chargées */
+  window.addEventListener('load', function(){ ScrollTrigger.sort(); ScrollTrigger.refresh(); });
 
   /* Chiffres qui comptent */
   gsap.utils.toArray('.count').forEach(function(el){
