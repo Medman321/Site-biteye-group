@@ -124,7 +124,33 @@ a{color:inherit;text-decoration:none}
 .hero h1{font-size:var(--fs-hero);font-weight:700;line-height:.98;margin:26px auto 0;max-width:12ch}
 .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .08em}
 .hero h1 .w>span{display:inline-block}
-.hero h1 em{font-style:italic;color:var(--lime);text-shadow:0 0 40px rgba(196,239,78,.35)}
+.hero h1 em{font-style:italic;color:var(--lime);background:linear-gradient(100deg,var(--lime) 30%,#F4FFD6 50%,var(--lime) 70%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 30px rgba(196,239,78,.35));animation:shine 5s linear infinite}
+@keyframes shine{from{background-position:120% 0}to{background-position:-130% 0}}
+
+/* Héros plein écran : une ville en WebGL (Three.js) derrière le titre */
+.hero3d{position:relative;min-height:max(620px,calc(100svh - 60px));display:grid;align-content:center;padding-block:96px 140px;isolation:isolate;overflow:hidden;
+  background:radial-gradient(120% 80% at 50% 110%,#1D3127 0%,var(--forest) 60%)}
+.hero3d canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;opacity:0;transition:opacity 1.2s var(--ease)}
+.webgl .hero3d canvas{opacity:1}
+.webgl .hero3d .floor-grid{display:none}
+.hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(52% 46% at 50% 44%,rgba(15,26,20,.82),rgba(15,26,20,.35) 60%,transparent 85%),linear-gradient(to bottom,rgba(15,26,20,.7),transparent 30%,transparent 78%,var(--forest))}
+.hero3d .lead{color:#DCE4D8;text-shadow:0 2px 18px rgba(15,26,20,.9)}
+.scroll-cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:grid;justify-items:center;gap:10px;font:600 11px/1 var(--text);letter-spacing:.2em;text-transform:uppercase;color:var(--f-ink-2)}
+.scroll-cue i{position:relative;width:1.5px;height:48px;background:var(--f-rule);overflow:hidden}
+.scroll-cue i::after{content:"";position:absolute;left:0;top:-40%;width:100%;height:40%;background:var(--lime);animation:cue 2s var(--ease) infinite}
+@keyframes cue{to{top:100%}}
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:56px}
+.hero-tags span{padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;color:var(--f-ink);background:rgba(21,36,28,.55);border:1px solid var(--glass-line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-tags span b{color:var(--lime);font-weight:600}
+
+/* Curseur : un anneau suit la souris et grossit sur les liens */
+.cursor{display:none;position:fixed;left:0;top:0;z-index:300;pointer-events:none;mix-blend-mode:difference}
+.has-cursor .cursor{display:block}
+.cursor i{position:absolute;left:0;top:0;border-radius:50%;translate:-50% -50%}
+.cursor .c-dot{width:6px;height:6px;background:#fff}
+.cursor .c-ring{width:38px;height:38px;border:1.5px solid #fff;transition:width .35s var(--ease),height .35s var(--ease),background-color .35s}
+.cursor.big .c-ring{width:72px;height:72px;background:rgba(255,255,255,.12)}
 .hero .lead{margin:28px auto 40px;color:var(--f-ink-2)}
 
 .stage{position:relative;margin-top:clamp(64px,8vw,104px);perspective:1800px;perspective-origin:50% 0%}
@@ -503,12 +529,13 @@ html.lenis,html.lenis body{height:auto}
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><i class="c-ring"></i><i class="c-dot"></i></div>
 
 <nav class="gnav" aria-label="Navigation principale">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="BitEye, accueil"><svg viewBox="0 0 32 22" aria-hidden="true"><path d="M2 16C7 4 25 4 30 16" fill="none" stroke="#C4EF4E" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="14.5" r="4.5" fill="#C4EF4E"/></svg>bit<span>eye</span></a>
     <ul>
-      <li><a href="#closer">VISION Estate</a></li>
+      <li><a href="#apercu">VISION Estate</a></li>
       <li><a href="#chantier">VISION Build</a></li>
       <li><a href="#cycle">VISION Co-Owner</a></li>
       <li><a href="#mobile">Mobile et CRM</a></li>
@@ -520,20 +547,34 @@ html.lenis,html.lenis body{height:auto}
 
 <main id="top">
 
-<!-- ================= HÉROS ================= -->
-<section class="band forest hero">
+<!-- ================= HÉROS 3D ================= -->
+<section class="hero hero3d forest">
+  <canvas id="city" aria-hidden="true"></canvas>
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="floor-grid" aria-hidden="true"></div>
+  <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="eyebrow" data-hero>VISION Workspace</span>
+    <span class="eyebrow" data-hero>VISION Workspace · par BitEye</span>
     <h1><span class="w"><span>L'immobilier,</span></span> <span class="w"><span>enfin</span></span> <span class="w"><span>sous</span></span> <span class="w"><span><em>contrôle.</em></span></span></h1>
     <p class="lead" data-hero>Promotion, réalisation et copropriété, réunies dans une seule plateforme.</p>
     <div class="actions" style="justify-content:center" data-hero>
       <a class="btn" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a class="ghost" href="#closer"><span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z"/></svg></span>Voir VISION en action</a>
+      <a class="ghost" href="#apercu"><span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z"/></svg></span>Voir VISION en action</a>
     </div>
+    <div class="hero-tags" data-hero><span><b>250</b> promoteurs clients</span><span>Depuis <b>2014</b></span><span>Conçu à <b>Alger</b></span></div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span>Défiler</span><i></i></div>
+</section>
 
-    <div class="stage" id="heroStage">
+<!-- ================= APERÇU ================= -->
+<section class="band forest" id="apercu">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">VISION Estate</span>
+      <h2 class="h2">Tout votre projet. <em>Un seul écran.</em></h2>
+      <p class="lead">Ventes, encaissements, chantier et démarches, à jour en temps réel.</p>
+    </div>
+    <div class="stage" id="heroStage" style="margin-top:0">
       <div class="halo" aria-hidden="true"></div>
       <div class="tilt" id="heroTilt">
         <div class="tilt-inner" id="heroInner">
@@ -884,9 +925,10 @@ html.lenis,html.lenis body{height:auto}
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -987,9 +1029,20 @@ html.lenis,html.lenis body{height:auto}
   /* Héros : titre mot par mot, puis le reste */
   var tl = gsap.timeline({defaults:{ease:'power4.out'}});
   tl.from('.hero h1 .w > span', {yPercent:110, rotate:4, duration:1.1, stagger:.09})
-    .from('[data-hero]', {y:24, opacity:0, duration:.9, stagger:.1}, '-=.7')
-    .from('.chip', {opacity:0, scale:.8, y:30, duration:.9, stagger:.12, ease:'back.out(1.6)'}, '-=.4')
-    .from('#heroStage .meter i', {scaleX:0, duration:1.2, stagger:.1, ease:'power2.out'}, '-=1');
+    .from('[data-hero]', {y:24, opacity:0, duration:.9, stagger:.1}, '-=.7');
+  gsap.timeline({scrollTrigger:{trigger:'#heroStage', start:'top 75%', once:true}})
+    .from('.chip', {opacity:0, scale:.8, y:30, duration:.9, stagger:.12, ease:'back.out(1.6)'})
+    .from('#heroStage .meter i', {scaleX:0, duration:1.2, stagger:.1, ease:'power2.out'}, '-=.8');
+
+  /* Curseur personnalisé */
+  if (fine) {
+    var cur = document.getElementById('cursor');
+    document.documentElement.classList.add('has-cursor');
+    var dx = gsap.quickTo('.c-dot', 'x', {duration:.12}), dy = gsap.quickTo('.c-dot', 'y', {duration:.12}),
+        rx = gsap.quickTo('.c-ring', 'x', {duration:.45, ease:'power3'}), ry = gsap.quickTo('.c-ring', 'y', {duration:.45, ease:'power3'});
+    window.addEventListener('pointermove', function(e){ dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); });
+    document.addEventListener('pointerover', function(e){ cur.classList.toggle('big', !!e.target.closest('a, button, input, select, .scene, .card3d')); });
+  }
 
   /* Héros : l'écran incliné se redresse au défilement */
   gsap.fromTo('#heroTilt', {rotateX:24, scale:.9, y:20}, {rotateX:0, scale:1, y:0, ease:'none',
@@ -1016,10 +1069,11 @@ html.lenis,html.lenis body{height:auto}
   });
 
   /* Héros : le titre s'éloigne quand on quitte la section */
-  gsap.to('.hero h1', {yPercent:-35, opacity:0, scale:.94, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'45% top', scrub:true}});
+  gsap.to('.hero3d .wrap', {yPercent:-18, opacity:0, scale:.96, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'55% top', scrub:true}});
+  gsap.to('.scroll-cue', {opacity:0, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'15% top', scrub:true}});
 
   /* Sections sombres : elles s'ouvrent comme une carte qui s'élargit */
-  gsap.utils.toArray('.band.forest:not(.hero)').forEach(function(sec){
+  gsap.utils.toArray('.band.forest:not(#apercu)').forEach(function(sec){
     gsap.fromTo(sec, {clipPath:'inset(0% 4% 0% 4% round 48px)'}, {clipPath:'inset(0% 0% 0% 0% round 0px)', ease:'none',
       scrollTrigger:{trigger:sec, start:'top bottom', end:'top 30%', scrub:true}});
   });
@@ -1112,6 +1166,182 @@ html.lenis,html.lenis body{height:auto}
     gsap.to(o, {v:to, duration:1.8, ease:'power2.out', scrollTrigger:{trigger:el, start:'top 85%', once:true},
       onUpdate:function(){ el.textContent = Math.round(o.v); }});
   });
+})();
+</script>
+<script>
+/* Héros : une ville de résidences en WebGL. Les immeubles sortent de terre, les fenêtres s'allument,
+   les grues tournent ; la caméra suit la souris et plonge vers la ville au défilement. */
+(function(){
+  var canvas = document.getElementById('city');
+  if (!window.THREE || !canvas) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true, powerPreference:'high-performance'}); }
+  catch (e) { return; }
+  document.documentElement.classList.add('webgl');
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  var C = function(h){ return new THREE.Color(h); };
+  var FOG = C('#0F1A14');
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(FOG, 40, 120);
+  var camera = new THREE.PerspectiveCamera(32, 1, .1, 400);
+
+  /* Façades : fenêtres calculées dans le shader, allumées selon uLit */
+  var shared = {
+    uLit:{value:0}, uTime:{value:0},
+    uBase:{value:C('#2A3A31')}, uTop:{value:C('#3B4E42')}, uWinOff:{value:C('#18241D')},
+    uWarm:{value:C('#E9D99A')}, uLime:{value:C('#C4EF4E')}, uFog:{value:FOG},
+    uFogNear:{value:40}, uFogFar:{value:120}
+  };
+  var vert = [
+    'varying vec3 vPos; varying vec3 vN; varying float vDist;',
+    'void main(){',
+    '  vec4 wp = modelMatrix * vec4(position, 1.0);',
+    '  vPos = wp.xyz; vN = normalize(mat3(modelMatrix) * normal);',
+    '  vec4 mv = viewMatrix * wp; vDist = -mv.z;',
+    '  gl_Position = projectionMatrix * mv;',
+    '}'].join('\n');
+  var frag = [
+    'uniform vec3 uBase, uTop, uWinOff, uWarm, uLime, uFog;',
+    'uniform float uLit, uTime, uFogNear, uFogFar, uSeed, uAccent;',
+    'varying vec3 vPos; varying vec3 vN; varying float vDist;',
+    'float hash(vec3 p){ return fract(sin(dot(p, vec3(12.9898, 78.233, 45.164))) * 43758.5453); }',
+    'void main(){',
+    '  vec3 n = normalize(vN);',
+    '  float d = max(dot(n, normalize(vec3(.55, .9, .3))), 0.0) * .6 + .4;',
+    '  vec3 col = (n.y > .5 ? mix(uTop, uLime, uAccent * .8) : mix(uBase, uLime * .45, uAccent * .35)) * d;',
+    '  if (abs(n.y) < .5) {',
+    '    float fy = vPos.y / .9; float fi = floor(fy); float ff = fract(fy);',
+    '    float h = abs(n.x) > .5 ? vPos.z : vPos.x;',
+    '    float cx = h / .55; float ci = floor(cx); float cf = fract(cx);',
+    '    float win = step(.22, cf) * step(cf, .78) * step(.3, ff) * step(ff, .8);',
+    '    float r = hash(vec3(fi, ci, uSeed + n.x * 3.1 + n.z * 7.7));',
+    '    float lit = step(r, uLit + uAccent * .3) * step(.9, vPos.y);',
+    '    float flick = .85 + .15 * sin(uTime * 1.7 + r * 40.0);',
+    '    vec3 wc = mix(uWarm, uLime, step(.62, hash(vec3(ci, fi, uSeed + 1.0))));',
+    '    col = mix(col, mix(uWinOff, wc * flick, lit), win);',
+    '    col *= 1.0 - .3 * (1.0 - step(.07, ff));',
+    '  }',
+    '  gl_FragColor = vec4(mix(col, uFog, smoothstep(uFogNear, uFogFar, vDist)), 1.0);',
+    '  #include <colorspace_fragment>',
+    '}'].join('\n');
+  function facade(seed, accent){
+    return new THREE.ShaderMaterial({vertexShader:vert, fragmentShader:frag,
+      uniforms:Object.assign({}, shared, {uSeed:{value:seed}, uAccent:{value:accent}})});
+  }
+
+  /* Sol et trame de plan */
+  var ground = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), new THREE.MeshBasicMaterial({color:'#101C15'}));
+  ground.rotation.x = -Math.PI / 2; scene.add(ground);
+  var grid = new THREE.GridHelper(240, 80, '#C4EF4E', '#C4EF4E');
+  grid.material.transparent = true; grid.material.opacity = .07; grid.position.y = .01; scene.add(grid);
+
+  /* Îlots d'immeubles, plus hauts vers le centre ; un immeuble phare en citron */
+  var rnd = (function(a){ return function(){ a = (a * 16807) % 2147483647; return (a - 1) / 2147483646; }; })(7);
+  var towers = [], SP = 4.3, R = 8, hero = null;
+  for (var i = -R; i <= R; i++) for (var j = -R; j <= R; j++) {
+    if (i % 3 === 0 || j % 3 === 0) continue;
+    var dist = Math.sqrt(i * i + j * j);
+    if (dist > R + .3) continue;
+    var isHero = i === 1 && j === 1;
+    var floors = isHero ? 18 : Math.max(2, Math.round(3 + rnd() * Math.max(2, 15 - dist * 1.35)));
+    var w = 2.5 + rnd() * .9, dp = 2.5 + rnd() * .9, H = floors * .9;
+    var geo = new THREE.BoxGeometry(w, H, dp); geo.translate(0, H / 2, 0);
+    var m = new THREE.Mesh(geo, facade(i * 31 + j * 7, isHero ? 1 : 0));
+    m.position.set(i * SP + (rnd() - .5) * .6, 0, j * SP + (rnd() - .5) * .6);
+    m.scale.y = .001;
+    m.userData = {d:dist, H:H};
+    scene.add(m); towers.push(m);
+    if (isHero) hero = m;
+  }
+
+  /* Grues sur deux chantiers en cours */
+  var craneMat = new THREE.MeshBasicMaterial({color:'#8DB82A'}), cranes = [];
+  function crane(x, z, h){
+    var g = new THREE.Group(); g.position.set(x, 0, z);
+    var mast = new THREE.Mesh(new THREE.BoxGeometry(.16, h, .16), craneMat); mast.position.y = h / 2; g.add(mast);
+    var jib = new THREE.Group(); jib.position.y = h; g.add(jib);
+    var arm = new THREE.Mesh(new THREE.BoxGeometry(8, .14, .14), craneMat); arm.position.x = 2.4; jib.add(arm);
+    var cw = new THREE.Mesh(new THREE.BoxGeometry(.7, .5, .5), craneMat); cw.position.x = -1.4; jib.add(cw);
+    var cable = new THREE.Mesh(new THREE.BoxGeometry(.03, 3, .03), craneMat); cable.position.set(5.2, -1.5, 0); jib.add(cable);
+    scene.add(g); cranes.push(jib); g.scale.y = .001; return g;
+  }
+  var craneGroups = [crane(-2 * SP + 1.6, 4 * SP - 1.6, 14), crane(5 * SP - 1.6, -1 * SP + 1.4, 12)];
+
+  /* Ondes lumineuses au pied de l'immeuble phare */
+  var rings = [0, 1].map(function(k){
+    var r = new THREE.Mesh(new THREE.RingGeometry(2.4, 2.55, 64), new THREE.MeshBasicMaterial({color:'#C4EF4E', transparent:true, opacity:0, depthWrite:false}));
+    r.rotation.x = -Math.PI / 2; r.position.set(hero.position.x, .05, hero.position.z); r.userData.k = k; scene.add(r); return r;
+  });
+
+  /* Poussière de lumière qui monte doucement */
+  var N = 500, pos = new Float32Array(N * 3);
+  for (var p = 0; p < N; p++) { pos[p * 3] = (rnd() - .5) * 90; pos[p * 3 + 1] = rnd() * 30; pos[p * 3 + 2] = (rnd() - .5) * 90; }
+  var pgeo = new THREE.BufferGeometry(); pgeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  var dust = new THREE.Points(pgeo, new THREE.PointsMaterial({color:'#C4EF4E', size:.12, transparent:true, opacity:.55, depthWrite:false}));
+  scene.add(dust);
+
+  /* Caméra : orbite lente + souris + défilement */
+  var cam = {r:110, h:70, a:.75, look:17}, mouse = {x:0, y:0}, sm = {x:0, y:0}, scroll = 0;
+  function resize(){
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+    cam.k = w / h < 1 ? 1.45 : w / h < 1.4 ? 1.2 : 1;
+  }
+  window.addEventListener('resize', resize); resize();
+  window.addEventListener('pointermove', function(e){ mouse.x = e.clientX / window.innerWidth - .5; mouse.y = e.clientY / window.innerHeight - .5; });
+
+  function place(){
+    sm.x += (mouse.x - sm.x) * .05; sm.y += (mouse.y - sm.y) * .05;
+    var r = cam.r * cam.k * (1 - scroll * .3), a = cam.a + sm.x * .35, hgt = cam.h * (1 - scroll * .35) + sm.y * 6;
+    camera.position.set(Math.cos(a) * r, hgt, Math.sin(a) * r);
+    camera.lookAt(0, cam.look - scroll * 12, 0);
+  }
+
+  function build(instant){
+    var d = instant ? 0 : 1;
+    if (!window.gsap || instant) {
+      towers.forEach(function(t){ t.scale.y = 1; }); craneGroups.forEach(function(g){ g.scale.y = 1; });
+      shared.uLit.value = .45; cam.r = 62; cam.h = 22; return;
+    }
+    gsap.to(cam, {r:62, h:22, duration:3.2 * d, ease:'power3.inOut'});
+    towers.forEach(function(t){
+      gsap.to(t.scale, {y:1, duration:1.3, ease:'power3.out', delay:.25 + t.userData.d * .09 + Math.random() * .2});
+    });
+    gsap.to(craneGroups.map(function(g){ return g.scale; }), {y:1, duration:1, ease:'power2.out', delay:1.2, stagger:.2});
+    gsap.to(shared.uLit, {value:.45, duration:2.2, ease:'power1.inOut', delay:1.4});
+  }
+
+  var visible = true, clock = new THREE.Clock(), t = 0;
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible = es[0].isIntersecting; }).observe(canvas);
+
+  if (reduce) {
+    build(true); place(); renderer.render(scene, camera);
+    window.addEventListener('resize', function(){ place(); renderer.render(scene, camera); });
+    return;
+  }
+  build(false);
+  if (window.gsap && window.ScrollTrigger) {
+    ScrollTrigger.create({trigger:'.hero3d', start:'top top', end:'bottom top', scrub:true, onUpdate:function(self){ scroll = self.progress; }});
+  }
+  (function loop(){
+    requestAnimationFrame(loop);
+    var dt = Math.min(clock.getDelta(), .05);
+    if (!visible || document.hidden) return;
+    t += dt; shared.uTime.value = t;
+    cam.a += dt * .025;
+    cranes.forEach(function(j, k){ j.rotation.y = Math.sin(t * .25 + k * 2) * 1.2; });
+    rings.forEach(function(r){
+      var q = (t * .35 + r.userData.k * .5) % 1;
+      r.scale.setScalar(1 + q * 3.2); r.material.opacity = (1 - q) * .55 * Math.min(1, shared.uLit.value * 2);
+    });
+    var a = pgeo.attributes.position.array;
+    for (var p = 1; p < a.length; p += 3) { a[p] += dt * .35; if (a[p] > 30) a[p] = 0; }
+    pgeo.attributes.position.needsUpdate = true;
+    place();
+    renderer.render(scene, camera);
+  })();
 })();
 </script>
 </body>

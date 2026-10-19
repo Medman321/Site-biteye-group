@@ -2,11 +2,15 @@
 
 Site vitrine de BitEye et de VISION Workspace (promotion immobilière, réalisation, gestion de copropriété).
 
-Site statique en une page, sans étape de build :
+Site statique en une page :
 
-- `index.html` — page d'accueil (HTML, CSS et JS intégrés ; polices Google Fonts, animations GSAP + ScrollTrigger via cdnjs, défilement fluide Lenis via jsDelivr)
+- `index.html` — page d'accueil (HTML, CSS et JS intégrés) ; charge les bibliothèques depuis `vendor/`
+- `vendor/` — Three.js 0.159 (ville 3D du héros), GSAP 3.12.5 + ScrollTrigger (animations), Lenis 1.1.13 (défilement fluide)
+- `build.py` — génère `dist/biteye-site.html`, le site en **un seul fichier** autonome (bibliothèques et favicon intégrés), qui s'ouvre d'un double-clic, même hors ligne
 - `favicon.svg` — icône du site
 - `CNAME` — domaine personnalisé `biteye-group.com` (GitHub Pages)
+
+Après toute modification de `index.html`, relancer `python3 build.py`.
 
 ## Aperçu local
 
