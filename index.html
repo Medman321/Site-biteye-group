@@ -62,7 +62,7 @@ a{color:inherit;text-decoration:none}
 @media (max-width:734px){.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
 
 /* Bandes */
-.band{position:relative;padding-block:clamp(96px,14vw,180px);isolation:isolate}
+.band{position:relative;padding-block:clamp(96px,14vw,180px);isolation:isolate;overflow-x:clip}
 .forest{background:var(--forest);color:var(--f-ink)}
 .paper{background:var(--paper);color:var(--ink)}
 .forest::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
@@ -417,6 +417,84 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
 /* Révélations — l'état final est l'état de repos ; GSAP anime depuis un décalage */
 [data-reveal]{will-change:transform}
 
+/* ============ EFFETS ============ */
+/* Défilement fluide (Lenis) */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+
+/* Navigation qui s'efface quand on descend, revient quand on remonte */
+.gnav{transition:transform .5s var(--ease)}
+.gnav.hide{transform:translateY(-100%)}
+
+/* Titres : chaque mot monte derrière un masque */
+.h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .14em;margin:0 -.06em -.14em}
+.h2 .w>span{display:inline-block}
+
+/* Reflet de lumière sur l'écran du héros, suit la souris */
+.screen .glare{position:absolute;inset:0;z-index:5;border-radius:inherit;pointer-events:none;mix-blend-mode:soft-light;
+  background:radial-gradient(700px circle at calc(50% + var(--mx,0)*45%) calc(25% + var(--my,0)*45%),rgba(255,255,255,.55),transparent 45%)}
+
+/* Manifeste : les mots s'allument au défilement */
+.manifesto{padding-block:clamp(120px,18vw,240px)}
+.big-text{font:700 clamp(34px,5.6vw,84px)/1.06 var(--display);letter-spacing:-.04em;max-width:19ch;text-wrap:balance}
+.big-text em{font-style:italic;color:var(--lime-deep)}
+.fx .big-text .wd{opacity:.14}
+
+/* Chantier 3D : un immeuble en vraie 3D CSS, construit au défilement */
+
+.ch-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+.scene{position:relative;height:clamp(440px,48vw,620px);perspective:1800px;display:grid;place-items:center;cursor:grab;touch-action:pan-y;user-select:none}
+.scene:active{cursor:grabbing}
+.scene::before{content:"";position:absolute;inset:15% 10% 5%;border-radius:50%;background:radial-gradient(closest-side,rgba(196,239,78,.22),transparent);filter:blur(30px)}
+.world{--rz:-34deg;--drag:0deg;position:relative;width:0;height:0;transform-style:preserve-3d;
+  transform:translateY(var(--ty,130px)) scale(var(--sc,1)) rotateX(58deg) rotateZ(calc(var(--rz) + var(--drag)))}
+.plate{position:absolute;width:460px;height:460px;left:-230px;top:-230px;border-radius:40px;
+  background:linear-gradient(rgba(196,239,78,.16) 1px,transparent 1px) 0 0/46px 46px,linear-gradient(90deg,rgba(196,239,78,.16) 1px,transparent 1px) 0 0/46px 46px,var(--forest-2);
+  box-shadow:0 0 0 1px var(--glass-line) inset,0 0 120px -20px rgba(196,239,78,.25)}
+.building{position:absolute;left:0;top:0;transform-style:preserve-3d;
+  --c-top:#8E968C;--c-a:#737B71;--c-b:#5E665D;--win:transparent}
+.building.done{--c-top:#F2EFE8;--c-a:#DCD6C8;--c-b:#BCB4A2;--win:rgba(16,20,17,.6)}
+.building.lit{--win:var(--lime)}
+.fl{--W:180px;--D:130px;--H:30px;--z0:12px;--drop:0px;position:absolute;left:calc(var(--W) / -2);top:calc(var(--D) / -2);width:var(--W);height:var(--D);transform-style:preserve-3d;
+  transform:translateZ(calc(var(--z0) + var(--i) * var(--H) + var(--drop)))}
+.fl.base{--H:12px;--z0:0px;--W:206px;--D:156px}
+.fl i{position:absolute;display:block}
+.fl .t{inset:0;transform:translateZ(var(--H));background:var(--c-top)}
+.fl .s1,.fl .s2{left:0;width:var(--W);height:var(--H);transform-origin:top;transform:rotateX(90deg)}
+.fl .s1{top:var(--D);background:repeating-linear-gradient(90deg,transparent 0 9px,var(--win) 9px 21px,transparent 21px 28px) center/100% 44% no-repeat,var(--c-a)}
+.fl .s2{top:0;background:repeating-linear-gradient(90deg,transparent 0 9px,var(--win) 9px 21px,transparent 21px 28px) center/100% 44% no-repeat,var(--c-b)}
+.fl .s3,.fl .s4{top:0;width:var(--H);height:var(--D);transform-origin:left;transform:rotateY(-90deg)}
+.fl .s3{left:var(--W);background:repeating-linear-gradient(180deg,transparent 0 9px,var(--win) 9px 21px,transparent 21px 28px) center/44% 100% no-repeat,var(--c-a)}
+.fl .s4{left:0;background:repeating-linear-gradient(180deg,transparent 0 9px,var(--win) 9px 21px,transparent 21px 28px) center/44% 100% no-repeat,var(--c-b)}
+.fl.base i{background:#4A5249}
+.fl.base .t{background:#59625A}
+.lit .fl.roof .t{background:var(--lime)}
+.drag-hint{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--f-ink-2);white-space:nowrap}
+.ch-meter{display:grid;gap:10px;margin-bottom:40px}
+.ch-pct{font:700 clamp(64px,8vw,112px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--lime)}
+.ch-pct small{font-size:.4em;color:var(--f-ink-2);margin-left:4px}
+.ch-lbl{color:var(--f-ink-2)}
+.ch-bar{display:block;height:4px;border-radius:2px;background:var(--f-rule);overflow:hidden}
+.ch-bar i{display:block;height:100%;background:var(--lime);transform-origin:0 50%}
+.phases{list-style:none;margin:0;padding:0;display:grid;gap:36px}
+.phases small{font:600 13px/1 var(--text);letter-spacing:.1em;color:var(--lime)}
+.phases h3{font-size:clamp(26px,2.8vw,38px);font-weight:700;margin:10px 0 10px}
+.phases p{color:var(--f-ink-2);font-size:18px;max-width:440px}
+.fx .phases{gap:0}
+.fx .phases li{grid-area:1/1;opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.fx .phases li.on{opacity:1;transform:none}
+@media (max-width:1068px){.ch-grid{grid-template-columns:1fr;gap:8px}.world{--sc:.8;--ty:110px}.scene{height:400px}.ch-meter{margin-bottom:20px}.ch-pct{font-size:56px}.phases p{font-size:16px}}
+@media (max-width:734px){.world{--sc:.52;--ty:40px}.scene{height:320px;overflow-x:clip}.drag-hint{display:none}}
+.ch-copy{position:relative;z-index:1}
+
+/* Projecteur citron sous le curseur : tuiles et chiffres */
+.bento{perspective:1600px}
+.tile{transform:translateY(var(--lift,0px)) rotateX(calc(var(--ry,0) * 1deg)) rotateY(calc(var(--rx,0) * 1deg))}
+.tile:hover{transform:translateY(-4px) rotateX(calc(var(--ry,0) * 1deg)) rotateY(calc(var(--rx,0) * 1deg))}
+.tile::after,.stat::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(380px circle at var(--gx,50%) var(--gy,50%),rgba(196,239,78,.2),transparent 50%)}
+.tile:hover::after,.stat:hover::after{opacity:1}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .tilt-inner,.card3d{transform:none!important}
@@ -430,9 +508,9 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
   <div class="wrap">
     <a class="logo" href="#top" aria-label="BitEye, accueil"><svg viewBox="0 0 32 22" aria-hidden="true"><path d="M2 16C7 4 25 4 30 16" fill="none" stroke="#C4EF4E" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="14.5" r="4.5" fill="#C4EF4E"/></svg>bit<span>eye</span></a>
     <ul>
-      <li><a href="#metiers">VISION Estate</a></li>
-      <li><a href="#metiers">VISION Build</a></li>
-      <li><a href="#metiers">VISION Co-Owner</a></li>
+      <li><a href="#closer">VISION Estate</a></li>
+      <li><a href="#chantier">VISION Build</a></li>
+      <li><a href="#cycle">VISION Co-Owner</a></li>
       <li><a href="#mobile">Mobile et CRM</a></li>
       <li><a href="#pourquoi">BitEye</a></li>
     </ul>
@@ -460,6 +538,7 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
       <div class="tilt" id="heroTilt">
         <div class="tilt-inner" id="heroInner">
           <div class="screen" role="img" aria-label="Maquette du tableau de bord VISION Estate : lots vendus, encaissements, avancement et échéances des acquéreurs">
+            <i class="glare" aria-hidden="true"></i>
             <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Résidence Les Oliviers · 120 logements</em></div>
             <div class="body">
               <aside><span class="on">Tableau de bord</span><span>Projets</span><span>Commercial</span><span>Acquéreurs</span><span>Technique</span><span>Trésorerie</span><span>Suivi administratif</span></aside>
@@ -518,7 +597,7 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
         <p>Pilotez chaque opération, de la commercialisation à la clôture fiscale.</p>
         <span class="more">Découvrir ›</span>
       </a>
-      <a class="card3d" href="#ensemble" data-reveal>
+      <a class="card3d" href="#chantier" data-reveal>
         <span class="name">VISION Build</span>
         <div class="art"><svg class="iso" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="205" rx="120" ry="26"/><g class="floor"><polygon class="g-l" points="30,190 140,230 140,238 30,198"/><polygon class="g-r" points="140,230 250,190 250,198 140,238"/><polygon class="g-t" points="140,150 250,190 140,230 30,190"/></g><g class="floor"><polygon class="n-l" points="82,176 130,194 130,216 82,198"/><polygon class="n-r" points="130,194 178,176 178,198 130,216"/><polygon class="win" points="90.6,185.8 121.4,197.4 121.4,204.4 90.6,192.9"/><polygon class="win" points="138.6,197.4 169.4,185.8 169.4,192.9 138.6,204.4"/><polygon class="n-t" points="130,158 178,176 130,194 82,176"/></g><g class="floor"><polygon class="n-l" points="82,154 130,172 130,194 82,176"/><polygon class="n-r" points="130,172 178,154 178,176 130,194"/><polygon class="win" points="90.6,163.8 121.4,175.4 121.4,182.4 90.6,170.9"/><polygon class="win" points="138.6,175.4 169.4,163.8 169.4,170.9 138.6,182.4"/><polygon class="n-t" points="130,136 178,154 130,172 82,154"/></g><g class="floor"><polygon class="n-l" points="82,132 130,150 130,172 82,154"/><polygon class="n-r" points="130,150 178,132 178,154 130,172"/><polygon class="win" points="90.6,141.8 121.4,153.4 121.4,160.4 90.6,148.9"/><polygon class="win" points="138.6,153.4 169.4,141.8 169.4,148.9 138.6,160.4"/><polygon class="n-t" points="130,114 178,132 130,150 82,132"/></g><g class="scaffold"><path d="M82 120V60M178 120V64M82 60L130 42L178 64" /></g><g class="crane"><path class="crane-l" d="M222 196V30M222 34H120M222 34L250 44M222 34L200 20"/><path class="crane-c" d="M150 34V70"/><g class="hook"><g class="floor"><polygon class="k-l" points="134,82 150,88 150,100 134,94"/><polygon class="k-r" points="150,88 166,82 166,94 150,100"/><polygon class="k-t" points="150,76 166,82 150,88 134,82"/></g></g></g><g class="ghost"><g class="floor"><polygon class="o-l" points="82,110 130,128 130,150 82,132"/><polygon class="o-r" points="130,128 178,110 178,132 130,150"/><polygon class="o-t" points="130,92 178,110 130,128 82,110"/></g></g></svg></div>
         <h3>Réalisation</h3>
@@ -590,6 +669,57 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
         <div class="step" data-step="2"><span class="k">Échéancier</span><h3>Chaque échéance, à temps.</h3><p>Autofinancement, crédit bancaire, CNL : l'échéancier de chaque acquéreur se suit tranche par tranche, à la date ou à l'avancement.</p></div>
         <div class="step" data-step="3"><span class="k">Suivi administratif</span><h3>Les démarches, enfin visibles.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque démarche a son statut, pour le promoteur comme pour l'acquéreur.</p></div>
         <div class="step" data-step="4"><span class="k">Avancement</span><h3>Le chantier relié aux ventes.</h3><p>L'avancement par lot déclenche les appels de fonds au bon moment.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MANIFESTE ================= -->
+<section class="band paper manifesto" id="manifeste">
+  <div class="wrap">
+    <p class="big-text" data-words>Des centaines d'acquéreurs. Des dizaines de lots. Des milliers de documents. Trois entreprises. <em>Une seule plateforme.</em></p>
+  </div>
+</section>
+
+<!-- ================= CHANTIER 3D ================= -->
+<section class="band forest" id="chantier">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">VISION Build</span>
+      <h2 class="h2">Votre chantier, <em>étage par étage.</em></h2>
+      <p class="lead">De la fondation à la remise des clés, chaque étape se suit dans VISION.</p>
+    </div>
+    <div class="ch-grid" id="chGrid">
+      <div class="scene" id="scene" aria-hidden="true">
+        <div class="world" id="world">
+          <div class="plate"></div>
+          <div class="building done lit" id="building">
+            <div class="fl base" style="--i:0"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:0"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:1"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:2"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:3"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:4"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:5"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:6"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl" style="--i:7"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl roof" style="--i:8"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+          </div>
+        </div>
+        <span class="drag-hint">Faites pivoter l'immeuble</span>
+      </div>
+      <div class="ch-copy">
+        <div class="ch-meter">
+          <span class="ch-pct"><span id="chPct">100</span><small>%</small></span>
+          <span class="ch-lbl">Avancement du projet</span>
+          <span class="ch-bar"><i id="chBar"></i></span>
+        </div>
+        <ol class="phases" id="phases">
+          <li class="on"><small>01 · Infrastructure</small><h3>Les fondations, budgétées.</h3><p>Quantités prévisionnelles et coûts suivis dès le premier mètre cube de béton.</p></li>
+          <li><small>02 · Gros œuvre</small><h3>Chaque étage, mesuré.</h3><p>Situations de travaux et avancement par lot, mis à jour depuis le chantier.</p></li>
+          <li><small>03 · Corps d'état secondaires</small><h3>Les finitions, coordonnées.</h3><p>Électricité, plomberie, revêtements : chaque lot de travaux garde son budget.</p></li>
+          <li><small>04 · Livraison</small><h3>Les clés, puis la copropriété.</h3><p>Les acquéreurs deviennent résidents dans VISION Co-Owner, sans ressaisie.</p></li>
+        </ol>
       </div>
     </div>
   </div>
@@ -754,9 +884,9 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
   </div>
 </footer>
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -801,8 +931,55 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
     steps.forEach(function(s){ so.observe(s); });
   }
 
+  /* Chantier 3D : rotation à la main (souris ou doigt) */
+  var scene = document.getElementById('scene'), world = document.getElementById('world');
+  if (!reduce) {
+    var dragging = false, x0 = 0, d0 = 0, drag = 0;
+    scene.addEventListener('pointerdown', function(e){ dragging = true; x0 = e.clientX; d0 = drag; scene.setPointerCapture(e.pointerId); });
+    scene.addEventListener('pointermove', function(e){ if (!dragging) return; drag = d0 + (e.clientX - x0) * .4; world.style.setProperty('--drag', drag + 'deg'); });
+    scene.addEventListener('pointerup', function(){ dragging = false; });
+    scene.addEventListener('pointercancel', function(){ dragging = false; });
+  }
+
   if (reduce || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
+  document.documentElement.classList.add('fx');
+
+  /* Défilement fluide, synchronisé avec ScrollTrigger */
+  if (window.Lenis) {
+    var lenis = new Lenis({lerp:.09});
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var id = a.getAttribute('href'), el = id.length > 1 && document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        lenis.scrollTo(el, {offset:-60, duration:1.4});
+      });
+    });
+  }
+
+  /* Découpe un texte en mots, sans toucher aux balises (em) */
+  function splitWords(el, make){
+    Array.prototype.slice.call(el.childNodes).forEach(function(n){
+      if (n.nodeType === 3) {
+        var f = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function(p){
+          if (!p) return;
+          f.appendChild(/^\s+$/.test(p) ? document.createTextNode(p) : make(p));
+        });
+        n.parentNode.replaceChild(f, n);
+      } else if (n.nodeType === 1) splitWords(n, make);
+    });
+  }
+
+  /* Navigation : s'efface en descendant, revient en remontant */
+  var nav = document.querySelector('.gnav');
+  ScrollTrigger.create({start:0, end:'max', onUpdate:function(self){
+    nav.classList.toggle('hide', self.direction === 1 && self.scroll() > window.innerHeight * .8);
+  }});
 
   /* Barre de progression */
   gsap.to('#progress', {scaleX:1, ease:'none', scrollTrigger:{start:0, end:'max', scrub:.2}});
@@ -824,9 +1001,80 @@ footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
   gsap.to('.aurora', {yPercent:25, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
 
   /* Révélations génériques */
-  gsap.utils.toArray('[data-reveal]').forEach(function(el){
-    gsap.from(el, {y:50, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
+  gsap.utils.toArray('[data-reveal]:not(.h2):not(.ledger)').forEach(function(el){
+    gsap.from(el, {y:50, opacity:0, duration:1.1, ease:'power3.out', clearProps:'transform,opacity', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
   });
+
+  /* Titres : les mots montent un à un */
+  gsap.utils.toArray('.h2').forEach(function(h){
+    splitWords(h, function(word){
+      var w = document.createElement('span'), i = document.createElement('span');
+      w.className = 'w'; i.textContent = word; w.appendChild(i); return w;
+    });
+    gsap.from(h.querySelectorAll('.w > span'), {yPercent:115, rotate:3, duration:1.1, ease:'power4.out', stagger:.06,
+      scrollTrigger:{trigger:h, start:'top 88%', once:true}});
+  });
+
+  /* Héros : le titre s'éloigne quand on quitte la section */
+  gsap.to('.hero h1', {yPercent:-35, opacity:0, scale:.94, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'45% top', scrub:true}});
+
+  /* Sections sombres : elles s'ouvrent comme une carte qui s'élargit */
+  gsap.utils.toArray('.band.forest:not(.hero)').forEach(function(sec){
+    gsap.fromTo(sec, {clipPath:'inset(0% 4% 0% 4% round 48px)'}, {clipPath:'inset(0% 0% 0% 0% round 0px)', ease:'none',
+      scrollTrigger:{trigger:sec, start:'top bottom', end:'top 30%', scrub:true}});
+  });
+
+  /* Manifeste : chaque mot s'allume au rythme du défilement */
+  document.querySelectorAll('[data-words]').forEach(function(el){
+    splitWords(el, function(word){ var s = document.createElement('span'); s.className = 'wd'; s.textContent = word; return s; });
+    gsap.to(el.querySelectorAll('.wd'), {opacity:1, stagger:.1, ease:'none', scrollTrigger:{trigger:el, start:'top 80%', end:'bottom 40%', scrub:true}});
+  });
+
+  /* Chantier 3D : section épinglée, l'immeuble monte étage par étage */
+  var building = document.getElementById('building'), phases = document.querySelectorAll('#phases li'),
+      pct = document.getElementById('chPct'), bar = document.getElementById('chBar');
+  building.classList.remove('done', 'lit');
+  var ch = gsap.timeline({scrollTrigger:{trigger:'#chGrid', start:'center center', end:'+=220%', pin:true, scrub:.6,
+    onUpdate:function(self){
+      var p = self.progress, k = p < .14 ? 0 : p < .62 ? 1 : p < .84 ? 2 : 3;
+      phases.forEach(function(li, i){ li.classList.toggle('on', i === k); });
+      building.classList.toggle('done', p >= .62);
+      building.classList.toggle('lit', p >= .84);
+      pct.textContent = Math.round(p * 100);
+      bar.style.transform = 'scaleX(' + p + ')';
+    }}});
+  pct.textContent = 0; bar.style.transform = 'scaleX(0)';
+  ch.fromTo(world, {'--rz':'-62deg'}, {'--rz':'-22deg', duration:1, ease:'none'}, 0)
+    .fromTo('.fl.base', {'--drop':'-40px', visibility:'hidden'}, {'--drop':'0px', visibility:'visible', duration:.08, ease:'power2.out'}, .02)
+    .fromTo('.fl:not(.base)', {'--drop':'320px', visibility:'hidden'}, {'--drop':'0px', visibility:'visible', duration:.08, stagger:.05, ease:'power2.out'}, .14);
+
+  /* Boutons magnétiques et projecteur citron sous le curseur */
+  if (fine) {
+    document.querySelectorAll('.btn').forEach(function(b){
+      var xTo = gsap.quickTo(b, 'x', {duration:.5, ease:'power3'}), yTo = gsap.quickTo(b, 'y', {duration:.5, ease:'power3'});
+      b.addEventListener('pointermove', function(e){
+        var r = b.getBoundingClientRect();
+        xTo((e.clientX - r.left - r.width / 2) * .25); yTo((e.clientY - r.top - r.height / 2) * .35);
+      });
+      b.addEventListener('pointerleave', function(){ xTo(0); yTo(0); });
+    });
+    document.querySelectorAll('.tile, .stat').forEach(function(c){
+      var tilt = c.classList.contains('tile');
+      c.addEventListener('pointermove', function(e){
+        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--gx', (x * 100) + '%'); c.style.setProperty('--gy', (y * 100) + '%');
+        if (tilt) { c.style.setProperty('--rx', ((x - .5) * 8).toFixed(2)); c.style.setProperty('--ry', ((.5 - y) * 6).toFixed(2)); }
+      });
+      c.addEventListener('pointerleave', function(){ c.style.setProperty('--rx', 0); c.style.setProperty('--ry', 0); });
+    });
+  }
+
+  /* Bandeaux défilants : ils s'inclinent selon la vitesse de défilement */
+  var skewTo = gsap.quickTo('.marquee', 'skewX', {duration:.6, ease:'power3'}), settle;
+  ScrollTrigger.create({onUpdate:function(self){
+    skewTo(gsap.utils.clamp(-8, 8, self.getVelocity() / -300));
+    clearTimeout(settle); settle = setTimeout(function(){ skewTo(0); }, 140);
+  }});
 
   /* Modules : les immeubles se construisent étage par étage */
   gsap.utils.toArray('.card3d').forEach(function(card, i){

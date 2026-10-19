@@ -4,7 +4,7 @@ Site vitrine de BitEye et de VISION Workspace (promotion immobilière, réalisat
 
 Site statique en une page, sans étape de build :
 
-- `index.html` — page d'accueil (HTML, CSS et JS intégrés ; polices Google Fonts, animations GSAP via cdnjs)
+- `index.html` — page d'accueil (HTML, CSS et JS intégrés ; polices Google Fonts, animations GSAP + ScrollTrigger via cdnjs, défilement fluide Lenis via jsDelivr)
 - `favicon.svg` — icône du site
 - `CNAME` — domaine personnalisé `biteye-group.com` (GitHub Pages)
 
