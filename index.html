@@ -10,44 +10,44 @@
 <meta property="og:url" content="https://biteye-group.com/">
 <meta property="og:title" content="BitEye — VISION Workspace">
 <meta property="og:description" content="Promotion, réalisation et copropriété, réunies dans une seule plateforme.">
-<meta name="theme-color" content="#0F1A14">
+<meta name="theme-color" content="#022539">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Inter:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;0,700;1,600;1,700&family=Inter:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
 <style>
-/* Composition : alternance de bandes « forêt » (sombres, profondeur, lumière citron) et « papier » (crème, calmes).
-   Chaque bande porte un seul message et un seul moment 3D. Charte relevée sur biteye-group.com, à confirmer. */
+/* Composition : alternance de bandes « marine » (sombres, profondeur, lumière menthe) et « papier » (clair, calmes).
+   Charte BitEye : bleu marine #022539, vert menthe #03DA9F, Poppins (logo). Chaque bande porte un seul message. */
 :root{
-  --paper:#F2EFE8; --paper-2:#E9E5DB; --ink:#101411; --ink-2:#565B53; --rule:#D6D1C5;
-  --forest:#0F1A14; --forest-2:#15241C; --forest-3:#1D3127; --f-ink:#F2EFE8; --f-ink-2:#9FAE9F; --f-rule:rgba(242,239,232,.12);
-  --lime:#C4EF4E; --lime-deep:#2F6A1F; --lime-glow:rgba(196,239,78,.35);
-  --on-lime:#0F1A14;
-  --glass:rgba(242,239,232,.06); --glass-line:rgba(242,239,232,.14);
-  --screen:#FFFFFF; --screen-2:#F5F3EE; --screen-ink:#101411; --screen-ink-2:#6A6F66; --screen-rule:#E3DFD5;
-  --ok:#2F7D3A; --warn:#A8620A;
-  --iso-nt:#FFFFFF; --iso-nl:#E4DFD3; --iso-nr:#CFC8B8;
-  --iso-kt:#DDF78E; --iso-kl:#B9E246; --iso-kr:#8DB82A;
-  --iso-gt:#E6E1D6; --iso-gl:#D3CCBD; --iso-gr:#BFB7A6; --iso-win:rgba(16,20,17,.18);
-  --display:"Inter Tight","Inter","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --paper:#F4F6F8; --paper-2:#E6ECF0; --ink:#0B1E2B; --ink-2:#4D6070; --rule:#D3DCE3;
+  --forest:#022539; --forest-2:#05304A; --forest-3:#0A3D5C; --f-ink:#EAEEF1; --f-ink-2:#93A9B8; --f-rule:rgba(234,238,241,.12);
+  --lime:#03DA9F; --lime-deep:#007A5A; --lime-glow:rgba(3,218,159,.35);
+  --on-lime:#022539;
+  --glass:rgba(234,238,241,.06); --glass-line:rgba(234,238,241,.14);
+  --screen:#FFFFFF; --screen-2:#F3F6F8; --screen-ink:#0B1E2B; --screen-ink-2:#637684; --screen-rule:#E1E8ED;
+  --ok:#2F7D3A; --warn:#A8620A; --logo-bg:#FFFFFF;
+  --iso-nt:#FFFFFF; --iso-nl:#DCE4EA; --iso-nr:#C3CFD8;
+  --iso-kt:#A6F3DB; --iso-kl:#3FE3B5; --iso-kr:#02B386;
+  --iso-gt:#E2E9EE; --iso-gl:#CBD6DE; --iso-gr:#B4C2CC; --iso-win:rgba(2,26,41,.18);
+  --display:"Poppins","Inter","IBM Plex Sans Arabic",system-ui,sans-serif;
   --text:"Inter","IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --fs-hero:clamp(48px,8.4vw,112px); --fs-h2:clamp(38px,5.4vw,72px); --fs-lead:clamp(18px,1.8vw,22px); --fs-body:17px; --fs-small:13px;
   --max:1240px; --r:28px; --r-s:14px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#0B120E; --paper-2:#111B15; --ink:#F2EFE8; --ink-2:#A3ADA0; --rule:#24352B;
-  --lime-deep:#C4EF4E;
-  --screen:#16231C; --screen-2:#111B15; --screen-ink:#F2EFE8; --screen-ink-2:#9FAE9F; --screen-rule:#26382D;
+  --paper:#011A29; --paper-2:#032337; --ink:#EAEEF1; --ink-2:#9DB0BE; --rule:#123A52;
+  --lime-deep:#03DA9F;
+  --screen:#062D45; --screen-2:#032337; --screen-ink:#EAEEF1; --screen-ink-2:#93A9B8; --screen-rule:#15405A;
   --ok:#7FD38C; --warn:#E3A33B;
-  --iso-nt:#2B3F33; --iso-nl:#1F3027; --iso-nr:#16241C; --iso-gt:#1A2A21; --iso-gl:#14211A; --iso-gr:#0F1913; --iso-win:rgba(196,239,78,.22);
+  --iso-nt:#174560; --iso-nl:#0F3650; --iso-nr:#0A2C42; --iso-gt:#0C324A; --iso-gl:#082A3F; --iso-gr:#05223A; --iso-win:rgba(3,218,159,.22);
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --paper:#0B120E; --paper-2:#111B15; --ink:#F2EFE8; --ink-2:#A3ADA0; --rule:#24352B;
-  --lime-deep:#C4EF4E;
-  --screen:#16231C; --screen-2:#111B15; --screen-ink:#F2EFE8; --screen-ink-2:#9FAE9F; --screen-rule:#26382D;
+  --paper:#011A29; --paper-2:#032337; --ink:#EAEEF1; --ink-2:#9DB0BE; --rule:#123A52;
+  --lime-deep:#03DA9F;
+  --screen:#062D45; --screen-2:#032337; --screen-ink:#EAEEF1; --screen-ink-2:#93A9B8; --screen-rule:#15405A;
   --ok:#7FD38C; --warn:#E3A33B;
-  --iso-nt:#2B3F33; --iso-nl:#1F3027; --iso-nr:#16241C; --iso-gt:#1A2A21; --iso-gl:#14211A; --iso-gr:#0F1913; --iso-win:rgba(196,239,78,.22);
+  --iso-nt:#174560; --iso-nl:#0F3650; --iso-nr:#0A2C42; --iso-gt:#0C324A; --iso-gl:#082A3F; --iso-gr:#05223A; --iso-win:rgba(3,218,159,.22);
   color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -83,7 +83,7 @@ a{color:inherit;text-decoration:none}
 
 /* Boutons */
 .btn{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--on-lime);font:600 16px/1 var(--text);padding:17px 26px;border-radius:999px;border:0;cursor:pointer;box-shadow:0 0 0 0 var(--lime-glow),0 10px 30px -10px var(--lime-glow);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
-.btn:hover{box-shadow:0 0 0 6px rgba(196,239,78,.18),0 16px 40px -10px var(--lime-glow);transform:translateY(-1px)}
+.btn:hover{box-shadow:0 0 0 6px rgba(3,218,159,.18),0 16px 40px -10px var(--lime-glow);transform:translateY(-1px)}
 .btn svg{width:16px;height:16px;transition:transform .3s var(--ease)}
 .btn:hover svg{transform:translateX(3px)}
 .ghost{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding:16px 8px}
@@ -97,11 +97,13 @@ a{color:inherit;text-decoration:none}
 .progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:100;transform-origin:0 50%;transform:scaleX(0);background:var(--lime)}
 
 /* Navigation */
-.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:rgba(15,26,20,.72);backdrop-filter:saturate(160%) blur(20px);-webkit-backdrop-filter:saturate(160%) blur(20px);border-bottom:1px solid var(--f-rule);color:var(--f-ink)}
+.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:rgba(2,37,57,.72);backdrop-filter:saturate(160%) blur(20px);-webkit-backdrop-filter:saturate(160%) blur(20px);border-bottom:1px solid var(--f-rule);color:var(--f-ink)}
 .gnav .wrap{display:flex;align-items:center;gap:32px;height:60px}
-.logo{display:inline-flex;align-items:center;font:700 22px/1 var(--display);letter-spacing:-.04em}
-.logo svg{width:32px;height:22px;margin-right:9px}
-.logo span{color:var(--lime)}
+.logo{display:inline-flex;align-items:center;gap:10px;font:300 25px/1 var(--display);letter-spacing:-.02em;color:var(--f-ink)}
+.logo .wm b{font-weight:700}
+.logo .eye{width:36px;height:23px;color:var(--lime)}
+.eye{overflow:visible;transform-origin:50% 55%;animation:blink 7s infinite}
+@keyframes blink{0%,91%,97%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
 .gnav ul{display:flex;gap:28px;list-style:none;margin:0 0 0 auto;padding:0;font-size:14px}
 .gnav ul a{color:var(--f-ink-2);transition:color .15s}
 .gnav ul a:hover{color:var(--f-ink)}
@@ -112,36 +114,36 @@ a{color:inherit;text-decoration:none}
 .hero{padding-top:clamp(72px,10vw,128px);padding-bottom:clamp(80px,10vw,140px);overflow:hidden;text-align:center}
 .aurora{position:absolute;inset:-20% -10% auto;height:120%;z-index:-2;pointer-events:none;filter:blur(70px);opacity:.75}
 .aurora i{position:absolute;border-radius:50%}
-.aurora i:nth-child(1){width:48vw;height:48vw;left:8%;top:2%;background:radial-gradient(circle,rgba(196,239,78,.42),transparent 62%);animation:drift1 18s ease-in-out infinite alternate}
-.aurora i:nth-child(2){width:42vw;height:42vw;right:4%;top:14%;background:radial-gradient(circle,rgba(46,140,110,.55),transparent 62%);animation:drift2 22s ease-in-out infinite alternate}
-.aurora i:nth-child(3){width:36vw;height:36vw;left:36%;top:38%;background:radial-gradient(circle,rgba(29,49,39,.9),transparent 65%);animation:drift1 26s ease-in-out infinite alternate-reverse}
+.aurora i:nth-child(1){width:48vw;height:48vw;left:8%;top:2%;background:radial-gradient(circle,rgba(3,218,159,.42),transparent 62%);animation:drift1 18s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:42vw;height:42vw;right:4%;top:14%;background:radial-gradient(circle,rgba(3,150,140,.55),transparent 62%);animation:drift2 22s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:36vw;height:36vw;left:36%;top:38%;background:radial-gradient(circle,rgba(10,61,92,.9),transparent 65%);animation:drift1 26s ease-in-out infinite alternate-reverse}
 @keyframes drift1{to{transform:translate(8vw,6vh) scale(1.15)}}
 @keyframes drift2{to{transform:translate(-10vw,8vh) scale(.9)}}
 .floor-grid{position:absolute;left:-50%;right:-50%;bottom:-8%;height:70%;z-index:-1;pointer-events:none;transform:perspective(600px) rotateX(68deg);transform-origin:50% 100%;
-  background-image:linear-gradient(rgba(196,239,78,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(196,239,78,.16) 1px,transparent 1px);background-size:64px 64px;
+  background-image:linear-gradient(rgba(3,218,159,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(3,218,159,.16) 1px,transparent 1px);background-size:64px 64px;
   -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 75%);mask-image:linear-gradient(to top,#000 0%,transparent 75%);animation:gridmove 6s linear infinite}
 @keyframes gridmove{to{background-position:0 64px}}
 .hero h1{font-size:var(--fs-hero);font-weight:700;line-height:.98;margin:26px auto 0;max-width:12ch}
 .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .08em}
 .hero h1 .w>span{display:inline-block}
-.hero h1 em{font-style:italic;color:var(--lime);background:linear-gradient(100deg,var(--lime) 30%,#F4FFD6 50%,var(--lime) 70%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 30px rgba(196,239,78,.35));animation:shine 5s linear infinite}
+.hero h1 em{font-style:italic;color:var(--lime);background:linear-gradient(100deg,var(--lime) 30%,#D6FFF2 50%,var(--lime) 70%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 30px rgba(3,218,159,.35));animation:shine 5s linear infinite}
 @keyframes shine{from{background-position:120% 0}to{background-position:-130% 0}}
 
 /* Héros plein écran : une ville en WebGL (Three.js) derrière le titre */
 .hero3d{position:relative;min-height:max(620px,calc(100svh - 60px));display:grid;align-content:center;padding-block:96px 140px;isolation:isolate;overflow:hidden;
-  background:radial-gradient(120% 80% at 50% 110%,#1D3127 0%,var(--forest) 60%)}
+  background:radial-gradient(120% 80% at 50% 110%,#0A3D5C 0%,var(--forest) 60%)}
 .hero3d canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;opacity:0;transition:opacity 1.2s var(--ease)}
 .webgl .hero3d canvas{opacity:1}
 .webgl .hero3d .floor-grid{display:none}
 .hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(52% 46% at 50% 44%,rgba(15,26,20,.82),rgba(15,26,20,.35) 60%,transparent 85%),linear-gradient(to bottom,rgba(15,26,20,.7),transparent 30%,transparent 78%,var(--forest))}
-.hero3d .lead{color:#DCE4D8;text-shadow:0 2px 18px rgba(15,26,20,.9)}
+  background:radial-gradient(52% 46% at 50% 44%,rgba(2,37,57,.82),rgba(2,37,57,.35) 60%,transparent 85%),linear-gradient(to bottom,rgba(2,37,57,.7),transparent 30%,transparent 78%,var(--forest))}
+.hero3d .lead{color:#DCE6EE;text-shadow:0 2px 18px rgba(2,37,57,.9)}
 .scroll-cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);display:grid;justify-items:center;gap:10px;font:600 11px/1 var(--text);letter-spacing:.2em;text-transform:uppercase;color:var(--f-ink-2)}
 .scroll-cue i{position:relative;width:1.5px;height:48px;background:var(--f-rule);overflow:hidden}
 .scroll-cue i::after{content:"";position:absolute;left:0;top:-40%;width:100%;height:40%;background:var(--lime);animation:cue 2s var(--ease) infinite}
 @keyframes cue{to{top:100%}}
 .hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:56px}
-.hero-tags span{padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;color:var(--f-ink);background:rgba(21,36,28,.55);border:1px solid var(--glass-line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-tags span{padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;color:var(--f-ink);background:rgba(5,48,74,.55);border:1px solid var(--glass-line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .hero-tags span b{color:var(--lime);font-weight:600}
 
 /* Curseur : un anneau suit la souris et grossit sur les liens */
@@ -156,7 +158,7 @@ a{color:inherit;text-decoration:none}
 .stage{position:relative;margin-top:clamp(64px,8vw,104px);perspective:1800px;perspective-origin:50% 0%}
 .tilt{transform-style:preserve-3d;transform-origin:50% 0;will-change:transform}
 .tilt-inner{transform-style:preserve-3d;transition:transform .5s var(--ease);transform:rotateY(calc(var(--mx,0)*5deg)) rotateX(calc(var(--my,0)*-4deg))}
-.halo{position:absolute;left:10%;right:10%;top:12%;bottom:-6%;z-index:-1;background:radial-gradient(50% 50% at 50% 50%,rgba(196,239,78,.32),transparent 70%);filter:blur(40px)}
+.halo{position:absolute;left:10%;right:10%;top:12%;bottom:-6%;z-index:-1;background:radial-gradient(50% 50% at 50% 50%,rgba(3,218,159,.32),transparent 70%);filter:blur(40px)}
 
 /* Écran logiciel */
 .screen{position:relative;max-width:1080px;margin-inline:auto;background:var(--screen);color:var(--screen-ink);border-radius:22px;text-align:left;font-size:12.5px;line-height:1.35;
@@ -168,7 +170,7 @@ a{color:inherit;text-decoration:none}
 .screen .body{display:grid;grid-template-columns:180px 1fr;transform-style:preserve-3d}
 .screen aside{background:var(--screen-2);padding:16px;display:grid;gap:4px;align-content:start;border-right:1px solid var(--screen-rule);border-bottom-left-radius:22px}
 .screen aside span{padding:7px 10px;border-radius:9px;color:var(--screen-ink-2)}
-.screen aside span.on{background:rgba(140,190,40,.18);color:var(--lime-deep);font-weight:600}
+.screen aside span.on{background:rgba(3,180,130,.18);color:var(--lime-deep);font-weight:600}
 .screen main{padding:20px;display:grid;gap:14px;min-width:0;transform-style:preserve-3d}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;transform-style:preserve-3d}
 .kpi{border:1px solid var(--screen-rule);border-radius:14px;padding:12px 14px;background:var(--screen)}
@@ -200,7 +202,7 @@ a{color:inherit;text-decoration:none}
 
 /* Puces flottantes en verre */
 .chip{position:absolute;z-index:3;display:flex;align-items:center;gap:12px;padding:12px 16px 12px 12px;border-radius:16px;text-align:left;font-size:13px;color:var(--f-ink);
-  background:rgba(21,36,28,.62);border:1px solid var(--glass-line);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  background:rgba(5,48,74,.62);border:1px solid var(--glass-line);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
   box-shadow:0 20px 50px -20px rgba(0,0,0,.7);white-space:nowrap}
 .chip .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--lime);color:var(--on-lime);flex:none}
 .chip .ic svg{width:16px;height:16px}
@@ -228,11 +230,11 @@ a{color:inherit;text-decoration:none}
 .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;perspective:1400px}
 .card3d{position:relative;border-radius:var(--r);padding:36px 32px 34px;background:var(--paper-2);display:grid;gap:14px;align-content:start;min-width:0;
   transform-style:preserve-3d;transform:rotateY(calc(var(--rx,0)*1deg)) rotateX(calc(var(--ry,0)*1deg));transition:transform .5s var(--ease),box-shadow .5s var(--ease);
-  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 30px 60px -40px rgba(16,20,17,.35)}
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 30px 60px -40px rgba(2,26,41,.35)}
 .card3d::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
-  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,30%),rgba(196,239,78,.28),transparent 45%)}
+  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,30%),rgba(3,218,159,.28),transparent 45%)}
 .card3d:hover::before{opacity:1}
-.card3d:hover{box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 50px 90px -40px rgba(16,20,17,.45)}
+.card3d:hover{box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 50px 90px -40px rgba(2,26,41,.45)}
 .card3d .name{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime-deep);transform:translateZ(30px)}
 .card3d h3{font-size:clamp(26px,2.6vw,34px);font-weight:700;transform:translateZ(40px)}
 .card3d p{color:var(--ink-2);transform:translateZ(20px)}
@@ -244,13 +246,13 @@ a{color:inherit;text-decoration:none}
 .iso .g-t{fill:var(--iso-gt)} .iso .g-l{fill:var(--iso-gl)} .iso .g-r{fill:var(--iso-gr)}
 .iso .o-t,.iso .o-l,.iso .o-r{fill:none;stroke:var(--lime-deep);stroke-width:1.2;stroke-dasharray:4 4;opacity:.7}
 .iso .win{fill:var(--iso-win)}
-.iso .iso-shadow{fill:rgba(16,20,17,.12);filter:blur(6px)}
+.iso .iso-shadow{fill:rgba(2,26,41,.12);filter:blur(6px)}
 .iso .scaffold path,.iso .crane-l,.iso .crane-c{fill:none;stroke:var(--ink-2);stroke-width:2;stroke-linecap:round;opacity:.65}
 .iso .crane-c{stroke-width:1.2}
 .iso .hook{animation:hook 3.4s ease-in-out infinite}
 @keyframes hook{50%{transform:translateY(14px)}}
 .iso .tree circle{fill:var(--iso-kl)} .iso .tree path{stroke:var(--iso-nr);stroke-width:3}
-.iso .badge circle{fill:var(--lime);filter:drop-shadow(0 8px 14px rgba(140,190,40,.45))}
+.iso .badge circle{fill:var(--lime);filter:drop-shadow(0 8px 14px rgba(3,180,130,.45))}
 .iso .badge path{fill:none;stroke:var(--on-lime);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .iso .badge{animation:bob 4s ease-in-out infinite}
 @media (max-width:1068px){.trio{grid-template-columns:1fr;max-width:560px;margin-inline:auto}}
@@ -347,11 +349,11 @@ a{color:inherit;text-decoration:none}
 /* ============ MOBILE ============ */
 .mobile{display:grid;grid-template-columns:1fr 1fr;gap:clamp(48px,7vw,110px);align-items:center}
 .phone-stage{position:relative;perspective:1400px;display:grid;place-items:center;min-height:620px}
-.phone-stage::before{content:"";position:absolute;width:420px;height:420px;max-width:90%;border-radius:50%;background:radial-gradient(circle,rgba(140,190,40,.35),transparent 65%);filter:blur(30px)}
-.phone{position:relative;width:290px;max-width:78vw;aspect-ratio:9/19.2;border-radius:48px;padding:12px;background:linear-gradient(145deg,#2A3A31,#0B110D);
-  box-shadow:0 0 0 1.5px #3A4C42 inset,0 60px 100px -40px rgba(16,20,17,.6),30px 40px 80px -40px rgba(16,20,17,.5);transform-style:preserve-3d}
+.phone-stage::before{content:"";position:absolute;width:420px;height:420px;max-width:90%;border-radius:50%;background:radial-gradient(circle,rgba(3,180,130,.35),transparent 65%);filter:blur(30px)}
+.phone{position:relative;width:290px;max-width:78vw;aspect-ratio:9/19.2;border-radius:48px;padding:12px;background:linear-gradient(145deg,#0E3A55,#01121D);
+  box-shadow:0 0 0 1.5px #24506B inset,0 60px 100px -40px rgba(2,26,41,.6),30px 40px 80px -40px rgba(2,26,41,.5);transform-style:preserve-3d}
 .phone .scr{height:100%;border-radius:38px;background:var(--screen);color:var(--screen-ink);padding:44px 16px 16px;display:grid;gap:12px;align-content:start;font-size:12px;overflow:hidden;position:relative}
-.phone .scr::before{content:"";position:absolute;top:12px;left:50%;width:84px;height:24px;margin-left:-42px;border-radius:14px;background:#0B110D}
+.phone .scr::before{content:"";position:absolute;top:12px;left:50%;width:84px;height:24px;margin-left:-42px;border-radius:14px;background:#01121D}
 .phone h5{margin:0;font:700 18px/1.2 var(--display);letter-spacing:-.02em}
 .phone .sub{color:var(--screen-ink-2);margin-top:-8px}
 .phone .card{border:1px solid var(--screen-rule);border-radius:16px;padding:12px;display:grid;gap:7px;background:var(--screen)}
@@ -361,16 +363,16 @@ a{color:inherit;text-decoration:none}
 .ring svg{width:72px;height:72px;transform:rotate(-90deg)}
 .ring circle{fill:none;stroke-width:8}
 .ring .bg{stroke:var(--screen-rule)} .ring .fg{stroke:var(--lime-deep);stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:72}
-.notif{position:absolute;z-index:3;display:flex;gap:12px;align-items:center;padding:12px 16px 12px 12px;border-radius:18px;font-size:13px;background:rgba(255,255,255,.72);color:#101411;
-  border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 24px 50px -20px rgba(16,20,17,.45);white-space:nowrap}
+.notif{position:absolute;z-index:3;display:flex;gap:12px;align-items:center;padding:12px 16px 12px 12px;border-radius:18px;font-size:13px;background:rgba(255,255,255,.72);color:#0B1E2B;
+  border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 24px 50px -20px rgba(2,26,41,.45);white-space:nowrap}
 .notif .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--forest);color:var(--lime);flex:none}
 .notif .ic svg{width:16px;height:16px}
-.notif small{display:block;color:#5C6058;font-size:11.5px}
+.notif small{display:block;color:#4D6070;font-size:11.5px}
 .notif.n1{left:0;top:16%}
 .notif.n2{right:0;top:44%}
 .notif.n3{left:4%;bottom:12%}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notif{background:rgba(21,36,28,.72);color:var(--f-ink);border-color:var(--glass-line)}:root:not([data-theme="light"]) .notif small{color:var(--f-ink-2)}}
-:root[data-theme="dark"] .notif{background:rgba(21,36,28,.72);color:var(--f-ink);border-color:var(--glass-line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notif{background:rgba(5,48,74,.72);color:var(--f-ink);border-color:var(--glass-line)}:root:not([data-theme="light"]) .notif small{color:var(--f-ink-2)}}
+:root[data-theme="dark"] .notif{background:rgba(5,48,74,.72);color:var(--f-ink);border-color:var(--glass-line)}
 :root[data-theme="dark"] .notif small{color:var(--f-ink-2)}
 .feats{display:grid;gap:30px;margin-top:8px}
 .feats div{display:grid;grid-template-columns:44px 1fr;gap:4px 16px}
@@ -385,7 +387,7 @@ a{color:inherit;text-decoration:none}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;text-align:center}
 .stat{position:relative;padding:44px 20px;border-radius:var(--r);background:linear-gradient(180deg,var(--glass),transparent);border:1px solid var(--f-rule)}
 .stat b{display:block;font:700 clamp(64px,9vw,128px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;
-  background:linear-gradient(180deg,#F4FFD6 0%,var(--lime) 55%,#7FA82A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 30px rgba(196,239,78,.25))}
+  background:linear-gradient(180deg,#D6FFF2 0%,var(--lime) 55%,#02A27A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 30px rgba(3,218,159,.25))}
 .stat sup{font-size:.3em;vertical-align:super;-webkit-text-fill-color:var(--f-ink-2)}
 .stat span{display:block;margin-top:18px;font-size:var(--fs-lead);color:var(--f-ink-2)}
 @media (max-width:734px){.stats{grid-template-columns:1fr}}
@@ -393,10 +395,41 @@ a{color:inherit;text-decoration:none}
 .marquee .row{display:flex;gap:56px;width:max-content;animation:marq 40s linear infinite;font:600 clamp(24px,3vw,40px)/1 var(--display);letter-spacing:-.02em;color:var(--f-ink-2)}
 .marquee .row span{display:inline-flex;align-items:center;gap:56px;white-space:nowrap}
 .marquee .row span::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--lime)}
-.marquee.rev .row{animation-direction:reverse;animation-duration:48s;color:rgba(242,239,232,.28);margin-top:20px}
+.marquee.rev .row{animation-direction:reverse;animation-duration:48s;color:rgba(234,238,241,.28);margin-top:20px}
 @keyframes marq{to{transform:translateX(-50%)}}
-.logos{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:56px}
-.logos div{height:76px;border:1px dashed var(--f-rule);border-radius:16px;display:grid;place-items:center;color:var(--f-ink-2);font-size:12px}
+/* Références clients : filtres par ville, grille de logos */
+.refs{margin-top:clamp(72px,9vw,120px);text-align:center}
+.refs-lead{font-size:var(--fs-lead);color:var(--f-ink-2)}
+.refs-lead b{color:var(--f-ink);font-weight:600}
+.ref-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+.ref-filters button{font:600 14px/1 var(--text);padding:12px 18px;border-radius:999px;border:1px solid var(--glass-line);background:var(--glass);color:var(--f-ink);cursor:pointer;transition:background-color .3s,color .3s,border-color .3s}
+.ref-filters button b{margin-left:6px;color:var(--lime)}
+.ref-filters button:hover{border-color:var(--lime)}
+.ref-filters button.on{background:var(--lime);color:var(--on-lime);border-color:transparent}
+.ref-filters button.on b{color:var(--on-lime)}
+.ref-grid{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px;perspective:1200px;text-align:center;transition:max-height .9s var(--ease)}
+.ref-grid.collapsed{max-height:540px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.ref{display:grid;grid-template-rows:84px auto auto;gap:4px;padding:12px 12px 14px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-line);transition:transform .45s var(--ease),border-color .3s,background-color .3s}
+.ref-logo{display:grid;place-items:center;height:84px;padding:8px;border-radius:12px;background:var(--logo-bg)}
+.ref-logo img{max-height:64px;max-width:100%;width:auto;height:auto;object-fit:contain;transition:transform .5s var(--ease)}
+.ref b{margin-top:8px;font:600 13px/1.3 var(--text);color:var(--f-ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
+.ref small{font-size:12px;color:var(--f-ink-2)}
+.ref:hover{transform:translateY(-6px);border-color:rgba(3,218,159,.55);background:rgba(3,218,159,.08)}
+.ref:hover img{transform:scale(1.07)}
+.ref-more{margin-top:28px}
+.ghost-btn{font:600 15px/1 var(--text);padding:15px 24px;border-radius:999px;border:1px solid var(--glass-line);background:var(--glass);color:var(--f-ink);cursor:pointer;transition:border-color .3s,background-color .3s}
+.ghost-btn:hover{border-color:var(--lime);background:rgba(3,218,159,.1)}
+@media (max-width:734px){.ref-grid{grid-template-columns:repeat(2,1fr);gap:10px}.ref-grid.collapsed{max-height:560px}}
+
+/* Bandeau de logos qui défile sous le héros */
+.ticker{margin:-40px 0 clamp(72px,9vw,120px);text-align:center}
+.ticker-lbl{font:600 12px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--f-ink-2);margin-bottom:24px}
+.logo-marq{margin-top:0}
+.logo-marq .row{gap:16px;animation-duration:150s}
+.logo-marq:hover .row{animation-play-state:paused}
+.tk{display:grid;place-items:center;height:72px;padding:10px 18px;border-radius:16px;background:var(--logo-bg);flex:none;transition:transform .4s var(--ease)}
+.tk:hover{transform:translateY(-4px) scale(1.04)}
+.tk img{height:52px;width:auto;max-width:160px;object-fit:contain}
 @media (max-width:734px){.logos{grid-template-columns:repeat(2,1fr)}}
 
 /* ============ POURQUOI ============ */
@@ -423,20 +456,25 @@ a{color:inherit;text-decoration:none}
 .coords{display:grid;gap:22px;margin-top:40px}
 .coords small{display:block;color:var(--f-ink-2);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 .coords b{font:600 clamp(20px,2vw,26px)/1.3 var(--display);user-select:all}
-.glassform{position:relative;padding:36px;border-radius:var(--r);background:linear-gradient(160deg,rgba(242,239,232,.08),rgba(242,239,232,.02));border:1px solid var(--glass-line);
+.glassform{position:relative;padding:36px;border-radius:var(--r);background:linear-gradient(160deg,rgba(234,238,241,.08),rgba(234,238,241,.02));border:1px solid var(--glass-line);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 50px 100px -50px rgba(0,0,0,.9);display:grid;gap:16px}
-.glassform::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(140deg,var(--lime),transparent 40%,transparent 70%,rgba(196,239,78,.5));
+.glassform::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang),var(--lime),transparent 25%,transparent 55%,rgba(3,218,159,.6) 75%,var(--lime));animation:spin 6s linear infinite;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 label{display:grid;gap:8px;font-size:13px;font-weight:500;color:var(--f-ink-2)}
-input,select{font:inherit;font-size:16px;padding:15px 16px;border-radius:14px;border:1px solid var(--glass-line);background:rgba(15,26,20,.55);color:var(--f-ink);transition:border-color .2s,box-shadow .2s}
-input:focus,select:focus{outline:0;border-color:var(--lime);box-shadow:0 0 0 4px rgba(196,239,78,.15)}
+input,select{font:inherit;font-size:16px;padding:15px 16px;border-radius:14px;border:1px solid var(--glass-line);background:rgba(2,37,57,.55);color:var(--f-ink);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{outline:0;border-color:var(--lime);box-shadow:0 0 0 4px rgba(3,218,159,.15)}
 select option{background:var(--forest);color:var(--f-ink)}
 .form-msg{color:var(--lime);font-size:15px}
-.contact-glow{position:absolute;right:-10%;top:10%;width:60vw;height:60vw;max-width:800px;max-height:800px;z-index:-1;background:radial-gradient(circle,rgba(196,239,78,.18),transparent 60%);filter:blur(40px);pointer-events:none}
+.contact-glow{position:absolute;right:-10%;top:10%;width:60vw;height:60vw;max-width:800px;max-height:800px;z-index:-1;background:radial-gradient(circle,rgba(3,218,159,.18),transparent 60%);filter:blur(40px);pointer-events:none}
 @media (max-width:1068px){.contact{grid-template-columns:1fr}}
 
 footer{background:var(--forest);color:var(--f-ink-2);font-size:12px;padding-block:40px;border-top:1px solid var(--f-rule)}
 footer .wrap{display:grid;gap:18px}
+.foot-brand{display:grid;justify-items:center;gap:6px;padding-block:56px 40px;text-align:center;border-bottom:1px solid var(--f-rule);margin-bottom:12px}
+.foot-brand .eye{width:110px;height:69px;color:var(--lime)}
+.foot-wm{margin:0 0 .14em;font:300 clamp(72px,15vw,200px)/1 var(--display);letter-spacing:-.04em;color:var(--f-ink)}
+.foot-wm b{font-weight:700}
+.foot-tag{font-size:14px;color:var(--f-ink-2)}
 footer ol{margin:0;padding-left:18px}
 footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
 
@@ -471,15 +509,15 @@ html.lenis,html.lenis body{height:auto}
 .ch-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
 .scene{position:relative;height:clamp(440px,48vw,620px);perspective:1800px;display:grid;place-items:center;cursor:grab;touch-action:pan-y;user-select:none}
 .scene:active{cursor:grabbing}
-.scene::before{content:"";position:absolute;inset:15% 10% 5%;border-radius:50%;background:radial-gradient(closest-side,rgba(196,239,78,.22),transparent);filter:blur(30px)}
+.scene::before{content:"";position:absolute;inset:15% 10% 5%;border-radius:50%;background:radial-gradient(closest-side,rgba(3,218,159,.22),transparent);filter:blur(30px)}
 .world{--rz:-34deg;--drag:0deg;position:relative;width:0;height:0;transform-style:preserve-3d;
   transform:translateY(var(--ty,130px)) scale(var(--sc,1)) rotateX(58deg) rotateZ(calc(var(--rz) + var(--drag)))}
 .plate{position:absolute;width:460px;height:460px;left:-230px;top:-230px;border-radius:40px;
-  background:linear-gradient(rgba(196,239,78,.16) 1px,transparent 1px) 0 0/46px 46px,linear-gradient(90deg,rgba(196,239,78,.16) 1px,transparent 1px) 0 0/46px 46px,var(--forest-2);
-  box-shadow:0 0 0 1px var(--glass-line) inset,0 0 120px -20px rgba(196,239,78,.25)}
+  background:linear-gradient(rgba(3,218,159,.16) 1px,transparent 1px) 0 0/46px 46px,linear-gradient(90deg,rgba(3,218,159,.16) 1px,transparent 1px) 0 0/46px 46px,var(--forest-2);
+  box-shadow:0 0 0 1px var(--glass-line) inset,0 0 120px -20px rgba(3,218,159,.25)}
 .building{position:absolute;left:0;top:0;transform-style:preserve-3d;
-  --c-top:#8E968C;--c-a:#737B71;--c-b:#5E665D;--win:transparent}
-.building.done{--c-top:#F2EFE8;--c-a:#DCD6C8;--c-b:#BCB4A2;--win:rgba(16,20,17,.6)}
+  --c-top:#8C99A3;--c-a:#6F7C86;--c-b:#5B6770;--win:transparent}
+.building.done{--c-top:#EAEEF1;--c-a:#DDE5EB;--c-b:#B9C6D0;--win:rgba(2,26,41,.6)}
 .building.lit{--win:var(--lime)}
 .fl{--W:180px;--D:130px;--H:30px;--z0:12px;--drop:0px;position:absolute;left:calc(var(--W) / -2);top:calc(var(--D) / -2);width:var(--W);height:var(--D);transform-style:preserve-3d;
   transform:translateZ(calc(var(--z0) + var(--i) * var(--H) + var(--drop)))}
@@ -492,8 +530,8 @@ html.lenis,html.lenis body{height:auto}
 .fl .s3,.fl .s4{top:0;width:var(--H);height:var(--D);transform-origin:left;transform:rotateY(-90deg)}
 .fl .s3{left:var(--W);background:repeating-linear-gradient(180deg,transparent 0 9px,var(--win) 9px 21px,transparent 21px 28px) center/44% 100% no-repeat,var(--c-a)}
 .fl .s4{left:0;background:repeating-linear-gradient(180deg,transparent 0 9px,var(--win) 9px 21px,transparent 21px 28px) center/44% 100% no-repeat,var(--c-b)}
-.fl.base i{background:#4A5249}
-.fl.base .t{background:#59625A}
+.fl.base i{background:#3E4B55}
+.fl.base .t{background:#4C5A65}
 .lit .fl.roof .t{background:var(--lime)}
 .drag-hint{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--f-ink-2);white-space:nowrap}
 .ch-meter{display:grid;gap:10px;margin-bottom:40px}
@@ -518,8 +556,42 @@ html.lenis,html.lenis body{height:auto}
 .tile{transform:translateY(var(--lift,0px)) rotateX(calc(var(--ry,0) * 1deg)) rotateY(calc(var(--rx,0) * 1deg))}
 .tile:hover{transform:translateY(-4px) rotateX(calc(var(--ry,0) * 1deg)) rotateY(calc(var(--rx,0) * 1deg))}
 .tile::after,.stat::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
-  background:radial-gradient(380px circle at var(--gx,50%) var(--gy,50%),rgba(196,239,78,.2),transparent 50%)}
+  background:radial-gradient(380px circle at var(--gx,50%) var(--gy,50%),rgba(3,218,159,.2),transparent 50%)}
 .tile:hover::after,.stat:hover::after{opacity:1}
+
+
+/* ============ VIE AMBIANTE ============ */
+[hidden]{display:none!important}
+/* Les filets des sur-titres se tracent à l'apparition */
+.fx .eyebrow::before{transform:scaleX(0);transform-origin:0 50%;transition:transform 1s var(--ease) .15s}
+.fx .eyebrow.in::before{transform:none}
+/* Une lueur menthe dérive lentement derrière les sections claires */
+.paper::before{content:"";position:absolute;z-index:-1;pointer-events:none;width:60vw;height:60vw;max-width:900px;max-height:900px;right:-15vw;top:-18vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(3,218,159,.13),transparent 62%);animation:drift2 26s ease-in-out infinite alternate}
+.paper:nth-of-type(even)::before{right:auto;left:-15vw;animation-name:drift1}
+/* Les illustrations des modules flottent */
+.card3d .art svg{animation:bob 6s ease-in-out infinite}
+.card3d:nth-child(2) .art svg{animation-delay:-2s}
+.card3d:nth-child(3) .art svg{animation-delay:-4s}
+/* Parcours client : impulsion lumineuse */
+.cycle .pulse{fill:var(--lime);filter:drop-shadow(0 0 8px var(--lime))}
+.cycle .node.on circle.o{animation:nodep 2.4s ease-in-out infinite}
+@keyframes nodep{50%{stroke-width:6}}
+/* Téléphone : halo qui respire */
+.phone-stage::before{animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.18);opacity:.65}}
+/* Pourquoi BitEye : pastilles qui flottent, lueur dans la grande tuile, icônes vivantes */
+.chips{z-index:1}
+.chips span{animation:bob 5s ease-in-out infinite}
+.chips span:nth-child(2n){animation-delay:-1.6s}
+.chips span:nth-child(3n){animation-delay:-3.1s}
+.tile.big::before{content:"";position:absolute;inset:-30%;pointer-events:none;background:radial-gradient(circle at 35% 35%,rgba(3,218,159,.28),transparent 45%);animation:drift1 14s ease-in-out infinite alternate}
+.tile.big h3,.tile.big p{position:relative;z-index:1}
+.tile .big-ic svg{transition:transform .6s var(--ease)}
+.tile:hover .big-ic svg{transform:rotate(-12deg) scale(1.15)}
+/* Contact : bord lumineux qui tourne autour du formulaire */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spin{to{--ang:360deg}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -528,12 +600,21 @@ html.lenis,html.lenis body{height:auto}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id="eye-pupil" maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="276">
+      <rect width="440" height="276" fill="#fff"/>
+      <circle id="pupil" cx="220" cy="137.5" r="39" fill="#000"/>
+    </mask>
+    <symbol id="eye-mark" viewBox="0 0 440 276"><path d="M8 275C9 275 10 275 16 275C22 275 23 275 23 275C24 276 29 276 29 275C30 275 32 275 42 275L54 274L54 265C54 258 54 256 55 256C55 255 55 254 55 252C55 250 56 249 56 249C56 248 56 248 56 246C56 244 56 243 57 243C57 242 57 242 57 239C57 236 58 235 58 235C58 234 58 234 58 233C58 232 59 231 59 231C59 230 59 230 59 229C59 228 60 227 60 227C60 226 60 226 60 224C60 223 61 222 61 222C61 222 61 221 61 220C61 220 62 219 62 219C62 218 62 218 62 217C62 216 63 215 63 215C63 214 63 214 63 213C63 212 64 211 64 211C64 210 64 210 64 210C64 209 65 209 65 209C65 208 65 208 65 207C65 207 66 206 66 206C66 205 66 205 66 204C66 203 67 202 67 202C67 202 67 201 67 201C67 200 68 200 68 200C68 200 68 199 68 198C68 198 69 197 69 197C69 196 69 196 69 196C69 195 70 195 70 195C70 194 70 194 70 193C70 193 71 192 71 192C71 192 71 191 71 191C71 190 72 190 72 190C72 190 72 189 72 188C72 188 73 187 73 187C73 186 73 186 73 186C73 185 74 185 74 185C74 184 74 184 74 184C74 183 75 183 75 183C75 182 75 182 75 182C75 181 76 181 76 181C76 180 76 180 76 180C76 179 77 179 77 179C77 178 77 178 77 178C77 177 78 177 78 177C78 176 78 176 78 176C78 175 79 175 79 175C79 174 79 174 79 174C79 173 80 173 80 173C80 172 80 172 80 172C80 171 81 171 81 171C81 170 81 170 81 170C81 169 82 169 82 168C83 168 83 167 83 167C83 166 84 166 84 166C84 166 84 165 84 165C84 164 85 164 85 164C85 164 85 163 85 163C85 162 86 162 86 161C87 161 87 160 87 160C87 159 88 159 88 159C88 158 88 158 88 158C88 157 89 157 89 156C90 156 90 155 90 155C90 154 91 154 91 153C92 153 92 152 92 152C92 151 93 151 93 150C94 150 94 149 94 149C94 148 95 148 96 147C97 146 97 145 97 145C97 144 98 144 99 143C100 142 100 141 100 141C100 140 101 140 102 139C103 138 103 137 103 136C103 136 104 136 104 136C105 136 105 136 105 135C105 134 106 134 107 132C108 131 109 130 109 130C109 129 129 110 129 110C130 110 131 108 133 107C134 105 136 104 136 104C137 104 138 103 138 102C139 101 140 101 140 101C141 101 142 100 142 99C143 98 144 98 144 98C145 98 145 98 145 97C145 97 146 97 146 97C147 97 146 98 146 98C146 98 145 98 145 99C145 99 145 100 145 100C145 100 144 100 144 100C144 101 144 102 144 102C144 102 143 103 143 103C143 104 143 104 143 105C143 105 142 105 142 106C142 106 142 106 142 107C142 107 141 107 141 108C141 108 141 108 141 109C141 109 140 110 140 111C140 112 140 112 140 113C140 113 139 113 139 114C139 114 139 114 139 115C139 115 138 116 138 117C138 119 138 119 138 120C138 120 137 121 137 122C137 124 137 124 137 125C136 125 136 126 136 129C136 132 136 133 136 134C135 134 135 141 136 142C136 142 136 143 136 146C136 149 136 150 137 151C137 151 137 152 137 153C137 155 138 155 138 156C138 156 138 157 138 158C138 160 139 160 139 161C139 161 139 162 139 162C139 163 140 164 140 164C140 164 140 164 140 165C140 165 141 166 141 166C141 166 141 167 141 168C141 169 142 169 142 170C142 170 142 170 142 171C142 171 143 172 143 172C143 172 143 172 143 173C143 173 144 174 144 174C144 174 144 174 144 175C144 175 145 176 145 176C145 176 145 176 145 177C145 177 146 178 146 178C146 178 146 178 146 179C146 179 147 180 147 180C148 181 148 181 148 182C148 182 149 182 149 183C149 183 149 183 149 184C149 184 150 185 151 186C152 186 152 187 152 188C152 188 153 189 154 190C155 190 155 191 155 192C155 192 165 202 166 202C166 202 166 202 166 203C166 204 166 204 167 204C168 204 168 204 169 205C170 206 171 207 171 207C172 207 172 207 173 208C173 208 174 209 174 209C175 209 175 209 175 209C176 210 176 210 176 210C177 210 177 210 178 211C178 211 179 212 179 212C180 212 180 212 180 212C181 212 181 213 181 213C182 213 182 213 182 213C183 214 183 214 183 214C184 214 184 214 184 214C185 214 185 215 185 215C186 215 186 215 186 215C187 216 187 216 188 216C188 216 189 216 189 216C190 216 190 217 190 217C191 217 191 217 191 217C192 218 192 218 193 218C193 218 193 218 193 218C193 219 193 219 191 219C190 219 189 219 188 219C188 220 185 220 163 220C142 220 139 220 138 220C138 221 137 221 135 221C133 221 132 221 131 221C131 222 130 222 128 222C126 222 125 222 124 222C124 222 124 223 123 223C122 223 122 223 121 223C121 224 121 224 120 224C120 224 120 224 119 224C119 224 118 225 118 225C117 225 117 225 116 225C116 226 116 226 115 226C115 226 115 226 114 226C114 226 114 227 113 227C113 227 113 227 112 227C112 228 112 228 111 228C111 228 111 228 110 228C110 228 110 229 109 229C109 229 108 229 107 230C107 231 106 232 105 232C105 232 98 238 98 239C98 239 98 240 97 241C96 242 95 242 95 243C95 243 95 244 94 245C93 246 92 246 92 247C92 248 92 248 91 249C91 250 90 250 90 251C90 251 90 252 90 252C90 252 89 253 89 253C89 254 89 254 89 255C89 255 88 256 88 256C88 257 88 258 88 258C88 258 87 259 87 259C87 260 87 260 87 261C87 261 86 262 86 263C86 265 86 265 86 266C86 266 85 267 85 270C85 275 84 275 102 275C116 275 118 275 118 275C119 276 121 276 132 276C143 276 145 276 145 275C146 275 148 275 160 275C172 275 174 275 174 274C175 274 176 274 181 274C186 274 187 274 187 273C188 273 189 273 194 273C199 273 200 273 200 272C201 272 202 272 204 272C206 272 207 272 207 271C208 271 208 271 210 271C212 271 213 271 213 270C214 270 215 270 217 270C220 270 221 270 221 269C222 269 222 269 223 269C224 269 225 268 225 268C226 268 226 268 227 268C228 268 229 268 229 267C230 267 230 267 232 267C234 267 235 267 235 266C236 266 236 266 237 266C238 266 238 266 238 265C239 265 239 265 240 265C241 265 242 264 242 264C243 264 243 264 244 264C245 264 246 264 246 263C247 263 247 263 248 263C248 263 249 262 249 262C250 262 250 262 251 262C252 262 252 262 252 261C253 261 253 261 254 261C255 261 256 260 256 260C257 260 257 260 257 260C258 260 258 260 258 259C259 259 259 259 260 259C260 259 261 258 261 258C262 258 262 258 263 258C264 258 264 258 264 257C265 257 265 257 265 257C266 257 266 256 266 256C267 256 267 256 268 256C268 256 269 256 269 255C270 255 270 255 270 255C271 255 271 254 271 254C272 254 272 254 272 254C273 254 273 254 273 253C274 253 274 253 275 253C276 253 276 252 276 252C277 252 277 252 277 252C278 252 278 252 278 251C279 251 279 251 279 251C280 251 280 250 280 250C281 250 281 250 282 250C283 250 283 249 284 249C284 248 285 248 285 248C286 248 286 248 286 247C287 247 287 247 288 247C289 247 289 246 290 246C290 245 291 245 291 245C292 245 292 244 292 244C293 244 293 244 293 244C294 244 294 244 294 243C295 243 295 243 295 243C296 243 296 242 296 242C297 242 297 242 297 242C298 242 298 242 298 241C299 241 299 241 299 241C300 241 300 240 300 240C301 240 301 240 301 240C302 240 302 239 303 239C303 238 304 238 304 238C305 238 305 238 305 237C306 237 306 237 306 237C307 237 307 236 307 236C308 236 308 236 308 236C309 236 309 235 310 235C310 234 311 234 311 234C312 234 312 233 313 233C313 232 314 232 314 232C315 232 315 231 316 231C316 230 317 230 317 230C318 230 318 229 319 229C319 228 320 228 320 228C321 228 321 227 322 227C322 226 323 226 323 226C324 226 324 225 325 225C325 224 326 224 326 224C327 224 328 223 328 222C329 221 330 221 330 221C331 221 332 220 333 219C334 218 335 217 335 217C336 217 337 216 337 215C338 214 339 214 339 214C340 214 341 212 343 211C344 209 346 208 346 208C347 208 374 180 374 180C374 179 376 178 377 177C378 175 379 174 379 174C379 173 380 172 381 172C382 171 382 170 382 170C382 169 383 168 384 167C386 166 386 165 386 165C386 164 387 164 387 163C388 163 388 162 388 162C388 161 389 160 390 160C391 159 391 158 391 158C391 157 392 157 392 156C393 156 393 155 393 155C393 154 394 154 394 153C395 153 395 152 395 152C395 151 396 151 396 150C397 150 397 149 397 149C397 148 398 148 398 147C399 147 399 146 399 146C399 145 400 145 400 145C400 144 400 144 400 144C400 143 401 143 401 142C402 142 402 141 402 141C402 140 403 140 403 139C404 139 404 138 404 138C404 137 405 137 405 137C405 136 405 136 405 136C405 135 406 135 406 135C406 134 406 134 406 134C406 133 407 133 407 132C408 132 408 131 408 130C408 130 409 129 409 128C410 128 410 127 410 127C410 126 411 126 411 126C411 126 411 125 411 125C411 124 412 124 412 124C412 124 412 123 412 123C412 122 413 122 413 122C413 122 413 121 413 121C413 120 414 120 414 120C414 120 414 119 414 118C414 118 415 117 415 116C416 116 416 115 416 114C416 114 417 113 417 113C417 112 417 112 417 112C417 111 418 111 418 111C418 110 418 110 418 110C418 109 419 109 419 109C419 108 419 108 419 107C419 107 420 106 420 106C420 106 420 105 420 105C420 104 421 104 421 104C421 104 421 103 421 103C421 102 422 102 422 102C422 102 422 101 422 100C422 100 423 99 423 99C423 98 423 98 423 97C423 97 424 96 424 96C424 96 424 95 424 94C424 94 425 93 425 93C425 92 425 92 425 92C425 91 426 91 426 91C426 90 426 90 426 89C426 89 427 88 427 88C427 88 427 87 427 86C427 86 428 85 428 85C428 84 428 84 428 83C428 82 429 81 429 81C429 80 429 80 429 79C429 79 430 78 430 78C430 77 430 77 430 76C430 75 431 74 431 74C431 73 431 73 431 72C431 71 432 70 432 70C432 69 432 69 432 68C432 67 433 66 433 66C433 65 433 65 433 64C433 63 434 62 434 62C434 61 434 61 434 59C434 58 435 57 435 57C435 56 435 56 435 55C435 54 436 53 436 53C436 52 436 52 436 49C436 47 436 46 437 46C437 45 437 45 437 43C437 41 438 40 438 40C438 39 438 39 438 37C438 35 438 34 439 34C439 33 439 32 439 28C439 23 440 22 440 22C440 21 440 20 440 11L440 1L413 1L387 1L386 10C386 17 386 18 386 19C386 19 385 20 385 23C385 26 385 26 385 27C384 27 384 28 384 30C384 32 384 32 384 33C384 33 383 34 383 36C383 38 383 39 383 40C383 40 382 41 382 42C382 44 382 44 382 45C382 45 381 46 381 46C381 47 381 48 381 48C380 48 380 49 380 51C380 53 380 53 380 54C380 54 379 55 379 55C379 56 379 56 379 57C379 57 378 58 378 59C378 60 378 60 378 61C378 61 377 62 377 62C377 63 377 64 377 64C377 64 376 65 376 65C376 66 376 66 376 67C376 67 375 68 375 68C375 69 375 70 375 70C375 70 374 71 374 71C374 72 374 72 374 73C374 73 373 74 373 74C373 75 373 76 373 76C373 76 372 77 372 77C372 78 372 78 372 79C372 79 371 79 371 80C371 80 371 80 371 81C371 81 370 82 370 82C370 83 370 84 370 84C370 84 369 84 369 85C369 85 369 86 369 86C369 86 368 87 368 87C368 88 368 88 368 89C368 89 367 89 367 90C367 90 367 90 367 91C367 91 366 91 366 92C366 92 366 92 366 93C366 93 365 93 365 94C365 94 365 94 365 95C365 95 364 95 364 96C364 96 364 96 364 97C364 97 363 97 363 98C363 98 363 98 363 99C363 99 362 99 362 100C362 100 362 100 362 101C362 101 361 101 361 102C361 102 361 102 361 103C361 103 360 103 360 104C360 104 360 104 360 105C360 105 359 105 359 106C359 106 359 107 358 107C358 108 357 108 357 109C357 109 357 110 357 110C357 110 356 110 356 111C356 111 356 112 356 112C356 112 355 112 355 113C355 113 355 114 354 114C354 115 353 115 353 116C353 116 353 116 353 117C353 117 352 117 352 118C352 118 352 119 351 119C351 120 350 120 350 121C350 121 350 122 349 122C349 123 348 123 348 124C348 124 348 125 347 125C347 126 346 126 346 127C346 127 346 128 345 129C344 130 343 130 343 131C343 131 343 132 342 133C341 134 340 134 340 135C340 135 340 136 338 137C337 138 336 139 336 140C336 140 336 141 334 142C333 143 332 144 332 145C332 145 311 167 310 167C310 167 309 168 308 169C307 170 306 171 305 171C305 171 304 172 302 173C301 175 300 176 299 176C299 176 298 176 298 177C297 177 297 178 296 178C296 178 296 178 296 178C295 179 294 179 294 178C294 178 295 178 295 178C295 178 295 177 295 177C295 176 296 176 296 176C296 176 296 175 296 175C296 174 297 174 297 174C297 174 297 173 297 172C297 172 298 171 298 171C298 170 298 170 298 170C298 169 299 169 299 169C299 168 299 168 299 167C299 167 300 166 300 166C300 166 300 165 300 164C300 164 301 163 301 163C301 162 301 162 301 162C301 161 302 161 302 161C302 160 302 160 302 158C302 156 302 155 303 155C303 154 303 154 303 152C303 151 304 150 304 150C304 149 304 148 304 138C304 128 304 126 304 126C304 125 303 125 303 123C303 122 303 121 303 121C303 120 302 120 302 118C302 117 302 116 302 116C302 116 301 115 301 114C301 114 301 113 301 113C301 112 300 112 300 111C300 111 300 110 300 110C300 110 299 109 299 108C299 108 299 107 299 107C299 106 298 106 298 106C298 105 298 105 298 105C298 104 297 104 297 103C297 103 297 102 297 102C297 102 296 101 296 101C296 100 296 100 295 99C295 98 294 98 294 97C294 96 294 96 293 95C293 95 292 94 292 94C292 93 292 93 292 93C292 92 291 92 291 92C291 91 291 90 290 90C289 89 288 88 288 88C288 87 288 86 287 86C286 85 285 84 285 84C285 83 285 83 284 83C284 83 283 83 283 82C283 81 276 74 275 74C275 74 274 73 273 72C272 71 271 70 270 70C270 70 269 69 269 69C268 68 268 68 267 68C267 68 266 67 266 67C265 66 265 66 264 66C264 66 264 66 263 65C263 65 263 65 262 65C262 65 261 64 261 64C260 63 260 63 259 63C259 63 259 62 258 62C258 62 258 62 257 62C257 62 257 62 256 61C256 61 256 61 255 61C255 61 255 60 254 60C254 60 254 60 253 60C252 60 252 60 251 59C251 59 250 59 250 59C249 59 247 58 247 57C247 57 248 57 251 57C253 57 254 57 254 56C255 56 258 56 279 56C301 56 304 56 304 55C305 55 306 55 307 55C309 55 310 55 310 54C311 54 312 54 313 54C314 54 315 54 315 53C316 53 316 53 317 53C318 53 319 52 319 52C320 52 320 52 321 52C322 52 322 52 322 51C323 51 323 51 323 51C324 51 324 50 324 50C325 50 325 50 326 50C327 50 327 49 328 49C328 48 329 48 329 48C330 48 330 48 330 47C331 47 331 47 331 47C332 47 332 46 333 46C333 45 334 45 334 45C335 45 343 36 343 36C343 35 344 35 344 34C345 34 345 33 345 33C345 32 346 32 346 31C347 31 347 30 347 30C347 29 348 29 348 29C348 28 348 28 348 28C348 27 349 27 349 27C349 26 349 26 349 26C349 25 350 25 350 24C351 24 351 23 351 22C351 22 352 21 352 21C352 20 352 20 352 19C352 19 353 18 353 18C353 18 353 17 353 16C353 16 354 15 354 15C354 14 354 14 354 12C354 11 355 10 355 10C355 9 355 8 355 6C355 0 361 1 313 1C277 1 272 1 271 1C271 2 270 2 263 2C257 2 256 2 255 2C255 3 254 3 249 3C244 3 243 3 242 3C242 4 241 4 238 4C236 4 235 4 234 4C234 5 233 5 231 5C230 5 229 5 228 5C228 6 227 6 224 6C222 6 221 6 220 6C220 6 219 7 218 7C217 7 217 7 216 7C216 8 215 8 213 8C212 8 211 8 210 8C210 8 209 9 208 9C207 9 207 9 206 9C206 10 205 10 204 10C203 10 203 10 202 10C202 10 201 11 200 11C199 11 199 11 198 11C198 12 198 12 197 12C196 12 196 12 195 12C195 12 194 13 194 13C193 13 193 13 192 13C192 14 191 14 190 14C189 14 189 14 188 14C188 14 188 15 187 15C186 15 186 15 185 15C185 16 184 16 184 16C183 16 183 16 182 16C182 16 182 17 181 17C180 17 180 17 179 17C179 18 179 18 178 18C178 18 178 18 177 18C177 18 176 19 176 19C175 19 175 19 174 19C174 20 174 20 173 20C173 20 173 20 172 20C172 20 172 21 171 21C170 21 170 21 169 21C169 22 169 22 168 22C168 22 168 22 167 22C167 22 167 23 166 23C166 23 166 23 165 23C165 24 164 24 164 24C163 24 163 24 162 24C162 24 162 25 161 25C161 25 161 25 160 25C160 26 160 26 159 26C159 26 159 26 158 26C158 26 158 27 157 27C157 27 157 27 156 27C156 28 156 28 155 28C155 28 155 28 154 28C154 28 154 29 153 29C153 29 153 29 152 29C152 30 152 30 151 30C151 30 151 30 150 30C150 30 150 31 149 31C149 31 149 31 148 31C148 32 148 32 147 32C147 32 147 32 146 32C146 32 146 33 145 33C145 33 145 33 144 33C144 34 144 34 143 34C143 34 143 34 142 34C142 34 142 35 141 35C141 35 141 35 140 35C140 36 140 36 139 36C139 36 138 36 138 37C137 37 137 38 136 38C136 38 136 38 135 38C135 38 135 39 134 39C134 39 133 39 133 40C132 40 132 41 131 41C131 41 131 41 130 41C130 42 130 42 129 42C129 42 128 42 128 43C127 43 127 44 126 44C126 44 125 44 125 45C124 45 124 46 123 46C123 46 122 46 122 47C121 47 121 48 120 48C120 48 119 48 119 49C118 49 118 50 117 50C117 50 116 50 115 51C115 52 114 53 113 53C113 53 112 53 112 54C111 54 111 55 110 55C110 55 109 56 108 57C107 58 106 59 105 59C105 59 104 60 103 61C102 62 101 63 100 63C100 63 99 64 97 65C96 67 95 68 94 68C94 68 66 95 66 96C66 96 66 97 64 98C63 99 62 100 62 101C62 101 62 102 60 103C59 104 58 105 58 106C58 106 58 107 57 108C56 108 55 109 55 110C55 110 55 111 54 112C53 112 52 113 52 114C52 114 52 115 51 116C50 116 49 117 49 118C49 118 49 119 48 119C48 120 47 120 47 121C47 121 47 122 46 122C46 123 45 123 45 124C45 124 45 125 44 125C44 126 43 126 43 127C43 127 43 128 42 128C42 129 41 129 41 130C41 130 41 130 41 131C41 131 40 131 40 132C40 132 40 133 39 133C39 134 38 134 38 135C38 135 38 136 37 136C37 137 36 137 36 138C36 138 36 138 36 139C36 139 35 139 35 140C35 140 35 140 35 141C35 141 34 141 34 142C34 142 34 143 33 143C33 144 32 144 32 145C32 146 32 146 31 147C31 148 30 148 30 149C30 149 30 150 30 150C30 150 29 150 29 151C29 151 29 152 29 152C29 152 28 152 28 153C28 153 28 154 28 154C28 154 27 154 27 155C27 155 27 156 27 156C27 156 26 157 26 157C26 158 26 158 25 159C25 160 24 160 24 161C24 162 24 162 24 163C24 163 23 163 23 164C23 164 23 164 23 165C23 165 22 165 22 166C22 166 22 166 22 167C22 167 21 168 21 168C21 169 21 170 21 170C21 170 20 170 20 171C20 171 20 172 20 172C20 172 19 172 19 173C19 173 19 174 19 174C19 174 18 175 18 175C18 176 18 176 18 177C18 177 17 178 17 178C17 179 17 180 17 180C17 180 16 180 16 181C16 181 16 182 16 182C16 182 15 183 15 183C15 184 15 184 15 185C15 185 14 186 14 186C14 187 14 188 14 188C14 188 13 189 13 189C13 190 13 190 13 191C13 191 12 192 12 193C12 194 12 194 12 195C12 195 11 196 11 196C11 197 11 198 11 198C11 198 10 199 10 200C10 201 10 201 10 202C10 202 9 203 9 204C9 205 9 205 9 206C9 206 8 207 8 207C8 208 8 208 8 209C8 209 7 210 7 211C7 213 7 213 7 214C7 214 6 215 6 216C6 218 6 218 6 219C6 219 5 220 5 221C5 222 5 222 5 223C4 223 4 224 4 226C4 228 4 229 4 230C4 230 3 231 3 233C3 235 3 235 3 236C2 236 2 237 2 239C2 241 2 241 2 242C2 242 1 243 1 247C1 251 1 252 1 253C0 254 0 274 1 275C2 275 2 275 2 275C3 276 8 276 8 275Z " fill="currentColor" mask="url(#eye-pupil)"/></symbol>
+  </defs>
+</svg>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <div class="cursor" id="cursor" aria-hidden="true"><i class="c-ring"></i><i class="c-dot"></i></div>
 
 <nav class="gnav" aria-label="Navigation principale">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="BitEye, accueil"><svg viewBox="0 0 32 22" aria-hidden="true"><path d="M2 16C7 4 25 4 30 16" fill="none" stroke="#C4EF4E" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="14.5" r="4.5" fill="#C4EF4E"/></svg>bit<span>eye</span></a>
+    <a class="logo" href="#top" aria-label="BitEye, accueil"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="wm"><b>bit</b>eye</span></a>
     <ul>
       <li><a href="#apercu">VISION Estate</a></li>
       <li><a href="#chantier">VISION Build</a></li>
@@ -568,6 +649,10 @@ html.lenis,html.lenis body{height:auto}
 
 <!-- ================= APERÇU ================= -->
 <section class="band forest" id="apercu">
+  <div class="ticker" id="ticker" hidden>
+    <p class="ticker-lbl">Ils pilotent leurs projets avec VISION</p>
+    <div class="marquee logo-marq" aria-hidden="true"><div class="row" id="tickerRow"></div></div>
+  </div>
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">VISION Estate</span>
@@ -778,6 +863,7 @@ html.lenis,html.lenis body{height:auto}
       <svg class="path" viewBox="0 0 1000 120" aria-hidden="true">
         <path class="track" d="M125 60 C 210 0, 290 120, 375 60 S 540 0, 625 60 S 790 120, 875 60"/>
         <path class="draw" id="drawPath" d="M125 60 C 210 0, 290 120, 375 60 S 540 0, 625 60 S 790 120, 875 60"/>
+        <circle class="pulse" r="7"><animateMotion dur="5s" repeatCount="indefinite" path="M125 60 C 210 0, 290 120, 375 60 S 540 0, 625 60 S 790 120, 875 60"/></circle>
         <g class="node on" data-i="0"><circle class="o" cx="125" cy="60" r="24"/><circle class="i" cx="125" cy="60" r="8"/></g>
         <g class="node" data-i="1"><circle class="o" cx="375" cy="60" r="24"/><circle class="i" cx="375" cy="60" r="8"/></g>
         <g class="node" data-i="2"><circle class="o" cx="625" cy="60" r="24"/><circle class="i" cx="625" cy="60" r="8"/></g>
@@ -848,17 +934,94 @@ html.lenis,html.lenis body{height:auto}
     <div class="head center">
       <span class="eyebrow">Depuis 2014</span>
       <h2 class="h2" data-reveal>Ils construisent <em>avec VISION.</em></h2>
+      <p class="lead">Promoteurs, constructeurs et gestionnaires, d'Oran à Alger.</p>
     </div>
     <div class="stats">
       <div class="stat" data-reveal><b><span class="count" data-to="250">250</span><sup>1</sup></b><span>promoteurs immobiliers clients</span></div>
       <div class="stat" data-reveal><b><span class="count" data-to="12">12</span></b><span>ans au service du secteur</span></div>
       <div class="stat" data-reveal><b><span class="count" data-to="3">3</span></b><span>métiers sur une plateforme</span></div>
     </div>
-  </div>
-  <div class="marquee" aria-hidden="true"><div class="row"><span>Promotion libre</span><span>LPA 1</span><span>LPA 2</span><span>Vente de terrain</span><span>Crédit bancaire</span><span>CNL</span><span>BNH</span><span>Autofinancement</span><span>Promotion libre</span><span>LPA 1</span><span>LPA 2</span><span>Vente de terrain</span><span>Crédit bancaire</span><span>CNL</span><span>BNH</span><span>Autofinancement</span></div></div>
-  <div class="marquee rev" aria-hidden="true"><div class="row"><span>Situations de travaux</span><span>Appels de fonds</span><span>Suivi administratif</span><span>Copropriété</span><span>Trésorerie</span><span>Acquéreurs</span><span>Situations de travaux</span><span>Appels de fonds</span><span>Suivi administratif</span><span>Copropriété</span><span>Trésorerie</span><span>Acquéreurs</span></div></div>
-  <div class="wrap">
-    <div class="logos" aria-label="Emplacements des logos clients"><div>Logo client</div><div>Logo client</div><div>Logo client</div><div>Logo client</div><div>Logo client</div><div>Logo client</div></div>
+    <div class="refs" id="references">
+      <p class="refs-lead">Nos références : <b>69</b> promoteurs et constructeurs dans <b>9</b> wilayas.</p>
+      <div class="ref-filters" role="group" aria-label="Filtrer les références par ville">
+        <button type="button" class="on" data-f="all" aria-pressed="true">Toutes <b>69</b></button>
+        <button type="button" data-f="oran" aria-pressed="false">Oran <b>47</b></button>
+        <button type="button" data-f="alger" aria-pressed="false">Alger <b>14</b></button>
+        <button type="button" data-f="autres" aria-pressed="false">Autres wilayas <b>8</b></button>
+      </div>
+      <ul class="ref-grid" id="refGrid">
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/00.webp" alt="Logo Promotion immobilière Sidi Attalah" width="49" height="120" loading="lazy" decoding="async"></span><b>Promotion immobilière Sidi Attalah</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/01.webp" alt="Logo Cherif Athman promotion" width="196" height="120" loading="lazy" decoding="async"></span><b>Cherif Athman promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/02.webp" alt="Logo Aménagement et promotion immobilière" width="202" height="120" loading="lazy" decoding="async"></span><b>Aménagement et promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/03.webp" alt="Logo Sahraoui promotion" width="240" height="67" loading="lazy" decoding="async"></span><b>Sahraoui promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/04.webp" alt="Logo Benmelissa promotion" width="196" height="120" loading="lazy" decoding="async"></span><b>Benmelissa promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/05.webp" alt="Logo Gasmi Immo" width="183" height="120" loading="lazy" decoding="async"></span><b>Gasmi Immo</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/06.webp" alt="Logo Seven Pillars promotion immobilière" width="240" height="47" loading="lazy" decoding="async"></span><b>Seven Pillars promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/07.webp" alt="Logo Mawteny by Chiali immobilier" width="240" height="115" loading="lazy" decoding="async"></span><b>Mawteny by Chiali immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/08.webp" alt="Logo Promotion immobilière El Wafaa" width="191" height="120" loading="lazy" decoding="async"></span><b>Promotion immobilière El Wafaa</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/09.webp" alt="Logo Dendani promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Dendani promotion immobilière</b><small>Boumerdès</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/10.webp" alt="Logo Sidi Ykhlef immobilier" width="179" height="120" loading="lazy" decoding="async"></span><b>Sidi Ykhlef immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/11.webp" alt="Logo Zebboudj immobilier" width="122" height="120" loading="lazy" decoding="async"></span><b>Zebboudj immobilier</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/12.webp" alt="Logo Baitek promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Baitek promotion immobilière</b><small>Chlef</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/13.webp" alt="Logo Hanitser promotion immobilière" width="92" height="120" loading="lazy" decoding="async"></span><b>Hanitser promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/14.webp" alt="Logo Riad premium promotion immobilière" width="158" height="120" loading="lazy" decoding="async"></span><b>Riad premium promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/15.webp" alt="Logo Chalabi promotion immobilière" width="106" height="120" loading="lazy" decoding="async"></span><b>Chalabi promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/16.webp" alt="Logo SARL FPO promotion immobilière" width="217" height="120" loading="lazy" decoding="async"></span><b>SARL FPO promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/17.webp" alt="Logo Gold Star promotion" width="119" height="120" loading="lazy" decoding="async"></span><b>Gold Star promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/18.webp" alt="Logo Elalouani promotion immobilière" width="166" height="120" loading="lazy" decoding="async"></span><b>Elalouani promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/19.webp" alt="Logo Bourgeois promotion" width="240" height="118" loading="lazy" decoding="async"></span><b>Bourgeois promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/20.webp" alt="Logo SARL Promobrux promotion immobilière" width="138" height="120" loading="lazy" decoding="async"></span><b>SARL Promobrux promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/21.webp" alt="Logo Kamel prom Avenir" width="146" height="120" loading="lazy" decoding="async"></span><b>Kamel prom Avenir</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/22.webp" alt="Logo SARL Omni promotion" width="131" height="120" loading="lazy" decoding="async"></span><b>SARL Omni promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/23.webp" alt="Logo ETS Kadri promotion immobilière" width="73" height="120" loading="lazy" decoding="async"></span><b>ETS Kadri promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/24.webp" alt="Logo Legaid Amine promotion immobilière" width="151" height="120" loading="lazy" decoding="async"></span><b>Legaid Amine promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/25.webp" alt="Logo Promotion immobilière Archinov" width="240" height="64" loading="lazy" decoding="async"></span><b>Promotion immobilière Archinov</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/26.webp" alt="Logo Groupe Meri" width="157" height="120" loading="lazy" decoding="async"></span><b>Groupe Meri</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/27.webp" alt="Logo M&amp;S promo" width="196" height="120" loading="lazy" decoding="async"></span><b>M&amp;S promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/28.webp" alt="Logo Guessab promotion immobilière" width="160" height="120" loading="lazy" decoding="async"></span><b>Guessab promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/29.webp" alt="Logo Algérie promotion immobilière" width="164" height="120" loading="lazy" decoding="async"></span><b>Algérie promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/30.webp" alt="Logo Cepro construction" width="122" height="120" loading="lazy" decoding="async"></span><b>Cepro construction</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/31.webp" alt="Logo Nahla promotion immobilière" width="240" height="78" loading="lazy" decoding="async"></span><b>Nahla promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/32.webp" alt="Logo Belle Vue promotion immobilière" width="196" height="120" loading="lazy" decoding="async"></span><b>Belle Vue promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/33.webp" alt="Logo Promotion immobilière Dennouni" width="192" height="120" loading="lazy" decoding="async"></span><b>Promotion immobilière Dennouni</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/34.webp" alt="Logo Rekhila promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Rekhila promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/35.webp" alt="Logo Ibrir promotion immobilière" width="138" height="120" loading="lazy" decoding="async"></span><b>Ibrir promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/36.webp" alt="Logo Irid promotion immobilière" width="202" height="120" loading="lazy" decoding="async"></span><b>Irid promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/37.webp" alt="Logo Littoral immobilier" width="121" height="120" loading="lazy" decoding="async"></span><b>Littoral immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/38.webp" alt="Logo Cristal Point promotion immobilière" width="83" height="120" loading="lazy" decoding="async"></span><b>Cristal Point promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/39.webp" alt="Logo Itrap Khodja promotion immobilière" width="168" height="120" loading="lazy" decoding="async"></span><b>Itrap Khodja promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/40.webp" alt="Logo Enhycor promotion immobilière" width="109" height="120" loading="lazy" decoding="async"></span><b>Enhycor promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/41.webp" alt="Logo SARL Ziga promo" width="127" height="120" loading="lazy" decoding="async"></span><b>SARL Ziga promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/42.webp" alt="Logo EURL Oran Indjaz GM promotion immobilière" width="120" height="120" loading="lazy" decoding="async"></span><b>EURL Oran Indjaz GM promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/43.webp" alt="Logo Cap immobilier" width="208" height="120" loading="lazy" decoding="async"></span><b>Cap immobilier</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/44.webp" alt="Logo El Ourida promotion" width="133" height="120" loading="lazy" decoding="async"></span><b>El Ourida promotion</b><small>Blida</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/45.webp" alt="Logo Batifast promotion" width="226" height="120" loading="lazy" decoding="async"></span><b>Batifast promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/46.webp" alt="Logo SARL Bati Pro building" width="119" height="120" loading="lazy" decoding="async"></span><b>SARL Bati Pro building</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/47.webp" alt="Logo BCF prom" width="137" height="120" loading="lazy" decoding="async"></span><b>BCF prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/48.webp" alt="Logo Beledifice promotion immobilière" width="120" height="120" loading="lazy" decoding="async"></span><b>Beledifice promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/49.webp" alt="Logo Delmar promotion immobilière" width="157" height="120" loading="lazy" decoding="async"></span><b>Delmar promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/50.webp" alt="Logo Diyar construction" width="121" height="120" loading="lazy" decoding="async"></span><b>Diyar construction</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/51.webp" alt="Logo Gecodar immobilier" width="153" height="120" loading="lazy" decoding="async"></span><b>Gecodar immobilier</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/52.webp" alt="Logo Selma promotion immobilière" width="52" height="120" loading="lazy" decoding="async"></span><b>Selma promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/53.webp" alt="Logo Algimmo" width="240" height="62" loading="lazy" decoding="async"></span><b>Algimmo</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/54.webp" alt="Logo Rivaza building promotion immobilière" width="148" height="120" loading="lazy" decoding="async"></span><b>Rivaza building promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/55.webp" alt="Logo Boughriet promo" width="120" height="120" loading="lazy" decoding="async"></span><b>Boughriet promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/56.webp" alt="Logo Zimou promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Zimou promotion immobilière</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/57.webp" alt="Logo FH promo" width="67" height="120" loading="lazy" decoding="async"></span><b>FH promo</b><small>Oran, Relizane</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/58.webp" alt="Logo West Side promotion immobilière" width="169" height="120" loading="lazy" decoding="async"></span><b>West Side promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/59.webp" alt="Logo Plaza immobilier" width="240" height="89" loading="lazy" decoding="async"></span><b>Plaza immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/60.webp" alt="Logo Injaaz house" width="126" height="120" loading="lazy" decoding="async"></span><b>Injaaz house</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/61.webp" alt="Logo BHT construction" width="119" height="120" loading="lazy" decoding="async"></span><b>BHT construction</b><small>Tlemcen</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/62.webp" alt="Logo Ali prom" width="84" height="120" loading="lazy" decoding="async"></span><b>Ali prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/63.webp" alt="Logo Alco" width="240" height="62" loading="lazy" decoding="async"></span><b>Alco</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/64.webp" alt="Logo SB prom" width="94" height="120" loading="lazy" decoding="async"></span><b>SB prom</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/65.webp" alt="Logo SB travaux Net" width="127" height="120" loading="lazy" decoding="async"></span><b>SB travaux Net</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/66.webp" alt="Logo Universel Fer" width="240" height="102" loading="lazy" decoding="async"></span><b>Universel Fer</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/67.webp" alt="Logo Sidra promotion" width="240" height="103" loading="lazy" decoding="async"></span><b>Sidra promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/68.webp" alt="Logo Turbo prom" width="240" height="59" loading="lazy" decoding="async"></span><b>Turbo prom</b><small>Oran</small></li>
+      </ul>
+      <div class="ref-more"><button type="button" class="ghost-btn" id="refMore" hidden>Voir toutes les références</button></div>
+    </div>
   </div>
 </section>
 
@@ -920,6 +1083,11 @@ html.lenis,html.lenis body{height:auto}
 
 <footer>
   <div class="wrap">
+    <div class="foot-brand">
+      <svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg>
+      <p class="foot-wm"><b>bit</b>eye</p>
+      <p class="foot-tag">Éditeur de VISION Workspace · Gué de Constantine, Alger · Depuis 2014</p>
+    </div>
     <ol><li>Nombre de promoteurs immobiliers clients de BitEye, 2026.</li></ol>
     <div class="base"><span>© 2026 BitEye Group. Tous droits réservés.</span><span>Français · العربية</span></div>
   </div>
@@ -972,6 +1140,42 @@ html.lenis,html.lenis body{height:auto}
     }, {rootMargin:'-45% 0px -45% 0px'});
     steps.forEach(function(s){ so.observe(s); });
   }
+
+  /* Références : filtres par ville et grille repliable */
+  var refGrid = document.getElementById('refGrid'), refMore = document.getElementById('refMore');
+  var refCards = Array.prototype.slice.call(refGrid.querySelectorAll('.ref')), refBtns = document.querySelectorAll('.ref-filters button');
+  refGrid.classList.add('collapsed');
+  function refLabel(){
+    var n = refCards.filter(function(c){ return !c.hidden; }).length;
+    var open = !refGrid.classList.contains('collapsed');
+    refMore.textContent = open ? 'Réduire la liste' : 'Voir les ' + n + ' références';
+    refMore.hidden = !open && refGrid.scrollHeight <= refGrid.clientHeight + 4;
+  }
+  refBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-f');
+      refBtns.forEach(function(x){ x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+      var shown = refCards.filter(function(c){ var ok = f === 'all' || c.getAttribute('data-grp') === f; c.hidden = !ok; return ok; });
+      if (window.gsap && !reduce) gsap.fromTo(shown.slice(0, 24), {opacity:0, y:28, rotateX:-35}, {opacity:1, y:0, rotateX:0, duration:.6, stagger:.025, ease:'power3.out', clearProps:'transform,opacity'});
+      refLabel();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    });
+  });
+  refMore.addEventListener('click', function(){
+    refGrid.classList.toggle('collapsed'); refLabel();
+    if (refGrid.classList.contains('collapsed')) refGrid.scrollIntoView({block:'center'});
+    if (window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); }, 950);
+  });
+  refLabel();
+
+  /* Bandeau de logos : construit à partir de la grille, deux fois pour boucler sans couture */
+  var tickerRow = document.getElementById('tickerRow');
+  for (var k = 0; k < 2; k++) refGrid.querySelectorAll('img').forEach(function(im){
+    var t = document.createElement('i'); t.className = 'tk';
+    var c = im.cloneNode(); c.alt = ''; c.loading = 'eager'; t.appendChild(c); tickerRow.appendChild(t);
+  });
+  document.getElementById('ticker').hidden = false;
+  if (reduce) document.querySelectorAll('svg').forEach(function(sv){ if (sv.pauseAnimations) sv.pauseAnimations(); });
 
   /* Chantier 3D : rotation à la main (souris ou doigt) */
   var scene = document.getElementById('scene'), world = document.getElementById('world');
@@ -1160,6 +1364,37 @@ html.lenis,html.lenis body{height:auto}
     scrollTrigger:{trigger:'#phoneStage', start:'top 60%', once:true}});
   gsap.from('.ring .fg', {strokeDashoffset:201, duration:1.6, ease:'power2.out', scrollTrigger:{trigger:'#phoneStage', start:'top 60%', once:true}});
 
+  /* Notifications : elles rebondissent à tour de rôle, comme de nouvelles alertes */
+  gsap.timeline({repeat:-1, repeatDelay:1.5, delay:4, scrollTrigger:{trigger:'#phoneStage', start:'top 60%'}})
+    .to('[data-pop]', {y:-10, scale:1.04, duration:.35, ease:'power2.out', stagger:1.2, yoyo:true, repeat:1});
+
+  /* Sur-titres : le filet se trace à l'apparition */
+  ScrollTrigger.batch('.eyebrow', {start:'top 92%', once:true, onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); }});
+
+  /* Références : les cartes basculent en place à l'apparition */
+  ScrollTrigger.batch('.ref', {start:'top 92%', once:true, onEnter:function(els){
+    gsap.from(els, {opacity:0, y:40, rotateX:-45, transformOrigin:'50% 0', duration:.8, stagger:.04, ease:'power3.out', clearProps:'transform,opacity'});
+  }});
+
+  /* Pied de page : la marque monte, l'œil s'ouvre */
+  gsap.from('.foot-wm', {yPercent:40, opacity:0, duration:1.2, ease:'power4.out', scrollTrigger:{trigger:'.foot-brand', start:'top 85%', once:true}});
+  gsap.from('.foot-brand .eye', {scaleY:0, opacity:0, duration:.9, ease:'back.out(2)', scrollTrigger:{trigger:'.foot-brand', start:'top 85%', once:true}});
+
+  /* Logo : la pupille suit le curseur (l'œil le plus proche sert de repère) */
+  var pupil = document.getElementById('pupil');
+  if (fine) window.addEventListener('pointermove', function(e){
+    var best = Infinity, ref = null;
+    document.querySelectorAll('svg.eye').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2, d = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (d < best) { best = d; ref = [cx, cy]; }
+    });
+    if (!ref) return;
+    var dx = e.clientX - ref[0], dy = e.clientY - ref[1], L = Math.hypot(dx, dy) || 1, k = Math.min(1, L / 320) * 14;
+    gsap.to(pupil, {attr:{cx:220 + dx / L * k, cy:137.5 + dy / L * k}, duration:.35, ease:'power2.out', overwrite:true});
+  });
+
   /* Chiffres qui comptent */
   gsap.utils.toArray('.count').forEach(function(el){
     var to = +el.dataset.to, o = {v:0};
@@ -1182,7 +1417,7 @@ html.lenis,html.lenis body{height:auto}
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
   var C = function(h){ return new THREE.Color(h); };
-  var FOG = C('#0F1A14');
+  var FOG = C('#022539');
   var scene = new THREE.Scene();
   scene.fog = new THREE.Fog(FOG, 40, 120);
   var camera = new THREE.PerspectiveCamera(32, 1, .1, 400);
@@ -1190,8 +1425,8 @@ html.lenis,html.lenis body{height:auto}
   /* Façades : fenêtres calculées dans le shader, allumées selon uLit */
   var shared = {
     uLit:{value:0}, uTime:{value:0},
-    uBase:{value:C('#2A3A31')}, uTop:{value:C('#3B4E42')}, uWinOff:{value:C('#18241D')},
-    uWarm:{value:C('#E9D99A')}, uLime:{value:C('#C4EF4E')}, uFog:{value:FOG},
+    uBase:{value:C('#0E3A55')}, uTop:{value:C('#1A4D6B')}, uWinOff:{value:C('#062B40')},
+    uWarm:{value:C('#E9D99A')}, uLime:{value:C('#03DA9F')}, uFog:{value:FOG},
     uFogNear:{value:40}, uFogFar:{value:120}
   };
   var vert = [
@@ -1232,9 +1467,9 @@ html.lenis,html.lenis body{height:auto}
   }
 
   /* Sol et trame de plan */
-  var ground = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), new THREE.MeshBasicMaterial({color:'#101C15'}));
+  var ground = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), new THREE.MeshBasicMaterial({color:'#031F30'}));
   ground.rotation.x = -Math.PI / 2; scene.add(ground);
-  var grid = new THREE.GridHelper(240, 80, '#C4EF4E', '#C4EF4E');
+  var grid = new THREE.GridHelper(240, 80, '#03DA9F', '#03DA9F');
   grid.material.transparent = true; grid.material.opacity = .07; grid.position.y = .01; scene.add(grid);
 
   /* Îlots d'immeubles, plus hauts vers le centre ; un immeuble phare en citron */
@@ -1257,7 +1492,7 @@ html.lenis,html.lenis body{height:auto}
   }
 
   /* Grues sur deux chantiers en cours */
-  var craneMat = new THREE.MeshBasicMaterial({color:'#8DB82A'}), cranes = [];
+  var craneMat = new THREE.MeshBasicMaterial({color:'#02B386'}), cranes = [];
   function crane(x, z, h){
     var g = new THREE.Group(); g.position.set(x, 0, z);
     var mast = new THREE.Mesh(new THREE.BoxGeometry(.16, h, .16), craneMat); mast.position.y = h / 2; g.add(mast);
@@ -1271,7 +1506,7 @@ html.lenis,html.lenis body{height:auto}
 
   /* Ondes lumineuses au pied de l'immeuble phare */
   var rings = [0, 1].map(function(k){
-    var r = new THREE.Mesh(new THREE.RingGeometry(2.4, 2.55, 64), new THREE.MeshBasicMaterial({color:'#C4EF4E', transparent:true, opacity:0, depthWrite:false}));
+    var r = new THREE.Mesh(new THREE.RingGeometry(2.4, 2.55, 64), new THREE.MeshBasicMaterial({color:'#03DA9F', transparent:true, opacity:0, depthWrite:false}));
     r.rotation.x = -Math.PI / 2; r.position.set(hero.position.x, .05, hero.position.z); r.userData.k = k; scene.add(r); return r;
   });
 
@@ -1279,7 +1514,7 @@ html.lenis,html.lenis body{height:auto}
   var N = 500, pos = new Float32Array(N * 3);
   for (var p = 0; p < N; p++) { pos[p * 3] = (rnd() - .5) * 90; pos[p * 3 + 1] = rnd() * 30; pos[p * 3 + 2] = (rnd() - .5) * 90; }
   var pgeo = new THREE.BufferGeometry(); pgeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  var dust = new THREE.Points(pgeo, new THREE.PointsMaterial({color:'#C4EF4E', size:.12, transparent:true, opacity:.55, depthWrite:false}));
+  var dust = new THREE.Points(pgeo, new THREE.PointsMaterial({color:'#03DA9F', size:.12, transparent:true, opacity:.55, depthWrite:false}));
   scene.add(dust);
 
   /* Caméra : orbite lente + souris + défilement */

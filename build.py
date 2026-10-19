@@ -1,4 +1,4 @@
-"""Génère dist/biteye-site.html : le site en un seul fichier, bibliothèques et favicon intégrés.
+"""Génère dist/biteye-site.html : le site en un seul fichier, bibliothèques, logos et favicon intégrés.
 
 Usage : python3 build.py
 """
@@ -16,6 +16,12 @@ def inline_script(match):
 
 
 html = re.sub(r'<script src="(vendor/[^"]+)"></script>', inline_script, html)
+def inline_image(match):
+    data = base64.b64encode((ROOT / match.group(1)).read_bytes()).decode()
+    return f'src="data:image/webp;base64,{data}"'
+
+
+html = re.sub(r'src="(assets/[^"]+\.webp)"', inline_image, html)
 favicon = base64.b64encode((ROOT / "favicon.svg").read_bytes()).decode()
 html = html.replace('href="favicon.svg"', f'href="data:image/svg+xml;base64,{favicon}"')
 
