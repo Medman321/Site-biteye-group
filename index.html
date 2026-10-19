@@ -886,6 +886,310 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .a-donut .spin{transform-origin:140px 80px;animation:spinf 12s linear infinite}
 .a-donut .core{animation:pulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 
+/* ============ CHAPITRES ET MENU ============ */
+.chap{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--glass-line);font:600 12px/1 var(--text);color:var(--f-ink-2);white-space:nowrap;overflow:hidden}
+.chap b{color:var(--lime)}
+.chap span{display:inline-block;transition:transform .5s var(--ease),opacity .4s}
+.chap.swap span{transform:translateY(-120%);opacity:0}
+.gnav ul{align-items:center}
+.has-menu{position:relative}
+.menu-btn{display:inline-flex;align-items:center;gap:6px;font:inherit;color:var(--f-ink-2);background:none;border:0;padding:0;cursor:pointer;transition:color .15s}
+.menu-btn svg{width:12px;height:12px;transition:transform .3s var(--ease)}
+.has-menu:hover .menu-btn,.menu-btn[aria-expanded="true"]{color:var(--f-ink)}
+.has-menu:hover .menu-btn svg,.menu-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.menu{position:absolute;left:50%;top:calc(100% + 18px);width:290px;padding:8px;border-radius:18px;display:grid;gap:2px;
+  background:rgba(2,37,57,.96);border:1px solid var(--glass-line);box-shadow:0 30px 60px -20px rgba(0,0,0,.8);
+  opacity:0;visibility:hidden;transform:translate(-50%,8px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
+.menu::before{content:"";position:absolute;left:0;right:0;top:-18px;height:18px}
+.has-menu:hover .menu,.has-menu.open .menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.menu a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:var(--f-ink)!important;font-size:14px}
+.menu a:hover{background:rgba(3,218,159,.1)}
+.mi{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:10px;background:rgba(3,218,159,.12);color:var(--lime)}
+.mi svg{width:17px;height:17px}
+@media (max-width:1068px){.chap{margin-left:auto}}
+@media (max-width:734px){.chap{display:none}}
+
+/* ============ SERVICES : PARCOURS ============ */
+.journey{position:relative;margin-top:clamp(40px,5vw,64px)}
+.journey ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:16px}
+.journey li{display:grid;justify-items:center;align-content:start;gap:10px;text-align:center;min-width:0}
+.j-track{position:absolute;left:calc(100% / 14);right:calc(100% / 14);top:31px;height:3px;border-radius:2px;background:var(--rule)}
+.j-fill{position:absolute;inset:0;border-radius:2px;background:var(--lime-deep);transform-origin:0 50%}
+.j-dot{position:absolute;top:50%;left:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime);opacity:0}
+.journey.go .j-dot{animation:jdot 6s linear 2.6s infinite}
+@keyframes jdot{0%{left:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{left:100%;opacity:0}}
+.j-node{position:relative;z-index:1;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--paper);border:2px solid var(--rule);color:var(--lime-deep);transition:background-color .5s,border-color .5s,color .5s,transform .6s var(--ease)}
+.j-node svg{width:26px;height:26px}
+.j-node i{position:absolute;right:-4px;top:-4px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font:700 11px/1 var(--text);font-style:normal;background:var(--ink);color:var(--paper)}
+.journey b{font:700 17px/1.25 var(--display);color:var(--ink)}
+.journey p{font-size:14px;color:var(--ink-2)}
+.j-link{font-size:14px;font-weight:600;color:var(--lime-deep)}
+.j-link:hover{text-decoration:underline}
+.fx .journey .j-fill{transform:scaleX(0);transition:transform 2.4s var(--ease)}
+.fx .journey.go .j-fill{transform:none}
+.fx .journey li{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i) * .3s)}
+.fx .journey.go li{opacity:1;transform:none}
+.journey.go .j-node{animation:jnode .6s var(--ease) both;animation-delay:calc(var(--i) * .3s + .2s)}
+@keyframes jnode{0%{transform:scale(.6)}60%{transform:scale(1.12);background:var(--lime);color:var(--on-lime);border-color:transparent}100%{transform:none}}
+.journey li:hover .j-node{background:var(--lime);color:var(--on-lime);border-color:transparent;transform:translateY(-4px)}
+@media (max-width:1068px){
+  .journey ol{grid-template-columns:1fr;gap:26px;padding-left:84px}
+  .journey li{justify-items:start;text-align:left;position:relative;gap:4px}
+  .j-node{position:absolute;left:-84px;top:-4px;width:56px;height:56px}
+  .j-track{left:27px;right:auto;top:20px;bottom:20px;width:3px;height:auto}
+  .j-fill{transform-origin:50% 0}
+  .fx .journey .j-fill{transform:scaleY(0)}
+  .journey.go .j-dot{animation-name:jdotv}
+  @keyframes jdotv{0%{top:0;left:50%;opacity:0}5%{opacity:1}95%{opacity:1}100%{top:100%;left:50%;opacity:0}}
+}
+
+/* ============ SERVICES : COUCHES 3D ============ */
+.couches{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+.stack{position:relative;height:clamp(440px,46vw,580px);perspective:1800px;display:grid;place-items:center}
+.stack::before{content:"";position:absolute;inset:18% 8%;border-radius:50%;background:radial-gradient(closest-side,rgba(3,218,159,.2),transparent);filter:blur(30px)}
+.stack-in{--gap:62px;position:relative;width:0;height:0;transform-style:preserve-3d;transform:translateY(calc(var(--gap) * 1.6)) rotateX(58deg) rotateZ(-40deg)}
+.plate2{--lift:0px;position:absolute;left:-120px;top:-120px;width:240px;height:240px;border-radius:26px;display:grid;place-items:center;transform-style:preserve-3d;
+  transform:translateZ(calc(var(--i) * var(--gap) + var(--lift)));transition:transform .7s var(--ease),box-shadow .5s,filter .5s;
+  border:1px solid rgba(234,238,241,.16);box-shadow:0 0 0 1px rgba(0,0,0,.2),0 30px 40px -20px rgba(0,0,0,.6)}
+.pl-ic{display:grid;place-items:center;width:84px;height:84px;border-radius:24px;background:rgba(1,18,29,.35);color:var(--lime)}
+.pl-ic svg{width:44px;height:44px}
+.pl-lbl{position:absolute;left:18px;bottom:14px;font:700 13px/1 var(--text);letter-spacing:.06em;text-transform:uppercase;color:rgba(234,238,241,.8)}
+.p-securite{background:linear-gradient(135deg,#0B3A57,#062B40)}
+.p-infrastructure{background:repeating-linear-gradient(0deg,transparent 0 22px,rgba(234,238,241,.06) 22px 24px),linear-gradient(135deg,#1A4D6B,#0B3A57)}
+.p-acces-distant{background:radial-gradient(circle at 70% 30%,rgba(3,218,159,.35),transparent 55%),linear-gradient(135deg,#0E4466,#0A3550)}
+.p-logiciel{background:linear-gradient(135deg,#F4F6F8,#DCE4EA)}
+.p-logiciel .pl-ic{background:var(--forest);}
+.p-logiciel .pl-lbl{color:var(--forest)}
+.p-formation{background:linear-gradient(135deg,#3FE3B5,#02A27A)}
+.p-formation .pl-ic{background:rgba(2,37,57,.85)}
+.p-formation .pl-lbl{color:var(--forest)}
+.stack-in[data-active] .plate2{filter:saturate(.5) brightness(.65)}
+.stack-in[data-active] .plate2.on{filter:none}
+.stack-in[data-active] .plate2.on{--lift:34px;filter:none;box-shadow:0 0 0 2px var(--lime),0 0 60px -6px var(--lime-glow),0 40px 50px -20px rgba(0,0,0,.7)}
+.layer-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.layer-list li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 18px;border-radius:20px;border:1px solid transparent;transition:background-color .5s,border-color .5s,opacity .5s}
+.ll-n{font:700 15px/1.4 var(--display);color:var(--lime)}
+.layer-list small{display:block;font:600 11.5px/1 var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--f-ink-2);margin-bottom:6px}
+.layer-list b{display:block;font:700 clamp(20px,1.9vw,24px)/1.2 var(--display);color:var(--f-ink)}
+.layer-list p{font-size:15px;color:var(--f-ink-2);margin-top:4px}
+.ll-link{display:inline-block;margin-top:8px;font-size:14px;font-weight:600;color:var(--lime)}
+.layer-list li:hover{border-color:var(--glass-line)}
+.layer-list[data-active] li{opacity:.4}
+.layer-list[data-active] li.on{opacity:1;background:rgba(3,218,159,.08);border-color:rgba(3,218,159,.35)}
+@media (max-width:1068px){.couches{grid-template-columns:1fr}.stack{height:420px}.stack-in{--gap:48px;scale:.82}}
+@media (max-width:734px){.stack{height:340px}.stack-in{--gap:40px;scale:.64}}
+
+/* ============ SERVICES : BESOIN ============ */
+.need{display:grid;justify-items:center;gap:24px}
+.need-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.need-btns button{font:600 15px/1 var(--text);padding:15px 22px;border-radius:999px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;transition:background-color .3s,color .3s,border-color .3s,transform .3s var(--ease)}
+.need-btns button:hover{border-color:var(--lime-deep)}
+.need-btns button.on{background:var(--forest);color:var(--f-ink);border-color:transparent;transform:scale(1.04)}
+.need-msg{font-size:var(--fs-lead);color:var(--ink-2);text-align:center;max-width:620px;min-height:2.6em;transition:opacity .3s}
+.need-msg.swap{opacity:0}
+.need-tiles{width:100%;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;perspective:1200px}
+.nt{position:relative;display:grid;gap:10px;align-content:start;padding:22px 20px;border-radius:22px;background:var(--paper-2);border:1px solid var(--rule);
+  transition:transform .6s var(--ease),opacity .5s,background-color .5s,border-color .5s,box-shadow .5s;opacity:.4;transform:scale(.96)}
+.nt.on{opacity:1;transform:none;background:var(--forest);border-color:transparent;box-shadow:0 30px 50px -30px rgba(2,26,41,.6)}
+.nt.on b{color:var(--f-ink)}
+.nt-ic{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:rgba(3,180,130,.14);color:var(--lime-deep);transition:background-color .5s,color .5s}
+.nt.on .nt-ic{background:var(--lime);color:var(--on-lime)}
+.nt-ic svg{width:24px;height:24px}
+.nt b{font:700 18px/1.2 var(--display);color:var(--ink)}
+.nt-go{font-size:13.5px;font-weight:600;color:var(--lime-deep)}
+.nt.on .nt-go{color:var(--lime)}
+.nt.on:hover{transform:translateY(-6px)}
+.nt.pop{animation:ntpop .6s var(--ease)}
+@keyframes ntpop{0%{transform:translateY(16px) rotateX(-30deg)}100%{transform:none}}
+@media (max-width:1068px){.need-tiles{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.need-tiles{grid-template-columns:1fr}}
+
+/* ============ FICHES PLEIN ÉCRAN ============ */
+.sheet-bg{position:fixed;inset:0;z-index:150;background:rgba(1,18,29,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .5s}
+.sheet-bg.open{opacity:1}
+.sheet{position:fixed;inset:0;z-index:160;overflow-y:auto;overscroll-behavior:contain;background:var(--forest);color:var(--f-ink);
+  padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(102%);transition:transform .7s var(--ease);outline:0}
+.sheet.open{transform:none}
+.sh-top{position:sticky;top:0;z-index:3;padding-top:env(safe-area-inset-top,0px);background:rgba(2,37,57,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--f-rule)}
+.sh-top .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.sh-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+.sh-tabs::-webkit-scrollbar{display:none}
+.sh-tabs a{flex:none;padding:9px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--f-ink-2);transition:background-color .2s,color .2s}
+.sh-tabs a:hover{color:var(--f-ink)}
+.sh-tabs a.on{background:var(--lime);color:var(--on-lime)}
+.sh-close{display:grid;place-items:center;width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--glass-line);background:var(--glass);color:var(--f-ink);cursor:pointer;transition:transform .3s var(--ease),border-color .3s}
+.sh-close:hover{transform:rotate(90deg);border-color:var(--lime)}
+.sh-close svg{width:16px;height:16px}
+.sh-hero{padding-block:clamp(48px,7vw,96px) clamp(24px,4vw,48px);position:relative;overflow:hidden}
+.sh-hero::before{content:"";position:absolute;right:-10%;top:-30%;width:60vw;height:60vw;max-width:760px;max-height:760px;border-radius:50%;background:radial-gradient(circle,rgba(3,218,159,.16),transparent 62%);pointer-events:none}
+.sh-hero-in{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,72px);align-items:center}
+.sh-copy{display:grid;gap:20px}
+.fx .sheet .eyebrow::before{transform:none}
+.sheet .h2 em{color:var(--lime)}
+.sheet .eyebrow{color:var(--lime)}
+.s-lead{font-size:var(--fs-lead);color:var(--f-ink-2);max-width:560px}
+.sh-art{display:grid;place-items:center;min-height:260px}
+.s-block{padding-block:clamp(24px,4vw,48px) clamp(56px,7vw,96px)}
+.s-h3{font:700 clamp(24px,2.6vw,34px)/1.15 var(--display);letter-spacing:-.02em;margin:clamp(48px,6vw,80px) 0 22px}
+.s-note{margin-top:22px;padding:16px 20px;border-radius:16px;background:rgba(3,218,159,.08);border:1px solid rgba(3,218,159,.25);color:var(--f-ink)}
+.sh-end{padding-block:40px 64px;border-top:1px solid var(--f-rule)}
+.sh-end .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px}
+.sh-next{font-size:15px;color:var(--f-ink-2)}
+.sh-next b{color:var(--lime)}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.ticks li{position:relative;padding-left:28px;font-size:15px;line-height:1.45;color:var(--f-ink-2)}
+.ticks li::before{content:"";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;
+  background:rgba(3,218,159,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.6 2.6L12 5.5' fill='none' stroke='%2303DA9F' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.s-band{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.s-band span{padding:12px 18px;border-radius:999px;font-weight:600;font-size:14.5px;background:rgba(3,218,159,.1);border:1px solid rgba(3,218,159,.3);color:var(--f-ink)}
+.card-grid{display:grid;gap:16px}
+.card-grid.c4{grid-template-columns:repeat(4,1fr)}
+.card-grid.c2{grid-template-columns:repeat(2,1fr)}
+.s-card{display:grid;gap:10px;align-content:start;padding:24px;border-radius:22px;background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);transition:border-color .3s,transform .45s var(--ease)}
+.s-card:hover{border-color:rgba(3,218,159,.5);transform:translateY(-4px)}
+.s-card b{font:700 19px/1.25 var(--display)}
+.s-card p{font-size:15px;color:var(--f-ink-2)}
+.s-card.big{padding:30px;gap:16px}
+.s-card.big b{font-size:24px}
+.sc-ic{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--lime);color:var(--on-lime)}
+.sc-ic svg{width:26px;height:26px}
+.chip-grid{display:flex;flex-wrap:wrap;gap:10px}
+.chip-grid span{padding:12px 16px;border-radius:14px;font-size:14.5px;background:var(--glass);border:1px solid var(--glass-line)}
+.s-steps{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:x}
+.s-steps li{display:flex;align-items:center;gap:12px;padding:16px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-line);font-weight:600;font-size:15px}
+.s-steps li span{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:50%;background:var(--lime);color:var(--on-lime);font-weight:700}
+@media (max-width:1068px){.sh-hero-in{grid-template-columns:1fr}.card-grid.c4,.s-steps{grid-template-columns:repeat(2,1fr)}.sh-art{min-height:200px}}
+@media (max-width:734px){.card-grid.c4,.card-grid.c2,.s-steps{grid-template-columns:1fr}}
+/* Apparition des blocs à l'ouverture de la fiche */
+.sheet.open .s-card,.sheet.open .brick,.sheet.open .day,.sheet.open .cfg,.sheet.open .chip-grid span,.sheet.open .s-steps li,.sheet.open .rhythm li{animation:sin .7s var(--ease) both;animation-delay:calc(.25s + var(--i,0) * .07s)}
+@keyframes sin{from{opacity:0;transform:translateY(26px)}}
+
+/* Logiciel : briques */
+.brick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.brick{display:grid;gap:10px;align-content:start;padding:22px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-line);transition:border-color .3s,transform .45s var(--ease)}
+.brick:hover{border-color:rgba(3,218,159,.5);transform:translateY(-4px)}
+.brick.core{background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border-color:rgba(3,218,159,.3)}
+.brick small{font:600 11.5px/1 var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--lime)}
+.brick h3{font-size:21px;font-weight:700}
+.brick .ticks li{font-size:14px}
+.brick-grid .brick:nth-child(-n+4){grid-row:span 1}
+@media (max-width:1068px){.brick-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:734px){.brick-grid{grid-template-columns:1fr}}
+.bricks-art{display:grid;grid-template-columns:repeat(3,64px);gap:10px;transform:rotateX(50deg) rotateZ(-40deg);transform-style:preserve-3d}
+.bricks-art i{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,#0E4466,#0A3550);border:1px solid var(--glass-line);box-shadow:0 14px 20px -8px rgba(0,0,0,.7)}
+.bricks-art i:nth-child(3n+1){background:linear-gradient(135deg,#3FE3B5,#02A27A)}
+.bricks-art i:nth-child(5){background:#F4F6F8}
+.sheet.open .bricks-art i{animation:bdrop 4.5s var(--ease) infinite;animation-delay:calc(var(--i) * .12s)}
+@keyframes bdrop{0%{transform:translateZ(160px);opacity:0}18%,78%{transform:translateZ(0);opacity:1}92%,100%{transform:translateZ(0);opacity:1}}
+
+/* Accès distant */
+.net-art{width:min(400px,100%);height:auto;overflow:visible}
+.net-art .links path{fill:none;stroke:rgba(3,218,159,.45);stroke-width:2;stroke-dasharray:6 6;animation:dashmove 1.2s linear infinite}
+@keyframes dashmove{to{stroke-dashoffset:-24}}
+.net-art .pk{fill:var(--lime);filter:drop-shadow(0 0 6px var(--lime))}
+.net-art .hub-c{fill:rgba(3,218,159,.12);stroke:var(--lime);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-in-out infinite}
+.net-art .lock-b{fill:var(--lime)}
+.net-art .lock-s{fill:none;stroke:var(--lime);stroke-width:4;stroke-linecap:round;animation:lock 3s var(--ease) infinite}
+@keyframes lock{0%,30%{transform:translateY(-6px)}45%,100%{transform:none}}
+.net-art .ep circle{fill:var(--forest-3);stroke:var(--glass-line);stroke-width:1.5}
+.net-art .ep path{fill:none;stroke:var(--f-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.net-art .ep text{font:600 13px/1 var(--text);fill:var(--f-ink-2);text-anchor:middle}
+
+/* Serveur et réseau : baie, configurateur, tableau */
+.rack{display:grid;gap:8px;width:min(300px,80%);padding:16px;border-radius:18px;background:linear-gradient(180deg,#0E3A55,#062B40);border:1px solid var(--glass-line);box-shadow:0 40px 60px -30px rgba(0,0,0,.9)}
+.rack i{display:flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:7px;background:linear-gradient(90deg,#1A4D6B,#0F3650);border:1px solid rgba(234,238,241,.1)}
+.rack i b{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);animation:blink2 1.4s infinite;animation-delay:calc(var(--i) * .23s)}
+.rack i b:nth-child(2){animation-delay:calc(var(--i) * .31s + .4s)}
+.rack i b:nth-child(3){background:#F6B84D;box-shadow:0 0 8px #F6B84D;margin-left:auto;animation-duration:2.2s}
+.sheet.open .rack i{animation:slidein .6s var(--ease) both;animation-delay:calc(.3s + var(--i) * .12s)}
+@keyframes slidein{from{transform:translateX(60px);opacity:0}}
+@keyframes blink2{50%{opacity:.25}}
+.configurator{display:grid;gap:24px}
+.cfg-q{font:700 clamp(20px,2vw,26px)/1.25 var(--display);color:var(--f-ink)}
+.cfg-slider{display:flex;align-items:center;gap:20px}
+.cfg-slider input{flex:1;min-width:0;accent-color:var(--lime);height:28px}
+.cfg-slider output{white-space:nowrap;font-size:16px;color:var(--f-ink-2)}
+.cfg-slider output b{font:700 30px/1 var(--display);color:var(--lime)}
+.cfg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cfg{display:grid;gap:16px;padding:24px;border-radius:22px;background:var(--glass);border:1px solid var(--glass-line);opacity:.5;transform:scale(.97);transition:opacity .5s,transform .6s var(--ease),border-color .5s,background-color .5s,box-shadow .5s}
+.cfg.on{opacity:1;transform:none;background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border-color:var(--lime);box-shadow:0 0 0 1px var(--lime),0 30px 60px -30px rgba(3,218,159,.5)}
+.cfg header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.cfg header b{font:700 24px/1 var(--display)}
+.cfg header em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px;background:var(--lime);color:var(--on-lime)}
+.cfg header small{width:100%;color:var(--f-ink-2)}
+.meters{display:grid;gap:12px}
+.meters div{display:grid;grid-template-columns:1fr auto;gap:6px}
+.meters span{font-size:13px;color:var(--f-ink-2)}
+.meters b{font-size:14px}
+.meters i{grid-column:1/-1;height:6px;border-radius:3px;background:var(--f-rule);position:relative;overflow:hidden}
+.meters i::after{content:"";position:absolute;inset:0;border-radius:3px;background:linear-gradient(90deg,#02A27A,var(--lime));transform-origin:0 50%;transform:scaleX(var(--v));transition:transform 1s var(--ease)}
+.cfg:not(.on) .meters i::after{transform:scaleX(calc(var(--v) * .3))}
+.cfg-use{font-size:14px;color:var(--f-ink-2)}
+.cmp-box summary{cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:1px solid var(--glass-line);font-weight:600;font-size:15px;list-style:none}
+.cmp-box summary::-webkit-details-marker{display:none}
+.cmp-box summary::after{content:"+";color:var(--lime);font-size:20px;line-height:1}
+.cmp-box[open] summary::after{content:"−"}
+.tbl-wrap{overflow-x:auto;margin-top:18px;border-radius:18px;border:1px solid var(--glass-line)}
+.cmp{width:100%;min-width:720px;border-collapse:collapse;font-size:14px}
+.cmp th,.cmp td{padding:12px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--f-rule)}
+.cmp thead th{font:700 16px/1.2 var(--display);background:rgba(1,18,29,.5)}
+.cmp thead th small{display:block;margin-top:4px;font:400 12.5px/1 var(--text);color:var(--f-ink-2)}
+.cmp tbody th{color:var(--lime);font-weight:600;white-space:nowrap}
+.cmp td{color:var(--f-ink-2)}
+.cmp td.hl{background:rgba(3,218,159,.07);color:var(--f-ink);font-weight:600}
+@media (max-width:1068px){.cfg-grid{grid-template-columns:1fr}.cfg:not(.on){display:none}}
+
+/* Sécurité */
+.shield-art{width:min(340px,100%);height:auto;overflow:visible}
+.shield-art .ring{fill:none;stroke:rgba(3,218,159,.25);stroke-width:1.5;stroke-dasharray:4 8;transform-box:fill-box;transform-origin:center;animation:spinf 30s linear infinite}
+.shield-art .r2{animation-direction:reverse;animation-duration:45s}
+.shield-art .sh-body{fill:rgba(3,218,159,.12);stroke:var(--lime);stroke-width:3;filter:drop-shadow(0 0 20px rgba(3,218,159,.4))}
+.shield-art .sh-tick{fill:none;stroke:var(--lime);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;animation:dash 3.4s var(--ease) infinite}
+.shield-art .threats circle{fill:#F26B5B;transform-box:view-box;transform-origin:150px 130px;animation:threat 3.6s ease-in infinite;animation-delay:var(--d)}
+@keyframes threat{0%{transform:rotate(var(--a)) translate(150px,0);opacity:0}15%{opacity:1}55%{transform:rotate(var(--a)) translate(78px,0);opacity:1;fill:#F26B5B}62%{transform:rotate(var(--a)) translate(96px,0);opacity:.6;fill:var(--lime)}100%{transform:rotate(var(--a)) translate(150px,0);opacity:0}}
+.rhythm{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+.rhythm li{position:relative;display:grid;gap:8px;padding:22px 20px 22px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-line)}
+.rhythm li::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 6px rgba(3,218,159,.15);animation:live 2s infinite;animation-delay:calc(var(--i) * .5s)}
+.rhythm b{font:700 19px/1.2 var(--display)}
+.rhythm span{font-size:14.5px;color:var(--f-ink-2)}
+@media (max-width:1068px){.rhythm{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.rhythm{grid-template-columns:1fr}}
+
+/* Formation */
+.funnel{position:relative;display:grid;justify-items:center;gap:8px;width:min(380px,100%)}
+.funnel div{width:var(--w);height:52px;border-radius:14px;display:grid;place-items:center;font:700 15px/1 var(--text);color:var(--f-ink);
+  background:linear-gradient(90deg,rgba(3,218,159,calc(.2 + var(--i) * .2)),rgba(3,218,159,calc(.1 + var(--i) * .2)));border:1px solid rgba(3,218,159,.35)}
+.funnel div:last-of-type{background:var(--lime);color:var(--on-lime)}
+.sheet.open .funnel div{animation:fgrow 1s var(--ease) both;animation-delay:calc(.3s + var(--i) * .18s)}
+@keyframes fgrow{from{width:0;opacity:0}}
+.funnel .fd{position:absolute;top:0;left:50%;width:9px;height:9px;margin-left:-4px;border-radius:50%;background:#EAEEF1;box-shadow:0 0 10px #EAEEF1;animation:fdrop 2.6s ease-in infinite}
+.funnel .fd:nth-of-type(2){animation-delay:.9s;margin-left:-40px}
+.funnel .fd:nth-of-type(3){animation-delay:1.7s;margin-left:30px}
+@keyframes fdrop{0%{transform:translateY(0);opacity:0}10%{opacity:1}85%{opacity:1;background:var(--lime)}100%{transform:translateY(230px);opacity:0}}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.kpi-row div{padding:20px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-line);text-align:center}
+.kpi-row b{display:block;font:700 clamp(32px,4vw,48px)/1 var(--display);color:var(--lime)}
+.kpi-row span{color:var(--f-ink-2);font-size:14px}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.day{display:grid;align-content:start;border-radius:24px;overflow:hidden;background:var(--glass);border:1px solid var(--glass-line)}
+.day header{display:grid;gap:4px;padding:22px 22px 18px}
+.day.d1 header{background:linear-gradient(135deg,#0E4466,#0A3550)}
+.day.d2 header{background:linear-gradient(135deg,#047A62,#035A4A)}
+.day.d3 header{background:linear-gradient(135deg,#02A27A,#03DA9F)}
+.day.d3 header,.day.d3 header small,.day.d3 header span{color:var(--on-lime)}
+.day header span{font:700 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.day header b{font:700 26px/1.1 var(--display)}
+.day header small{font-size:14px;color:rgba(234,238,241,.8)}
+.day ol{list-style:none;margin:0;padding:10px 14px 16px;display:grid;gap:4px}
+.day li{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:start;padding:12px 8px;border-radius:14px;transition:background-color .3s}
+.day li:hover{background:rgba(3,218,159,.08)}
+.m-n{font:700 14px/1.5 var(--display);color:var(--lime)}
+.day li b{display:block;font-size:15px;line-height:1.3}
+.day li small{display:block;margin-top:3px;font-size:13px;line-height:1.4;color:var(--f-ink-2)}
+.day li em{font-style:normal;font-size:12.5px;font-weight:600;white-space:nowrap;padding:4px 8px;border-radius:999px;background:rgba(3,218,159,.12);color:var(--lime)}
+@media (max-width:1068px){.days{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}}
+body.sheet-open{overflow:hidden}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .tilt-inner,.card3d{transform:none!important}
@@ -908,12 +1212,12 @@ input::placeholder{color:rgba(234,238,241,.35)}
 <nav class="gnav" aria-label="Navigation principale">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="BitEye, accueil"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="wm"><b>bit</b>eye</span></a>
+    <span class="chap" id="chap" aria-hidden="true"><b>01</b><span>Le logiciel</span></span>
     <ul>
-      <li><a href="#apercu">VISION Estate</a></li>
-      <li><a href="#chantier">VISION Build</a></li>
-      <li><a href="#cycle">VISION Co-Owner</a></li>
-      <li><a href="#mobile">Mobile et CRM</a></li>
-      <li><a href="#fonctions">Fonctionnalités</a></li>
+      <li><a href="#apercu">Logiciel</a></li>
+      <li class="has-menu"><button type="button" class="menu-btn" aria-expanded="false" aria-controls="svcMenu">Services <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <div class="menu" id="svcMenu"><a href="#logiciel"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span>Logiciel VISION</a><a href="#acces-distant"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span>Accès à distance</a><a href="#infrastructure"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span>Serveur et réseau</a><a href="#securite"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span>Sécurité et sauvegarde</a><a href="#formation"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span>Formation et performance</a></div></li>
+      <li><a href="#confiance">Références</a></li>
       <li><a href="#pourquoi">BitEye</a></li>
     </ul>
     <a class="btn" href="#contact">Demander une démo</a>
@@ -923,7 +1227,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 <main id="top">
 
 <!-- ================= HÉROS 3D ================= -->
-<section class="hero hero3d forest">
+<section class="hero hero3d forest" data-chapter="1">
   <canvas id="city" aria-hidden="true"></canvas>
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="floor-grid" aria-hidden="true"></div>
@@ -947,7 +1251,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= APERÇU ================= -->
-<section class="band forest" id="apercu">
+<section class="band forest" id="apercu" data-chapter="1">
   <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="ticker" id="ticker" hidden>
     <div class="tk-head">
@@ -1011,7 +1315,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
     </div>
   </div>
   <div class="mods">
-    <p class="mods-lbl">Trois modules, une seule plateforme</p>
+    <p class="mods-lbl">Les modules VISION, une seule plateforme</p>
     <div class="mod-marq" id="modMarq">
       <div class="mod-row" id="modRow">
         <article class="mod">
@@ -1026,6 +1330,10 @@ input::placeholder{color:rgba(234,238,241,.35)}
           <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Co-Owner</em></b><small>Gestion de copropriété</small></div></header>
           <ul><li style="--i:0">Tantièmes et répartition</li><li style="--i:1">Appels de charges</li><li style="--i:2">Budget de la copropriété</li><li style="--i:3">Interventions et entretien</li><li style="--i:4">Fiche de chaque résident</li></ul>
         </article>
+        <article class="mod">
+          <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Mobile et CRM</em></b><small>Vos ventes, partout</small></div></header>
+          <ul><li style="--i:0">Application smartphone, tablette et PC</li><li style="--i:1">Leads, rendez-vous et visites</li><li style="--i:2">Appel en un clic depuis la fiche client</li><li style="--i:3">Résumé des appels par l'IA</li><li style="--i:4">Alertes d'échéances et validations</li></ul>
+        </article>
       </div>
     </div>
     <p class="ticker-hint mods-hint" aria-hidden="true"><span>‹</span> Glissez pour parcourir <span>›</span></p>
@@ -1033,7 +1341,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= TROIS MÉTIERS ================= -->
-<section class="band paper" id="metiers">
+<section class="band paper" id="metiers" data-chapter="1">
   <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
@@ -1068,7 +1376,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= REGARDEZ DE PLUS PRÈS ================= -->
-<section class="band forest" id="closer">
+<section class="band forest" id="closer" data-chapter="1">
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">VISION Estate</span>
@@ -1127,14 +1435,14 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= MANIFESTE ================= -->
-<section class="band paper manifesto" id="manifeste">
+<section class="band paper manifesto" id="manifeste" data-chapter="1">
   <div class="wrap">
-    <p class="big-text" data-words>Des centaines d'acquéreurs. Des dizaines de lots. Des milliers de documents. Trois entreprises. <em>Une seule plateforme.</em></p>
+    <p class="big-text" data-words>Des acquéreurs, des chantiers, des résidents. <em>Une seule plateforme.</em></p>
   </div>
 </section>
 
 <!-- ================= CHANTIER 3D ================= -->
-<section class="band forest" id="chantier">
+<section class="band forest" id="chantier" data-chapter="1">
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">VISION Build</span>
@@ -1198,7 +1506,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= CYCLE ================= -->
-<section class="band paper" id="cycle">
+<section class="band paper" id="cycle" data-chapter="1">
   <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
@@ -1227,7 +1535,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= MIEUX ENSEMBLE ================= -->
-<section class="band forest" id="ensemble">
+<section class="band forest" id="ensemble" data-chapter="1">
   <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
@@ -1245,40 +1553,138 @@ input::placeholder{color:rgba(234,238,241,.35)}
   </div>
 </section>
 
-<!-- ================= MOBILE ================= -->
-<section class="band paper" id="mobile">
-  <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
-  <div class="wrap mobile">
-    <div class="phone-stage" id="phoneStage">
-      <div class="phone" id="phone" role="img" aria-label="Maquette de l'application mobile VISION">
-        <div class="scr">
-          <h5>Résidence Les Oliviers</h5>
-          <p class="sub">Bloc A · 120 logements</p>
-          <div class="card ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32"/></svg><div><b style="font:700 26px/1 var(--display)">64 %</b><div class="row"><span>Avancement global</span></div></div></div>
-          <div class="card"><div class="row"><span>Encaissé ce mois</span><b>92,4 M DA</b></div><div class="row"><span>Nouveaux prospects</span><b>18</b></div></div>
-          <div class="card"><div class="row"><span>Convention d'accord · Lot 27</span><b>PDF</b></div><div class="row"><span>Attestation de solde · Lot 12</span><b>PDF</b></div></div>
+<!-- ================= FONCTIONNALITÉS (défilement horizontal) ================= -->
+<section class="band forest" id="fonctions" data-chapter="1">
+  <div class="kinetic" aria-hidden="true">
+    <div class="k-row" data-dir="-1"><span class="">Quantités</span><span class="fill">Échéanciers</span><span class="">Trésorerie</span><span class="fill">Situations</span><span class="">Contrats</span><span class="fill">Copropriété</span><span class="">Quantités</span><span class="fill">Échéanciers</span><span class="">Trésorerie</span><span class="fill">Situations</span><span class="">Contrats</span><span class="fill">Copropriété</span></div>
+    <div class="k-row" data-dir="1"><span class="fill">Promotion</span><span class="">Réalisation</span><span class="fill">CRM</span><span class="">Mobile</span><span class="fill">Documents</span><span class="">Charges</span><span class="fill">Promotion</span><span class="">Réalisation</span><span class="fill">CRM</span><span class="">Mobile</span><span class="fill">Documents</span><span class="">Charges</span></div>
+  </div>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Fonctionnalités</span>
+      <h2 class="h2">Tout ce qu'il faut. <em>Rien de trop.</em></h2>
+      <p class="lead">Huit outils parmi d'autres, chacun montré en mouvement.</p>
+    </div>
+  </div>
+  <div class="h-pin" id="hPin">
+    <div class="h-track" id="hTrack">
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-bars"><rect class="g" x="24" y="28" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.0s" x="92" y="28" width="150" height="10" rx="5"/><rect class="g" x="24" y="56" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.25s" x="92" y="56" width="110" height="10" rx="5"/><rect class="g" x="24" y="84" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.5s" x="92" y="84" width="164" height="10" rx="5"/><rect class="g" x="24" y="112" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.75s" x="92" y="112" width="90" height="10" rx="5"/></g></svg>
+          <small>VISION Build</small><h3>Du métré au budget.</h3><p>Quantités prévisionnelles par lot : béton armé, revêtements, VRD, électricité, plomberie.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-line"><line class="gs" x1="30" y1="80" x2="250" y2="80"/><line class="ms fill" x1="30" y1="80" x2="250" y2="80" pathLength="100"/><circle class="node" style="animation-delay:0.0s" cx="30" cy="80" r="9"/><circle class="node" style="animation-delay:0.45s" cx="85" cy="80" r="9"/><circle class="node" style="animation-delay:0.9s" cx="140" cy="80" r="9"/><circle class="node" style="animation-delay:1.35s" cx="195" cy="80" r="9"/><circle class="node" style="animation-delay:1.8s" cx="250" cy="80" r="9"/></g></svg>
+          <small>VISION Estate</small><h3>Chaque tranche, à sa date.</h3><p>Échéanciers acquéreurs à la date ou à l'avancement, avec relances.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-cols"><rect class="g" x="34" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.0s" x="34" y="34" width="22" height="96" rx="6"/><rect class="g" x="70" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.18s" x="70" y="52" width="22" height="78" rx="6"/><rect class="g" x="106" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.36s" x="106" y="70" width="22" height="60" rx="6"/><rect class="g" x="142" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.54s" x="142" y="42" width="22" height="88" rx="6"/><rect class="g" x="178" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.72s" x="178" y="90" width="22" height="40" rx="6"/><rect class="g" x="214" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="214" y="106" width="22" height="24" rx="6"/><line class="gs" x1="24" y1="134" x2="256" y2="134"/></g></svg>
+          <small>VISION Build</small><h3>L'avancement, lot par lot.</h3><p>Situations de travaux et attachements suivis depuis le chantier.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-chart"><path class="area" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52 L260 140 L20 140Z"/><path class="ms draw" pathLength="100" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52"/><circle class="m pulse" cx="260" cy="52" r="6"/></g></svg>
+          <small>VISION Estate</small><h3>La trésorerie, en direct.</h3><p>Encaissements, décaissements et caisses de chaque projet.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-check"><rect class="box" x="40" y="26" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.0s" pathLength="100" d="M46 38 l5 5 9-10"/><rect class="g" x="78" y="33" width="140" height="10" rx="5"/><rect class="box" x="40" y="66" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.6s" pathLength="100" d="M46 78 l5 5 9-10"/><rect class="g" x="78" y="73" width="110" height="10" rx="5"/><rect class="box" x="40" y="106" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:1.2s" pathLength="100" d="M46 118 l5 5 9-10"/><rect class="g" x="78" y="113" width="160" height="10" rx="5"/></g></svg>
+          <small>VISION Estate</small><h3>Les démarches, cochées.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque dossier a son statut.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-funnel"><path class="gs" d="M70 30 H210 L160 90 V128 H120 V90 Z"/><circle class="drop" style="animation-delay:0.0s" cx="100" cy="14" r="6"/><circle class="drop" style="animation-delay:0.5s" cx="120" cy="14" r="6"/><circle class="drop" style="animation-delay:1.0s" cx="140" cy="14" r="6"/><circle class="drop" style="animation-delay:1.5s" cx="160" cy="14" r="6"/><circle class="m out" cx="140" cy="140" r="7"/></g></svg>
+          <small>CRM</small><h3>Aucun prospect perdu.</h3><p>Les contacts du site et de Meta arrivent directement dans le CRM.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-doc"><rect class="page" x="90" y="14" width="100" height="132" rx="10"/><rect class="m v" style="animation-delay:0.0s" x="104" y="34" width="72" height="6" rx="3"/><rect class="m v" style="animation-delay:0.3s" x="104" y="50" width="60" height="6" rx="3"/><rect class="m v" style="animation-delay:0.6s" x="104" y="66" width="70" height="6" rx="3"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="104" y="82" width="48" height="6" rx="3"/><rect class="m v" style="animation-delay:1.2s" x="104" y="98" width="66" height="6" rx="3"/><path class="ms sign" pathLength="100" d="M108 128 c8-14 14 6 22-4 s10-8 16 2 s12-6 20-2"/></g></svg>
+          <small>Documents</small><h3>Les contrats, en un clic.</h3><p>Conventions, attestations et appels de fonds générés depuis le dossier.</p>
+        </article>
+        <article class="feat-card">
+          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-donut"><g class="spin"><circle class="seg s1" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s2" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s3" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s4" cx="140" cy="80" r="50" pathLength="100"/></g><circle class="m core" cx="140" cy="80" r="14"/></g></svg>
+          <small>VISION Co-Owner</small><h3>Des charges bien réparties.</h3><p>Tantièmes, appels de charges et budget de chaque copropriété.</p>
+        </article>
+    </div>
+    <div class="wrap"><div class="h-progress" aria-hidden="true"><i id="hBar"></i></div></div>
+  </div>
+</section>
+
+<!-- ================= SERVICES : PARCOURS ================= -->
+<section class="band paper" id="parcours" data-chapter="2">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Chapitre 02 · Les services</span>
+      <h2 class="h2">Du premier rendez-vous <em>à la première vente.</em></h2>
+      <p class="lead">BitEye installe, sécurise et forme. Un seul interlocuteur, du début à la fin.</p>
+    </div>
+    <div class="journey" id="journey">
+      <span class="j-track" aria-hidden="true"><i class="j-fill"></i><i class="j-dot"></i></span>
+      <ol>
+        <li style="--i:0"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/></svg><i>1</i></span><b>Audit</b><p>Vos besoins, vos équipes et votre parc informatique, analysés.</p><a href="#contact" class="j-link">Nous contacter ›</a></li>
+        <li style="--i:1"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg><i>2</i></span><b>Serveur et réseau</b><p>Un serveur et un réseau dimensionnés pour vos utilisateurs.</p><a href="#infrastructure" class="j-link">Voir la fiche ›</a></li>
+        <li style="--i:2"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg><i>3</i></span><b>Installation et accès à distance</b><p>VISION accessible au bureau, sur le chantier ou chez vous.</p><a href="#acces-distant" class="j-link">Voir la fiche ›</a></li>
+        <li style="--i:3"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg><i>4</i></span><b>Sécurité et sauvegarde</b><p>Vos données protégées et sauvegardées automatiquement.</p><a href="#securite" class="j-link">Voir la fiche ›</a></li>
+        <li style="--i:4"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg><i>5</i></span><b>Formation au logiciel</b><p>Vos équipes prennent VISION en main sur leurs projets.</p><a href="#logiciel" class="j-link">Voir la fiche ›</a></li>
+        <li style="--i:5"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 19h16M6 15l4-4 3 3 5-6"/><path d="M15 8h3v3"/></svg><i>6</i></span><b>Formation commerciale</b><p>Vos commerciaux transforment les prospects en ventes.</p><a href="#formation" class="j-link">Voir la fiche ›</a></li>
+        <li style="--i:6"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0116 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg><i>7</i></span><b>Suivi</b><p>Mises à jour, support à Alger, accompagnement dans la durée.</p><a href="#logiciel" class="j-link">Voir la fiche ›</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES : COUCHES ================= -->
+<section class="band forest" id="couches" data-chapter="2">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Une offre complète</span>
+      <h2 class="h2">Tout ce qu'il faut <em>autour de VISION.</em></h2>
+      <p class="lead">Cinq couches, un seul partenaire. Chacune a sa fiche détaillée.</p>
+    </div>
+    <div class="couches" id="couchesGrid">
+      <div class="stack" aria-hidden="true">
+        <div class="stack-in" id="stackIn">
+            <div class="plate2 p-formation" style="--i:4"><span class="pl-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span><span class="pl-lbl">L’équipe</span></div>
+            <div class="plate2 p-logiciel" style="--i:3"><span class="pl-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span><span class="pl-lbl">Le logiciel</span></div>
+            <div class="plate2 p-acces-distant" style="--i:2"><span class="pl-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span><span class="pl-lbl">L’accès à distance</span></div>
+            <div class="plate2 p-infrastructure" style="--i:1"><span class="pl-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span><span class="pl-lbl">Le serveur et le réseau</span></div>
+            <div class="plate2 p-securite" style="--i:0"><span class="pl-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span><span class="pl-lbl">La sécurité</span></div>
         </div>
       </div>
-      <div class="notif n1" data-pop><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>Paiement reçu</b><small>Lot 12 · 1 200 000 DA</small></span></div>
-      <div class="notif n2" data-pop><span class="ic"><svg viewBox="0 0 16 16"><circle cx="8" cy="6" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 14c1-3 3-4 5.5-4s4.5 1 5.5 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><b>Nouveau prospect</b><small>Via Meta · F3, Bloc B</small></span></div>
-      <div class="notif n3" data-pop><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span><b>Document signé</b><small>Convention d'accord · Lot 27</small></span></div>
+      <ol class="layer-list" id="layerList">
+          <li data-i="0"><span class="ll-n">01</span><div><small>L’équipe</small><b>Formation et performance commerciale</b><p>Des commerciaux formés qui transforment les prospects en ventes.</p><a href="#formation" class="ll-link">Découvrir ›</a></div></li>
+          <li data-i="1"><span class="ll-n">02</span><div><small>Le logiciel</small><b>VISION Workspace</b><p>Promotion, réalisation, copropriété, stocks, fiscalité, RH et CRM.</p><a href="#logiciel" class="ll-link">Découvrir ›</a></div></li>
+          <li data-i="2"><span class="ll-n">03</span><div><small>L’accès à distance</small><b>Travaillez de partout</b><p>VISION depuis le chantier ou la maison, en connexion chiffrée.</p><a href="#acces-distant" class="ll-link">Découvrir ›</a></div></li>
+          <li data-i="3"><span class="ll-n">04</span><div><small>Le serveur et le réseau</small><b>Une infrastructure dimensionnée</b><p>Serveur, réseau et Wi-Fi adaptés à votre nombre d’utilisateurs.</p><a href="#infrastructure" class="ll-link">Découvrir ›</a></div></li>
+          <li data-i="4"><span class="ll-n">05</span><div><small>La sécurité</small><b>Des données protégées</b><p>Antivirus, pare-feu, VPN et sauvegardes automatiques.</p><a href="#securite" class="ll-link">Découvrir ›</a></div></li>
+      </ol>
     </div>
-    <div>
-      <div class="head" style="margin-bottom:44px">
-        <span class="eyebrow">VISION Mobile et CRM</span>
-        <h2 class="h2" data-reveal>Votre projet, <em>dans la poche.</em></h2>
+  </div>
+</section>
+
+<!-- ================= SERVICES : BESOIN ================= -->
+<section class="band paper" id="besoin" data-chapter="2">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Par où commencer</span>
+      <h2 class="h2">Quel est <em>votre besoin ?</em></h2>
+    </div>
+    <div class="need" id="need">
+      <div class="need-btns" role="group" aria-label="Choisissez votre besoin">
+        <button type="button" data-need="equiper" data-svc="infrastructure securite logiciel" data-msg="Un serveur dimensionné, un réseau propre et des données protégées, avec VISION installé." aria-pressed="false">Équiper mon entreprise</button>
+        <button type="button" data-need="distance" data-svc="acces-distant securite" data-msg="Vos équipes ouvrent VISION depuis le chantier ou la maison, en toute sécurité." aria-pressed="false">Travailler à distance</button>
+        <button type="button" data-need="vendre" data-svc="formation logiciel" data-msg="Des commerciaux formés et un CRM qui suit chaque prospect jusqu’à la vente." aria-pressed="false">Vendre plus</button>
+        <button type="button" data-need="tout" data-svc="logiciel acces-distant infrastructure securite formation" data-msg="De l’audit au suivi : BitEye prend en charge l’ensemble." aria-pressed="true" class="on">Tout mettre en place</button>
       </div>
-      <div class="feats">
-        <div data-reveal><span class="ic"><svg viewBox="0 0 20 20"><path d="M3 17h14M5 17V9l5-4 5 4v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><h3>Le chantier, partout.</h3><p>Avancement, transactions et documents, sur votre téléphone.</p></div>
-        <div data-reveal><span class="ic"><svg viewBox="0 0 20 20"><path d="M3 4h14v9H8l-4 3v-3H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><h3>Aucun prospect perdu.</h3><p>Les contacts du site et de Meta arrivent directement dans le CRM.</p></div>
-        <div data-reveal><span class="ic"><svg viewBox="0 0 20 20"><path d="M10 2l1.8 4.6L16.5 8l-4.7 1.6L10 14l-1.8-4.4L3.5 8l4.7-1.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><h3>L'IA qui appelle.</h3><p>Un agent IA qualifie vos prospects par appel automatique.</p></div>
+      <p class="need-msg" id="needMsg" aria-live="polite">De l’audit au suivi : BitEye prend en charge l’ensemble.</p>
+      <div class="need-tiles">
+        <a class="nt on" href="#logiciel" data-svc="logiciel"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span><b>Logiciel VISION</b><span class="nt-go">Voir la fiche ›</span></a>
+        <a class="nt on" href="#acces-distant" data-svc="acces-distant"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span><b>Accès à distance</b><span class="nt-go">Voir la fiche ›</span></a>
+        <a class="nt on" href="#infrastructure" data-svc="infrastructure"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span><b>Serveur et réseau</b><span class="nt-go">Voir la fiche ›</span></a>
+        <a class="nt on" href="#securite" data-svc="securite"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span><b>Sécurité et sauvegarde</b><span class="nt-go">Voir la fiche ›</span></a>
+        <a class="nt on" href="#formation" data-svc="formation"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span><b>Formation et performance</b><span class="nt-go">Voir la fiche ›</span></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= CHIFFRES ================= -->
-<section class="band forest" id="confiance">
+<section class="band forest" id="confiance" data-chapter="3">
   <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
@@ -1499,7 +1905,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 <!-- ================= POURQUOI ================= -->
-<section class="band paper" id="pourquoi">
+<section class="band paper" id="pourquoi" data-chapter="3">
   <div class="deco v2" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="wrap">
     <div class="head center">
@@ -1521,60 +1927,8 @@ input::placeholder{color:rgba(234,238,241,.35)}
   </div>
 </section>
 
-<!-- ================= FONCTIONNALITÉS (défilement horizontal) ================= -->
-<section class="band forest" id="fonctions">
-  <div class="kinetic" aria-hidden="true">
-    <div class="k-row" data-dir="-1"><span class="">Quantités</span><span class="fill">Échéanciers</span><span class="">Trésorerie</span><span class="fill">Situations</span><span class="">Contrats</span><span class="fill">Copropriété</span><span class="">Quantités</span><span class="fill">Échéanciers</span><span class="">Trésorerie</span><span class="fill">Situations</span><span class="">Contrats</span><span class="fill">Copropriété</span></div>
-    <div class="k-row" data-dir="1"><span class="fill">Promotion</span><span class="">Réalisation</span><span class="fill">CRM</span><span class="">Mobile</span><span class="fill">Documents</span><span class="">Charges</span><span class="fill">Promotion</span><span class="">Réalisation</span><span class="fill">CRM</span><span class="">Mobile</span><span class="fill">Documents</span><span class="">Charges</span></div>
-  </div>
-  <div class="wrap">
-    <div class="head">
-      <span class="eyebrow">Fonctionnalités</span>
-      <h2 class="h2">Tout ce qu'il faut. <em>Rien de trop.</em></h2>
-      <p class="lead">Huit outils parmi d'autres, chacun montré en mouvement.</p>
-    </div>
-  </div>
-  <div class="h-pin" id="hPin">
-    <div class="h-track" id="hTrack">
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-bars"><rect class="g" x="24" y="28" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.0s" x="92" y="28" width="150" height="10" rx="5"/><rect class="g" x="24" y="56" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.25s" x="92" y="56" width="110" height="10" rx="5"/><rect class="g" x="24" y="84" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.5s" x="92" y="84" width="164" height="10" rx="5"/><rect class="g" x="24" y="112" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.75s" x="92" y="112" width="90" height="10" rx="5"/></g></svg>
-          <small>VISION Build</small><h3>Du métré au budget.</h3><p>Quantités prévisionnelles par lot : béton armé, revêtements, VRD, électricité, plomberie.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-line"><line class="gs" x1="30" y1="80" x2="250" y2="80"/><line class="ms fill" x1="30" y1="80" x2="250" y2="80" pathLength="100"/><circle class="node" style="animation-delay:0.0s" cx="30" cy="80" r="9"/><circle class="node" style="animation-delay:0.45s" cx="85" cy="80" r="9"/><circle class="node" style="animation-delay:0.9s" cx="140" cy="80" r="9"/><circle class="node" style="animation-delay:1.35s" cx="195" cy="80" r="9"/><circle class="node" style="animation-delay:1.8s" cx="250" cy="80" r="9"/></g></svg>
-          <small>VISION Estate</small><h3>Chaque tranche, à sa date.</h3><p>Échéanciers acquéreurs à la date ou à l'avancement, avec relances.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-cols"><rect class="g" x="34" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.0s" x="34" y="34" width="22" height="96" rx="6"/><rect class="g" x="70" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.18s" x="70" y="52" width="22" height="78" rx="6"/><rect class="g" x="106" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.36s" x="106" y="70" width="22" height="60" rx="6"/><rect class="g" x="142" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.54s" x="142" y="42" width="22" height="88" rx="6"/><rect class="g" x="178" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.72s" x="178" y="90" width="22" height="40" rx="6"/><rect class="g" x="214" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="214" y="106" width="22" height="24" rx="6"/><line class="gs" x1="24" y1="134" x2="256" y2="134"/></g></svg>
-          <small>VISION Build</small><h3>L'avancement, lot par lot.</h3><p>Situations de travaux et attachements suivis depuis le chantier.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-chart"><path class="area" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52 L260 140 L20 140Z"/><path class="ms draw" pathLength="100" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52"/><circle class="m pulse" cx="260" cy="52" r="6"/></g></svg>
-          <small>VISION Estate</small><h3>La trésorerie, en direct.</h3><p>Encaissements, décaissements et caisses de chaque projet.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-check"><rect class="box" x="40" y="26" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.0s" pathLength="100" d="M46 38 l5 5 9-10"/><rect class="g" x="78" y="33" width="140" height="10" rx="5"/><rect class="box" x="40" y="66" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.6s" pathLength="100" d="M46 78 l5 5 9-10"/><rect class="g" x="78" y="73" width="110" height="10" rx="5"/><rect class="box" x="40" y="106" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:1.2s" pathLength="100" d="M46 118 l5 5 9-10"/><rect class="g" x="78" y="113" width="160" height="10" rx="5"/></g></svg>
-          <small>VISION Estate</small><h3>Les démarches, cochées.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque dossier a son statut.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-funnel"><path class="gs" d="M70 30 H210 L160 90 V128 H120 V90 Z"/><circle class="drop" style="animation-delay:0.0s" cx="100" cy="14" r="6"/><circle class="drop" style="animation-delay:0.5s" cx="120" cy="14" r="6"/><circle class="drop" style="animation-delay:1.0s" cx="140" cy="14" r="6"/><circle class="drop" style="animation-delay:1.5s" cx="160" cy="14" r="6"/><circle class="m out" cx="140" cy="140" r="7"/></g></svg>
-          <small>CRM</small><h3>Aucun prospect perdu.</h3><p>Les contacts du site et de Meta arrivent directement dans le CRM.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-doc"><rect class="page" x="90" y="14" width="100" height="132" rx="10"/><rect class="m v" style="animation-delay:0.0s" x="104" y="34" width="72" height="6" rx="3"/><rect class="m v" style="animation-delay:0.3s" x="104" y="50" width="60" height="6" rx="3"/><rect class="m v" style="animation-delay:0.6s" x="104" y="66" width="70" height="6" rx="3"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="104" y="82" width="48" height="6" rx="3"/><rect class="m v" style="animation-delay:1.2s" x="104" y="98" width="66" height="6" rx="3"/><path class="ms sign" pathLength="100" d="M108 128 c8-14 14 6 22-4 s10-8 16 2 s12-6 20-2"/></g></svg>
-          <small>Documents</small><h3>Les contrats, en un clic.</h3><p>Conventions, attestations et appels de fonds générés depuis le dossier.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-donut"><g class="spin"><circle class="seg s1" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s2" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s3" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s4" cx="140" cy="80" r="50" pathLength="100"/></g><circle class="m core" cx="140" cy="80" r="14"/></g></svg>
-          <small>VISION Co-Owner</small><h3>Des charges bien réparties.</h3><p>Tantièmes, appels de charges et budget de chaque copropriété.</p>
-        </article>
-    </div>
-    <div class="wrap"><div class="h-progress" aria-hidden="true"><i id="hBar"></i></div></div>
-  </div>
-</section>
-
 <!-- ================= CONTACT ================= -->
-<section class="band forest" id="contact" style="overflow:hidden">
+<section class="band forest" id="contact" data-chapter="3" style="overflow:hidden">
   <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
   <div class="contact-glow" aria-hidden="true"></div>
   <svg class="eye contact-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg>
@@ -1619,6 +1973,142 @@ input::placeholder{color:rgba(234,238,241,.35)}
 </section>
 
 </main>
+
+<div class="sheet-bg" id="sheetBg" hidden></div>
+<section class="sheet" id="logiciel" role="dialog" aria-modal="true" aria-labelledby="logiciel-t" tabindex="-1" hidden data-lenis-prevent>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel" class="on" aria-current="page">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-hero"><div class="wrap sh-hero-in">
+    <div class="sh-copy"><span class="eyebrow">Le logiciel</span><h2 class="h2 no-split" id="logiciel-t">Un logiciel. <em>Tous vos métiers.</em></h2><p class="s-lead">Choisissez les modules dont vous avez besoin aujourd’hui, ajoutez les autres demain. Tout se parle dans VISION.</p></div>
+    <div class="sh-art" aria-hidden="true"><div class="bricks-art"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i></div></div>
+  </div></div>
+  <div class="s-block"><div class="wrap">
+    <div class="brick-grid">
+      <article class="brick core" style="--i:0"><small>Commercial et juridique</small><h3>VISION Estate</h3><ul class="ticks"><li>Lots, pré-réservations et dossiers de réservation</li><li>Paiements : échéances, crédits bancaires, autofinancement, travaux supplémentaires</li><li>Alertes avancées</li><li>Documents commerciaux générés automatiquement</li><li>Dossiers administratifs des acquéreurs</li></ul></article>
+      <article class="brick core" style="--i:1"><small>Technique et finances</small><h3>VISION Estate</h3><ul class="ticks"><li>Contrats, avenants, attachements et décomptes des sous-traitants</li><li>Situations et factures</li><li>Caisses et comptes bancaires, rapprochement automatique</li></ul></article>
+      <article class="brick core" style="--i:2"><small>Entreprise de réalisation</small><h3>VISION Build</h3><ul class="ticks"><li>Clients, partenaires, bons de commande, contrats et avenants</li><li>Situations d’avance, de travaux et libération des retenues de garantie</li><li>Attachements qui génèrent situations et décomptes</li><li>Documents administratifs et techniques</li></ul></article>
+      <article class="brick core" style="--i:3"><small>Gestion de copropriété</small><h3>VISION Co-Owner</h3><ul class="ticks"><li>Tantièmes et répartition</li><li>Appels de charges</li><li>Budget de la copropriété</li><li>Interventions et entretien</li><li>Fiche de chaque résident</li></ul></article>
+      <article class="brick " style="--i:4"><small>Achats et entrepôts</small><h3>Stocks</h3><ul class="ticks"><li>Bons de commande, de livraison et d’avoir</li><li>Entrepôts, mouvements et inventaires</li><li>Reporting</li></ul></article>
+      <article class="brick " style="--i:5"><small>Calcul et simulation</small><h3>Fiscalité</h3><ul class="ticks"><li>Paiements fiscaux : impôt sur les bénéfices et taxes</li><li>Répartition des coûts des biens</li><li>Bénéfice fiscal et bénéfice réel</li></ul></article>
+      <article class="brick " style="--i:6"><small>Équipes et paie</small><h3>Ressources humaines</h3><ul class="ticks"><li>Pointage des employés</li><li>Salaires et honoraires</li><li>Reporting</li></ul></article>
+      <article class="brick " style="--i:7"><small>Relation client</small><h3>CRM</h3><ul class="ticks"><li>Leads et clients potentiels</li><li>Suivi des ventes par projet</li><li>Rendez-vous et visites</li><li>Équipe commerciale et tableaux de bord</li></ul></article>
+      <article class="brick " style="--i:8"><small>Téléphonie intégrée</small><h3>PhoneLink</h3><ul class="ticks"><li>Appel en un clic depuis la fiche client</li><li>Téléphone virtuel affiché à l’écran</li><li>Journal des appels automatique</li><li>Résumé des conversations par l’IA</li></ul></article>
+      <article class="brick " style="--i:9"><small>Smartphone, tablette, PC</small><h3>Application mobile</h3><ul class="ticks"><li>Projets, lots et avancement</li><li>Catalogue des lots en temps réel</li><li>Circuit de validation</li><li>Échéances avec alertes de retard</li><li>Encaissements, dépenses et tableau de bord</li></ul></article>
+    </div>
+    <div class="s-band"><span>Licence à vie</span><span>Mises à jour installées périodiquement</span><span>Achat module par module ou solution complète</span><span>Installation et formation à la prise en main</span></div>
+  </div></div>
+  <div class="sh-end"><div class="wrap">
+    <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="sh-next" href="#acces-distant">Fiche suivante : <b>Accès à distance</b> ›</a>
+  </div></div>
+</section>
+<section class="sheet" id="acces-distant" role="dialog" aria-modal="true" aria-labelledby="acces-distant-t" tabindex="-1" hidden data-lenis-prevent>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant" class="on" aria-current="page">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-hero"><div class="wrap sh-hero-in">
+    <div class="sh-copy"><span class="eyebrow">Accès à distance</span><h2 class="h2 no-split" id="acces-distant-t">Votre bureau, <em>partout.</em></h2><p class="s-lead">Le chantier, l’agence, la maison : vos équipes travaillent dans VISION comme si elles étaient au siège.</p></div>
+    <div class="sh-art" aria-hidden="true"><svg class="net-art" viewBox="0 0 360 260"><g class="links"><path d="M180 130 L60 60"/><path d="M180 130 L300 60"/><path d="M180 130 L180 225"/></g>
+<g class="packets"><circle r="4" class="pk"><animateMotion dur="2.2s" repeatCount="indefinite" path="M60 60 L180 130"/></circle><circle r="4" class="pk"><animateMotion dur="2.2s" begin=".7s" repeatCount="indefinite" path="M300 60 L180 130"/></circle><circle r="4" class="pk"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M180 225 L180 130"/></circle></g>
+<g class="hub"><circle cx="180" cy="130" r="40" class="hub-c"/><rect x="166" y="126" width="28" height="22" rx="4" class="lock-b"/><path d="M171 126v-7a9 9 0 0118 0v7" class="lock-s"/></g>
+<g class="ep"><circle cx="60" cy="60" r="26"/><path d="M48 66h24M51 66V54l9-6 9 6v12"/><text x="60" y="104">Bureau</text></g>
+<g class="ep"><circle cx="300" cy="60" r="26"/><path d="M290 70V50M290 50h22M308 50v6M286 70h18"/><text x="300" y="104">Chantier</text></g>
+<g class="ep"><circle cx="180" cy="225" r="26"/><path d="M168 231h24M171 231v-9l9-7 9 7v9"/><text x="180" y="258">Domicile</text></g></svg></div>
+  </div></div>
+  <div class="s-block"><div class="wrap"><div class="card-grid c4"><article class="s-card" style="--i:0"><b>Comme au bureau</b><p>VISION s’ouvre comme une application installée sur le poste, depuis n’importe où (technologie RemoteApp).</p></article><article class="s-card" style="--i:1"><b>Connexion chiffrée</b><p>Un certificat SSL protège chaque connexion entre vos utilisateurs et le serveur.</p></article><article class="s-card" style="--i:2"><b>Jusqu’à 50 accès simultanés</b><p>Des licences d’accès perpétuelles pour connecter toutes vos équipes en même temps.</p></article><article class="s-card" style="--i:3"><b>Mise en service complète</b><p>Configuration du serveur et de l’accès à distance, hébergement de l’accès sécurisé inclus la première année.</p></article></div><ol class="s-steps"><li style="--i:0"><span>1</span>Configuration du serveur</li><li style="--i:1"><span>2</span>Ouverture de l’accès sécurisé</li><li style="--i:2"><span>3</span>Installation des postes</li><li style="--i:3"><span>4</span>Connexion des utilisateurs</li></ol></div></div>
+  <div class="sh-end"><div class="wrap">
+    <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="sh-next" href="#infrastructure">Fiche suivante : <b>Serveur et réseau</b> ›</a>
+  </div></div>
+</section>
+<section class="sheet" id="infrastructure" role="dialog" aria-modal="true" aria-labelledby="infrastructure-t" tabindex="-1" hidden data-lenis-prevent>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure" class="on" aria-current="page">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-hero"><div class="wrap sh-hero-in">
+    <div class="sh-copy"><span class="eyebrow">Serveur et réseau</span><h2 class="h2 no-split" id="infrastructure-t">Le bon serveur. <em>Pour votre équipe.</em></h2><p class="s-lead">Chaque serveur est dimensionné selon le nombre de personnes qui travaillent dans VISION. Dites-nous combien vous êtes.</p></div>
+    <div class="sh-art" aria-hidden="true"><div class="rack"><i style="--i:0"><b></b><b></b><b></b></i><i style="--i:1"><b></b><b></b><b></b></i><i style="--i:2"><b></b><b></b><b></b></i><i style="--i:3"><b></b><b></b><b></b></i><i style="--i:4"><b></b><b></b><b></b></i><i style="--i:5"><b></b><b></b><b></b></i></div></div>
+  </div></div>
+  <div class="s-block"><div class="wrap">
+    <div class="configurator" id="configurator">
+      <label class="cfg-q" for="cfgUsers">Combien d’utilisateurs travailleront dans VISION ?</label>
+      <div class="cfg-slider"><input type="range" id="cfgUsers" min="1" max="50" value="15" aria-describedby="cfgOut"><output id="cfgOut" for="cfgUsers"><b>15</b> utilisateurs</output></div>
+      <div class="cfg-grid">
+        <article class="cfg" data-f="essentiel" data-max="10" data-cores="10" data-ram="16" data-disk="1" data-ups="1000">
+          <header><b>Essentiel</b><small>≤ 10 utilisateurs</small></header>
+          <div class="meters">
+            <div><span>Puissance</span><b>10 cœurs</b><i style="--v:0.714"></i></div>
+            <div><span>Mémoire</span><b>16 Go</b><i style="--v:0.250"></i></div>
+            <div><span>Onduleur</span><b>1 000 VA</b><i style="--v:0.500"></i></div>
+          </div>
+          <p class="cfg-use">1 module · petite structure</p>
+        </article>
+        <article class="cfg" data-f="standard" data-max="25" data-cores="12" data-ram="32" data-disk="2" data-ups="1500">
+          <header><b>Standard</b><em>Recommandée</em><small>≤ 25 utilisateurs</small></header>
+          <div class="meters">
+            <div><span>Puissance</span><b>12 cœurs</b><i style="--v:0.857"></i></div>
+            <div><span>Mémoire</span><b>32 Go</b><i style="--v:0.500"></i></div>
+            <div><span>Onduleur</span><b>1 500 VA</b><i style="--v:0.750"></i></div>
+          </div>
+          <p class="cfg-use">2 à 3 modules · structure moyenne</p>
+        </article>
+        <article class="cfg" data-f="avancee" data-max="50" data-cores="14" data-ram="64" data-disk="2" data-ups="2000">
+          <header><b>Avancée</b><small>≤ 50 utilisateurs</small></header>
+          <div class="meters">
+            <div><span>Puissance</span><b>14 cœurs</b><i style="--v:1.000"></i></div>
+            <div><span>Mémoire</span><b>64 Go</b><i style="--v:1.000"></i></div>
+            <div><span>Onduleur</span><b>2 000 VA</b><i style="--v:1.000"></i></div>
+          </div>
+          <p class="cfg-use">Tous modules · grande structure</p>
+        </article>
+      </div>
+      <details class="cmp-box"><summary>Comparer les 3 formules en détail</summary><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Composant</th><th scope="col">Essentiel<small>≤ 10 utilisateurs</small></th><th scope="col">Standard ★<small>≤ 25 utilisateurs</small></th><th scope="col">Avancée<small>≤ 50 utilisateurs</small></th></tr></thead><tbody><tr><th scope="row">Modèle</th><td>Dell Precision T5810 ou équivalent</td><td class="hl">Dell Precision T5810 ou équivalent</td><td>Dell Precision T5810 / T7810 ou équivalent</td></tr><tr><th scope="row">Processeur</th><td>Intel Xeon E5-2630 v4 · 10 cœurs · 2,2 GHz</td><td class="hl">Intel Xeon E5-2673 v3 · 12 cœurs · 2,4 GHz</td><td>Intel Xeon E5-2690 v4 · 14 cœurs · 2,6 GHz</td></tr><tr><th scope="row">Mémoire</th><td>16 Go DDR4 ECC</td><td class="hl">32 Go DDR4 ECC</td><td>64 Go DDR4 ECC</td></tr><tr><th scope="row">Disque système</th><td>SSD 512 Go</td><td class="hl">SSD 1 To</td><td>SSD 1 To</td></tr><tr><th scope="row">Disque données</th><td>HDD 1 To</td><td class="hl">HDD 2 To</td><td>2 × HDD 2 To RAID 1</td></tr><tr><th scope="row">Accès distant</th><td>Pack 50 CAL RDP</td><td class="hl">Pack 50 CAL RDP</td><td>Pack 50 CAL RDP</td></tr><tr><th scope="row">Antivirus</th><td>Kaspersky Small Office Security</td><td class="hl">Kaspersky Endpoint Security for Business</td><td>Kaspersky Endpoint Security for Business</td></tr><tr><th scope="row">Onduleur</th><td>1 000 VA min.</td><td class="hl">1 500 VA min.</td><td>2 000 VA min.</td></tr><tr><th scope="row">Réseau</th><td>Switch Gigabit 8 ports</td><td class="hl">Switch Gigabit 16 ports</td><td>Switch Gigabit 24 ports</td></tr><tr><th scope="row">Usage cible</th><td>1 module · petite structure</td><td class="hl">2 à 3 modules · structure moyenne</td><td>Tous modules · grande structure</td></tr></tbody></table></div></details>
+    </div>
+    <h3 class="s-h3">Un réseau clé en main</h3>
+    <div class="chip-grid"><span style="--i:0">Switch Gigabit rackable</span><span style="--i:1">Câble réseau certifié Cat6</span><span style="--i:2">Prises réseau RJ45</span><span style="--i:3">Panneau de brassage</span><span style="--i:4">Cordons de brassage et d’utilisation</span><span style="--i:5">Onduleur rackable</span><span style="--i:6">Guide-câbles et bandeau d’alimentation</span><span style="--i:7">Point d’accès Wi-Fi plafonnier Gigabit (PoE)</span><span style="--i:8">Licence Windows Server 2019 Standard</span><span style="--i:9">Installation et mise en service</span></div>
+  </div></div>
+  <div class="sh-end"><div class="wrap">
+    <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="sh-next" href="#securite">Fiche suivante : <b>Sécurité et sauvegarde</b> ›</a>
+  </div></div>
+</section>
+<section class="sheet" id="securite" role="dialog" aria-modal="true" aria-labelledby="securite-t" tabindex="-1" hidden data-lenis-prevent>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite" class="on" aria-current="page">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-hero"><div class="wrap sh-hero-in">
+    <div class="sh-copy"><span class="eyebrow">Sécurité et sauvegarde</span><h2 class="h2 no-split" id="securite-t">Vos données. <em>À l’abri.</em></h2><p class="s-lead">Des années de ventes, de contrats et de chantiers dans VISION. Nous les protégeons et les sauvegardons, automatiquement.</p></div>
+    <div class="sh-art" aria-hidden="true"><svg class="shield-art" viewBox="0 0 300 260"><circle class="ring r1" cx="150" cy="130" r="92"/><circle class="ring r2" cx="150" cy="130" r="118"/>
+<g class="threats"><circle r="6" style="--a:0deg;--d:0s"/><circle r="6" style="--a:120deg;--d:.9s"/><circle r="6" style="--a:240deg;--d:1.8s"/><circle r="6" style="--a:60deg;--d:2.7s"/><circle r="6" style="--a:180deg;--d:1.3s"/></g>
+<path class="sh-body" d="M150 52l62 25v46c0 38-26 68-62 80-36-12-62-42-62-80V77z"/><path class="sh-tick" pathLength="100" d="M124 130l18 18 34-36"/></svg></div>
+  </div></div>
+  <div class="s-block"><div class="wrap">
+    <div class="card-grid c2">
+      <article class="s-card big" style="--i:0"><span class="sc-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span><b>Protection</b><ul class="ticks"><li>Kaspersky Endpoint Security sur le serveur et chaque poste</li><li>Pare-feu configuré pour contrôler le trafic entrant et sortant</li><li>Protection en temps réel contre les malwares, ransomwares et intrusions</li><li>Mises à jour automatiques des signatures et des correctifs</li></ul></article>
+      <article class="s-card big" style="--i:1"><span class="sc-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span><b>Sauvegarde</b><ul class="ticks"><li>NAS Synology dédié, séparé du serveur et du réseau local</li><li>Sauvegarde externe, hors serveur</li><li>Tunnel VPN sécurisé pour les accès distants</li><li>Vérification régulière de l’intégrité des sauvegardes</li></ul></article>
+    </div>
+    <h3 class="s-h3">Un rythme qui ne s’arrête jamais</h3>
+    <ol class="rhythm"><li style="--i:0"><b>Temps réel</b><span>Protection continue</span></li><li style="--i:1"><b>Chaque jour</b><span>Sauvegarde automatique</span></li><li style="--i:2"><b>Chaque semaine</b><span>Sauvegarde avec rotation, contrôle des journaux et des mises à jour</span></li><li style="--i:3"><b>Chaque trimestre</b><span>Audit interne</span></li></ol>
+  </div></div>
+  <div class="sh-end"><div class="wrap">
+    <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="sh-next" href="#formation">Fiche suivante : <b>Formation et performance</b> ›</a>
+  </div></div>
+</section>
+<section class="sheet" id="formation" role="dialog" aria-modal="true" aria-labelledby="formation-t" tabindex="-1" hidden data-lenis-prevent>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation" class="on" aria-current="page">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-hero"><div class="wrap sh-hero-in">
+    <div class="sh-copy"><span class="eyebrow">Formation et performance commerciale</span><h2 class="h2 no-split" id="formation-t">Des commerciaux <em>qui convertissent.</em></h2><p class="s-lead">Un bon outil ne suffit pas : l’humain reste au cœur de la vente. Trois jours pour comprendre l’acheteur, conduire la vente et transformer les opportunités en signatures.</p></div>
+    <div class="sh-art" aria-hidden="true"><div class="funnel"><div style="--i:0;--w:100%"><span>Prospects</span></div><div style="--i:1;--w:78%"><span>Rendez-vous</span></div><div style="--i:2;--w:58%"><span>Visites</span></div><div style="--i:3;--w:40%"><span>Ventes</span></div><i class="fd"></i><i class="fd"></i><i class="fd"></i></div></div>
+  </div></div>
+  <div class="s-block"><div class="wrap">
+    <div class="kpi-row"><div><b>3</b><span>jours</span></div><div><b>18 h</b><span>de formation</span></div><div><b>10</b><span>modules</span></div><div><b>80 %</b><span>de pratique</span></div></div>
+    <div class="days" data-lenis-prevent><article class="day d1" style="--i:0"><header><span>Jour 1</span><b>Je comprends</b><small>Le client, le marché et ma posture</small></header><ol><li><span class="m-n">01</span><div><b>Mindset et posture du conseiller immobilier</b><small>Confiance, discipline, identité et posture professionnelle</small></div><em>1 h 30</em></li><li><span class="m-n">02</span><div><b>Le cerveau de l’acheteur immobilier</b><small>Psychologie d’achat, émotions, motivations, peurs, neuromarketing</small></div><em>2 h</em></li><li><span class="m-n">03</span><div><b>Communication et langage d’influence</b><small>Écoute active, questionnement, verbal et non-verbal, storytelling</small></div><em>2 h 30</em></li></ol></article><article class="day d2" style="--i:1"><header><span>Jour 2</span><b>Je vends</b><small>Des opportunités aux rendez-vous</small></header><ol><li><span class="m-n">04</span><div><b>Prospection immobilière moderne</b><small>Téléphone, WhatsApp, digital, recommandations, qualification, prise de rendez-vous</small></div><em>2 h</em></li><li><span class="m-n">05</span><div><b>Techniques de vente immobilière</b><small>Processus de vente, découverte, SPIN, SONCAS, CAB/CAP, vente consultative</small></div><em>2 h</em></li><li><span class="m-n">06</span><div><b>L’art de la visite immobilière</b><small>Préparation, parcours de visite, projection, expérience client, débrief</small></div><em>2 h</em></li></ol></article><article class="day d3" style="--i:2"><header><span>Jour 3</span><b>Je convertis</b><small>Plus de signatures, plus de résultats</small></header><ol><li><span class="m-n">07</span><div><b>Négociation et objections</b><small>Prix, remise, concurrence, hésitations, défense de la valeur</small></div><em>2 h</em></li><li><span class="m-n">08</span><div><b>Relance et closing</b><small>Relance intelligente, suivi, signaux d’achat, techniques de closing</small></div><em>1 h 30</em></li><li><span class="m-n">09</span><div><b>Performance et personal branding</b><small>KPI, pipeline, organisation, taux de conversion, image professionnelle</small></div><em>1 h</em></li><li><span class="m-n">10</span><div><b>Simulation et certification</b><small>Cas complet : découverte, argumentation, visite, objection, négociation, closing</small></div><em>1 h 30</em></li></ol></article></div>
+    <p class="s-note">Les exercices se font sur vos projets et directement dans VISION : fiche prospect, source du lead, compte rendu de visite, séquence de relance.</p>
+    <h3 class="s-h3">Ce que votre équipe reçoit</h3>
+    <div class="chip-grid"><span style="--i:0">Support apprenant</span><span style="--i:1">Exercices et simulations</span><span style="--i:2">Évaluation des acquis</span><span style="--i:3">Synthèse des axes de progrès de l’équipe</span><span style="--i:4">Attestation de formation BitEye</span></div>
+    <h3 class="s-h3">Aller plus loin</h3>
+    <div class="card-grid c4"><article class="s-card" style="--i:0"><b>Recrutement des commerciaux</b><p>Profil, recherche, présélection, mises en situation et intégration.</p></article><article class="s-card" style="--i:1"><b>Visibilité des projets</b><p>Pages projets, réseaux sociaux, photos, vidéos, drone et rendus.</p></article><article class="s-card" style="--i:2"><b>Acquisition de prospects</b><p>Formulaires, origine des contacts, qualification et transmission au CRM.</p></article><article class="s-card" style="--i:3"><b>Performance commerciale</b><p>Pipeline, relances, motifs de perte, KPI et 4 semaines d’accompagnement du manager.</p></article></div>
+    <div class="s-band"><span>Suivi mensuel du manager</span><span>Client mystère : un faux prospect teste votre accueil commercial</span></div>
+  </div></div>
+  <div class="sh-end"><div class="wrap">
+    <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="sh-next" href="#logiciel">Fiche suivante : <b>Logiciel VISION</b> ›</a>
+  </div></div>
+</section>
 
 <footer>
   <div class="wrap">
@@ -1770,6 +2260,97 @@ input::placeholder{color:rgba(234,238,241,.35)}
   dragBand(document.getElementById('modMarq'), modRow, {speed:-.35, angle:22, depth:90});
   if (reduce) document.querySelectorAll('svg').forEach(function(sv){ if (sv.pauseAnimations) sv.pauseAnimations(); });
 
+  /* Menu Services : survol sur ordinateur, clic au clavier ou au doigt */
+  var menuLi = document.querySelector('.has-menu'), menuBtn = menuLi.querySelector('.menu-btn');
+  menuBtn.addEventListener('click', function(){ var o = menuLi.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
+  document.addEventListener('click', function(e){ if (!menuLi.contains(e.target)) { menuLi.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); } });
+
+  /* Chapitre en cours, affiché dans la navigation */
+  var chap = document.getElementById('chap'), chapNames = {1:'Le logiciel', 2:'Les services', 3:'La confiance'}, chapCur = 1;
+  if ('IntersectionObserver' in window) {
+    var chIO = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var c = +en.target.getAttribute('data-chapter');
+        if (c === chapCur) return;
+        chapCur = c; chap.classList.add('swap');
+        setTimeout(function(){ chap.querySelector('b').textContent = '0' + c; chap.querySelector('span').textContent = chapNames[c]; chap.classList.remove('swap'); }, 280);
+      });
+    }, {rootMargin:'-50% 0px -50% 0px'});
+    document.querySelectorAll('[data-chapter]').forEach(function(sec){ chIO.observe(sec); });
+  }
+
+  /* Parcours : la frise s'anime une fois visible */
+  var journeyEl = document.getElementById('journey');
+  if ('IntersectionObserver' in window) {
+    var jIO = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { journeyEl.classList.add('go'); jIO.disconnect(); } }, {threshold:.3});
+    jIO.observe(journeyEl);
+  } else journeyEl.classList.add('go');
+
+  /* Besoin : chaque choix allume les services concernés */
+  var needBtns = document.querySelectorAll('.need-btns button'), needTiles = document.querySelectorAll('.nt'), needMsg = document.getElementById('needMsg');
+  needBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var svc = b.getAttribute('data-svc').split(' ');
+      needBtns.forEach(function(x){ x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+      needTiles.forEach(function(t){
+        var on = svc.indexOf(t.getAttribute('data-svc')) > -1;
+        if (on && !t.classList.contains('on') && !reduce) { t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop'); }
+        t.classList.toggle('on', on);
+      });
+      needMsg.classList.add('swap');
+      setTimeout(function(){ needMsg.textContent = b.getAttribute('data-msg'); needMsg.classList.remove('swap'); }, 250);
+    });
+  });
+
+  /* Configurateur : le nombre d'utilisateurs choisit la formule */
+  var cfgIn = document.getElementById('cfgUsers'), cfgOut = document.getElementById('cfgOut'), cfgs = document.querySelectorAll('.cfg');
+  function cfgUpdate(){
+    var n = +cfgIn.value, pick = null;
+    cfgs.forEach(function(c){ if (!pick && n <= +c.getAttribute('data-max')) pick = c; });
+    cfgs.forEach(function(c){ c.classList.toggle('on', c === pick); });
+    cfgOut.innerHTML = '<b>' + n + '</b> utilisateur' + (n > 1 ? 's' : '');
+  }
+  cfgIn.addEventListener('input', cfgUpdate); cfgUpdate();
+
+  /* Fiches plein écran : ouvertes par l'adresse (#logiciel, #formation…), fermées par la croix, Échap ou le retour */
+  var sheets = {}, sheetBg = document.getElementById('sheetBg'), openSheet = null, lastFocus = null;
+  document.querySelectorAll('.sheet').forEach(function(sh){ sheets[sh.id] = sh; });
+  function showSheet(id){
+    var sh = sheets[id];
+    if (!sh || openSheet === sh) return;
+    if (openSheet) { openSheet.classList.remove('open'); openSheet.hidden = true; }
+    else { lastFocus = document.activeElement; sheetBg.hidden = false; requestAnimationFrame(function(){ sheetBg.classList.add('open'); }); }
+    openSheet = sh; sh.hidden = false; sh.scrollTop = 0;
+    var tab = sh.querySelector('.sh-tabs .on'); if (tab) tab.parentNode.scrollLeft = tab.offsetLeft - 16;
+    document.body.classList.add('sheet-open'); if (window.__lenis) window.__lenis.stop();
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ sh.classList.add('open'); sh.focus({preventScroll:true}); }); });
+    menuLi.classList.remove('open');
+  }
+  function hideSheet(then){
+    if (!openSheet) { if (then) then(); return; }
+    var sh = openSheet; openSheet = null;
+    sh.classList.remove('open'); sheetBg.classList.remove('open');
+    document.body.classList.remove('sheet-open'); if (window.__lenis) window.__lenis.start();
+    if (sheets[location.hash.slice(1)]) history.replaceState(null, '', location.pathname + location.search);
+    setTimeout(function(){ sh.hidden = true; sheetBg.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true}); if (then) then(); }, reduce ? 0 : 560);
+  }
+  window.addEventListener('hashchange', function(){ var id = location.hash.slice(1); if (sheets[id]) showSheet(id); else if (openSheet) hideSheet(); });
+  document.querySelectorAll('[data-close]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = el.getAttribute('href');
+      hideSheet(function(){
+        var t = target && document.querySelector(target);
+        if (!t) return;
+        if (window.__lenis) window.__lenis.scrollTo(t, {offset:-60, duration:1.2}); else t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+      });
+    });
+  });
+  sheetBg.addEventListener('click', function(){ hideSheet(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && openSheet) hideSheet(); });
+  if (sheets[location.hash.slice(1)]) showSheet(location.hash.slice(1));
+
   /* Contact : le mot du titre change toutes les deux secondes */
   var rotWords = document.querySelectorAll('#rot > span'), rotI = 0;
   if (!reduce && rotWords.length) setInterval(function(){
@@ -1795,14 +2376,14 @@ input::placeholder{color:rgba(234,238,241,.35)}
 
   /* Défilement fluide, synchronisé avec ScrollTrigger */
   if (window.Lenis) {
-    var lenis = new Lenis({lerp:.09});
+    var lenis = new Lenis({lerp:.09}); window.__lenis = lenis;
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
     document.querySelectorAll('a[href^="#"]').forEach(function(a){
       a.addEventListener('click', function(e){
         var id = a.getAttribute('href'), el = id.length > 1 && document.querySelector(id);
-        if (!el) return;
+        if (!el || el.classList.contains('sheet') || a.hasAttribute('data-close')) return;
         e.preventDefault();
         lenis.scrollTo(el, {offset:-60, duration:1.4});
       });
@@ -1876,6 +2457,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 
   /* Trait menthe tracé sous le mot-clé de chaque titre */
   document.querySelectorAll('.h2 em').forEach(function(em){
+    if (em.closest('.sheet')) { em.insertAdjacentHTML('beforeend', '<svg class="swoosh on" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M3 13 C 50 3, 130 3, 197 9"/></svg>'); return; }
     em.insertAdjacentHTML('beforeend', '<svg class="swoosh" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M3 13 C 50 3, 130 3, 197 9"/></svg>');
     var sw = em.lastElementChild;
     ScrollTrigger.create({trigger:em, start:'top 85%', once:true, onEnter:function(){ sw.classList.add('on'); }});
@@ -2027,17 +2609,6 @@ input::placeholder{color:rgba(234,238,241,.35)}
   gsap.from('.ledger.l', {rotateY:50, x:-60, scrollTrigger:{trigger:'.duo', start:'top 85%', end:'top 40%', scrub:.6}});
   gsap.from('.ledger.r', {rotateY:-50, x:60, scrollTrigger:{trigger:'.duo', start:'top 85%', end:'top 40%', scrub:.6}});
 
-  /* Mobile : le téléphone se redresse, les notifications arrivent */
-  gsap.fromTo('#phone', {rotateY:-32, rotateX:14, rotateZ:4, y:60}, {rotateY:-8, rotateX:4, rotateZ:0, y:0, ease:'none',
-    scrollTrigger:{trigger:'#phoneStage', start:'top 90%', end:'center 50%', scrub:.6}});
-  gsap.from('[data-pop]', {x:function(i){ return i % 2 ? 80 : -80; }, opacity:0, scale:.85, duration:.9, stagger:.25, ease:'back.out(1.5)',
-    scrollTrigger:{trigger:'#phoneStage', start:'top 60%', once:true}});
-  gsap.from('.ring .fg', {strokeDashoffset:201, duration:1.6, ease:'power2.out', scrollTrigger:{trigger:'#phoneStage', start:'top 60%', once:true}});
-
-  /* Notifications : elles rebondissent à tour de rôle, comme de nouvelles alertes */
-  gsap.timeline({repeat:-1, repeatDelay:1.5, delay:4, scrollTrigger:{trigger:'#phoneStage', start:'top 60%'}})
-    .to('[data-pop]', {y:-10, scale:1.04, duration:.35, ease:'power2.out', stagger:1.2, yoyo:true, repeat:1});
-
   /* Croissance : la ligne se remplit au défilement, chaque étape s'allume à son tour */
   var gSteps = document.querySelectorAll('.g-steps li'), vertical = window.matchMedia('(max-width:734px)').matches;
   gsap.fromTo('#gFill', vertical ? {scaleY:0} : {scaleX:0}, Object.assign(vertical ? {scaleY:1} : {scaleX:1}, {ease:'none',
@@ -2070,6 +2641,30 @@ input::placeholder{color:rgba(234,238,241,.35)}
     var dx = e.clientX - ref[0], dy = e.clientY - ref[1], L = Math.hypot(dx, dy) || 1, k = Math.min(1, L / 320) * 14;
     gsap.to(pupil, {attr:{cx:220 + dx / L * k, cy:137.5 + dy / L * k}, duration:.35, ease:'power2.out', overwrite:true});
   });
+
+  /* Couches : la pile s'éclate au défilement, puis chaque couche s'allume avec sa ligne */
+  (function(){
+    var stackIn = document.getElementById('stackIn'), plates = Array.prototype.slice.call(stackIn.children).reverse(),
+        list = document.getElementById('layerList'), items = list.querySelectorAll('li'), wide = window.matchMedia('(min-width:1069px)').matches;
+    function setActive(k){
+      if (k < 0) { stackIn.removeAttribute('data-active'); list.removeAttribute('data-active'); }
+      else { stackIn.setAttribute('data-active', ''); list.setAttribute('data-active', ''); }
+      plates.forEach(function(p, i){ p.classList.toggle('on', i === k); });
+      items.forEach(function(li, i){ li.classList.toggle('on', i === k); });
+    }
+    items.forEach(function(li, i){ li.addEventListener('pointerenter', function(){ if (!wide) setActive(i); }); });
+    if (!wide) {
+      gsap.fromTo(stackIn, {'--gap':'10px'}, {'--gap':'40px', duration:1.4, ease:'power3.out', scrollTrigger:{trigger:'#couchesGrid', start:'top 75%', once:true}});
+      return;
+    }
+    ScrollTrigger.create({trigger:'#couchesGrid', start:'center center', end:'+=240%', pin:true, scrub:.6, refreshPriority:-2,
+      onUpdate:function(self){
+        var p = self.progress, e = Math.min(1, p / .2);
+        stackIn.style.setProperty('--gap', (12 + e * 50).toFixed(1) + 'px');
+        setActive(p < .2 ? -1 : Math.min(4, Math.floor((p - .2) / .8 * 5)));
+      }});
+    stackIn.style.setProperty('--gap', '12px');
+  })();
 
   /* Les épinglages s'empilent : on recalcule tout une fois les images chargées */
   window.addEventListener('load', function(){ ScrollTrigger.sort(); ScrollTrigger.refresh(); });
