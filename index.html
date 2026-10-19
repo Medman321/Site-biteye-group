@@ -25,7 +25,7 @@
   --on-lime:#022539;
   --glass:rgba(234,238,241,.06); --glass-line:rgba(234,238,241,.14);
   --screen:#FFFFFF; --screen-2:#F3F6F8; --screen-ink:#0B1E2B; --screen-ink-2:#637684; --screen-rule:#E1E8ED;
-  --ok:#2F7D3A; --warn:#A8620A; --logo-bg:#FFFFFF;
+  --ok:#2F7D3A; --warn:#A8620A; --logo-bg:#FFFFFF; --tree:#1FBF8A; --trunk:#6B4F3A;
   --iso-nt:#FFFFFF; --iso-nl:#DCE4EA; --iso-nr:#C3CFD8;
   --iso-kt:#A6F3DB; --iso-kl:#3FE3B5; --iso-kr:#02B386;
   --iso-gt:#E2E9EE; --iso-gl:#CBD6DE; --iso-gr:#B4C2CC; --iso-win:rgba(2,26,41,.18);
@@ -389,7 +389,7 @@ a{color:inherit;text-decoration:none}
 .stat b{display:block;font:700 clamp(64px,9vw,128px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;
   background:linear-gradient(180deg,#D6FFF2 0%,var(--lime) 55%,#02A27A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 30px rgba(3,218,159,.25))}
 .stat sup{font-size:.3em;vertical-align:super;-webkit-text-fill-color:var(--f-ink-2)}
-.stat span{display:block;margin-top:18px;font-size:var(--fs-lead);color:var(--f-ink-2)}
+.stat > span{display:block;margin-top:18px;font-size:var(--fs-lead);color:var(--f-ink-2)}
 @media (max-width:734px){.stats{grid-template-columns:1fr}}
 .marquee{margin-top:clamp(64px,8vw,110px);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .marquee .row{display:flex;gap:56px;width:max-content;animation:marq 40s linear infinite;font:600 clamp(24px,3vw,40px)/1 var(--display);letter-spacing:-.02em;color:var(--f-ink-2)}
@@ -420,6 +420,33 @@ a{color:inherit;text-decoration:none}
 .ghost-btn{font:600 15px/1 var(--text);padding:15px 24px;border-radius:999px;border:1px solid var(--glass-line);background:var(--glass);color:var(--f-ink);cursor:pointer;transition:border-color .3s,background-color .3s}
 .ghost-btn:hover{border-color:var(--lime);background:rgba(3,218,159,.1)}
 @media (max-width:734px){.ref-grid{grid-template-columns:repeat(2,1fr);gap:10px}.ref-grid.collapsed{max-height:560px}}
+
+/* Croissance : une ligne qui se remplit, des étapes qui s'allument */
+.growth{position:relative;margin-top:clamp(64px,8vw,104px)}
+.g-track{position:absolute;left:12.5%;right:12.5%;top:9px;height:2px;background:var(--f-rule)}
+.g-track i{position:absolute;inset:0;background:var(--lime);transform-origin:0 50%}
+.g-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.g-steps li{position:relative;display:grid;justify-items:center;gap:6px;padding-top:34px}
+.g-steps li::before{content:"";position:absolute;top:0;width:20px;height:20px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 6px rgba(3,218,159,.15);transition:transform .5s var(--ease),background-color .4s}
+.g-steps b{font:700 clamp(24px,2.6vw,34px)/1.1 var(--display);color:var(--f-ink)}
+.g-steps span{color:var(--f-ink-2);max-width:220px}
+.fx .g-steps li::before{background:var(--forest-3);transform:scale(.7)}
+.fx .g-steps li.on::before{background:var(--lime);transform:scale(1)}
+.fx .g-steps li{opacity:.4;transition:opacity .5s}
+.fx .g-steps li.on{opacity:1}
+@media (max-width:734px){.g-track{left:9px;right:auto;top:0;bottom:0;width:2px;height:auto}.g-track i{transform-origin:50% 0}
+  .g-steps{grid-template-columns:1fr;text-align:left;gap:28px}.g-steps li{justify-items:start;padding:0 0 0 40px}.g-steps li::before{left:0}}
+/* Secteur public */
+.public{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:clamp(56px,7vw,88px);text-align:left}
+.pub-card{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;padding:24px;border-radius:var(--r);background:var(--glass);border:1px solid var(--glass-line);transition:border-color .3s,transform .45s var(--ease)}
+.pub-card:hover{border-color:rgba(3,218,159,.5);transform:translateY(-4px)}
+.pub-logos{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:var(--logo-bg)}
+.pub-logos img{height:56px;width:auto;max-width:180px;object-fit:contain}
+.pub-card small{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--lime)}
+.pub-card h3{font-size:clamp(20px,1.8vw,24px);font-weight:700;margin:6px 0}
+.pub-card p{color:var(--f-ink-2);font-size:15px}
+@media (max-width:1068px){.public{grid-template-columns:1fr}}
+@media (max-width:734px){.pub-card{grid-template-columns:1fr}.pub-logos{justify-self:start}}
 
 /* Bandeau de logos qui défile sous le héros */
 .ticker{margin:-40px 0 clamp(72px,9vw,120px);text-align:center}
@@ -518,7 +545,7 @@ html.lenis,html.lenis body{height:auto}
 .building{position:absolute;left:0;top:0;transform-style:preserve-3d;
   --c-top:#8C99A3;--c-a:#6F7C86;--c-b:#5B6770;--win:transparent}
 .building.done{--c-top:#EAEEF1;--c-a:#DDE5EB;--c-b:#B9C6D0;--win:rgba(2,26,41,.6)}
-.building.lit{--win:var(--lime)}
+.fl.on{--win:var(--lime)}
 .fl{--W:180px;--D:130px;--H:30px;--z0:12px;--drop:0px;position:absolute;left:calc(var(--W) / -2);top:calc(var(--D) / -2);width:var(--W);height:var(--D);transform-style:preserve-3d;
   transform:translateZ(calc(var(--z0) + var(--i) * var(--H) + var(--drop)))}
 .fl.base{--H:12px;--z0:0px;--W:206px;--D:156px}
@@ -533,6 +560,41 @@ html.lenis,html.lenis body{height:auto}
 .fl.base i{background:#3E4B55}
 .fl.base .t{background:#4C5A65}
 .lit .fl.roof .t{background:var(--lime)}
+/* Livraison : jardin, ondes, étiquettes et liste qui se coche */
+.garden{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.tree{--s:1;position:absolute;left:var(--x);top:var(--y);width:0;height:0;transform-style:preserve-3d;transform:scale3d(calc(var(--s) * var(--k)),calc(var(--s) * var(--k)),calc(var(--s) * var(--k)))}
+.tree i{position:absolute;left:-16px;bottom:0;width:32px;height:48px;transform-origin:50% 100%;
+  background:radial-gradient(circle at 50% 34%,var(--tree) 0 13px,transparent 14px),linear-gradient(var(--trunk),var(--trunk)) 50% 100%/4px 22px no-repeat}
+.tree i:first-child{transform:rotateX(-90deg)}
+.tree i:last-child{transform:rotateX(-90deg) rotateY(90deg)}
+.wave{position:absolute;left:-160px;top:-160px;width:320px;height:320px;border-radius:50%;border:2px solid var(--lime);opacity:0;pointer-events:none;transform:translateZ(1px) scale(.55)}
+.delivered .wave{animation:wave 2.8s ease-out infinite}
+.delivered .wave.w2{animation-delay:1.4s}
+@keyframes wave{0%{transform:translateZ(1px) scale(.55);opacity:.9}100%{transform:translateZ(1px) scale(1.55);opacity:0}}
+.ch-tag{position:absolute;z-index:2;display:flex;align-items:center;gap:10px;padding:10px 14px 10px 10px;border-radius:14px;font-size:13px;font-weight:600;color:var(--f-ink);white-space:nowrap;
+  background:rgba(5,48,74,.72);border:1px solid var(--glass-line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 20px 40px -20px rgba(0,0,0,.7);
+  transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.ch-tag small{display:block;font-size:11.5px;font-weight:500;color:var(--f-ink-2)}
+.ch-tag .ic{display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:9px;background:var(--lime);color:var(--on-lime)}
+.ch-tag .ic svg{width:15px;height:15px}
+.ch-tag.t1{left:2%;top:14%}
+.ch-tag.t2{right:0;top:42%}
+.ch-tag.t3{left:6%;bottom:14%}
+.fx .ch-tag{opacity:0;transform:translateY(16px) scale(.9)}
+.fx .ch-tag.show{opacity:1;transform:none}
+.ch-badge{position:absolute;left:50%;top:3%;z-index:2;display:grid;justify-items:center;gap:6px;transform:translateX(-50%);font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime);transition:opacity .6s var(--ease),transform .8s var(--ease)}
+.ch-badge .eye{width:64px;height:40px;filter:drop-shadow(0 0 18px rgba(3,218,159,.6))}
+.fx .ch-badge{opacity:0;transform:translate(-50%,30px)}
+.fx .delivered .ch-badge{opacity:1;transform:translate(-50%,0)}
+.checks{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.checks li{display:flex;align-items:center;gap:10px;font-size:16px;color:var(--f-ink);transition:opacity .4s}
+.checks li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;transition:transform .45s var(--ease);
+  background:var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-6.5' fill='none' stroke='%23022539' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.fx .checks li{opacity:.35}
+.fx .checks li::before{transform:scale(0)}
+.fx .checks li.ok{opacity:1}
+.fx .checks li.ok::before{transform:scale(1)}
+@media (max-width:734px){.ch-tag{font-size:11.5px;padding:7px 10px 7px 7px}.ch-tag .ic{width:24px;height:24px}.ch-tag.t1{top:22%;left:0}.ch-tag.t3{bottom:4%}.ch-badge{top:0}.ch-badge span{display:none}.ch-badge .eye{width:44px;height:28px}}
 .drag-hint{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--f-ink-2);white-space:nowrap}
 .ch-meter{display:grid;gap:10px;margin-bottom:40px}
 .ch-pct{font:700 clamp(64px,8vw,112px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--lime)}
@@ -545,8 +607,8 @@ html.lenis,html.lenis body{height:auto}
 .phases h3{font-size:clamp(26px,2.8vw,38px);font-weight:700;margin:10px 0 10px}
 .phases p{color:var(--f-ink-2);font-size:18px;max-width:440px}
 .fx .phases{gap:0}
-.fx .phases li{grid-area:1/1;opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .6s var(--ease)}
-.fx .phases li.on{opacity:1;transform:none}
+.fx .phases > li{grid-area:1/1;opacity:0;transform:translateY(24px);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.fx .phases > li.on{opacity:1;transform:none}
 @media (max-width:1068px){.ch-grid{grid-template-columns:1fr;gap:8px}.world{--sc:.8;--ty:110px}.scene{height:400px}.ch-meter{margin-bottom:20px}.ch-pct{font-size:56px}.phases p{font-size:16px}}
 @media (max-width:734px){.world{--sc:.52;--ty:40px}.scene{height:320px;overflow-x:clip}.drag-hint{display:none}}
 .ch-copy{position:relative;z-index:1}
@@ -642,7 +704,7 @@ html.lenis,html.lenis body{height:auto}
       <a class="btn" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="ghost" href="#apercu"><span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z"/></svg></span>Voir VISION en action</a>
     </div>
-    <div class="hero-tags" data-hero><span><b>250</b> promoteurs clients</span><span>Depuis <b>2014</b></span><span>Conçu à <b>Alger</b></span></div>
+    <div class="hero-tags" data-hero><span><b>250+</b> clients</span><span>Depuis <b>2014</b></span><span>Conçu à <b>Alger</b></span></div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>Défiler</span><i></i></div>
 </section>
@@ -815,23 +877,42 @@ html.lenis,html.lenis body{height:auto}
       <h2 class="h2">Votre chantier, <em>étage par étage.</em></h2>
       <p class="lead">De la fondation à la remise des clés, chaque étape se suit dans VISION.</p>
     </div>
-    <div class="ch-grid" id="chGrid">
+    <div class="ch-grid delivered" id="chGrid">
       <div class="scene" id="scene" aria-hidden="true">
         <div class="world" id="world">
           <div class="plate"></div>
           <div class="building done lit" id="building">
             <div class="fl base" style="--i:0"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:0"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:1"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:2"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:3"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:4"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:5"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:6"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl" style="--i:7"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
-            <div class="fl roof" style="--i:8"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:0"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:1"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:2"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:3"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:4"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:5"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:6"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl on" style="--i:7"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+            <div class="fl roof on" style="--i:8"><i class="s s2"></i><i class="s s4"></i><i class="s s1"></i><i class="s s3"></i><i class="t"></i></div>
+          </div>
+          <div class="wave" aria-hidden="true"></div><div class="wave w2" aria-hidden="true"></div>
+          <div class="garden" aria-hidden="true">
+            <div class="tree" style="--x:-170px;--y:-120px;--k:1"><i></i><i></i></div>
+            <div class="tree" style="--x:170px;--y:-118px;--k:1.1"><i></i><i></i></div>
+            <div class="tree" style="--x:-172px;--y:118px;--k:0.9"><i></i><i></i></div>
+            <div class="tree" style="--x:168px;--y:122px;--k:1"><i></i><i></i></div>
+            <div class="tree" style="--x:0px;--y:-178px;--k:1.2"><i></i><i></i></div>
+            <div class="tree" style="--x:4px;--y:176px;--k:0.9"><i></i><i></i></div>
+            <div class="tree" style="--x:-205px;--y:0px;--k:1"><i></i><i></i></div>
+            <div class="tree" style="--x:204px;--y:-4px;--k:1.15"><i></i><i></i></div>
+            <div class="tree" style="--x:-110px;--y:-172px;--k:0.85"><i></i><i></i></div>
+            <div class="tree" style="--x:112px;--y:170px;--k:1.05"><i></i><i></i></div>
+            <div class="tree" style="--x:118px;--y:-168px;--k:0.95"><i></i><i></i></div>
+            <div class="tree" style="--x:-120px;--y:166px;--k:1.1"><i></i><i></i></div>
           </div>
         </div>
+        <div class="ch-badge"><svg class="eye" viewBox="0 0 440 276"><use href="#eye-mark"/></svg><span>Copropriété active</span></div>
+        <span class="ch-tag t1"><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small>Réception</small>PV signé, réserves levées</span></span>
+        <span class="ch-tag t2"><span class="ic"><svg viewBox="0 0 16 16"><circle cx="5" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h6M12 8v2.5M14 8v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><small>Bloc A · 86 lots</small>Clés remises aux acquéreurs</span></span>
+        <span class="ch-tag t3"><span class="ic"><svg viewBox="0 0 16 16"><path d="M2 14h12M4 14V7l4-3 4 3v7M7 14v-3h2v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span><small>VISION Co-Owner</small>Copropriété ouverte</span></span>
         <span class="drag-hint">Faites pivoter l'immeuble</span>
       </div>
       <div class="ch-copy">
@@ -844,7 +925,8 @@ html.lenis,html.lenis body{height:auto}
           <li class="on"><small>01 · Infrastructure</small><h3>Les fondations, budgétées.</h3><p>Quantités prévisionnelles et coûts suivis dès le premier mètre cube de béton.</p></li>
           <li><small>02 · Gros œuvre</small><h3>Chaque étage, mesuré.</h3><p>Situations de travaux et avancement par lot, mis à jour depuis le chantier.</p></li>
           <li><small>03 · Corps d'état secondaires</small><h3>Les finitions, coordonnées.</h3><p>Électricité, plomberie, revêtements : chaque lot de travaux garde son budget.</p></li>
-          <li><small>04 · Livraison</small><h3>Les clés, puis la copropriété.</h3><p>Les acquéreurs deviennent résidents dans VISION Co-Owner, sans ressaisie.</p></li>
+          <li><small>04 · Livraison</small><h3>Les clés, puis la copropriété.</h3><p>Les acquéreurs deviennent résidents dans VISION Co-Owner, sans ressaisie.</p>
+            <ul class="checks"><li>PV de réception signé</li><li>Clés remises aux acquéreurs</li><li>Copropriété ouverte dans VISION Co-Owner</li></ul></li>
         </ol>
       </div>
     </div>
@@ -934,91 +1016,214 @@ html.lenis,html.lenis body{height:auto}
     <div class="head center">
       <span class="eyebrow">Depuis 2014</span>
       <h2 class="h2" data-reveal>Ils construisent <em>avec VISION.</em></h2>
-      <p class="lead">Promoteurs, constructeurs et gestionnaires, d'Oran à Alger.</p>
+      <p class="lead">Plus de 250 entreprises nous font confiance, d'Oran à Annaba.</p>
     </div>
     <div class="stats">
-      <div class="stat" data-reveal><b><span class="count" data-to="250">250</span><sup>1</sup></b><span>promoteurs immobiliers clients</span></div>
+      <div class="stat" data-reveal><b><span class="count" data-to="250">250</span>+<sup>1</sup></b><span>clients en 2026</span></div>
+      <div class="stat" data-reveal><b><span class="count" data-to="19">19</span></b><span>wilayas couvertes</span></div>
       <div class="stat" data-reveal><b><span class="count" data-to="12">12</span></b><span>ans au service du secteur</span></div>
-      <div class="stat" data-reveal><b><span class="count" data-to="3">3</span></b><span>métiers sur une plateforme</span></div>
     </div>
+    <div class="growth" id="growth">
+      <span class="g-track" aria-hidden="true"><i id="gFill"></i></span>
+      <ol class="g-steps">
+        <li><b>2014</b><span>Premiers clients à Oran</span></li>
+        <li><b>2024</b><span>Cap des 120 clients</span></li>
+        <li><b>Secteur public</b><span>Agence foncière de Béjaïa, puis DELY PRO</span></li>
+        <li><b>2026</b><span>Plus de 250 clients dans 19 wilayas</span></li>
+      </ol>
+    </div>
+
+    <div class="public">
+      <article class="pub-card" data-reveal>
+        <span class="pub-logos"><img src="assets/public/afowb.webp" alt="Logo AFOWB" width="267" height="120" loading="lazy"></span>
+        <div><small>Agence foncière · Béjaïa</small><h3>La première agence foncière d'Algérie équipée.</h3><p>Pour l'AFOWB, BitEye a adapté son logiciel aux besoins des agences foncières en quatre mois.</p></div>
+      </article>
+      <article class="pub-card" data-reveal>
+        <span class="pub-logos"><img src="assets/public/delypro.webp" alt="Logo DELY PRO" width="360" height="81" loading="lazy"><img src="assets/public/cneru.webp" alt="Logo groupe CNERU" width="116" height="120" loading="lazy"></span>
+        <div><small>EPE SPA · groupe CNERU</small><h3>DELY PRO pilote ses projets avec VISION.</h3><p>Filiale du groupe CNERU, sous tutelle du ministère de l'Habitat.</p></div>
+      </article>
+    </div>
+
     <div class="refs" id="references">
-      <p class="refs-lead">Nos références : <b>69</b> promoteurs et constructeurs dans <b>9</b> wilayas.</p>
+      <p class="refs-lead">Une partie de nos clients : <b>171</b> références présentées, parmi plus de <b>250</b>.</p>
       <div class="ref-filters" role="group" aria-label="Filtrer les références par ville">
-        <button type="button" class="on" data-f="all" aria-pressed="true">Toutes <b>69</b></button>
-        <button type="button" data-f="oran" aria-pressed="false">Oran <b>47</b></button>
-        <button type="button" data-f="alger" aria-pressed="false">Alger <b>14</b></button>
-        <button type="button" data-f="autres" aria-pressed="false">Autres wilayas <b>8</b></button>
+        <button type="button" class="on" data-f="all" aria-pressed="true">Toutes <b>171</b></button>
+        <button type="button" data-f="oran" aria-pressed="false">Oran <b>82</b></button>
+        <button type="button" data-f="alger" aria-pressed="false">Alger <b>45</b></button>
+        <button type="button" data-f="autres" aria-pressed="false">Autres wilayas <b>52</b></button>
       </div>
       <ul class="ref-grid" id="refGrid">
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/00.webp" alt="Logo Promotion immobilière Sidi Attalah" width="49" height="120" loading="lazy" decoding="async"></span><b>Promotion immobilière Sidi Attalah</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/01.webp" alt="Logo Cherif Athman promotion" width="196" height="120" loading="lazy" decoding="async"></span><b>Cherif Athman promotion</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/02.webp" alt="Logo Aménagement et promotion immobilière" width="202" height="120" loading="lazy" decoding="async"></span><b>Aménagement et promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/03.webp" alt="Logo Sahraoui promotion" width="240" height="67" loading="lazy" decoding="async"></span><b>Sahraoui promotion</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/04.webp" alt="Logo Benmelissa promotion" width="196" height="120" loading="lazy" decoding="async"></span><b>Benmelissa promotion</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/05.webp" alt="Logo Gasmi Immo" width="183" height="120" loading="lazy" decoding="async"></span><b>Gasmi Immo</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/06.webp" alt="Logo Seven Pillars promotion immobilière" width="240" height="47" loading="lazy" decoding="async"></span><b>Seven Pillars promotion immobilière</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/07.webp" alt="Logo Mawteny by Chiali immobilier" width="240" height="115" loading="lazy" decoding="async"></span><b>Mawteny by Chiali immobilier</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/08.webp" alt="Logo Promotion immobilière El Wafaa" width="191" height="120" loading="lazy" decoding="async"></span><b>Promotion immobilière El Wafaa</b><small>Oran</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/09.webp" alt="Logo Dendani promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Dendani promotion immobilière</b><small>Boumerdès</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/10.webp" alt="Logo Sidi Ykhlef immobilier" width="179" height="120" loading="lazy" decoding="async"></span><b>Sidi Ykhlef immobilier</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/11.webp" alt="Logo Zebboudj immobilier" width="122" height="120" loading="lazy" decoding="async"></span><b>Zebboudj immobilier</b><small>Alger</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/12.webp" alt="Logo Baitek promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Baitek promotion immobilière</b><small>Chlef</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/13.webp" alt="Logo Hanitser promotion immobilière" width="92" height="120" loading="lazy" decoding="async"></span><b>Hanitser promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/14.webp" alt="Logo Riad premium promotion immobilière" width="158" height="120" loading="lazy" decoding="async"></span><b>Riad premium promotion immobilière</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/15.webp" alt="Logo Chalabi promotion immobilière" width="106" height="120" loading="lazy" decoding="async"></span><b>Chalabi promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/16.webp" alt="Logo SARL FPO promotion immobilière" width="217" height="120" loading="lazy" decoding="async"></span><b>SARL FPO promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/17.webp" alt="Logo Gold Star promotion" width="119" height="120" loading="lazy" decoding="async"></span><b>Gold Star promotion</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/18.webp" alt="Logo Elalouani promotion immobilière" width="166" height="120" loading="lazy" decoding="async"></span><b>Elalouani promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/19.webp" alt="Logo Bourgeois promotion" width="240" height="118" loading="lazy" decoding="async"></span><b>Bourgeois promotion</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/20.webp" alt="Logo SARL Promobrux promotion immobilière" width="138" height="120" loading="lazy" decoding="async"></span><b>SARL Promobrux promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/21.webp" alt="Logo Kamel prom Avenir" width="146" height="120" loading="lazy" decoding="async"></span><b>Kamel prom Avenir</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/22.webp" alt="Logo SARL Omni promotion" width="131" height="120" loading="lazy" decoding="async"></span><b>SARL Omni promotion</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/23.webp" alt="Logo ETS Kadri promotion immobilière" width="73" height="120" loading="lazy" decoding="async"></span><b>ETS Kadri promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/24.webp" alt="Logo Legaid Amine promotion immobilière" width="151" height="120" loading="lazy" decoding="async"></span><b>Legaid Amine promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/25.webp" alt="Logo Promotion immobilière Archinov" width="240" height="64" loading="lazy" decoding="async"></span><b>Promotion immobilière Archinov</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/26.webp" alt="Logo Groupe Meri" width="157" height="120" loading="lazy" decoding="async"></span><b>Groupe Meri</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/27.webp" alt="Logo M&amp;S promo" width="196" height="120" loading="lazy" decoding="async"></span><b>M&amp;S promo</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/28.webp" alt="Logo Guessab promotion immobilière" width="160" height="120" loading="lazy" decoding="async"></span><b>Guessab promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/29.webp" alt="Logo Algérie promotion immobilière" width="164" height="120" loading="lazy" decoding="async"></span><b>Algérie promotion immobilière</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/30.webp" alt="Logo Cepro construction" width="122" height="120" loading="lazy" decoding="async"></span><b>Cepro construction</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/31.webp" alt="Logo Nahla promotion immobilière" width="240" height="78" loading="lazy" decoding="async"></span><b>Nahla promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/32.webp" alt="Logo Belle Vue promotion immobilière" width="196" height="120" loading="lazy" decoding="async"></span><b>Belle Vue promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/33.webp" alt="Logo Promotion immobilière Dennouni" width="192" height="120" loading="lazy" decoding="async"></span><b>Promotion immobilière Dennouni</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/34.webp" alt="Logo Rekhila promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Rekhila promotion immobilière</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/35.webp" alt="Logo Ibrir promotion immobilière" width="138" height="120" loading="lazy" decoding="async"></span><b>Ibrir promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/36.webp" alt="Logo Irid promotion immobilière" width="202" height="120" loading="lazy" decoding="async"></span><b>Irid promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/37.webp" alt="Logo Littoral immobilier" width="121" height="120" loading="lazy" decoding="async"></span><b>Littoral immobilier</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/38.webp" alt="Logo Cristal Point promotion immobilière" width="83" height="120" loading="lazy" decoding="async"></span><b>Cristal Point promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/39.webp" alt="Logo Itrap Khodja promotion immobilière" width="168" height="120" loading="lazy" decoding="async"></span><b>Itrap Khodja promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/40.webp" alt="Logo Enhycor promotion immobilière" width="109" height="120" loading="lazy" decoding="async"></span><b>Enhycor promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/41.webp" alt="Logo SARL Ziga promo" width="127" height="120" loading="lazy" decoding="async"></span><b>SARL Ziga promo</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/42.webp" alt="Logo EURL Oran Indjaz GM promotion immobilière" width="120" height="120" loading="lazy" decoding="async"></span><b>EURL Oran Indjaz GM promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/43.webp" alt="Logo Cap immobilier" width="208" height="120" loading="lazy" decoding="async"></span><b>Cap immobilier</b><small>Tizi Ouzou</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/44.webp" alt="Logo El Ourida promotion" width="133" height="120" loading="lazy" decoding="async"></span><b>El Ourida promotion</b><small>Blida</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/45.webp" alt="Logo Batifast promotion" width="226" height="120" loading="lazy" decoding="async"></span><b>Batifast promotion</b><small>Alger</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/46.webp" alt="Logo SARL Bati Pro building" width="119" height="120" loading="lazy" decoding="async"></span><b>SARL Bati Pro building</b><small>Mostaganem</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/47.webp" alt="Logo BCF prom" width="137" height="120" loading="lazy" decoding="async"></span><b>BCF prom</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/48.webp" alt="Logo Beledifice promotion immobilière" width="120" height="120" loading="lazy" decoding="async"></span><b>Beledifice promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/49.webp" alt="Logo Delmar promotion immobilière" width="157" height="120" loading="lazy" decoding="async"></span><b>Delmar promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/50.webp" alt="Logo Diyar construction" width="121" height="120" loading="lazy" decoding="async"></span><b>Diyar construction</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/51.webp" alt="Logo Gecodar immobilier" width="153" height="120" loading="lazy" decoding="async"></span><b>Gecodar immobilier</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/52.webp" alt="Logo Selma promotion immobilière" width="52" height="120" loading="lazy" decoding="async"></span><b>Selma promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/53.webp" alt="Logo Algimmo" width="240" height="62" loading="lazy" decoding="async"></span><b>Algimmo</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/54.webp" alt="Logo Rivaza building promotion immobilière" width="148" height="120" loading="lazy" decoding="async"></span><b>Rivaza building promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/55.webp" alt="Logo Boughriet promo" width="120" height="120" loading="lazy" decoding="async"></span><b>Boughriet promo</b><small>Oran</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/56.webp" alt="Logo Zimou promotion immobilière" width="119" height="120" loading="lazy" decoding="async"></span><b>Zimou promotion immobilière</b><small>Tizi Ouzou</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/57.webp" alt="Logo FH promo" width="67" height="120" loading="lazy" decoding="async"></span><b>FH promo</b><small>Oran, Relizane</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/58.webp" alt="Logo West Side promotion immobilière" width="169" height="120" loading="lazy" decoding="async"></span><b>West Side promotion immobilière</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/59.webp" alt="Logo Plaza immobilier" width="240" height="89" loading="lazy" decoding="async"></span><b>Plaza immobilier</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/60.webp" alt="Logo Injaaz house" width="126" height="120" loading="lazy" decoding="async"></span><b>Injaaz house</b><small>Alger</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/61.webp" alt="Logo BHT construction" width="119" height="120" loading="lazy" decoding="async"></span><b>BHT construction</b><small>Tlemcen</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/62.webp" alt="Logo Ali prom" width="84" height="120" loading="lazy" decoding="async"></span><b>Ali prom</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/63.webp" alt="Logo Alco" width="240" height="62" loading="lazy" decoding="async"></span><b>Alco</b><small>Alger</small></li>
-      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/refs/64.webp" alt="Logo SB prom" width="94" height="120" loading="lazy" decoding="async"></span><b>SB prom</b><small>Mostaganem</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/65.webp" alt="Logo SB travaux Net" width="127" height="120" loading="lazy" decoding="async"></span><b>SB travaux Net</b><small>Oran</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/66.webp" alt="Logo Universel Fer" width="240" height="102" loading="lazy" decoding="async"></span><b>Universel Fer</b><small>Oran</small></li>
-      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/refs/67.webp" alt="Logo Sidra promotion" width="240" height="103" loading="lazy" decoding="async"></span><b>Sidra promotion</b><small>Alger</small></li>
-      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/refs/68.webp" alt="Logo Turbo prom" width="240" height="59" loading="lazy" decoding="async"></span><b>Turbo prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/000.webp" alt="Logo Benammar Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>Benammar Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/001.webp" alt="Logo Promotion immobilière Sidi Attalah" width="47" height="110" loading="lazy" decoding="async"></span><b>Promotion immobilière Sidi Attalah</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/002.webp" alt="Logo Sopimem Promotion immobilière" width="201" height="67" loading="lazy" decoding="async"></span><b>Sopimem Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger autres"><span class="ref-logo"><img src="assets/partners/003.webp" alt="Logo Chareddib Promotion" width="81" height="110" loading="lazy" decoding="async"></span><b>Chareddib Promotion</b><small>Constantine, Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/004.webp" alt="Logo Ets Kadri Promotion immobilière" width="67" height="110" loading="lazy" decoding="async"></span><b>Ets Kadri Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/005.webp" alt="Logo Toni Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Toni Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/006.webp" alt="Logo Damac Plus Promotion immobilière" width="84" height="110" loading="lazy" decoding="async"></span><b>Damac Plus Promotion immobilière</b><small>Blida</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/007.webp" alt="Logo Dar El Khir Promotion immobilière" width="128" height="95" loading="lazy" decoding="async"></span><b>Dar El Khir Promotion immobilière</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/008.webp" alt="Logo Condor Immo" width="220" height="86" loading="lazy" decoding="async"></span><b>Condor Immo</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/009.webp" alt="Logo Mawteny by Chiali Immobilier" width="220" height="82" loading="lazy" decoding="async"></span><b>Mawteny by Chiali Immobilier</b><small>Sidi Bel Abbès</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/010.webp" alt="Logo Plaza Immobilier" width="220" height="70" loading="lazy" decoding="async"></span><b>Plaza Immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/011.webp" alt="Logo Medouni Promotion immobilière" width="94" height="110" loading="lazy" decoding="async"></span><b>Medouni Promotion immobilière</b><small>Béjaïa</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/012.webp" alt="Logo Guezzout Immobilier" width="88" height="110" loading="lazy" decoding="async"></span><b>Guezzout Immobilier</b><small>Sétif</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/013.webp" alt="Logo Aménagement et Promotion immobilière" width="172" height="110" loading="lazy" decoding="async"></span><b>Aménagement et Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/014.webp" alt="Logo Melina Promotion" width="182" height="110" loading="lazy" decoding="async"></span><b>Melina Promotion</b><small>Jijel</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/015.webp" alt="Logo Hamri Mohamed Promotion immobilière" width="130" height="110" loading="lazy" decoding="async"></span><b>Hamri Mohamed Promotion immobilière</b><small>Relizane</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/016.webp" alt="Logo Gasmi Immo" width="111" height="73" loading="lazy" decoding="async"></span><b>Gasmi Immo</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/017.webp" alt="Logo ZHDI Promotion immobilière" width="95" height="110" loading="lazy" decoding="async"></span><b>ZHDI Promotion immobilière</b><small>Boumerdès</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/018.webp" alt="Logo SARL Bati Pro Building" width="109" height="110" loading="lazy" decoding="async"></span><b>SARL Bati Pro Building</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/019.webp" alt="Logo KMC Kaizen Housing" width="111" height="110" loading="lazy" decoding="async"></span><b>KMC Kaizen Housing</b><small>Tlemcen</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/020.webp" alt="Logo Dendani Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Dendani Promotion immobilière</b><small>Boumerdès</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/021.webp" alt="Logo Sidi Ykhlef Immobilier" width="110" height="110" loading="lazy" decoding="async"></span><b>Sidi Ykhlef Immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/022.webp" alt="Logo Zebboudj Immobilier" width="106" height="110" loading="lazy" decoding="async"></span><b>Zebboudj Immobilier</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/023.webp" alt="Logo Baitek Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Baitek Promotion immobilière</b><small>Chlef</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/024.webp" alt="Logo Hanitser Promotion immobilière" width="90" height="110" loading="lazy" decoding="async"></span><b>Hanitser Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/025.webp" alt="Logo Seven Pillars Promotion immobilière" width="165" height="110" loading="lazy" decoding="async"></span><b>Seven Pillars Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/026.webp" alt="Logo SARL CH-Prom Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>SARL CH-Prom Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/027.webp" alt="Logo SARL FPO Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>SARL FPO Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/028.webp" alt="Logo Gold Star Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>Gold Star Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/029.webp" alt="Logo Elalouani Promotion immobilière" width="128" height="110" loading="lazy" decoding="async"></span><b>Elalouani Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/030.webp" alt="Logo Bourgeois Promotion" width="142" height="63" loading="lazy" decoding="async"></span><b>Bourgeois Promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/031.webp" alt="Logo SARL Promobrux Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>SARL Promobrux Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/032.webp" alt="Logo Kamel Prom Avenir" width="109" height="110" loading="lazy" decoding="async"></span><b>Kamel Prom Avenir</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/033.webp" alt="Logo SARL Omni Promotion" width="120" height="110" loading="lazy" decoding="async"></span><b>SARL Omni Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/034.webp" alt="Logo Ben Melissa Promotion" width="155" height="110" loading="lazy" decoding="async"></span><b>Ben Melissa Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/035.webp" alt="Logo Legaid Amine Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Legaid Amine Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/036.webp" alt="Logo Promotion immobilière Archinov" width="183" height="63" loading="lazy" decoding="async"></span><b>Promotion immobilière Archinov</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/037.webp" alt="Logo EURL Groupe Meri" width="110" height="110" loading="lazy" decoding="async"></span><b>EURL Groupe Meri</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/038.webp" alt="Logo M&amp;S Promo" width="110" height="110" loading="lazy" decoding="async"></span><b>M&amp;S Promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/039.webp" alt="Logo Guessab Promotion immobilière" width="136" height="110" loading="lazy" decoding="async"></span><b>Guessab Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/040.webp" alt="Logo Algérie Promotion immobilière" width="152" height="110" loading="lazy" decoding="async"></span><b>Algérie Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/041.webp" alt="Logo Cepro Construction" width="111" height="110" loading="lazy" decoding="async"></span><b>Cepro Construction</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/042.webp" alt="Logo Nahla Promotion immobilière" width="220" height="71" loading="lazy" decoding="async"></span><b>Nahla Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/043.webp" alt="Logo Belle Vue Promotion immobilière" width="167" height="110" loading="lazy" decoding="async"></span><b>Belle Vue Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/044.webp" alt="Logo Promotion immobilière Dennouni" width="176" height="110" loading="lazy" decoding="async"></span><b>Promotion immobilière Dennouni</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/045.webp" alt="Logo Rekhila Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Rekhila Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/046.webp" alt="Logo Jysan Immobilier" width="110" height="110" loading="lazy" decoding="async"></span><b>Jysan Immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/047.webp" alt="Logo Irid Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Irid Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/048.webp" alt="Logo Littoral Immobilier" width="128" height="110" loading="lazy" decoding="async"></span><b>Littoral Immobilier</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/049.webp" alt="Logo Cristal Point Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Cristal Point Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/050.webp" alt="Logo Itrap Khodja Promotion immobilière" width="155" height="110" loading="lazy" decoding="async"></span><b>Itrap Khodja Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/051.webp" alt="Logo Enhycor Promotion immobilière" width="86" height="110" loading="lazy" decoding="async"></span><b>Enhycor Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/052.webp" alt="Logo SARL Ziga Promo" width="121" height="110" loading="lazy" decoding="async"></span><b>SARL Ziga Promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/053.webp" alt="Logo EURL Oran Indjaz GM Promotion immobilière" width="142" height="104" loading="lazy" decoding="async"></span><b>EURL Oran Indjaz GM Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/054.webp" alt="Logo Cap Immobilier" width="141" height="82" loading="lazy" decoding="async"></span><b>Cap Immobilier</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/055.webp" alt="Logo El Ourida Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>El Ourida Promotion</b><small>Blida</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/056.webp" alt="Logo Batifast Promotion" width="149" height="101" loading="lazy" decoding="async"></span><b>Batifast Promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/057.webp" alt="Logo Delmar Promotion immobilière" width="112" height="86" loading="lazy" decoding="async"></span><b>Delmar Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/058.webp" alt="Logo BCF Prom" width="110" height="110" loading="lazy" decoding="async"></span><b>BCF Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/059.webp" alt="Logo Beledifice Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Beledifice Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/060.webp" alt="Logo Selma Promotion immobilière" width="44" height="110" loading="lazy" decoding="async"></span><b>Selma Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/061.webp" alt="Logo Diyar Construction" width="110" height="110" loading="lazy" decoding="async"></span><b>Diyar Construction</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/062.webp" alt="Logo SARL Mecadim" width="220" height="45" loading="lazy" decoding="async"></span><b>SARL Mecadim</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/063.webp" alt="Logo HB Prom" width="175" height="72" loading="lazy" decoding="async"></span><b>HB Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/064.webp" alt="Logo Boughriet Promo" width="110" height="110" loading="lazy" decoding="async"></span><b>Boughriet Promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/065.webp" alt="Logo Zimou Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Zimou Promotion immobilière</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres oran"><span class="ref-logo"><img src="assets/partners/066.webp" alt="Logo FH Prom" width="62" height="110" loading="lazy" decoding="async"></span><b>FH Prom</b><small>Oran, Relizane</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/067.webp" alt="Logo West Side Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>West Side Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/068.webp" alt="Logo Immobilière Innovation" width="148" height="110" loading="lazy" decoding="async"></span><b>Immobilière Innovation</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/069.webp" alt="Logo Injaaz House" width="108" height="110" loading="lazy" decoding="async"></span><b>Injaaz House</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/070.webp" alt="Logo BHT Construction" width="110" height="110" loading="lazy" decoding="async"></span><b>BHT Construction</b><small>Tlemcen</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/071.webp" alt="Logo Ali Prom" width="79" height="110" loading="lazy" decoding="async"></span><b>Ali Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/072.webp" alt="Logo The Heaven Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>The Heaven Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres oran"><span class="ref-logo"><img src="assets/partners/073.webp" alt="Logo SB Prom" width="87" height="110" loading="lazy" decoding="async"></span><b>SB Prom</b><small>Oran, Mostaganem</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/074.webp" alt="Logo Siradj Lil Iskane" width="96" height="110" loading="lazy" decoding="async"></span><b>Siradj Lil Iskane</b><small>Boumerdès</small></li>
+      <li class="ref" data-grp="autres oran"><span class="ref-logo"><img src="assets/partners/075.webp" alt="Logo SB Travaux Net" width="116" height="110" loading="lazy" decoding="async"></span><b>SB Travaux Net</b><small>Oran, Relizane</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/076.webp" alt="Logo Universel Promotion immobilière" width="201" height="94" loading="lazy" decoding="async"></span><b>Universel Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/077.webp" alt="Logo Sidra Promotion immobilière" width="130" height="110" loading="lazy" decoding="async"></span><b>Sidra Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/078.webp" alt="Logo Turbo Prom" width="164" height="41" loading="lazy" decoding="async"></span><b>Turbo Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/079.webp" alt="Logo Ibrir Promotion" width="201" height="110" loading="lazy" decoding="async"></span><b>Ibrir Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/080.webp" alt="Logo DHT Company" width="60" height="110" loading="lazy" decoding="async"></span><b>DHT Company</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/081.webp" alt="Logo RB Promotion immobilière" width="192" height="102" loading="lazy" decoding="async"></span><b>RB Promotion immobilière</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/082.webp" alt="Logo SARL Ozgur Immo" width="110" height="110" loading="lazy" decoding="async"></span><b>SARL Ozgur Immo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/083.webp" alt="Logo SARL Pleine Béton" width="81" height="110" loading="lazy" decoding="async"></span><b>SARL Pleine Béton</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/084.webp" alt="Logo EURL Pian" width="167" height="110" loading="lazy" decoding="async"></span><b>EURL Pian</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/085.webp" alt="Logo Elwafa Promotion immobilière" width="162" height="110" loading="lazy" decoding="async"></span><b>Elwafa Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/086.webp" alt="Logo Afak Plaisance Promotion immobilière" width="148" height="110" loading="lazy" decoding="async"></span><b>Afak Plaisance Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/087.webp" alt="Logo AB Promotion immobilière" width="220" height="67" loading="lazy" decoding="async"></span><b>AB Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/088.webp" alt="Logo Immocité" width="132" height="103" loading="lazy" decoding="async"></span><b>Immocité</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/089.webp" alt="Logo El Hodja Promotion immobilière" width="114" height="110" loading="lazy" decoding="async"></span><b>El Hodja Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/090.webp" alt="Logo Achoui Promotion immobilière" width="199" height="110" loading="lazy" decoding="async"></span><b>Achoui Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/091.webp" alt="Logo Porbat Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Porbat Promotion immobilière</b><small>Blida</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/092.webp" alt="Logo Gecodar Immobilier" width="140" height="110" loading="lazy" decoding="async"></span><b>Gecodar Immobilier</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/093.webp" alt="Logo Thuraya Promotion" width="97" height="110" loading="lazy" decoding="async"></span><b>Thuraya Promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/094.webp" alt="Logo SDI Sahraoui" width="141" height="110" loading="lazy" decoding="async"></span><b>SDI Sahraoui</b><small>Boumerdès</small></li>
+      <li class="ref" data-grp="alger autres"><span class="ref-logo"><img src="assets/partners/095.webp" alt="Logo MTH Immobilier" width="86" height="110" loading="lazy" decoding="async"></span><b>MTH Immobilier</b><small>Béjaïa, Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/096.webp" alt="Logo SARL Ahram Hidia" width="144" height="110" loading="lazy" decoding="async"></span><b>SARL Ahram Hidia</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/097.webp" alt="Logo Kalaidji Immo" width="128" height="110" loading="lazy" decoding="async"></span><b>Kalaidji Immo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/098.webp" alt="Logo Rahmouni Promotion immobilière" width="96" height="97" loading="lazy" decoding="async"></span><b>Rahmouni Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/099.webp" alt="Logo Tichrirte Promotion" width="191" height="78" loading="lazy" decoding="async"></span><b>Tichrirte Promotion</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres oran"><span class="ref-logo"><img src="assets/partners/100.webp" alt="Logo Bouzour Promotion immobilière" width="116" height="110" loading="lazy" decoding="async"></span><b>Bouzour Promotion immobilière</b><small>Oran, Mostaganem, Chlef, Tlemcen</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/101.webp" alt="Logo Ahlam Promotion" width="111" height="110" loading="lazy" decoding="async"></span><b>Ahlam Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/102.webp" alt="Logo El Nakhla Horizon Promotion immobilière" width="131" height="110" loading="lazy" decoding="async"></span><b>El Nakhla Horizon Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/103.webp" alt="Logo Louni Promotion" width="106" height="110" loading="lazy" decoding="async"></span><b>Louni Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/104.webp" alt="Logo SARL Building Promotion immobilière" width="136" height="110" loading="lazy" decoding="async"></span><b>SARL Building Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/105.webp" alt="Logo TN Promotion" width="107" height="110" loading="lazy" decoding="async"></span><b>TN Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger autres oran"><span class="ref-logo"><img src="assets/partners/106.webp" alt="Logo Promotion Mirage Landmark" width="110" height="110" loading="lazy" decoding="async"></span><b>Promotion Mirage Landmark</b><small>Alger, Oran, Annaba</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/107.webp" alt="Logo Promotion Mostalife" width="110" height="110" loading="lazy" decoding="async"></span><b>Promotion Mostalife</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/108.webp" alt="Logo Dar El Iman Promotion immobilière" width="151" height="93" loading="lazy" decoding="async"></span><b>Dar El Iman Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/109.webp" alt="Logo Beit Es Salem El Frangi Promotion immobilière" width="63" height="110" loading="lazy" decoding="async"></span><b>Beit Es Salem El Frangi Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/110.webp" alt="Logo Promotion Prestige" width="113" height="93" loading="lazy" decoding="async"></span><b>Promotion Prestige</b><small>Tlemcen</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/111.webp" alt="Logo CFEA" width="110" height="110" loading="lazy" decoding="async"></span><b>CFEA</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/112.webp" alt="Logo Riad Premium Promotion immobilière" width="189" height="110" loading="lazy" decoding="async"></span><b>Riad Premium Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/113.webp" alt="Logo Sopiref" width="184" height="51" loading="lazy" decoding="async"></span><b>Sopiref</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/114.webp" alt="Logo Promotion immobilière Nabet Nadir" width="220" height="91" loading="lazy" decoding="async"></span><b>Promotion immobilière Nabet Nadir</b><small>Béjaïa</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/115.webp" alt="Logo Innovim Promotion immobilière" width="151" height="110" loading="lazy" decoding="async"></span><b>Innovim Promotion immobilière</b><small>Chlef</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/116.webp" alt="Logo Farah Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Farah Promotion immobilière</b><small>Boumerdès, Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/117.webp" alt="Logo EURL Kimax Chiboub" width="168" height="85" loading="lazy" decoding="async"></span><b>EURL Kimax Chiboub</b><small>Skikda</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/118.webp" alt="Logo BM Ideal Prom" width="128" height="110" loading="lazy" decoding="async"></span><b>BM Ideal Prom</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/119.webp" alt="Logo Stambouli Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>Stambouli Promotion</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/120.webp" alt="Logo Bab Al Houda Promotion immobilière" width="207" height="60" loading="lazy" decoding="async"></span><b>Bab Al Houda Promotion immobilière</b><small>Blida</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/121.webp" alt="Logo SARL Ghrib Promo" width="98" height="92" loading="lazy" decoding="async"></span><b>SARL Ghrib Promo</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/122.webp" alt="Logo Bouaoula Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>Bouaoula Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/123.webp" alt="Logo Spil Promotion" width="69" height="110" loading="lazy" decoding="async"></span><b>Spil Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/124.webp" alt="Logo Groupe Mercure" width="87" height="110" loading="lazy" decoding="async"></span><b>Groupe Mercure</b><small>Sétif</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/125.webp" alt="Logo Batinov Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Batinov Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/126.webp" alt="Logo Danyl Prom" width="167" height="110" loading="lazy" decoding="async"></span><b>Danyl Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/127.webp" alt="Logo Confort Immobilier" width="110" height="110" loading="lazy" decoding="async"></span><b>Confort Immobilier</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/128.webp" alt="Logo Bel Ray Lyn Promo" width="172" height="110" loading="lazy" decoding="async"></span><b>Bel Ray Lyn Promo</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/129.webp" alt="Logo Nidamak Promotion immobilière" width="100" height="110" loading="lazy" decoding="async"></span><b>Nidamak Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/130.webp" alt="Logo Appart DZ" width="140" height="110" loading="lazy" decoding="async"></span><b>Appart DZ</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/131.webp" alt="Logo MG Immo" width="109" height="110" loading="lazy" decoding="async"></span><b>MG Immo</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/132.webp" alt="Logo DEST Promotion immobilière" width="209" height="108" loading="lazy" decoding="async"></span><b>DEST Promotion immobilière</b><small>Blida</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/133.webp" alt="Logo Hassaine Promotion immobilière" width="117" height="110" loading="lazy" decoding="async"></span><b>Hassaine Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/134.webp" alt="Logo Eddrief Promotion immobilière" width="188" height="110" loading="lazy" decoding="async"></span><b>Eddrief Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/135.webp" alt="Logo SARL Mestimmo Promotion immobilière" width="111" height="110" loading="lazy" decoding="async"></span><b>SARL Mestimmo Promotion immobilière</b><small>Constantine, Mila</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/136.webp" alt="Logo Michouar Promotion immobilière" width="116" height="110" loading="lazy" decoding="async"></span><b>Michouar Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/137.webp" alt="Logo RBY Promotion immobilière" width="175" height="110" loading="lazy" decoding="async"></span><b>RBY Promotion immobilière</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/138.webp" alt="Logo GK Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>GK Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/139.webp" alt="Logo Cherif Athman Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>Cherif Athman Promotion</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/140.webp" alt="Logo British Building" width="110" height="110" loading="lazy" decoding="async"></span><b>British Building</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/141.webp" alt="Logo Oussama Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Oussama Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/142.webp" alt="Logo Latifa Prom" width="117" height="110" loading="lazy" decoding="async"></span><b>Latifa Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/143.webp" alt="Logo Enjoy Prom" width="110" height="110" loading="lazy" decoding="async"></span><b>Enjoy Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/144.webp" alt="Logo Lotfi by Ideal Prom" width="110" height="110" loading="lazy" decoding="async"></span><b>Lotfi by Ideal Prom</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/145.webp" alt="Logo Faradj Promo" width="110" height="110" loading="lazy" decoding="async"></span><b>Faradj Promo</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/146.webp" alt="Logo SARL Dari Promotion immobilière" width="120" height="110" loading="lazy" decoding="async"></span><b>SARL Dari Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/147.webp" alt="Logo Sirine Perla Promotion immobilière" width="73" height="110" loading="lazy" decoding="async"></span><b>Sirine Perla Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/148.webp" alt="Logo Trust Home" width="109" height="110" loading="lazy" decoding="async"></span><b>Trust Home</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/149.webp" alt="Logo Vertec Promotion immobilière" width="154" height="77" loading="lazy" decoding="async"></span><b>Vertec Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/150.webp" alt="Logo Mazen Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Mazen Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/151.webp" alt="Logo Chateau Luxe Promotion immobilière" width="220" height="65" loading="lazy" decoding="async"></span><b>Chateau Luxe Promotion immobilière</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/152.webp" alt="Logo 2S Prom" width="136" height="110" loading="lazy" decoding="async"></span><b>2S Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/153.webp" alt="Logo Zouad Promotion immobilière" width="200" height="110" loading="lazy" decoding="async"></span><b>Zouad Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/154.webp" alt="Logo BEV Promotion immobilière" width="144" height="110" loading="lazy" decoding="async"></span><b>BEV Promotion immobilière</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/155.webp" alt="Logo Parissur Promotion immobilière" width="90" height="70" loading="lazy" decoding="async"></span><b>Parissur Promotion immobilière</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/156.webp" alt="Logo Bentayeb Promotion immobilière" width="136" height="78" loading="lazy" decoding="async"></span><b>Bentayeb Promotion immobilière</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/157.webp" alt="Logo Baloul Promotion" width="218" height="110" loading="lazy" decoding="async"></span><b>Baloul Promotion</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/158.webp" alt="Logo Promotion immobilière Panorama Bleu" width="176" height="81" loading="lazy" decoding="async"></span><b>Promotion immobilière Panorama Bleu</b><small>Tizi Ouzou</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/159.webp" alt="Logo Drioua Promotion immobilière" width="110" height="110" loading="lazy" decoding="async"></span><b>Drioua Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/160.webp" alt="Logo Antalya Immo" width="125" height="110" loading="lazy" decoding="async"></span><b>Antalya Immo</b><small>Alger</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/161.webp" alt="Logo Lalami Promotion" width="110" height="110" loading="lazy" decoding="async"></span><b>Lalami Promotion</b><small>Bordj Bou Arreridj</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/162.webp" alt="Logo SARL Pro Imo Mohamed" width="92" height="110" loading="lazy" decoding="async"></span><b>SARL Pro Imo Mohamed</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/163.webp" alt="Logo EURL Radoui / Yahia Prom" width="112" height="110" loading="lazy" decoding="async"></span><b>EURL Radoui / Yahia Prom</b><small>Mostaganem</small></li>
+      <li class="ref" data-grp="autres"><span class="ref-logo"><img src="assets/partners/164.webp" alt="Logo Yakid Promotion immobilière" width="70" height="110" loading="lazy" decoding="async"></span><b>Yakid Promotion immobilière</b><small>Boumerdès</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/165.webp" alt="Logo Benst Prom" width="110" height="110" loading="lazy" decoding="async"></span><b>Benst Prom</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/166.webp" alt="Logo SARL Naas et Fils" width="127" height="110" loading="lazy" decoding="async"></span><b>SARL Naas et Fils</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/167.webp" alt="Logo SARL Nedjem Eddine" width="146" height="110" loading="lazy" decoding="async"></span><b>SARL Nedjem Eddine</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/168.webp" alt="Logo Algimmo" width="220" height="57" loading="lazy" decoding="async"></span><b>Algimmo</b><small>Alger</small></li>
+      <li class="ref" data-grp="oran"><span class="ref-logo"><img src="assets/partners/169.webp" alt="Logo Rivaza Building Promotion immobilière" width="136" height="110" loading="lazy" decoding="async"></span><b>Rivaza Building Promotion immobilière</b><small>Oran</small></li>
+      <li class="ref" data-grp="alger"><span class="ref-logo"><img src="assets/partners/170.webp" alt="Logo Alco" width="220" height="57" loading="lazy" decoding="async"></span><b>Alco</b><small>Alger</small></li>
       </ul>
       <div class="ref-more"><button type="button" class="ghost-btn" id="refMore" hidden>Voir toutes les références</button></div>
     </div>
@@ -1088,7 +1293,7 @@ html.lenis,html.lenis body{height:auto}
       <p class="foot-wm"><b>bit</b>eye</p>
       <p class="foot-tag">Éditeur de VISION Workspace · Gué de Constantine, Alger · Depuis 2014</p>
     </div>
-    <ol><li>Nombre de promoteurs immobiliers clients de BitEye, 2026.</li></ol>
+    <ol><li>Plus de 250 clients en 2026, selon BitEye (120 clients fin 2024). Les 171 références présentées sur cette page en sont une sélection.</li></ol>
     <div class="base"><span>© 2026 BitEye Group. Tous droits réservés.</span><span>Français · العربية</span></div>
   </div>
 </footer>
@@ -1155,7 +1360,7 @@ html.lenis,html.lenis body{height:auto}
     b.addEventListener('click', function(){
       var f = b.getAttribute('data-f');
       refBtns.forEach(function(x){ x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
-      var shown = refCards.filter(function(c){ var ok = f === 'all' || c.getAttribute('data-grp') === f; c.hidden = !ok; return ok; });
+      var shown = refCards.filter(function(c){ var ok = f === 'all' || c.getAttribute('data-grp').split(' ').indexOf(f) > -1; c.hidden = !ok; return ok; });
       if (window.gsap && !reduce) gsap.fromTo(shown.slice(0, 24), {opacity:0, y:28, rotateX:-35}, {opacity:1, y:0, rotateX:0, duration:.6, stagger:.025, ease:'power3.out', clearProps:'transform,opacity'});
       refLabel();
       if (window.ScrollTrigger) ScrollTrigger.refresh();
@@ -1170,7 +1375,8 @@ html.lenis,html.lenis body{height:auto}
 
   /* Bandeau de logos : construit à partir de la grille, deux fois pour boucler sans couture */
   var tickerRow = document.getElementById('tickerRow');
-  for (var k = 0; k < 2; k++) refGrid.querySelectorAll('img').forEach(function(im){
+  var tickerImgs = Array.prototype.slice.call(refGrid.querySelectorAll('img'), 0, 60);
+  for (var k = 0; k < 2; k++) tickerImgs.forEach(function(im){
     var t = document.createElement('i'); t.className = 'tk';
     var c = im.cloneNode(); c.alt = ''; c.loading = 'eager'; t.appendChild(c); tickerRow.appendChild(t);
   });
@@ -1288,23 +1494,34 @@ html.lenis,html.lenis body{height:auto}
     gsap.to(el.querySelectorAll('.wd'), {opacity:1, stagger:.1, ease:'none', scrollTrigger:{trigger:el, start:'top 80%', end:'bottom 40%', scrub:true}});
   });
 
-  /* Chantier 3D : section épinglée, l'immeuble monte étage par étage */
-  var building = document.getElementById('building'), phases = document.querySelectorAll('#phases li'),
-      pct = document.getElementById('chPct'), bar = document.getElementById('chBar');
-  building.classList.remove('done', 'lit');
-  var ch = gsap.timeline({scrollTrigger:{trigger:'#chGrid', start:'center center', end:'+=220%', pin:true, scrub:.6,
+  /* Chantier 3D : section épinglée. L'immeuble monte étage par étage, puis la livraison :
+     les étages s'allument, le jardin pousse, les étapes se cochent et la copropriété s'ouvre */
+  var building = document.getElementById('building'), chGrid = document.getElementById('chGrid'),
+      phases = document.querySelectorAll('#phases > li'), pct = document.getElementById('chPct'), bar = document.getElementById('chBar'),
+      floors = Array.prototype.slice.call(document.querySelectorAll('.fl:not(.base)')),
+      checks = document.querySelectorAll('.checks li'), tags = document.querySelectorAll('.ch-tag'), chLbl = document.querySelector('.ch-lbl');
+  building.classList.remove('done', 'lit'); chGrid.classList.remove('delivered');
+  floors.forEach(function(f){ f.classList.remove('on'); });
+  var ch = gsap.timeline({scrollTrigger:{trigger:'#chGrid', start:'center center', end:'+=340%', pin:true, scrub:.6,
     onUpdate:function(self){
-      var p = self.progress, k = p < .14 ? 0 : p < .62 ? 1 : p < .84 ? 2 : 3;
+      var p = self.progress, k = p < .1 ? 0 : p < .5 ? 1 : p < .62 ? 2 : 3, q = Math.max(0, (p - .62) / .38);
       phases.forEach(function(li, i){ li.classList.toggle('on', i === k); });
-      building.classList.toggle('done', p >= .62);
-      building.classList.toggle('lit', p >= .84);
+      building.classList.toggle('done', p >= .5);
+      floors.forEach(function(f, i){ f.classList.toggle('on', q > .02 + i * .03); });
+      building.classList.toggle('lit', q >= .3);
+      checks.forEach(function(c, i){ c.classList.toggle('ok', q >= .25 + i * .25); });
+      tags.forEach(function(t, i){ t.classList.toggle('show', q >= .25 + i * .25); });
+      chGrid.classList.toggle('delivered', q >= .75);
       pct.textContent = Math.round(p * 100);
       bar.style.transform = 'scaleX(' + p + ')';
+      chLbl.textContent = p >= .99 ? 'Projet livré · copropriété active' : 'Avancement du projet';
     }}});
   pct.textContent = 0; bar.style.transform = 'scaleX(0)';
-  ch.fromTo(world, {'--rz':'-62deg'}, {'--rz':'-22deg', duration:1, ease:'none'}, 0)
-    .fromTo('.fl.base', {'--drop':'-40px', visibility:'hidden'}, {'--drop':'0px', visibility:'visible', duration:.08, ease:'power2.out'}, .02)
-    .fromTo('.fl:not(.base)', {'--drop':'320px', visibility:'hidden'}, {'--drop':'0px', visibility:'visible', duration:.08, stagger:.05, ease:'power2.out'}, .14);
+  ch.fromTo(world, {'--rz':'-62deg'}, {'--rz':'-22deg', duration:.62, ease:'none'}, 0)
+    .to(world, {'--rz':'38deg', duration:.38, ease:'none'}, .62)
+    .fromTo('.fl.base', {'--drop':'-40px', visibility:'hidden'}, {'--drop':'0px', visibility:'visible', duration:.06, ease:'power2.out'}, .02)
+    .fromTo('.fl:not(.base)', {'--drop':'320px', visibility:'hidden'}, {'--drop':'0px', visibility:'visible', duration:.06, stagger:.04, ease:'power2.out'}, .1)
+    .fromTo('.tree', {'--s':0}, {'--s':1, duration:.05, stagger:.012, ease:'back.out(2.2)'}, .7);
 
   /* Boutons magnétiques et projecteur citron sous le curseur */
   if (fine) {
@@ -1367,6 +1584,12 @@ html.lenis,html.lenis body{height:auto}
   /* Notifications : elles rebondissent à tour de rôle, comme de nouvelles alertes */
   gsap.timeline({repeat:-1, repeatDelay:1.5, delay:4, scrollTrigger:{trigger:'#phoneStage', start:'top 60%'}})
     .to('[data-pop]', {y:-10, scale:1.04, duration:.35, ease:'power2.out', stagger:1.2, yoyo:true, repeat:1});
+
+  /* Croissance : la ligne se remplit au défilement, chaque étape s'allume à son tour */
+  var gSteps = document.querySelectorAll('.g-steps li'), vertical = window.matchMedia('(max-width:734px)').matches;
+  gsap.fromTo('#gFill', vertical ? {scaleY:0} : {scaleX:0}, Object.assign(vertical ? {scaleY:1} : {scaleX:1}, {ease:'none',
+    scrollTrigger:{trigger:'#growth', start:'top 80%', end:'bottom 55%', scrub:.5,
+      onUpdate:function(self){ gSteps.forEach(function(li, i){ li.classList.toggle('on', self.progress >= i / 3 - .02); }); }}}));
 
   /* Sur-titres : le filet se trace à l'apparition */
   ScrollTrigger.batch('.eyebrow', {start:'top 92%', once:true, onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); }});
