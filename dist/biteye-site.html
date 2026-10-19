@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BitEye — VISION Workspace, la plateforme de l'immobilier en Algérie</title>
-<meta name="description" content="VISION Workspace par BitEye : promotion immobilière, réalisation et gestion de copropriété réunies dans une seule plateforme. Éditeur algérien depuis 2014.">
+<title>BitEye — VISION Workspace, la plateforme de l’immobilier en Algérie</title>
+<meta name="description" content="VISION Workspace par BitEye : promotion immobilière, réalisation et gestion de copropriété réunies dans une seule plateforme. Éditeur algérien depuis 2014.">
 <link rel="canonical" href="https://biteye-group.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://biteye-group.com/">
@@ -51,7 +51,7 @@
   color-scheme:dark}
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 var(--fs-body)/1.55 var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--forest)}
 h1,h2,h3,h4{margin:0;font-family:var(--display);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
@@ -189,7 +189,7 @@ a{color:inherit;text-decoration:none}
 .screen aside{background:var(--screen-2);padding:16px;display:grid;gap:4px;align-content:start;border-right:1px solid var(--screen-rule);border-bottom-left-radius:22px}
 .screen aside span{padding:7px 10px;border-radius:9px;color:var(--screen-ink-2)}
 .screen aside span.on{background:rgba(3,180,130,.18);color:var(--lime-deep);font-weight:600}
-.screen main{padding:20px;display:grid;gap:14px;min-width:0;transform-style:preserve-3d}
+.screen .scr-main{padding:20px;display:grid;gap:14px;min-width:0;transform-style:preserve-3d}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;transform-style:preserve-3d}
 .kpi{border:1px solid var(--screen-rule);border-radius:14px;padding:12px 14px;background:var(--screen)}
 .kpi small{display:block;color:var(--screen-ink-2)}
@@ -198,7 +198,7 @@ a{color:inherit;text-decoration:none}
 .meter i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--lime-deep),var(--lime));border-radius:3px;transform-origin:0 50%}
 .split{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;min-width:0;transform-style:preserve-3d}
 .panel{border:1px solid var(--screen-rule);border-radius:14px;padding:14px;min-width:0;background:var(--screen)}
-.panel h4{margin:0 0 10px;font:600 12.5px/1.2 var(--text);letter-spacing:0}
+.panel .p-h{margin:0 0 10px;font:600 12.5px/1.2 var(--text);letter-spacing:0}
 .tbl{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 .tbl td{padding:6px 0;border-top:1px solid var(--screen-rule);white-space:nowrap}
 .tbl td:last-child{text-align:right}
@@ -586,7 +586,7 @@ a{color:inherit;text-decoration:none}
 .coords b{font:600 clamp(20px,2vw,26px)/1.3 var(--display);user-select:all}
 .glassform{position:relative;padding:36px;border-radius:var(--r);background:linear-gradient(160deg,rgba(234,238,241,.08),rgba(234,238,241,.02));border:1px solid var(--glass-line);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 50px 100px -50px rgba(0,0,0,.9);display:grid;gap:16px}
-.glassform::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang),var(--lime),transparent 25%,transparent 55%,rgba(3,218,159,.6) 75%,var(--lime));animation:spin 6s linear infinite;
+.glassform::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang),var(--lime),transparent 25%,transparent 55%,rgba(3,218,159,.6) 75%,var(--lime));animation:spin 6s linear infinite;will-change:transform;
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 label{display:grid;gap:8px;font-size:13px;font-weight:500;color:var(--f-ink-2)}
 input,select{font:inherit;font-size:16px;padding:15px 16px;border-radius:14px;border:1px solid var(--glass-line);background:rgba(2,37,57,.55);color:var(--f-ink);transition:border-color .2s,box-shadow .2s}
@@ -617,6 +617,7 @@ html.lenis,html.lenis body{height:auto}
 /* Navigation qui s'efface quand on descend, revient quand on remonte */
 .gnav{transition:transform .5s var(--ease)}
 .gnav.hide{transform:translateY(-100%)}
+.gnav.hide:focus-within,.gnav.hide:has(.has-menu.open){transform:none}
 
 /* Titres : chaque mot monte derrière un masque */
 .h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .14em;margin:0 -.06em -.14em}
@@ -786,6 +787,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .btn-shine::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:shine2 3.4s ease-in-out infinite}
 @keyframes shine2{0%,55%{left:-60%}100%{left:130%}}
 .glassform.sent > label,.glassform.sent > .f-met,.glassform.sent > .actions{display:none}
+.f-done:focus{outline:0}
 .f-done{display:grid;justify-items:center;gap:8px;padding:28px 0 12px;text-align:center}
 .f-done svg{width:72px;height:72px}
 .f-done circle,.f-done path{fill:none;stroke:var(--lime);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;animation:drawin 1s var(--ease) forwards}
@@ -820,9 +822,8 @@ input::placeholder{color:rgba(234,238,241,.35)}
 
 /* Trait menthe tracé sous les mots-clés des titres */
 .h2 em{position:relative}
-.swoosh{position:absolute;left:0;bottom:-.06em;width:100%;height:.3em;overflow:visible;pointer-events:none}
-.swoosh path{fill:none;stroke:var(--lime);stroke-width:5;stroke-linecap:round;opacity:.65;stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset 1.3s var(--ease) .5s}
-.swoosh.on path{stroke-dashoffset:0}
+.h2 em{background:linear-gradient(90deg,rgba(3,218,159,.7),rgba(3,218,159,.35)) 0 94%/0% .07em no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.3s var(--ease) .5s}
+.h2 em.on,html:not(.fx) .h2 em{background-size:100% .07em}
 
 /* Mot qui tourne dans le titre du contact */
 .rot{display:inline-grid;vertical-align:bottom;overflow:hidden;padding-bottom:.08em}
@@ -841,9 +842,11 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .k-row span.fill{color:var(--lime);-webkit-text-stroke:0;opacity:.9}
 /* Galerie horizontale : les cartes défilent de droite à gauche */
 .h-pin{position:relative}
-.h-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px max(24px,calc((100vw - var(--max)) / 2 + 24px)) 40px;perspective:1400px;scrollbar-width:none}
+.h-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px max(24px,calc((100vw - var(--max)) / 2 + 24px)) 40px;scrollbar-width:none}
 .h-track::-webkit-scrollbar{display:none}
 .fx .h-track{overflow:visible;width:max-content;scroll-snap-type:none}
+.fx .h-track.nopin{overflow-x:auto;width:auto;scroll-snap-type:x mandatory}
+@media (min-width:735px){html:not(.fx) .h-track{flex-wrap:wrap;justify-content:center;overflow:visible;scroll-snap-type:none}}
 .feat-card{flex:none;width:min(420px,78vw);scroll-snap-align:center;display:grid;gap:10px;align-content:start;padding:22px 24px 28px;border-radius:var(--r);
   background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);box-shadow:0 40px 80px -50px rgba(0,0,0,.9);will-change:transform}
 .feat-card small{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-top:8px}
@@ -1007,6 +1010,8 @@ input::placeholder{color:rgba(234,238,241,.35)}
 /* ============ FICHES PLEIN ÉCRAN ============ */
 .sheet-bg{position:fixed;inset:0;z-index:150;background:rgba(1,18,29,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .5s}
 .sheet-bg.open{opacity:1}
+/* Fiche entièrement ouverte : la page derrière n'est plus dessinée */
+body.sheet-full #top,body.sheet-full footer,body.sheet-full .gnav{visibility:hidden}
 .sheet{position:fixed;inset:0;z-index:160;overflow-y:auto;overscroll-behavior:contain;background:var(--forest);color:var(--f-ink);
   padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(102%);transition:transform .7s var(--ease);outline:0}
 .sheet.open{transform:none}
@@ -1014,6 +1019,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .sh-top .wrap{display:flex;align-items:center;gap:16px;height:64px}
 .sh-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
 .sh-tabs::-webkit-scrollbar{display:none}
+@media (max-width:1100px){.sh-tabs{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,transparent,#000 14px,#000 calc(100% - 36px),transparent)}}
 .sh-tabs a{flex:none;padding:9px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--f-ink-2);transition:background-color .2s,color .2s}
 .sh-tabs a:hover{color:var(--f-ink)}
 .sh-tabs a.on{background:var(--lime);color:var(--on-lime)}
@@ -1190,8 +1196,42 @@ input::placeholder{color:rgba(234,238,241,.35)}
 @media (max-width:1068px){.days{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}}
 body.sheet-open{overflow:hidden}
 
+/* ============ FINITIONS DE MOUVEMENT ============ */
+/* Fiches : le titre et l'introduction entrent en cascade à l'ouverture */
+.sheet.open .sh-copy > *{animation:sin .8s var(--ease) both}
+.sheet.open .sh-copy > :nth-child(2){animation-delay:.12s}
+.sheet.open .sh-copy > :nth-child(3){animation-delay:.24s}
+.sheet.open .sh-art{animation:artin 1s var(--ease) .2s both}
+@keyframes artin{from{opacity:0;transform:scale(.92) translateY(20px)}}
+/* Fiches : les éléments cochés s'allument l'un après l'autre */
+.sheet.open .ticks li::before{animation:tickpop .5s var(--ease) both}
+.sheet.open .ticks li:nth-child(1)::before{animation-delay:.45s}
+.sheet.open .ticks li:nth-child(2)::before{animation-delay:.55s}
+.sheet.open .ticks li:nth-child(3)::before{animation-delay:.65s}
+.sheet.open .ticks li:nth-child(4)::before{animation-delay:.75s}
+.sheet.open .ticks li:nth-child(5)::before{animation-delay:.85s}
+@keyframes tickpop{from{transform:scale(0)}60%{transform:scale(1.25)}}
+/* Pourquoi BitEye : l'icône se dessine quand la tuile apparaît, puis flotte doucement */
+.fx .tile .big-ic svg *{stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset 1.4s var(--ease) .3s}
+.fx .tile.in .big-ic svg *{stroke-dashoffset:0}
+.tile .big-ic{animation:bob 6s ease-in-out infinite}
+.tile:nth-child(3) .big-ic{animation-delay:-2s}
+.tile:nth-child(4) .big-ic{animation-delay:-4s}
+/* Secteur public : un reflet balaie le cartouche des logos */
+.pub-logos{position:relative;overflow:hidden}
+.pub-logos::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);animation:shine2 4.5s ease-in-out infinite}
+.pub-card:nth-child(2) .pub-logos::after{animation-delay:1.6s}
+/* Héros : les pastilles s'éclairent à tour de rôle */
+.hero-tags span{transition:border-color .4s,box-shadow .4s}
+.hero-tags span{animation:tagglow 7.5s ease-in-out infinite}
+.hero-tags span:nth-child(2){animation-delay:2.5s}
+.hero-tags span:nth-child(3){animation-delay:5s}
+@keyframes tagglow{0%,30%,100%{border-color:var(--glass-line);box-shadow:none}10%{border-color:rgba(3,218,159,.7);box-shadow:0 0 24px -6px rgba(3,218,159,.6)}}
+
 @media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
   *,*::before,*::after{animation:none!important;transition:none!important}
+  .f-done circle,.f-done path{stroke-dashoffset:0}
   .tilt-inner,.card3d{transform:none!important}
 }
 </style>
@@ -1243,8 +1283,8 @@ body.sheet-open{overflow:hidden}
     <div class="hero-tags" data-hero><span><b>250+</b> clients</span><span>Depuis <b>2014</b></span><span>Conçu à <b>Alger</b></span></div>
   </div>
   <div class="callouts" id="callouts" aria-hidden="true">
-    <div class="co"><i class="co-dot"></i><span class="co-card"><small>Promotion · VISION Estate</small><b>86 lots vendus sur 120</b></span></div>
-    <div class="co"><i class="co-dot"></i><span class="co-card"><small>Réalisation · VISION Build</small><b>Gros œuvre à 64 %</b></span></div>
+    <div class="co"><i class="co-dot"></i><span class="co-card"><small>Promotion · VISION Estate</small><b>86 lots vendus sur 120</b></span></div>
+    <div class="co"><i class="co-dot"></i><span class="co-card"><small>Réalisation · VISION Build</small><b>Gros œuvre à 85 %</b></span></div>
     <div class="co"><i class="co-dot"></i><span class="co-card"><small>Copropriété · VISION Co-Owner</small><b>Charges du trimestre réglées</b></span></div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>Défiler</span><i></i></div>
@@ -1257,7 +1297,7 @@ body.sheet-open{overflow:hidden}
     <div class="tk-head">
       <span class="eyebrow">Partenaires BitEye</span>
       <h2 class="h2 tk-title">Ils pilotent leurs projets <em>avec VISION.</em></h2>
-      <p class="tk-sub">Plus de <b>250</b> promoteurs et constructeurs partenaires de BitEye, dans 19 wilayas.</p>
+      <p class="tk-sub">Plus de <b>250</b> promoteurs et constructeurs partenaires de BitEye, dans 19 wilayas.</p>
     </div>
     <div class="marquee logo-marq" aria-hidden="true"><div class="row" id="tickerRow"></div></div>
     <p class="ticker-hint" aria-hidden="true"><span>‹</span> Glissez pour parcourir <span>›</span></p>
@@ -1272,20 +1312,20 @@ body.sheet-open{overflow:hidden}
       <div class="halo" aria-hidden="true"></div>
       <div class="tilt" id="heroTilt">
         <div class="tilt-inner" id="heroInner">
-          <div class="screen" role="img" aria-label="Maquette du tableau de bord VISION Estate : lots vendus, encaissements, avancement et échéances des acquéreurs">
+          <div class="screen" role="img" aria-label="Maquette du tableau de bord VISION Estate : lots vendus, encaissements, avancement et échéances des acquéreurs">
             <i class="glare" aria-hidden="true"></i>
-            <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Résidence Les Oliviers · 120 logements</em></div>
+            <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Résidence Les Oliviers · 120 logements</em></div>
             <div class="body">
               <aside><span class="on">Tableau de bord</span><span>Projets</span><span>Commercial</span><span>Acquéreurs</span><span>Technique</span><span>Trésorerie</span><span>Suivi administratif</span></aside>
-              <main>
+              <div class="scr-main">
                 <div class="kpis">
                   <div class="kpi"><small>Lots vendus</small><b>86 / 120</b><div class="meter"><i style="--w:72%"></i></div></div>
-                  <div class="kpi"><small>Encaissé</small><b>1,84 Md DA</b><div class="meter"><i style="--w:61%"></i></div></div>
-                  <div class="kpi"><small>Avancement</small><b>64 %</b><div class="meter"><i style="--w:64%"></i></div></div>
+                  <div class="kpi"><small>Encaissé</small><b>1,84 Md DA</b><div class="meter"><i style="--w:61%"></i></div></div>
+                  <div class="kpi"><small>Avancement</small><b>64 %</b><div class="meter"><i style="--w:64%"></i></div></div>
                   <div class="kpi"><small>Échéances du mois</small><b>23</b><div class="meter"><i style="--w:40%"></i></div></div>
                 </div>
                 <div class="split">
-                  <div class="panel"><h4>Échéances des acquéreurs</h4>
+                  <div class="panel"><p class="p-h">Échéances des acquéreurs</p>
                     <table class="tbl"><tbody>
                       <tr><td>Bloc A · Lot 12</td><td>Crédit bancaire</td><td><span class="pill ok">Réglé</span></td></tr>
                       <tr><td>Bloc A · Lot 27</td><td>Autofinancement</td><td><span class="pill wait">J-5</span></td></tr>
@@ -1293,7 +1333,7 @@ body.sheet-open{overflow:hidden}
                       <tr><td>Bloc C · Lot 31</td><td>Autofinancement</td><td><span class="pill wait">J-12</span></td></tr>
                     </tbody></table>
                   </div>
-                  <div class="panel"><h4>État des lots</h4>
+                  <div class="panel"><p class="p-h">État des lots</p>
                     <div class="lots" aria-hidden="true">
                       <i class="s"></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i>
                       <i class="s"></i><i class="r"></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i></i>
@@ -1302,16 +1342,16 @@ body.sheet-open{overflow:hidden}
                     <div class="legend"><span><i style="background:var(--lime-deep)"></i>Vendu</span><span><i style="background:color-mix(in srgb,var(--lime-deep) 40%,transparent)"></i>Réservé</span><span><i style="background:var(--screen-rule)"></i>Libre</span></div>
                   </div>
                 </div>
-              </main>
+              </div>
             </div>
           </div>
-          <div class="chip c1 float" data-depth="1.4"><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small>Lot 27 · Tranche 3</small><b>+4,2 M DA encaissés</b></span></div>
+          <div class="chip c1 float" data-depth="1.4"><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small>Lot 27 · Tranche 3</small><b>+4,2 M DA encaissés</b></span></div>
           <div class="chip c2 float" data-depth="2"><span class="ic"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6h4M6 9h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><small>Bloc B</small><b>Lot 12 réservé</b></span></div>
-          <div class="chip c3 float" data-depth="1.1"><span class="ic"><svg viewBox="0 0 16 16"><path d="M2 13h12M4 13V7l4-3 4 3v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span><small>Gros œuvre</small><b>Avancement 85 %</b></span></div>
+          <div class="chip c3 float" data-depth="1.1"><span class="ic"><svg viewBox="0 0 16 16"><path d="M2 13h12M4 13V7l4-3 4 3v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span><small>Gros œuvre</small><b>Avancement 85 %</b></span></div>
           <div class="chip c4 float" data-depth="1.7"><span class="ic"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span><span><small>Suivi administratif</small><b>Visa CTC obtenu</b></span></div>
         </div>
       </div>
-      <span class="mock-tag">Maquette avec données fictives — à remplacer par de vraies captures de VISION.</span>
+      <span class="mock-tag">Écran d’illustration, données fictives.</span>
     </div>
   </div>
   <div class="mods">
@@ -1332,7 +1372,7 @@ body.sheet-open{overflow:hidden}
         </article>
         <article class="mod">
           <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Mobile et CRM</em></b><small>Vos ventes, partout</small></div></header>
-          <ul><li style="--i:0">Application smartphone, tablette et PC</li><li style="--i:1">Leads, rendez-vous et visites</li><li style="--i:2">Appel en un clic depuis la fiche client</li><li style="--i:3">Résumé des appels par l'IA</li><li style="--i:4">Alertes d'échéances et validations</li></ul>
+          <ul><li style="--i:0">Application smartphone, tablette et PC</li><li style="--i:1">Leads, rendez-vous et visites</li><li style="--i:2">Appel en un clic depuis la fiche client</li><li style="--i:3">Résumé des appels par l’IA</li><li style="--i:4">Alertes d’échéances et validations</li></ul>
         </article>
       </div>
     </div>
@@ -1385,17 +1425,17 @@ body.sheet-open{overflow:hidden}
     <div class="closer" id="closerGrid" data-active="1">
       <div class="sticky">
         <div class="stage3d">
-          <div class="screen" role="img" aria-label="Maquette de VISION Estate avec quatre zones : indicateurs, échéancier, suivi administratif, avancement">
+          <div class="screen" role="img" aria-label="Maquette de VISION Estate avec quatre zones : indicateurs, échéancier, suivi administratif, avancement">
             <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Bloc A</em></div>
-            <main style="padding:20px;display:grid;gap:14px;transform-style:preserve-3d">
+            <div class="scr-main" style="padding:20px;display:grid;gap:14px;transform-style:preserve-3d">
               <div class="kpis zone z1">
                 <div class="kpi"><small>Lots vendus</small><b>86</b></div>
                 <div class="kpi"><small>Réservés</small><b>12</b></div>
-                <div class="kpi"><small>Encaissé</small><b>61 %</b></div>
-                <div class="kpi"><small>Reste à encaisser</small><b>1,17 Md</b></div>
+                <div class="kpi"><small>Encaissé</small><b>61 %</b></div>
+                <div class="kpi"><small>Reste à encaisser</small><b>1,17 Md</b></div>
               </div>
               <div class="split">
-                <div class="panel zone z2"><h4>Échéancier · Lot 27</h4>
+                <div class="panel zone z2"><p class="p-h">Échéancier · Lot 27</p>
                   <table class="tbl"><tbody>
                     <tr><td>Apport initial</td><td><span class="pill ok">Réglé</span></td></tr>
                     <tr><td>Tranche 2 · fin gros œuvre</td><td><span class="pill ok">Réglé</span></td></tr>
@@ -1403,7 +1443,7 @@ body.sheet-open{overflow:hidden}
                     <tr><td>Crédit bancaire</td><td><span class="pill wait">En attente</span></td></tr>
                   </tbody></table>
                 </div>
-                <div class="panel zone z3"><h4>Suivi administratif</h4>
+                <div class="panel zone z3"><p class="p-h">Suivi administratif</p>
                   <table class="tbl"><tbody>
                     <tr><td>Acte notarié</td><td><span class="pill ok">Fait</span></td></tr>
                     <tr><td>Visa CTC</td><td><span class="pill ok">Fait</span></td></tr>
@@ -1411,24 +1451,24 @@ body.sheet-open{overflow:hidden}
                   </tbody></table>
                 </div>
               </div>
-              <div class="panel zone z4"><h4>Avancement physique</h4>
+              <div class="panel zone z4"><p class="p-h">Avancement physique</p>
                 <div class="gantt">
                   <div><span>Infrastructure</span><b style="--p:100%"></b></div>
                   <div><span>Gros œuvre</span><b style="--p:85%"></b></div>
-                  <div><span>Corps d'état secondaires</span><b style="--p:40%"></b></div>
+                  <div><span>Corps d’état secondaires</span><b style="--p:40%"></b></div>
                   <div><span>VRD</span><b style="--p:15%"></b></div>
                 </div>
               </div>
-            </main>
+            </div>
           </div>
         </div>
         <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </div>
       <div class="steps">
-        <div class="step on" data-step="1"><span class="k">Indicateurs</span><h3>L'essentiel en un coup d'œil.</h3><p>Lots vendus, réservés, encaissés : chaque projet affiche sa situation réelle dès l'ouverture.</p></div>
-        <div class="step" data-step="2"><span class="k">Échéancier</span><h3>Chaque échéance, à temps.</h3><p>Autofinancement, crédit bancaire, CNL : l'échéancier de chaque acquéreur se suit tranche par tranche, à la date ou à l'avancement.</p></div>
-        <div class="step" data-step="3"><span class="k">Suivi administratif</span><h3>Les démarches, enfin visibles.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque démarche a son statut, pour le promoteur comme pour l'acquéreur.</p></div>
-        <div class="step" data-step="4"><span class="k">Avancement</span><h3>Le chantier relié aux ventes.</h3><p>L'avancement par lot déclenche les appels de fonds au bon moment.</p></div>
+        <div class="step on" data-step="1"><span class="k">Indicateurs</span><h3>L’essentiel en un coup d’œil.</h3><p>Lots vendus, réservés, encaissés : chaque projet affiche sa situation réelle dès l’ouverture.</p></div>
+        <div class="step" data-step="2"><span class="k">Échéancier</span><h3>Chaque échéance, à temps.</h3><p>Autofinancement, crédit bancaire, CNL : l’échéancier de chaque acquéreur se suit tranche par tranche, à la date ou à l’avancement.</p></div>
+        <div class="step" data-step="3"><span class="k">Suivi administratif</span><h3>Les démarches, enfin visibles.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque démarche a son statut, pour le promoteur comme pour l’acquéreur.</p></div>
+        <div class="step" data-step="4"><span class="k">Avancement</span><h3>Le chantier relié aux ventes.</h3><p>L’avancement par lot déclenche les appels de fonds au bon moment.</p></div>
       </div>
     </div>
   </div>
@@ -1483,9 +1523,9 @@ body.sheet-open{overflow:hidden}
         </div>
         <div class="ch-badge"><svg class="eye" viewBox="0 0 440 276"><use href="#eye-mark"/></svg><span>Copropriété active</span></div>
         <span class="ch-tag t1"><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small>Réception</small>PV signé, réserves levées</span></span>
-        <span class="ch-tag t2"><span class="ic"><svg viewBox="0 0 16 16"><circle cx="5" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h6M12 8v2.5M14 8v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><small>Bloc A · 86 lots</small>Clés remises aux acquéreurs</span></span>
+        <span class="ch-tag t2"><span class="ic"><svg viewBox="0 0 16 16"><circle cx="5" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h6M12 8v2.5M14 8v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><small>Bloc A · 86 lots</small>Clés remises aux acquéreurs</span></span>
         <span class="ch-tag t3"><span class="ic"><svg viewBox="0 0 16 16"><path d="M2 14h12M4 14V7l4-3 4 3v7M7 14v-3h2v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span><small>VISION Co-Owner</small>Copropriété ouverte</span></span>
-        <span class="drag-hint">Faites pivoter l'immeuble</span>
+        <span class="drag-hint">Faites pivoter l’immeuble</span>
       </div>
       <div class="ch-copy">
         <div class="ch-meter">
@@ -1496,7 +1536,7 @@ body.sheet-open{overflow:hidden}
         <ol class="phases" id="phases">
           <li class="on"><small>01 · Infrastructure</small><h3>Les fondations, budgétées.</h3><p>Quantités prévisionnelles et coûts suivis dès le premier mètre cube de béton.</p></li>
           <li><small>02 · Gros œuvre</small><h3>Chaque étage, mesuré.</h3><p>Situations de travaux et avancement par lot, mis à jour depuis le chantier.</p></li>
-          <li><small>03 · Corps d'état secondaires</small><h3>Les finitions, coordonnées.</h3><p>Électricité, plomberie, revêtements : chaque lot de travaux garde son budget.</p></li>
+          <li><small>03 · Corps d’état secondaires</small><h3>Les finitions, coordonnées.</h3><p>Électricité, plomberie, revêtements : chaque lot de travaux garde son budget.</p></li>
           <li><small>04 · Livraison</small><h3>Les clés, puis la copropriété.</h3><p>Les acquéreurs deviennent résidents dans VISION Co-Owner, sans ressaisie.</p>
             <ul class="checks"><li>PV de réception signé</li><li>Clés remises aux acquéreurs</li><li>Copropriété ouverte dans VISION Co-Owner</li></ul></li>
         </ol>
@@ -1528,7 +1568,7 @@ body.sheet-open{overflow:hidden}
         <div data-reveal><small>CRM</small><h3>Prospect</h3><p>Les contacts arrivent du site, de Meta et des réseaux sociaux.</p></div>
         <div data-reveal><small>VISION Estate</small><h3>Acquéreur</h3><p>Attribution du lot, financement, documents commerciaux.</p></div>
         <div data-reveal><small>VISION Estate</small><h3>Clôture</h3><p>Dossiers soldés, projet clôturé fiscalement.</p></div>
-        <div data-reveal><small>VISION Co-Owner</small><h3>Copropriétaire</h3><p>L'acquéreur devient résident, automatiquement.</p></div>
+        <div data-reveal><small>VISION Co-Owner</small><h3>Copropriétaire</h3><p>L’acquéreur devient résident, automatiquement.</p></div>
       </div>
     </div>
   </div>
@@ -1544,8 +1584,8 @@ body.sheet-open{overflow:hidden}
       <p class="lead" data-reveal>Quand votre entreprise de réalisation travaille pour votre promotion, VISION partage le document une seule fois.</p>
     </div>
     <div class="duo">
-      <div class="ledger l" data-reveal><span class="name">VISION Estate · Promotion</span><span class="amt">48 600 000 DA</span><span class="what">Situation de travaux n° 7</span><span class="tag">Charge</span></div>
-      <div class="ledger r" data-reveal><span class="name">VISION Build · Réalisation</span><span class="amt">48 600 000 DA</span><span class="what">La même situation, reçue</span><span class="tag">Revenu</span></div>
+      <div class="ledger l" data-reveal><span class="name">VISION Estate · Promotion</span><span class="amt">48 600 000 DA</span><span class="what">Situation de travaux n° 7</span><span class="tag">Charge</span></div>
+      <div class="ledger r" data-reveal><span class="name">VISION Build · Réalisation</span><span class="amt">48 600 000 DA</span><span class="what">La même situation, reçue</span><span class="tag">Revenu</span></div>
       <div class="flight" aria-hidden="true"><div class="doc"><i></i><i></i><i></i><i></i><i></i></div></div>
       <span class="share" aria-hidden="true">Partager</span>
     </div>
@@ -1562,23 +1602,23 @@ body.sheet-open{overflow:hidden}
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">Fonctionnalités</span>
-      <h2 class="h2">Tout ce qu'il faut. <em>Rien de trop.</em></h2>
-      <p class="lead">Huit outils parmi d'autres, chacun montré en mouvement.</p>
+      <h2 class="h2">Tout ce qu’il faut. <em>Rien de trop.</em></h2>
+      <p class="lead">Huit outils parmi d’autres, chacun montré en mouvement.</p>
     </div>
   </div>
   <div class="h-pin" id="hPin">
     <div class="h-track" id="hTrack">
         <article class="feat-card">
           <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-bars"><rect class="g" x="24" y="28" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.0s" x="92" y="28" width="150" height="10" rx="5"/><rect class="g" x="24" y="56" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.25s" x="92" y="56" width="110" height="10" rx="5"/><rect class="g" x="24" y="84" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.5s" x="92" y="84" width="164" height="10" rx="5"/><rect class="g" x="24" y="112" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.75s" x="92" y="112" width="90" height="10" rx="5"/></g></svg>
-          <small>VISION Build</small><h3>Du métré au budget.</h3><p>Quantités prévisionnelles par lot : béton armé, revêtements, VRD, électricité, plomberie.</p>
+          <small>VISION Build</small><h3>Du métré au budget.</h3><p>Quantités prévisionnelles par lot : béton armé, revêtements, VRD, électricité, plomberie.</p>
         </article>
         <article class="feat-card">
           <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-line"><line class="gs" x1="30" y1="80" x2="250" y2="80"/><line class="ms fill" x1="30" y1="80" x2="250" y2="80" pathLength="100"/><circle class="node" style="animation-delay:0.0s" cx="30" cy="80" r="9"/><circle class="node" style="animation-delay:0.45s" cx="85" cy="80" r="9"/><circle class="node" style="animation-delay:0.9s" cx="140" cy="80" r="9"/><circle class="node" style="animation-delay:1.35s" cx="195" cy="80" r="9"/><circle class="node" style="animation-delay:1.8s" cx="250" cy="80" r="9"/></g></svg>
-          <small>VISION Estate</small><h3>Chaque tranche, à sa date.</h3><p>Échéanciers acquéreurs à la date ou à l'avancement, avec relances.</p>
+          <small>VISION Estate</small><h3>Chaque tranche, à sa date.</h3><p>Échéanciers acquéreurs à la date ou à l’avancement, avec relances.</p>
         </article>
         <article class="feat-card">
           <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-cols"><rect class="g" x="34" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.0s" x="34" y="34" width="22" height="96" rx="6"/><rect class="g" x="70" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.18s" x="70" y="52" width="22" height="78" rx="6"/><rect class="g" x="106" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.36s" x="106" y="70" width="22" height="60" rx="6"/><rect class="g" x="142" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.54s" x="142" y="42" width="22" height="88" rx="6"/><rect class="g" x="178" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.72s" x="178" y="90" width="22" height="40" rx="6"/><rect class="g" x="214" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="214" y="106" width="22" height="24" rx="6"/><line class="gs" x1="24" y1="134" x2="256" y2="134"/></g></svg>
-          <small>VISION Build</small><h3>L'avancement, lot par lot.</h3><p>Situations de travaux et attachements suivis depuis le chantier.</p>
+          <small>VISION Build</small><h3>L’avancement, lot par lot.</h3><p>Situations de travaux et attachements suivis depuis le chantier.</p>
         </article>
         <article class="feat-card">
           <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-chart"><path class="area" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52 L260 140 L20 140Z"/><path class="ms draw" pathLength="100" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52"/><circle class="m pulse" cx="260" cy="52" r="6"/></g></svg>
@@ -1586,7 +1626,7 @@ body.sheet-open{overflow:hidden}
         </article>
         <article class="feat-card">
           <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-check"><rect class="box" x="40" y="26" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.0s" pathLength="100" d="M46 38 l5 5 9-10"/><rect class="g" x="78" y="33" width="140" height="10" rx="5"/><rect class="box" x="40" y="66" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.6s" pathLength="100" d="M46 78 l5 5 9-10"/><rect class="g" x="78" y="73" width="110" height="10" rx="5"/><rect class="box" x="40" y="106" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:1.2s" pathLength="100" d="M46 118 l5 5 9-10"/><rect class="g" x="78" y="113" width="160" height="10" rx="5"/></g></svg>
-          <small>VISION Estate</small><h3>Les démarches, cochées.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque dossier a son statut.</p>
+          <small>VISION Estate</small><h3>Les démarches, cochées.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque dossier a son statut.</p>
         </article>
         <article class="feat-card">
           <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-funnel"><path class="gs" d="M70 30 H210 L160 90 V128 H120 V90 Z"/><circle class="drop" style="animation-delay:0.0s" cx="100" cy="14" r="6"/><circle class="drop" style="animation-delay:0.5s" cx="120" cy="14" r="6"/><circle class="drop" style="animation-delay:1.0s" cx="140" cy="14" r="6"/><circle class="drop" style="animation-delay:1.5s" cx="160" cy="14" r="6"/><circle class="m out" cx="140" cy="140" r="7"/></g></svg>
@@ -1633,8 +1673,8 @@ body.sheet-open{overflow:hidden}
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Une offre complète</span>
-      <h2 class="h2">Tout ce qu'il faut <em>autour de VISION.</em></h2>
-      <p class="lead">Cinq couches, un seul partenaire. Chacune a sa fiche détaillée.</p>
+      <h2 class="h2">Cinq couches. <em>Un seul partenaire.</em></h2>
+      <p class="lead">De l’équipe à la sauvegarde, BitEye prend tout en charge. Chaque couche a sa fiche détaillée.</p>
     </div>
     <div class="couches" id="couchesGrid">
       <div class="stack" aria-hidden="true">
@@ -1662,16 +1702,16 @@ body.sheet-open{overflow:hidden}
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Par où commencer</span>
-      <h2 class="h2">Quel est <em>votre besoin ?</em></h2>
+      <h2 class="h2">Quel est <em>votre besoin ?</em></h2>
     </div>
     <div class="need" id="need">
       <div class="need-btns" role="group" aria-label="Choisissez votre besoin">
         <button type="button" data-need="equiper" data-svc="infrastructure securite logiciel" data-msg="Un serveur dimensionné, un réseau propre et des données protégées, avec VISION installé." aria-pressed="false">Équiper mon entreprise</button>
         <button type="button" data-need="distance" data-svc="acces-distant securite" data-msg="Vos équipes ouvrent VISION depuis le chantier ou la maison, en toute sécurité." aria-pressed="false">Travailler à distance</button>
         <button type="button" data-need="vendre" data-svc="formation logiciel" data-msg="Des commerciaux formés et un CRM qui suit chaque prospect jusqu’à la vente." aria-pressed="false">Vendre plus</button>
-        <button type="button" data-need="tout" data-svc="logiciel acces-distant infrastructure securite formation" data-msg="De l’audit au suivi : BitEye prend en charge l’ensemble." aria-pressed="true" class="on">Tout mettre en place</button>
+        <button type="button" data-need="tout" data-svc="logiciel acces-distant infrastructure securite formation" data-msg="De l’audit au suivi : BitEye prend en charge l’ensemble." aria-pressed="true" class="on">Tout mettre en place</button>
       </div>
-      <p class="need-msg" id="needMsg" aria-live="polite">De l’audit au suivi : BitEye prend en charge l’ensemble.</p>
+      <p class="need-msg" id="needMsg" aria-live="polite">De l’audit au suivi : BitEye prend en charge l’ensemble.</p>
       <div class="need-tiles">
         <a class="nt on" href="#logiciel" data-svc="logiciel"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span><b>Logiciel VISION</b><span class="nt-go">Voir la fiche ›</span></a>
         <a class="nt on" href="#acces-distant" data-svc="acces-distant"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span><b>Accès à distance</b><span class="nt-go">Voir la fiche ›</span></a>
@@ -1690,7 +1730,7 @@ body.sheet-open{overflow:hidden}
     <div class="head center">
       <span class="eyebrow">Depuis 2014</span>
       <h2 class="h2" data-reveal>Ils construisent <em>avec VISION.</em></h2>
-      <p class="lead">Plus de 250 entreprises nous font confiance, d'Oran à Annaba.</p>
+      <p class="lead">Plus de 250 entreprises nous font confiance, d’Oran à Annaba.</p>
     </div>
     <div class="stats">
       <div class="stat" data-reveal><b><span class="count" data-to="250">250</span>+<sup>1</sup></b><span>clients en 2026</span></div>
@@ -1701,25 +1741,25 @@ body.sheet-open{overflow:hidden}
       <span class="g-track" aria-hidden="true"><i id="gFill"></i></span>
       <ol class="g-steps">
         <li><b>2014</b><span>Premiers clients à Oran</span></li>
-        <li><b>2024</b><span>Cap des 120 clients</span></li>
+        <li><b>2024</b><span>Cap des 120 clients</span></li>
         <li><b>Secteur public</b><span>Agence foncière de Béjaïa, puis DELY PRO</span></li>
-        <li><b>2026</b><span>Plus de 250 clients dans 19 wilayas</span></li>
+        <li><b>2026</b><span>Plus de 250 clients dans 19 wilayas</span></li>
       </ol>
     </div>
 
     <div class="public">
       <article class="pub-card" data-reveal>
         <span class="pub-logos"><img src="data:image/webp;base64,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" alt="Logo AFOWB" width="267" height="120" loading="lazy"></span>
-        <div><small>Agence foncière · Béjaïa</small><h3>La première agence foncière d'Algérie équipée.</h3><p>Pour l'AFOWB, BitEye a adapté son logiciel aux besoins des agences foncières en quatre mois.</p></div>
+        <div><small>Agence foncière · Béjaïa</small><h3>La première agence foncière d’Algérie équipée de VISION.</h3><p>Pour l’AFOWB, BitEye a adapté son logiciel aux besoins des agences foncières en quatre mois.</p></div>
       </article>
       <article class="pub-card" data-reveal>
         <span class="pub-logos"><img src="data:image/webp;base64,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" alt="Logo DELY PRO" width="360" height="81" loading="lazy"><img src="data:image/webp;base64,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" alt="Logo groupe CNERU" width="116" height="120" loading="lazy"></span>
-        <div><small>EPE SPA · groupe CNERU</small><h3>DELY PRO pilote ses projets avec VISION.</h3><p>Filiale du groupe CNERU, sous tutelle du ministère de l'Habitat.</p></div>
+        <div><small>EPE SPA · groupe CNERU</small><h3>DELY PRO pilote ses projets avec VISION.</h3><p>Filiale du groupe CNERU, sous tutelle du ministère de l’Habitat.</p></div>
       </article>
     </div>
 
     <div class="refs" id="references">
-      <p class="refs-lead">Une partie de nos clients : <b>171</b> références présentées, parmi plus de <b>250</b>.</p>
+      <p class="refs-lead">Une partie de nos clients : <b>171</b> références présentées, parmi plus de <b>250</b>.</p>
       <div class="ref-filters" role="group" aria-label="Filtrer les références par ville">
         <button type="button" class="on" data-f="all" aria-pressed="true">Toutes <b>171</b></button>
         <button type="button" data-f="oran" aria-pressed="false">Oran <b>82</b></button>
@@ -1917,7 +1957,7 @@ body.sheet-open{overflow:hidden}
       <div class="tile big" data-reveal>
         <div class="chips"><span>Promotion libre</span><span>LPA 1</span><span>LPA 2</span><span>CNL</span><span>BNH</span><span>FNPOS</span><span>Crédit bancaire</span><span>Vente de terrain</span></div>
         <h3>Votre réglementation, déjà intégrée.</h3>
-        <p>Types de projets, financements, échéanciers : VISION parle le langage de la promotion immobilière algérienne.</p>
+        <p>Types de projets, financements, échéanciers : VISION parle le langage de la promotion immobilière algérienne.</p>
       </div>
       <div class="tile s2" data-reveal><span class="big-ic"><svg viewBox="0 0 26 26"><path d="M4 21V9l9-5 9 5v12M9 21v-6h8v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><h3>Formation sur site.</h3><p>Vos équipes, sur leurs propres projets.</p></div>
       <div class="tile s2" data-reveal><span class="big-ic"><svg viewBox="0 0 26 26"><path d="M5 13l5 5 11-11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>Mise en place accompagnée.</h3><p>Installation, paramétrage, procès-verbal de fin de formation.</p></div>
@@ -1938,7 +1978,7 @@ body.sheet-open{overflow:hidden}
       <h2 class="h2 no-split" style="margin-top:22px">Voyons <em>votre <span class="rot" id="rot"><span class="on">projet.</span><span>promotion.</span><span>chantier.</span><span>copropriété.</span></span></em></h2>
       <p class="lead" style="margin-top:22px">Une démonstration sur un projet qui ressemble au vôtre.</p>
       <ol class="c-steps">
-        <li style="--i:0"><span class="n">1</span><div><b>Vous laissez vos coordonnées</b><small>Quatre champs, moins d'une minute.</small></div></li>
+        <li style="--i:0"><span class="n">1</span><div><b>Vous laissez vos coordonnées</b><small>Quatre champs, moins d’une minute.</small></div></li>
         <li style="--i:1"><span class="n">2</span><div><b>Nous vous rappelons</b><small>Pour fixer un créneau qui vous convient.</small></div></li>
         <li style="--i:2"><span class="n">3</span><div><b>Vous voyez VISION en action</b><small>Sur un projet proche du vôtre.</small></div></li>
       </ol>
@@ -1953,9 +1993,9 @@ body.sheet-open{overflow:hidden}
         <span class="f-eye"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span>
         <div><b>Réservez votre démonstration</b><small><i class="live"></i>Nous vous rappelons pour fixer un créneau.</small></div>
       </div>
-      <label for="f-nom">Nom et prénom<input id="f-nom" name="nom" autocomplete="name" required placeholder="Votre nom"></label>
+      <label for="f-nom">Nom et prénom<input id="f-nom" name="nom" autocomplete="name" required minlength="2" placeholder="Votre nom"></label>
       <label for="f-soc">Société<input id="f-soc" name="societe" autocomplete="organization" required placeholder="Nom de votre entreprise"></label>
-      <label for="f-tel">Téléphone<input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="05 XX XX XX XX"></label>
+      <label for="f-tel">Téléphone<input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required pattern="(\+213|0)[ .]?[2-7]([ .]?[0-9]){8}" title="Un numéro algérien, par exemple 0560 06 36 41" placeholder="05 XX XX XX XX"></label>
       <fieldset class="f-met"><legend>Votre métier</legend>
         <label><input type="radio" name="metier" id="f-met1" value="Promotion immobilière" checked><span>Promotion</span></label>
         <label><input type="radio" name="metier" id="f-met2" value="Réalisation"><span>Réalisation</span></label>
@@ -1963,10 +2003,10 @@ body.sheet-open{overflow:hidden}
         <label><input type="radio" name="metier" id="f-met4" value="Plusieurs métiers"><span>Plusieurs</span></label>
       </fieldset>
       <div class="actions"><button class="btn btn-shine" type="submit">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-      <div class="f-done" id="form-msg" hidden>
+      <div class="f-done" id="form-msg" role="status" tabindex="-1" hidden>
         <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" pathLength="100"/><path d="M20 33l8 8 16-17" pathLength="100"/></svg>
         <b>Merci, votre demande est prête.</b>
-        <small>Maquette : l'envoi sera branché lors de la mise en ligne.</small>
+        <small>Votre messagerie s’ouvre avec le message à envoyer. Vous pouvez aussi nous appeler au 0560 06 36 41.</small>
       </div>
     </form>
   </div>
@@ -1983,12 +2023,12 @@ body.sheet-open{overflow:hidden}
   </div></div>
   <div class="s-block"><div class="wrap">
     <div class="brick-grid">
-      <article class="brick core" style="--i:0"><small>Commercial et juridique</small><h3>VISION Estate</h3><ul class="ticks"><li>Lots, pré-réservations et dossiers de réservation</li><li>Paiements : échéances, crédits bancaires, autofinancement, travaux supplémentaires</li><li>Alertes avancées</li><li>Documents commerciaux générés automatiquement</li><li>Dossiers administratifs des acquéreurs</li></ul></article>
+      <article class="brick core" style="--i:0"><small>Commercial et juridique</small><h3>VISION Estate</h3><ul class="ticks"><li>Lots, pré-réservations et dossiers de réservation</li><li>Paiements : échéances, crédits bancaires, autofinancement, travaux supplémentaires</li><li>Alertes avancées</li><li>Documents commerciaux générés automatiquement</li><li>Dossiers administratifs des acquéreurs</li></ul></article>
       <article class="brick core" style="--i:1"><small>Technique et finances</small><h3>VISION Estate</h3><ul class="ticks"><li>Contrats, avenants, attachements et décomptes des sous-traitants</li><li>Situations et factures</li><li>Caisses et comptes bancaires, rapprochement automatique</li></ul></article>
       <article class="brick core" style="--i:2"><small>Entreprise de réalisation</small><h3>VISION Build</h3><ul class="ticks"><li>Clients, partenaires, bons de commande, contrats et avenants</li><li>Situations d’avance, de travaux et libération des retenues de garantie</li><li>Attachements qui génèrent situations et décomptes</li><li>Documents administratifs et techniques</li></ul></article>
       <article class="brick core" style="--i:3"><small>Gestion de copropriété</small><h3>VISION Co-Owner</h3><ul class="ticks"><li>Tantièmes et répartition</li><li>Appels de charges</li><li>Budget de la copropriété</li><li>Interventions et entretien</li><li>Fiche de chaque résident</li></ul></article>
       <article class="brick " style="--i:4"><small>Achats et entrepôts</small><h3>Stocks</h3><ul class="ticks"><li>Bons de commande, de livraison et d’avoir</li><li>Entrepôts, mouvements et inventaires</li><li>Reporting</li></ul></article>
-      <article class="brick " style="--i:5"><small>Calcul et simulation</small><h3>Fiscalité</h3><ul class="ticks"><li>Paiements fiscaux : impôt sur les bénéfices et taxes</li><li>Répartition des coûts des biens</li><li>Bénéfice fiscal et bénéfice réel</li></ul></article>
+      <article class="brick " style="--i:5"><small>Calcul et simulation</small><h3>Fiscalité</h3><ul class="ticks"><li>Paiements fiscaux : impôt sur les bénéfices et taxes</li><li>Répartition des coûts des biens</li><li>Bénéfice fiscal et bénéfice réel</li></ul></article>
       <article class="brick " style="--i:6"><small>Équipes et paie</small><h3>Ressources humaines</h3><ul class="ticks"><li>Pointage des employés</li><li>Salaires et honoraires</li><li>Reporting</li></ul></article>
       <article class="brick " style="--i:7"><small>Relation client</small><h3>CRM</h3><ul class="ticks"><li>Leads et clients potentiels</li><li>Suivi des ventes par projet</li><li>Rendez-vous et visites</li><li>Équipe commerciale et tableaux de bord</li></ul></article>
       <article class="brick " style="--i:8"><small>Téléphonie intégrée</small><h3>PhoneLink</h3><ul class="ticks"><li>Appel en un clic depuis la fiche client</li><li>Téléphone virtuel affiché à l’écran</li><li>Journal des appels automatique</li><li>Résumé des conversations par l’IA</li></ul></article>
@@ -1998,13 +2038,13 @@ body.sheet-open{overflow:hidden}
   </div></div>
   <div class="sh-end"><div class="wrap">
     <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="sh-next" href="#acces-distant">Fiche suivante : <b>Accès à distance</b> ›</a>
+    <a class="sh-next" href="#acces-distant">Fiche suivante : <b>Accès à distance</b> ›</a>
   </div></div>
 </section>
 <section class="sheet" id="acces-distant" role="dialog" aria-modal="true" aria-labelledby="acces-distant-t" tabindex="-1" hidden data-lenis-prevent>
   <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant" class="on" aria-current="page">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
-    <div class="sh-copy"><span class="eyebrow">Accès à distance</span><h2 class="h2 no-split" id="acces-distant-t">Votre bureau, <em>partout.</em></h2><p class="s-lead">Le chantier, l’agence, la maison : vos équipes travaillent dans VISION comme si elles étaient au siège.</p></div>
+    <div class="sh-copy"><span class="eyebrow">Accès à distance</span><h2 class="h2 no-split" id="acces-distant-t">Votre bureau, <em>partout.</em></h2><p class="s-lead">Le chantier, l’agence, la maison : vos équipes travaillent dans VISION comme si elles étaient au siège.</p></div>
     <div class="sh-art" aria-hidden="true"><svg class="net-art" viewBox="0 0 360 260"><g class="links"><path d="M180 130 L60 60"/><path d="M180 130 L300 60"/><path d="M180 130 L180 225"/></g>
 <g class="packets"><circle r="4" class="pk"><animateMotion dur="2.2s" repeatCount="indefinite" path="M60 60 L180 130"/></circle><circle r="4" class="pk"><animateMotion dur="2.2s" begin=".7s" repeatCount="indefinite" path="M300 60 L180 130"/></circle><circle r="4" class="pk"><animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M180 225 L180 130"/></circle></g>
 <g class="hub"><circle cx="180" cy="130" r="40" class="hub-c"/><rect x="166" y="126" width="28" height="22" rx="4" class="lock-b"/><path d="M171 126v-7a9 9 0 0118 0v7" class="lock-s"/></g>
@@ -2015,7 +2055,7 @@ body.sheet-open{overflow:hidden}
   <div class="s-block"><div class="wrap"><div class="card-grid c4"><article class="s-card" style="--i:0"><b>Comme au bureau</b><p>VISION s’ouvre comme une application installée sur le poste, depuis n’importe où (technologie RemoteApp).</p></article><article class="s-card" style="--i:1"><b>Connexion chiffrée</b><p>Un certificat SSL protège chaque connexion entre vos utilisateurs et le serveur.</p></article><article class="s-card" style="--i:2"><b>Jusqu’à 50 accès simultanés</b><p>Des licences d’accès perpétuelles pour connecter toutes vos équipes en même temps.</p></article><article class="s-card" style="--i:3"><b>Mise en service complète</b><p>Configuration du serveur et de l’accès à distance, hébergement de l’accès sécurisé inclus la première année.</p></article></div><ol class="s-steps"><li style="--i:0"><span>1</span>Configuration du serveur</li><li style="--i:1"><span>2</span>Ouverture de l’accès sécurisé</li><li style="--i:2"><span>3</span>Installation des postes</li><li style="--i:3"><span>4</span>Connexion des utilisateurs</li></ol></div></div>
   <div class="sh-end"><div class="wrap">
     <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="sh-next" href="#infrastructure">Fiche suivante : <b>Serveur et réseau</b> ›</a>
+    <a class="sh-next" href="#infrastructure">Fiche suivante : <b>Serveur et réseau</b> ›</a>
   </div></div>
 </section>
 <section class="sheet" id="infrastructure" role="dialog" aria-modal="true" aria-labelledby="infrastructure-t" tabindex="-1" hidden data-lenis-prevent>
@@ -2026,45 +2066,45 @@ body.sheet-open{overflow:hidden}
   </div></div>
   <div class="s-block"><div class="wrap">
     <div class="configurator" id="configurator">
-      <label class="cfg-q" for="cfgUsers">Combien d’utilisateurs travailleront dans VISION ?</label>
+      <label class="cfg-q" for="cfgUsers">Combien d’utilisateurs travailleront dans VISION ?</label>
       <div class="cfg-slider"><input type="range" id="cfgUsers" min="1" max="50" value="15" aria-describedby="cfgOut"><output id="cfgOut" for="cfgUsers"><b>15</b> utilisateurs</output></div>
       <div class="cfg-grid">
         <article class="cfg" data-f="essentiel" data-max="10" data-cores="10" data-ram="16" data-disk="1" data-ups="1000">
-          <header><b>Essentiel</b><small>≤ 10 utilisateurs</small></header>
+          <header><b>Essentiel</b><small>≤ 10 utilisateurs</small></header>
           <div class="meters">
-            <div><span>Puissance</span><b>10 cœurs</b><i style="--v:0.714"></i></div>
-            <div><span>Mémoire</span><b>16 Go</b><i style="--v:0.250"></i></div>
-            <div><span>Onduleur</span><b>1 000 VA</b><i style="--v:0.500"></i></div>
+            <div><span>Puissance</span><b>10 cœurs</b><i style="--v:0.714"></i></div>
+            <div><span>Mémoire</span><b>16 Go</b><i style="--v:0.250"></i></div>
+            <div><span>Onduleur</span><b>1 000 VA</b><i style="--v:0.500"></i></div>
           </div>
           <p class="cfg-use">1 module · petite structure</p>
         </article>
         <article class="cfg" data-f="standard" data-max="25" data-cores="12" data-ram="32" data-disk="2" data-ups="1500">
-          <header><b>Standard</b><em>Recommandée</em><small>≤ 25 utilisateurs</small></header>
+          <header><b>Standard</b><em>Recommandée</em><small>≤ 25 utilisateurs</small></header>
           <div class="meters">
-            <div><span>Puissance</span><b>12 cœurs</b><i style="--v:0.857"></i></div>
-            <div><span>Mémoire</span><b>32 Go</b><i style="--v:0.500"></i></div>
-            <div><span>Onduleur</span><b>1 500 VA</b><i style="--v:0.750"></i></div>
+            <div><span>Puissance</span><b>12 cœurs</b><i style="--v:0.857"></i></div>
+            <div><span>Mémoire</span><b>32 Go</b><i style="--v:0.500"></i></div>
+            <div><span>Onduleur</span><b>1 500 VA</b><i style="--v:0.750"></i></div>
           </div>
-          <p class="cfg-use">2 à 3 modules · structure moyenne</p>
+          <p class="cfg-use">2 à 3 modules · structure moyenne</p>
         </article>
         <article class="cfg" data-f="avancee" data-max="50" data-cores="14" data-ram="64" data-disk="2" data-ups="2000">
-          <header><b>Avancée</b><small>≤ 50 utilisateurs</small></header>
+          <header><b>Avancée</b><small>≤ 50 utilisateurs</small></header>
           <div class="meters">
-            <div><span>Puissance</span><b>14 cœurs</b><i style="--v:1.000"></i></div>
-            <div><span>Mémoire</span><b>64 Go</b><i style="--v:1.000"></i></div>
-            <div><span>Onduleur</span><b>2 000 VA</b><i style="--v:1.000"></i></div>
+            <div><span>Puissance</span><b>14 cœurs</b><i style="--v:1.000"></i></div>
+            <div><span>Mémoire</span><b>64 Go</b><i style="--v:1.000"></i></div>
+            <div><span>Onduleur</span><b>2 000 VA</b><i style="--v:1.000"></i></div>
           </div>
           <p class="cfg-use">Tous modules · grande structure</p>
         </article>
       </div>
-      <details class="cmp-box"><summary>Comparer les 3 formules en détail</summary><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Composant</th><th scope="col">Essentiel<small>≤ 10 utilisateurs</small></th><th scope="col">Standard ★<small>≤ 25 utilisateurs</small></th><th scope="col">Avancée<small>≤ 50 utilisateurs</small></th></tr></thead><tbody><tr><th scope="row">Modèle</th><td>Dell Precision T5810 ou équivalent</td><td class="hl">Dell Precision T5810 ou équivalent</td><td>Dell Precision T5810 / T7810 ou équivalent</td></tr><tr><th scope="row">Processeur</th><td>Intel Xeon E5-2630 v4 · 10 cœurs · 2,2 GHz</td><td class="hl">Intel Xeon E5-2673 v3 · 12 cœurs · 2,4 GHz</td><td>Intel Xeon E5-2690 v4 · 14 cœurs · 2,6 GHz</td></tr><tr><th scope="row">Mémoire</th><td>16 Go DDR4 ECC</td><td class="hl">32 Go DDR4 ECC</td><td>64 Go DDR4 ECC</td></tr><tr><th scope="row">Disque système</th><td>SSD 512 Go</td><td class="hl">SSD 1 To</td><td>SSD 1 To</td></tr><tr><th scope="row">Disque données</th><td>HDD 1 To</td><td class="hl">HDD 2 To</td><td>2 × HDD 2 To RAID 1</td></tr><tr><th scope="row">Accès distant</th><td>Pack 50 CAL RDP</td><td class="hl">Pack 50 CAL RDP</td><td>Pack 50 CAL RDP</td></tr><tr><th scope="row">Antivirus</th><td>Kaspersky Small Office Security</td><td class="hl">Kaspersky Endpoint Security for Business</td><td>Kaspersky Endpoint Security for Business</td></tr><tr><th scope="row">Onduleur</th><td>1 000 VA min.</td><td class="hl">1 500 VA min.</td><td>2 000 VA min.</td></tr><tr><th scope="row">Réseau</th><td>Switch Gigabit 8 ports</td><td class="hl">Switch Gigabit 16 ports</td><td>Switch Gigabit 24 ports</td></tr><tr><th scope="row">Usage cible</th><td>1 module · petite structure</td><td class="hl">2 à 3 modules · structure moyenne</td><td>Tous modules · grande structure</td></tr></tbody></table></div></details>
+      <details class="cmp-box"><summary>Comparer les 3 formules en détail</summary><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Composant</th><th scope="col">Essentiel<small>≤ 10 utilisateurs</small></th><th scope="col">Standard ★<small>≤ 25 utilisateurs</small></th><th scope="col">Avancée<small>≤ 50 utilisateurs</small></th></tr></thead><tbody><tr><th scope="row">Modèle</th><td>Dell Precision T5810 ou équivalent</td><td class="hl">Dell Precision T5810 ou équivalent</td><td>Dell Precision T5810 / T7810 ou équivalent</td></tr><tr><th scope="row">Processeur</th><td>Intel Xeon E5-2630 v4 · 10 cœurs · 2,2 GHz</td><td class="hl">Intel Xeon E5-2673 v3 · 12 cœurs · 2,4 GHz</td><td>Intel Xeon E5-2690 v4 · 14 cœurs · 2,6 GHz</td></tr><tr><th scope="row">Mémoire</th><td>16 Go DDR4 ECC</td><td class="hl">32 Go DDR4 ECC</td><td>64 Go DDR4 ECC</td></tr><tr><th scope="row">Disque système</th><td>SSD 512 Go</td><td class="hl">SSD 1 To</td><td>SSD 1 To</td></tr><tr><th scope="row">Disque données</th><td>HDD 1 To</td><td class="hl">HDD 2 To</td><td>2 × HDD 2 To RAID 1</td></tr><tr><th scope="row">Accès distant</th><td>Pack 50 CAL RDP</td><td class="hl">Pack 50 CAL RDP</td><td>Pack 50 CAL RDP</td></tr><tr><th scope="row">Antivirus</th><td>Kaspersky Small Office Security</td><td class="hl">Kaspersky Endpoint Security for Business</td><td>Kaspersky Endpoint Security for Business</td></tr><tr><th scope="row">Onduleur</th><td>1 000 VA min.</td><td class="hl">1 500 VA min.</td><td>2 000 VA min.</td></tr><tr><th scope="row">Réseau</th><td>Switch Gigabit 8 ports</td><td class="hl">Switch Gigabit 16 ports</td><td>Switch Gigabit 24 ports</td></tr><tr><th scope="row">Usage cible</th><td>1 module · petite structure</td><td class="hl">2 à 3 modules · structure moyenne</td><td>Tous modules · grande structure</td></tr></tbody></table></div></details>
     </div>
     <h3 class="s-h3">Un réseau clé en main</h3>
     <div class="chip-grid"><span style="--i:0">Switch Gigabit rackable</span><span style="--i:1">Câble réseau certifié Cat6</span><span style="--i:2">Prises réseau RJ45</span><span style="--i:3">Panneau de brassage</span><span style="--i:4">Cordons de brassage et d’utilisation</span><span style="--i:5">Onduleur rackable</span><span style="--i:6">Guide-câbles et bandeau d’alimentation</span><span style="--i:7">Point d’accès Wi-Fi plafonnier Gigabit (PoE)</span><span style="--i:8">Licence Windows Server 2019 Standard</span><span style="--i:9">Installation et mise en service</span></div>
   </div></div>
   <div class="sh-end"><div class="wrap">
     <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="sh-next" href="#securite">Fiche suivante : <b>Sécurité et sauvegarde</b> ›</a>
+    <a class="sh-next" href="#securite">Fiche suivante : <b>Sécurité et sauvegarde</b> ›</a>
   </div></div>
 </section>
 <section class="sheet" id="securite" role="dialog" aria-modal="true" aria-labelledby="securite-t" tabindex="-1" hidden data-lenis-prevent>
@@ -2077,7 +2117,7 @@ body.sheet-open{overflow:hidden}
   </div></div>
   <div class="s-block"><div class="wrap">
     <div class="card-grid c2">
-      <article class="s-card big" style="--i:0"><span class="sc-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span><b>Protection</b><ul class="ticks"><li>Kaspersky Endpoint Security sur le serveur et chaque poste</li><li>Pare-feu configuré pour contrôler le trafic entrant et sortant</li><li>Protection en temps réel contre les malwares, ransomwares et intrusions</li><li>Mises à jour automatiques des signatures et des correctifs</li></ul></article>
+      <article class="s-card big" style="--i:0"><span class="sc-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span><b>Protection</b><ul class="ticks"><li>Antivirus Kaspersky sur le serveur et chaque poste</li><li>Pare-feu configuré pour contrôler le trafic entrant et sortant</li><li>Protection en temps réel contre les malwares, ransomwares et intrusions</li><li>Mises à jour automatiques des signatures et des correctifs</li></ul></article>
       <article class="s-card big" style="--i:1"><span class="sc-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span><b>Sauvegarde</b><ul class="ticks"><li>NAS Synology dédié, séparé du serveur et du réseau local</li><li>Sauvegarde externe, hors serveur</li><li>Tunnel VPN sécurisé pour les accès distants</li><li>Vérification régulière de l’intégrité des sauvegardes</li></ul></article>
     </div>
     <h3 class="s-h3">Un rythme qui ne s’arrête jamais</h3>
@@ -2085,28 +2125,28 @@ body.sheet-open{overflow:hidden}
   </div></div>
   <div class="sh-end"><div class="wrap">
     <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="sh-next" href="#formation">Fiche suivante : <b>Formation et performance</b> ›</a>
+    <a class="sh-next" href="#formation">Fiche suivante : <b>Formation et performance</b> ›</a>
   </div></div>
 </section>
 <section class="sheet" id="formation" role="dialog" aria-modal="true" aria-labelledby="formation-t" tabindex="-1" hidden data-lenis-prevent>
   <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation" class="on" aria-current="page">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
-    <div class="sh-copy"><span class="eyebrow">Formation et performance commerciale</span><h2 class="h2 no-split" id="formation-t">Des commerciaux <em>qui convertissent.</em></h2><p class="s-lead">Un bon outil ne suffit pas : l’humain reste au cœur de la vente. Trois jours pour comprendre l’acheteur, conduire la vente et transformer les opportunités en signatures.</p></div>
+    <div class="sh-copy"><span class="eyebrow">Formation et performance commerciale</span><h2 class="h2 no-split" id="formation-t">Des commerciaux <em>qui convertissent.</em></h2><p class="s-lead">Un bon outil ne suffit pas : l’humain reste au cœur de la vente. Trois jours pour comprendre l’acheteur, conduire la vente et transformer les opportunités en signatures.</p></div>
     <div class="sh-art" aria-hidden="true"><div class="funnel"><div style="--i:0;--w:100%"><span>Prospects</span></div><div style="--i:1;--w:78%"><span>Rendez-vous</span></div><div style="--i:2;--w:58%"><span>Visites</span></div><div style="--i:3;--w:40%"><span>Ventes</span></div><i class="fd"></i><i class="fd"></i><i class="fd"></i></div></div>
   </div></div>
   <div class="s-block"><div class="wrap">
-    <div class="kpi-row"><div><b>3</b><span>jours</span></div><div><b>18 h</b><span>de formation</span></div><div><b>10</b><span>modules</span></div><div><b>80 %</b><span>de pratique</span></div></div>
-    <div class="days" data-lenis-prevent><article class="day d1" style="--i:0"><header><span>Jour 1</span><b>Je comprends</b><small>Le client, le marché et ma posture</small></header><ol><li><span class="m-n">01</span><div><b>Mindset et posture du conseiller immobilier</b><small>Confiance, discipline, identité et posture professionnelle</small></div><em>1 h 30</em></li><li><span class="m-n">02</span><div><b>Le cerveau de l’acheteur immobilier</b><small>Psychologie d’achat, émotions, motivations, peurs, neuromarketing</small></div><em>2 h</em></li><li><span class="m-n">03</span><div><b>Communication et langage d’influence</b><small>Écoute active, questionnement, verbal et non-verbal, storytelling</small></div><em>2 h 30</em></li></ol></article><article class="day d2" style="--i:1"><header><span>Jour 2</span><b>Je vends</b><small>Des opportunités aux rendez-vous</small></header><ol><li><span class="m-n">04</span><div><b>Prospection immobilière moderne</b><small>Téléphone, WhatsApp, digital, recommandations, qualification, prise de rendez-vous</small></div><em>2 h</em></li><li><span class="m-n">05</span><div><b>Techniques de vente immobilière</b><small>Processus de vente, découverte, SPIN, SONCAS, CAB/CAP, vente consultative</small></div><em>2 h</em></li><li><span class="m-n">06</span><div><b>L’art de la visite immobilière</b><small>Préparation, parcours de visite, projection, expérience client, débrief</small></div><em>2 h</em></li></ol></article><article class="day d3" style="--i:2"><header><span>Jour 3</span><b>Je convertis</b><small>Plus de signatures, plus de résultats</small></header><ol><li><span class="m-n">07</span><div><b>Négociation et objections</b><small>Prix, remise, concurrence, hésitations, défense de la valeur</small></div><em>2 h</em></li><li><span class="m-n">08</span><div><b>Relance et closing</b><small>Relance intelligente, suivi, signaux d’achat, techniques de closing</small></div><em>1 h 30</em></li><li><span class="m-n">09</span><div><b>Performance et personal branding</b><small>KPI, pipeline, organisation, taux de conversion, image professionnelle</small></div><em>1 h</em></li><li><span class="m-n">10</span><div><b>Simulation et certification</b><small>Cas complet : découverte, argumentation, visite, objection, négociation, closing</small></div><em>1 h 30</em></li></ol></article></div>
-    <p class="s-note">Les exercices se font sur vos projets et directement dans VISION : fiche prospect, source du lead, compte rendu de visite, séquence de relance.</p>
+    <div class="kpi-row"><div><b>3</b><span>jours</span></div><div><b>18 h</b><span>de formation</span></div><div><b>10</b><span>modules</span></div><div><b>80 %</b><span>de pratique</span></div></div>
+    <div class="days" data-lenis-prevent><article class="day d1" style="--i:0"><header><span>Jour 1</span><b>Je comprends</b><small>Le client, le marché et ma posture</small></header><ol><li><span class="m-n">01</span><div><b>Mindset et posture du conseiller immobilier</b><small>Confiance, discipline, identité et posture professionnelle</small></div><em>1 h 30</em></li><li><span class="m-n">02</span><div><b>Le cerveau de l’acheteur immobilier</b><small>Psychologie d’achat, émotions, motivations, peurs, neuromarketing</small></div><em>2 h</em></li><li><span class="m-n">03</span><div><b>Communication et langage d’influence</b><small>Écoute active, questionnement, verbal et non-verbal, storytelling</small></div><em>2 h 30</em></li></ol></article><article class="day d2" style="--i:1"><header><span>Jour 2</span><b>Je vends</b><small>Des opportunités aux rendez-vous</small></header><ol><li><span class="m-n">04</span><div><b>Prospection immobilière moderne</b><small>Téléphone, WhatsApp, digital, recommandations, qualification, prise de rendez-vous</small></div><em>2 h</em></li><li><span class="m-n">05</span><div><b>Techniques de vente immobilière</b><small>Processus de vente, découverte, SPIN, SONCAS, CAB/CAP, vente consultative</small></div><em>2 h</em></li><li><span class="m-n">06</span><div><b>L’art de la visite immobilière</b><small>Préparation, parcours de visite, projection, expérience client, débrief</small></div><em>2 h</em></li></ol></article><article class="day d3" style="--i:2"><header><span>Jour 3</span><b>Je convertis</b><small>Plus de signatures, plus de résultats</small></header><ol><li><span class="m-n">07</span><div><b>Négociation et objections</b><small>Prix, remise, concurrence, hésitations, défense de la valeur</small></div><em>2 h</em></li><li><span class="m-n">08</span><div><b>Relance et closing</b><small>Relance intelligente, suivi, signaux d’achat, techniques de closing</small></div><em>1 h 30</em></li><li><span class="m-n">09</span><div><b>Performance et personal branding</b><small>KPI, pipeline, organisation, taux de conversion, image professionnelle</small></div><em>1 h</em></li><li><span class="m-n">10</span><div><b>Simulation et certification</b><small>Cas complet : découverte, argumentation, visite, objection, négociation, closing</small></div><em>1 h 30</em></li></ol></article></div>
+    <p class="s-note">Les exercices se font sur vos projets et directement dans VISION : fiche prospect, source du lead, compte rendu de visite, séquence de relance.</p>
     <h3 class="s-h3">Ce que votre équipe reçoit</h3>
     <div class="chip-grid"><span style="--i:0">Support apprenant</span><span style="--i:1">Exercices et simulations</span><span style="--i:2">Évaluation des acquis</span><span style="--i:3">Synthèse des axes de progrès de l’équipe</span><span style="--i:4">Attestation de formation BitEye</span></div>
     <h3 class="s-h3">Aller plus loin</h3>
     <div class="card-grid c4"><article class="s-card" style="--i:0"><b>Recrutement des commerciaux</b><p>Profil, recherche, présélection, mises en situation et intégration.</p></article><article class="s-card" style="--i:1"><b>Visibilité des projets</b><p>Pages projets, réseaux sociaux, photos, vidéos, drone et rendus.</p></article><article class="s-card" style="--i:2"><b>Acquisition de prospects</b><p>Formulaires, origine des contacts, qualification et transmission au CRM.</p></article><article class="s-card" style="--i:3"><b>Performance commerciale</b><p>Pipeline, relances, motifs de perte, KPI et 4 semaines d’accompagnement du manager.</p></article></div>
-    <div class="s-band"><span>Suivi mensuel du manager</span><span>Client mystère : un faux prospect teste votre accueil commercial</span></div>
+    <div class="s-band"><span>Suivi mensuel du manager</span><span>Client mystère : un faux prospect teste votre accueil commercial</span></div>
   </div></div>
   <div class="sh-end"><div class="wrap">
     <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="sh-next" href="#logiciel">Fiche suivante : <b>Logiciel VISION</b> ›</a>
+    <a class="sh-next" href="#logiciel">Fiche suivante : <b>Logiciel VISION</b> ›</a>
   </div></div>
 </section>
 
@@ -2117,13 +2157,13 @@ body.sheet-open{overflow:hidden}
       <p class="foot-wm"><b>bit</b>eye</p>
       <p class="foot-tag">Éditeur de VISION Workspace · Gué de Constantine, Alger · Depuis 2014</p>
     </div>
-    <ol><li>Plus de 250 clients en 2026, selon BitEye (120 clients fin 2024). Les 171 références présentées sur cette page en sont une sélection.</li></ol>
-    <div class="base"><span>© 2026 BitEye Group. Tous droits réservés.</span><span>Français · العربية</span></div>
+    <ol><li>Clients BitEye en 2026 (120 à la fin de 2024). Les 171 références présentées sur cette page en sont une sélection.</li></ol>
+    <div class="base"><span>© 2026 BitEye Group. Tous droits réservés.</span><span>Alger, Algérie</span></div>
   </div>
 </footer>
 
 <script>/* vendor/three.min.js */
-console.warn('Scripts "build/three.js" and "build/three.min.js" are deprecated with r150+, and will be removed with r160. Please use ES Modules or alternatives: https://threejs.org/docs/index.html#manual/en/introduction/Installation'),
+void 0,
 /**
  * @license
  * Copyright 2010-2023 Three.js Authors
@@ -2172,7 +2212,13 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 
   document.getElementById('demo').addEventListener('submit', function(e){
     e.preventDefault();
-    var f = e.currentTarget; f.classList.add('sent'); document.getElementById('form-msg').hidden = false;
+    var f = e.currentTarget;
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    var msg = document.getElementById('form-msg'), met = f.querySelector('input[name="metier"]:checked');
+    var body = 'Bonjour,\n\nJe souhaite une démonstration de VISION Workspace.\n\nNom : ' + f.nom.value.trim() + '\nSociété : ' + f.societe.value.trim() +
+      '\nTéléphone : ' + f.tel.value.trim() + '\nMétier : ' + (met ? met.value : '') + '\n';
+    f.classList.add('sent'); msg.hidden = false; msg.focus({preventScroll:true});
+    setTimeout(function(){ location.href = 'mailto:contact@biteye-group.com?subject=' + encodeURIComponent('Demande de démonstration VISION — ' + f.societe.value.trim()) + '&body=' + encodeURIComponent(body); }, 600);
     if (reduce || !window.gsap) return;
     for (var c = 0; c < 28; c++) {
       var bit = document.createElement('i'); bit.className = 'cf'; f.appendChild(bit);
@@ -2240,7 +2286,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   });
   refMore.addEventListener('click', function(){
     refGrid.classList.toggle('collapsed'); refLabel();
-    if (refGrid.classList.contains('collapsed')) refGrid.scrollIntoView({block:'center'});
+    if (refGrid.classList.contains('collapsed')) refGrid.scrollIntoView({block:'center', behavior: reduce ? 'instant' : 'smooth'});
     if (window.ScrollTrigger) setTimeout(function(){ ScrollTrigger.refresh(); }, 950);
   });
   refLabel();
@@ -2278,9 +2324,13 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     mq.addEventListener('pointerleave', function(){ hover = false; });
     mq.classList.add('js');
     measure();
-    (function loop(){
+    var onScreen = true, prev = performance.now();
+    if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ onScreen = es[0].isIntersecting; }).observe(mq);
+    (function loop(now){
       requestAnimationFrame(loop);
-      if (!dragging) { x += v + (hover ? 0 : auto); v *= .94; if (Math.abs(v) < .01) v = 0; }
+      var dt = Math.min(50, (now || prev) - prev) / 16.67; prev = now || prev;
+      if ((!onScreen && !dragging) || document.body.classList.contains('sheet-open')) return;
+      if (!dragging) { x += (v + (hover ? 0 : auto)) * dt; v *= Math.pow(.94, dt); if (Math.abs(v) < .01) v = 0; }
       if (half > 0) x = ((x % half) - half) % half;
       row.style.transform = 'translate3d(' + x + 'px,0,0)';
       if (reduce || !W) return;
@@ -2301,8 +2351,11 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 
   /* Menu Services : survol sur ordinateur, clic au clavier ou au doigt */
   var menuLi = document.querySelector('.has-menu'), menuBtn = menuLi.querySelector('.menu-btn');
-  menuBtn.addEventListener('click', function(){ var o = menuLi.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
-  document.addEventListener('click', function(e){ if (!menuLi.contains(e.target)) { menuLi.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); } });
+  function closeMenu(){ menuLi.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+  menuBtn.addEventListener('click', function(){ var o = menuLi.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', String(o)); });
+  document.addEventListener('click', function(e){ if (!menuLi.contains(e.target)) closeMenu(); });
+  menuLi.addEventListener('keydown', function(e){ if (e.key === 'Escape' && menuLi.classList.contains('open')) { closeMenu(); menuBtn.focus(); e.stopPropagation(); } });
+  menuLi.addEventListener('focusout', function(e){ if (!menuLi.contains(e.relatedTarget)) closeMenu(); });
 
   /* Chapitre en cours, affiché dans la navigation */
   var chap = document.getElementById('chap'), chapNames = {1:'Le logiciel', 2:'Les services', 3:'La confiance'}, chapCur = 1;
@@ -2352,47 +2405,105 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   }
   cfgIn.addEventListener('input', cfgUpdate); cfgUpdate();
 
-  /* Fiches plein écran : ouvertes par l'adresse (#logiciel, #formation…), fermées par la croix, Échap ou le retour */
-  var sheets = {}, sheetBg = document.getElementById('sheetBg'), openSheet = null, lastFocus = null;
+  /* Fiches plein écran : ouvertes par l'adresse (#logiciel, #formation…), fermées par la croix, Échap, le fond ou le retour.
+     Pendant qu'une fiche est ouverte, le reste de la page est rendu inerte (ni focus clavier, ni lecteur d'écran). */
+  var sheets = {}, sheetBg = document.getElementById('sheetBg'), openSheet = null, lastFocus = null, depth = 0, pendingThen = null, hideTimer = null, fullTimer = null;
+  var behind = [document.getElementById('top'), document.querySelector('.gnav'), document.querySelector('footer')];
   document.querySelectorAll('.sheet').forEach(function(sh){ sheets[sh.id] = sh; });
+  var lastTrigger = null;
+  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('a[href^="#"]'); if (a && sheets[a.getAttribute('href').slice(1)] && !a.closest('.sheet')) lastTrigger = a; }, true);
+  function setInert(on){ behind.forEach(function(el){ if (el) el.inert = on; }); }
   function showSheet(id){
     var sh = sheets[id];
     if (!sh || openSheet === sh) return;
-    if (openSheet) { openSheet.classList.remove('open'); openSheet.hidden = true; }
-    else { lastFocus = document.activeElement; sheetBg.hidden = false; requestAnimationFrame(function(){ sheetBg.classList.add('open'); }); }
-    openSheet = sh; sh.hidden = false; sh.scrollTop = 0;
+    clearTimeout(hideTimer);
+    if (openSheet) {
+      /* Passage d'une fiche à l'autre : la nouvelle remplace l'ancienne sur place, sans redescendre */
+      var old = openSheet;
+      sh.hidden = false; sh.style.transition = 'none'; sh.classList.add('open'); void sh.offsetWidth; sh.style.transition = '';
+      old.classList.remove('open'); old.hidden = true;
+      if (!reduce && window.gsap) gsap.from(sh.querySelector('.sh-hero-in'), {opacity:0, y:24, duration:.5, ease:'power3.out', clearProps:'opacity,transform'});
+    } else {
+      lastFocus = lastTrigger || document.activeElement; lastTrigger = null; sheetBg.hidden = false; setInert(true);
+      requestAnimationFrame(function(){ if (openSheet) sheetBg.classList.add('open'); });
+      sh.hidden = false;
+      if (reduce) { sheetBg.classList.add('open'); sh.classList.add('open'); }
+      else requestAnimationFrame(function(){ requestAnimationFrame(function(){ if (openSheet === sh) sh.classList.add('open'); }); });
+    }
+    openSheet = sh; sh.scrollTop = 0;
+    clearTimeout(fullTimer); fullTimer = setTimeout(function(){ if (openSheet) document.body.classList.add('sheet-full'); }, reduce ? 0 : 850);
     var tab = sh.querySelector('.sh-tabs .on'); if (tab) tab.parentNode.scrollLeft = tab.offsetLeft - 16;
     document.body.classList.add('sheet-open'); if (window.__lenis) window.__lenis.stop();
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ sh.classList.add('open'); sh.focus({preventScroll:true}); }); });
-    menuLi.classList.remove('open');
+    sh.focus({preventScroll:true});
+    closeMenu();
+    if (!reduce && window.gsap) sh.querySelectorAll('.kpi-row b').forEach(function(b){
+      var m = b.textContent.match(/^(\d+)(.*)$/); if (!m) return;
+      var o = {v:0}, to = +m[1], rest = m[2];
+      gsap.to(o, {v:to, duration:1.4, delay:.4, ease:'power2.out', onUpdate:function(){ b.textContent = Math.round(o.v) + rest; }});
+    });
   }
-  function hideSheet(then){
+  function hideSheet(then, fromHistory){
     if (!openSheet) { if (then) then(); return; }
     var sh = openSheet; openSheet = null;
+    clearTimeout(fullTimer); document.body.classList.remove('sheet-full');
     sh.classList.remove('open'); sheetBg.classList.remove('open');
     document.body.classList.remove('sheet-open'); if (window.__lenis) window.__lenis.start();
-    if (sheets[location.hash.slice(1)]) history.replaceState(null, '', location.pathname + location.search);
-    setTimeout(function(){ sh.hidden = true; sheetBg.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true}); if (then) then(); }, reduce ? 0 : 560);
+    setInert(false);
+    if (!fromHistory && sheets[location.hash.slice(1)]) history.replaceState(null, '', location.pathname + location.search);
+    depth = 0;
+    var back = lastFocus && lastFocus.closest && lastFocus.closest('#svcMenu') ? menuBtn : lastFocus;
+    hideTimer = setTimeout(function(){
+      sh.hidden = true; sheetBg.hidden = true;
+      if (back && back.focus && back.isConnected && !then) back.focus({preventScroll:true});
+      if (then) then();
+    }, reduce ? 0 : 560);
   }
-  window.addEventListener('hashchange', function(){ var id = location.hash.slice(1); if (sheets[id]) showSheet(id); else if (openSheet) hideSheet(); });
+  /* Chaque entrée d'historique ouverte sur une fiche mémorise sa profondeur : la fermeture revient exactement avant la première fiche */
+  window.addEventListener('hashchange', function(){
+    var id = location.hash.slice(1);
+    if (sheets[id]) {
+      var st = history.state;
+      if (!st || !st.sheet) { st = {sheet:id, depth:(openSheet ? depth : 0) + 1}; history.replaceState(st, '', location.href); }
+      depth = st.depth; showSheet(id);
+    } else if (openSheet) { var t = pendingThen; pendingThen = null; hideSheet(t, true); }
+  });
+  function closeSheet(then){
+    if (depth > 0 && sheets[location.hash.slice(1)]) { pendingThen = then || null; history.go(-depth); return; }
+    hideSheet(then);
+  }
   document.querySelectorAll('[data-close]').forEach(function(el){
     el.addEventListener('click', function(e){
       e.preventDefault();
       var target = el.getAttribute('href');
-      hideSheet(function(){
-        var t = target && document.querySelector(target);
+      closeSheet(target ? function(){
+        var t = document.querySelector(target);
         if (!t) return;
-        if (window.__lenis) window.__lenis.scrollTo(t, {offset:-60, duration:1.2}); else t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
-      });
+        if (window.__lenis) window.__lenis.scrollTo(t, {offset:-60, duration:1.2}); else t.scrollIntoView({behavior: reduce ? 'instant' : 'smooth'});
+        var f = t.querySelector('input'); if (f) setTimeout(function(){ f.focus({preventScroll:true}); }, reduce ? 0 : 1300);
+      } : null);
     });
   });
-  sheetBg.addEventListener('click', function(){ hideSheet(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && openSheet) hideSheet(); });
-  if (sheets[location.hash.slice(1)]) showSheet(location.hash.slice(1));
+  /* Liens d'une fiche vers une autre (onglets, fiche suivante) : on remplace l'entrée d'historique au lieu d'en ajouter */
+  document.querySelectorAll('.sheet a[href^="#"]:not([data-close])').forEach(function(l){
+    var id = l.getAttribute('href').slice(1);
+    if (!sheets[id]) return;
+    l.addEventListener('click', function(e){
+      e.preventDefault();
+      history.replaceState({sheet:id, depth:depth}, '', '#' + id);
+      showSheet(id);
+    });
+  });
+  sheetBg.addEventListener('click', function(){ closeSheet(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && openSheet) closeSheet(); });
+  var initialSheet = sheets[location.hash.slice(1)] ? location.hash.slice(1) : null;
+  if (initialSheet) showSheet(initialSheet);
 
   /* Contact : le mot du titre change toutes les deux secondes */
   var rotWords = document.querySelectorAll('#rot > span'), rotI = 0;
+  var rotVisible = false;
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ rotVisible = es[0].isIntersecting; }).observe(document.getElementById('rot'));
   if (!reduce && rotWords.length) setInterval(function(){
+    if (!rotVisible || document.hidden) return;
     var cur = rotWords[rotI]; rotI = (rotI + 1) % rotWords.length;
     cur.classList.remove('on'); cur.classList.add('out');
     rotWords[rotI].classList.remove('out'); rotWords[rotI].classList.add('on');
@@ -2401,7 +2512,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 
   /* Chantier 3D : rotation à la main (souris ou doigt) */
   var scene = document.getElementById('scene'), world = document.getElementById('world');
-  if (!reduce) {
+  {
     var dragging = false, x0 = 0, d0 = 0, drag = 0;
     scene.addEventListener('pointerdown', function(e){ dragging = true; x0 = e.clientX; d0 = drag; scene.setPointerCapture(e.pointerId); });
     scene.addEventListener('pointermove', function(e){ if (!dragging) return; drag = d0 + (e.clientX - x0) * .4; world.style.setProperty('--drag', drag + 'deg'); });
@@ -2415,7 +2526,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 
   /* Défilement fluide, synchronisé avec ScrollTrigger */
   if (window.Lenis) {
-    var lenis = new Lenis({lerp:.09}); window.__lenis = lenis;
+    var lenis = new Lenis({lerp:.09}); window.__lenis = lenis; if (document.body.classList.contains('sheet-open')) lenis.stop();
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
@@ -2496,10 +2607,8 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 
   /* Trait menthe tracé sous le mot-clé de chaque titre */
   document.querySelectorAll('.h2 em').forEach(function(em){
-    if (em.closest('.sheet')) { em.insertAdjacentHTML('beforeend', '<svg class="swoosh on" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M3 13 C 50 3, 130 3, 197 9"/></svg>'); return; }
-    em.insertAdjacentHTML('beforeend', '<svg class="swoosh" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="100" d="M3 13 C 50 3, 130 3, 197 9"/></svg>');
-    var sw = em.lastElementChild;
-    ScrollTrigger.create({trigger:em, start:'top 85%', once:true, onEnter:function(){ sw.classList.add('on'); }});
+    if (em.closest('.sheet')) { em.classList.add('on'); return; }
+    ScrollTrigger.create({trigger:em, start:'top 85%', once:true, onEnter:function(){ em.classList.add('on'); }});
   });
   gsap.from('#contact .h2', {y:40, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:'#contact .h2', start:'top 88%', once:true}});
 
@@ -2543,12 +2652,17 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     var cx = window.innerWidth / 2;
     hCards.forEach(function(c){
       var r = c.getBoundingClientRect(), d = Math.max(-1.2, Math.min(1.2, (r.left + r.width / 2 - cx) / cx));
-      c.style.transform = 'rotateY(' + (d * -22).toFixed(1) + 'deg) scale(' + (1 - Math.abs(d) * .08).toFixed(3) + ')';
+      c.style.transform = 'perspective(1100px) rotateY(' + (d * -22).toFixed(1) + 'deg) scale(' + (1 - Math.abs(d) * .08).toFixed(3) + ')';
       c.style.opacity = (1 - Math.max(0, Math.abs(d) - .95) * 1.2).toFixed(2);
     });
   }
-  gsap.to(hTrack, {x:function(){ return -hDist(); }, ease:'none',
-    scrollTrigger:{trigger:'#hPin', start:'center center', end:function(){ return '+=' + hDist(); }, pin:true, scrub:.6, invalidateOnRefresh:true, refreshPriority:-1,
+  var hPinEl = document.getElementById('hPin');
+  if (hPinEl.offsetHeight > window.innerHeight - 16) {
+    /* Écran trop bas pour épingler : la galerie défile simplement à l'horizontale */
+    hTrack.classList.add('nopin');
+    hTrack.addEventListener('scroll', function(){ hTilt(); hBar.style.transform = 'scaleX(' + (hTrack.scrollLeft / Math.max(1, hTrack.scrollWidth - hTrack.clientWidth)) + ')'; }, {passive:true});
+  } else gsap.to(hTrack, {x:function(){ return -hDist(); }, ease:'none',
+    scrollTrigger:{trigger:'#hPin', start:'center center', end:function(){ return '+=' + hDist(); }, pin:true, scrub:.6, invalidateOnRefresh:true, refreshPriority:2,
       onUpdate:function(self){ hBar.style.transform = 'scaleX(' + self.progress + ')'; hTilt(); }, onRefresh:hTilt}});
   hTilt();
 
@@ -2576,7 +2690,8 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       checks = document.querySelectorAll('.checks li'), tags = document.querySelectorAll('.ch-tag'), chLbl = document.querySelector('.ch-lbl');
   building.classList.remove('done', 'lit'); chGrid.classList.remove('delivered');
   floors.forEach(function(f){ f.classList.remove('on'); });
-  var ch = gsap.timeline({scrollTrigger:{trigger:'#chGrid', start:'center center', end:'+=340%', pin:true, scrub:.6,
+  var pinCh = chGrid.offsetHeight <= window.innerHeight - 16;
+  var ch = gsap.timeline({scrollTrigger:{trigger:'#chGrid', start:pinCh ? 'center center' : 'top 75%', end:pinCh ? '+=340%' : 'bottom 25%', pin:pinCh, scrub:.6, refreshPriority:3,
     onUpdate:function(self){
       var p = self.progress, k = p < .1 ? 0 : p < .5 ? 1 : p < .62 ? 2 : 3, q = Math.max(0, (p - .62) / .38);
       phases.forEach(function(li, i){ li.classList.toggle('on', i === k); });
@@ -2655,6 +2770,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       onUpdate:function(self){ gSteps.forEach(function(li, i){ li.classList.toggle('on', self.progress >= i / 3 - .02); }); }}}));
 
   /* Sur-titres : le filet se trace à l'apparition */
+  ScrollTrigger.batch('.tile', {start:'top 88%', once:true, onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); }});
   ScrollTrigger.batch('.eyebrow', {start:'top 92%', once:true, onEnter:function(els){ els.forEach(function(e){ e.classList.add('in'); }); }});
 
   /* Références : les cartes basculent en place à l'apparition */
@@ -2684,7 +2800,8 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   /* Couches : la pile s'éclate au défilement, puis chaque couche s'allume avec sa ligne */
   (function(){
     var stackIn = document.getElementById('stackIn'), plates = Array.prototype.slice.call(stackIn.children).reverse(),
-        list = document.getElementById('layerList'), items = list.querySelectorAll('li'), wide = window.matchMedia('(min-width:1069px)').matches;
+        list = document.getElementById('layerList'), items = list.querySelectorAll('li'),
+        wide = window.matchMedia('(min-width:1069px)').matches && document.getElementById('couchesGrid').offsetHeight <= window.innerHeight - 16;
     function setActive(k){
       if (k < 0) { stackIn.removeAttribute('data-active'); list.removeAttribute('data-active'); }
       else { stackIn.setAttribute('data-active', ''); list.setAttribute('data-active', ''); }
@@ -2696,7 +2813,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       gsap.fromTo(stackIn, {'--gap':'10px'}, {'--gap':'40px', duration:1.4, ease:'power3.out', scrollTrigger:{trigger:'#couchesGrid', start:'top 75%', once:true}});
       return;
     }
-    ScrollTrigger.create({trigger:'#couchesGrid', start:'center center', end:'+=240%', pin:true, scrub:.6, refreshPriority:-2,
+    ScrollTrigger.create({trigger:'#couchesGrid', start:'center center', end:'+=240%', pin:true, scrub:.6, refreshPriority:1,
       onUpdate:function(self){
         var p = self.progress, e = Math.min(1, p / .2);
         stackIn.style.setProperty('--gap', (12 + e * 50).toFixed(1) + 'px');
@@ -2711,6 +2828,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   /* Chiffres qui comptent */
   gsap.utils.toArray('.count').forEach(function(el){
     var to = +el.dataset.to, o = {v:0};
+    el.textContent = '0';
     gsap.to(o, {v:to, duration:1.8, ease:'power2.out', scrollTrigger:{trigger:el, start:'top 85%', once:true},
       onUpdate:function(){ el.textContent = Math.round(o.v); }});
   });
@@ -2902,6 +3020,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       coEls.forEach(function(el, i){ setTimeout(function(){ el.classList.add('on'); }, i * 600); });
       /* L'orbite déplace la ville : toutes les 9 s, les étiquettes s'éteignent et se replacent */
       setInterval(function(){
+        if (!visible || document.hidden) return;
         coEls.forEach(function(el){ el.classList.remove('on'); });
         setTimeout(function(){ pickAnchors(); coEls.forEach(function(el, i){ setTimeout(function(){ el.classList.add('on'); }, i * 300); }); }, 700);
       }, 9000);
@@ -2923,7 +3042,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   (function loop(){
     requestAnimationFrame(loop);
     var dt = Math.min(clock.getDelta(), .05);
-    if (!visible || document.hidden) return;
+    if (!visible || document.hidden || document.body.classList.contains('sheet-open')) return;
     t += dt; shared.uTime.value = t;
     cam.a += dt * .025;
     cranes.forEach(function(j, k){ j.rotation.y = Math.sin(t * .25 + k * 2) * 1.2; });
