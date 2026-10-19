@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BitEye — VISION Workspace, la plateforme de l'immobilier en Algérie</title>
+<meta name="description" content="VISION Workspace par BitEye : promotion immobilière, réalisation et gestion de copropriété réunies dans une seule plateforme. Éditeur algérien depuis 2014.">
+<link rel="canonical" href="https://biteye-group.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://biteye-group.com/">
+<meta property="og:title" content="BitEye — VISION Workspace">
+<meta property="og:description" content="Promotion, réalisation et copropriété, réunies dans une seule plateforme.">
+<meta name="theme-color" content="#0F1A14">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Inter:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
+<style>
+/* Composition : alternance de bandes « forêt » (sombres, profondeur, lumière citron) et « papier » (crème, calmes).
+   Chaque bande porte un seul message et un seul moment 3D. Charte relevée sur biteye-group.com, à confirmer. */
+:root{
+  --paper:#F2EFE8; --paper-2:#E9E5DB; --ink:#101411; --ink-2:#565B53; --rule:#D6D1C5;
+  --forest:#0F1A14; --forest-2:#15241C; --forest-3:#1D3127; --f-ink:#F2EFE8; --f-ink-2:#9FAE9F; --f-rule:rgba(242,239,232,.12);
+  --lime:#C4EF4E; --lime-deep:#2F6A1F; --lime-glow:rgba(196,239,78,.35);
+  --on-lime:#0F1A14;
+  --glass:rgba(242,239,232,.06); --glass-line:rgba(242,239,232,.14);
+  --screen:#FFFFFF; --screen-2:#F5F3EE; --screen-ink:#101411; --screen-ink-2:#6A6F66; --screen-rule:#E3DFD5;
+  --ok:#2F7D3A; --warn:#A8620A;
+  --iso-nt:#FFFFFF; --iso-nl:#E4DFD3; --iso-nr:#CFC8B8;
+  --iso-kt:#DDF78E; --iso-kl:#B9E246; --iso-kr:#8DB82A;
+  --iso-gt:#E6E1D6; --iso-gl:#D3CCBD; --iso-gr:#BFB7A6; --iso-win:rgba(16,20,17,.18);
+  --display:"Inter Tight","Inter","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --text:"Inter","IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fs-hero:clamp(48px,8.4vw,112px); --fs-h2:clamp(38px,5.4vw,72px); --fs-lead:clamp(18px,1.8vw,22px); --fs-body:17px; --fs-small:13px;
+  --max:1240px; --r:28px; --r-s:14px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0B120E; --paper-2:#111B15; --ink:#F2EFE8; --ink-2:#A3ADA0; --rule:#24352B;
+  --lime-deep:#C4EF4E;
+  --screen:#16231C; --screen-2:#111B15; --screen-ink:#F2EFE8; --screen-ink-2:#9FAE9F; --screen-rule:#26382D;
+  --ok:#7FD38C; --warn:#E3A33B;
+  --iso-nt:#2B3F33; --iso-nl:#1F3027; --iso-nr:#16241C; --iso-gt:#1A2A21; --iso-gl:#14211A; --iso-gr:#0F1913; --iso-win:rgba(196,239,78,.22);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B120E; --paper-2:#111B15; --ink:#F2EFE8; --ink-2:#A3ADA0; --rule:#24352B;
+  --lime-deep:#C4EF4E;
+  --screen:#16231C; --screen-2:#111B15; --screen-ink:#F2EFE8; --screen-ink-2:#9FAE9F; --screen-rule:#26382D;
+  --ok:#7FD38C; --warn:#E3A33B;
+  --iso-nt:#2B3F33; --iso-nl:#1F3027; --iso-nr:#16241C; --iso-gt:#1A2A21; --iso-gl:#14211A; --iso-gr:#0F1913; --iso-win:rgba(196,239,78,.22);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 var(--fs-body)/1.55 var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--forest)}
+h1,h2,h3,h4{margin:0;font-family:var(--display);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (max-width:734px){.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+
+/* Bandes */
+.band{position:relative;padding-block:clamp(96px,14vw,180px);isolation:isolate}
+.forest{background:var(--forest);color:var(--f-ink)}
+.paper{background:var(--paper);color:var(--ink)}
+.forest::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:currentColor;opacity:.6}
+.forest .eyebrow{color:var(--lime)}
+.paper .eyebrow{color:var(--lime-deep)}
+.h2{font-size:var(--fs-h2);font-weight:700}
+.h2 em{font-style:italic;font-weight:700}
+.forest .h2 em{color:var(--lime)}
+.paper .h2 em{color:var(--lime-deep)}
+.lead{font-size:var(--fs-lead);max-width:620px}
+.forest .lead{color:var(--f-ink-2)}
+.paper .lead{color:var(--ink-2)}
+.head{display:grid;gap:22px;margin-bottom:clamp(48px,7vw,96px)}
+.head.center{justify-items:center;text-align:center}
+
+/* Boutons */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--lime);color:var(--on-lime);font:600 16px/1 var(--text);padding:17px 26px;border-radius:999px;border:0;cursor:pointer;box-shadow:0 0 0 0 var(--lime-glow),0 10px 30px -10px var(--lime-glow);transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{box-shadow:0 0 0 6px rgba(196,239,78,.18),0 16px 40px -10px var(--lime-glow);transform:translateY(-1px)}
+.btn svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.ghost{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding:16px 8px}
+.forest .ghost{color:var(--f-ink)}
+.ghost .play{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--glass-line);background:var(--glass)}
+.ghost .play svg{width:12px;height:12px;fill:var(--lime)}
+.actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
+.center .actions{justify-content:center}
+
+/* Progression de lecture */
+.progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:100;transform-origin:0 50%;transform:scaleX(0);background:var(--lime)}
+
+/* Navigation */
+.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:rgba(15,26,20,.72);backdrop-filter:saturate(160%) blur(20px);-webkit-backdrop-filter:saturate(160%) blur(20px);border-bottom:1px solid var(--f-rule);color:var(--f-ink)}
+.gnav .wrap{display:flex;align-items:center;gap:32px;height:60px}
+.logo{display:inline-flex;align-items:center;font:700 22px/1 var(--display);letter-spacing:-.04em}
+.logo svg{width:32px;height:22px;margin-right:9px}
+.logo span{color:var(--lime)}
+.gnav ul{display:flex;gap:28px;list-style:none;margin:0 0 0 auto;padding:0;font-size:14px}
+.gnav ul a{color:var(--f-ink-2);transition:color .15s}
+.gnav ul a:hover{color:var(--f-ink)}
+.gnav .btn{padding:11px 18px;font-size:14px}
+@media (max-width:1068px){.gnav ul{display:none}.gnav .btn{margin-left:auto}}
+
+/* ============ HÉROS ============ */
+.hero{padding-top:clamp(72px,10vw,128px);padding-bottom:clamp(80px,10vw,140px);overflow:hidden;text-align:center}
+.aurora{position:absolute;inset:-20% -10% auto;height:120%;z-index:-2;pointer-events:none;filter:blur(70px);opacity:.75}
+.aurora i{position:absolute;border-radius:50%}
+.aurora i:nth-child(1){width:48vw;height:48vw;left:8%;top:2%;background:radial-gradient(circle,rgba(196,239,78,.42),transparent 62%);animation:drift1 18s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:42vw;height:42vw;right:4%;top:14%;background:radial-gradient(circle,rgba(46,140,110,.55),transparent 62%);animation:drift2 22s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:36vw;height:36vw;left:36%;top:38%;background:radial-gradient(circle,rgba(29,49,39,.9),transparent 65%);animation:drift1 26s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate(8vw,6vh) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-10vw,8vh) scale(.9)}}
+.floor-grid{position:absolute;left:-50%;right:-50%;bottom:-8%;height:70%;z-index:-1;pointer-events:none;transform:perspective(600px) rotateX(68deg);transform-origin:50% 100%;
+  background-image:linear-gradient(rgba(196,239,78,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(196,239,78,.16) 1px,transparent 1px);background-size:64px 64px;
+  -webkit-mask-image:linear-gradient(to top,#000 0%,transparent 75%);mask-image:linear-gradient(to top,#000 0%,transparent 75%);animation:gridmove 6s linear infinite}
+@keyframes gridmove{to{background-position:0 64px}}
+.hero h1{font-size:var(--fs-hero);font-weight:700;line-height:.98;margin:26px auto 0;max-width:12ch}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .08em}
+.hero h1 .w>span{display:inline-block}
+.hero h1 em{font-style:italic;color:var(--lime);text-shadow:0 0 40px rgba(196,239,78,.35)}
+.hero .lead{margin:28px auto 40px;color:var(--f-ink-2)}
+
+.stage{position:relative;margin-top:clamp(64px,8vw,104px);perspective:1800px;perspective-origin:50% 0%}
+.tilt{transform-style:preserve-3d;transform-origin:50% 0;will-change:transform}
+.tilt-inner{transform-style:preserve-3d;transition:transform .5s var(--ease);transform:rotateY(calc(var(--mx,0)*5deg)) rotateX(calc(var(--my,0)*-4deg))}
+.halo{position:absolute;left:10%;right:10%;top:12%;bottom:-6%;z-index:-1;background:radial-gradient(50% 50% at 50% 50%,rgba(196,239,78,.32),transparent 70%);filter:blur(40px)}
+
+/* Écran logiciel */
+.screen{position:relative;max-width:1080px;margin-inline:auto;background:var(--screen);color:var(--screen-ink);border-radius:22px;text-align:left;font-size:12.5px;line-height:1.35;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 2px 0 rgba(255,255,255,.5) inset,0 60px 120px -40px rgba(0,0,0,.75),0 30px 60px -30px rgba(0,0,0,.5);transform-style:preserve-3d}
+.screen .bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--screen-rule)}
+.screen .dot{width:10px;height:10px;border-radius:50%;background:var(--screen-rule)}
+.screen .bar b{margin-left:12px;font-weight:600}
+.screen .bar em{margin-left:auto;font-style:normal;color:var(--screen-ink-2)}
+.screen .body{display:grid;grid-template-columns:180px 1fr;transform-style:preserve-3d}
+.screen aside{background:var(--screen-2);padding:16px;display:grid;gap:4px;align-content:start;border-right:1px solid var(--screen-rule);border-bottom-left-radius:22px}
+.screen aside span{padding:7px 10px;border-radius:9px;color:var(--screen-ink-2)}
+.screen aside span.on{background:rgba(140,190,40,.18);color:var(--lime-deep);font-weight:600}
+.screen main{padding:20px;display:grid;gap:14px;min-width:0;transform-style:preserve-3d}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;transform-style:preserve-3d}
+.kpi{border:1px solid var(--screen-rule);border-radius:14px;padding:12px 14px;background:var(--screen)}
+.kpi small{display:block;color:var(--screen-ink-2)}
+.kpi b{font:600 22px/1.2 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.meter{height:6px;border-radius:3px;background:var(--screen-rule);margin-top:10px;overflow:hidden}
+.meter i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--lime-deep),var(--lime));border-radius:3px;transform-origin:0 50%}
+.split{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;min-width:0;transform-style:preserve-3d}
+.panel{border:1px solid var(--screen-rule);border-radius:14px;padding:14px;min-width:0;background:var(--screen)}
+.panel h4{margin:0 0 10px;font:600 12.5px/1.2 var(--text);letter-spacing:0}
+.tbl{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.tbl td{padding:6px 0;border-top:1px solid var(--screen-rule);white-space:nowrap}
+.tbl td:last-child{text-align:right}
+.tbl td+td{padding-left:12px}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.pill.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.pill.wait{color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent)}
+.lots{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.lots i{aspect-ratio:1;border-radius:5px;background:var(--screen-rule)}
+.lots i.s{background:var(--lime-deep)}
+.lots i.r{background:color-mix(in srgb,var(--lime-deep) 40%,transparent)}
+.legend{display:flex;gap:12px;margin-top:10px;color:var(--screen-ink-2);font-size:11px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.gantt{display:grid;gap:8px}
+.gantt div{display:grid;grid-template-columns:120px 1fr;align-items:center;gap:10px}
+.gantt span{color:var(--screen-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gantt b{display:block;height:10px;border-radius:5px;background:var(--screen-rule);position:relative;overflow:hidden}
+.gantt b::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--p);background:linear-gradient(90deg,var(--lime-deep),var(--lime));border-radius:5px}
+
+/* Puces flottantes en verre */
+.chip{position:absolute;z-index:3;display:flex;align-items:center;gap:12px;padding:12px 16px 12px 12px;border-radius:16px;text-align:left;font-size:13px;color:var(--f-ink);
+  background:rgba(21,36,28,.62);border:1px solid var(--glass-line);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  box-shadow:0 20px 50px -20px rgba(0,0,0,.7);white-space:nowrap}
+.chip .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--lime);color:var(--on-lime);flex:none}
+.chip .ic svg{width:16px;height:16px}
+.chip small{display:block;color:var(--f-ink-2);font-size:11.5px}
+.chip b{font-weight:600}
+.chip.c1{left:-6%;top:16%}
+.chip.c2{right:-4%;top:8%}
+.chip.c3{right:-6%;bottom:22%}
+.chip.c4{left:-5%;bottom:-4%}
+.float{animation:bob 6s ease-in-out infinite}
+.c2 .float,.c2.float{animation-delay:-2s}
+.c3.float{animation-delay:-3.5s}
+.c4.float{animation-delay:-1s}
+@keyframes bob{50%{translate:0 -10px}}
+@media (max-width:1068px){.chip.c1,.chip.c4{display:none}.chip.c2{right:2%;top:-6%}.chip.c3{right:2%;bottom:-6%}}
+@media (max-width:734px){
+  .screen .body{grid-template-columns:1fr}.screen aside{display:none}
+  .kpis{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}
+  .chip{transform:scale(.86);transform-origin:right center}
+}
+.mock-tag{display:block;margin-top:28px;font-size:12px;color:var(--f-ink-2);text-align:center}
+.paper .mock-tag{color:var(--ink-2)}
+
+/* ============ TROIS MÉTIERS ============ */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;perspective:1400px}
+.card3d{position:relative;border-radius:var(--r);padding:36px 32px 34px;background:var(--paper-2);display:grid;gap:14px;align-content:start;min-width:0;
+  transform-style:preserve-3d;transform:rotateY(calc(var(--rx,0)*1deg)) rotateX(calc(var(--ry,0)*1deg));transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 30px 60px -40px rgba(16,20,17,.35)}
+.card3d::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,30%),rgba(196,239,78,.28),transparent 45%)}
+.card3d:hover::before{opacity:1}
+.card3d:hover{box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 50px 90px -40px rgba(16,20,17,.45)}
+.card3d .name{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime-deep);transform:translateZ(30px)}
+.card3d h3{font-size:clamp(26px,2.6vw,34px);font-weight:700;transform:translateZ(40px)}
+.card3d p{color:var(--ink-2);transform:translateZ(20px)}
+.card3d .more{font-weight:600;color:var(--lime-deep);transform:translateZ(30px);display:inline-flex;gap:6px;align-items:center}
+.card3d .art{transform:translateZ(60px);margin:4px -8px 6px}
+.iso{width:100%;height:auto;display:block;overflow:visible}
+.iso .n-t{fill:var(--iso-nt)} .iso .n-l{fill:var(--iso-nl)} .iso .n-r{fill:var(--iso-nr)}
+.iso .k-t{fill:var(--iso-kt)} .iso .k-l{fill:var(--iso-kl)} .iso .k-r{fill:var(--iso-kr)}
+.iso .g-t{fill:var(--iso-gt)} .iso .g-l{fill:var(--iso-gl)} .iso .g-r{fill:var(--iso-gr)}
+.iso .o-t,.iso .o-l,.iso .o-r{fill:none;stroke:var(--lime-deep);stroke-width:1.2;stroke-dasharray:4 4;opacity:.7}
+.iso .win{fill:var(--iso-win)}
+.iso .iso-shadow{fill:rgba(16,20,17,.12);filter:blur(6px)}
+.iso .scaffold path,.iso .crane-l,.iso .crane-c{fill:none;stroke:var(--ink-2);stroke-width:2;stroke-linecap:round;opacity:.65}
+.iso .crane-c{stroke-width:1.2}
+.iso .hook{animation:hook 3.4s ease-in-out infinite}
+@keyframes hook{50%{transform:translateY(14px)}}
+.iso .tree circle{fill:var(--iso-kl)} .iso .tree path{stroke:var(--iso-nr);stroke-width:3}
+.iso .badge circle{fill:var(--lime);filter:drop-shadow(0 8px 14px rgba(140,190,40,.45))}
+.iso .badge path{fill:none;stroke:var(--on-lime);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.iso .badge{animation:bob 4s ease-in-out infinite}
+@media (max-width:1068px){.trio{grid-template-columns:1fr;max-width:560px;margin-inline:auto}}
+
+/* ============ REGARDEZ DE PLUS PRÈS ============ */
+.closer{display:grid;grid-template-columns:1.45fr 1fr;gap:clamp(40px,6vw,96px);align-items:start}
+.closer .sticky{position:sticky;top:calc(env(safe-area-inset-top,0px) + 110px);perspective:1600px}
+.stage3d{transform-style:preserve-3d;transition:transform 1s var(--ease);transform:rotateY(-12deg) rotateX(8deg)}
+.closer[data-active="1"] .stage3d{transform:rotateY(-14deg) rotateX(10deg)}
+.closer[data-active="2"] .stage3d{transform:rotateY(10deg) rotateX(8deg)}
+.closer[data-active="3"] .stage3d{transform:rotateY(-8deg) rotateX(4deg)}
+.closer[data-active="4"] .stage3d{transform:rotateY(6deg) rotateX(12deg)}
+.closer .screen{max-width:none}
+.zone{transition:transform .8s var(--ease),box-shadow .8s var(--ease),opacity .6s var(--ease),filter .6s;border-radius:14px}
+.closer[data-active] .zone{opacity:.35;filter:saturate(.4)}
+.closer[data-active="1"] .z1,.closer[data-active="2"] .z2,.closer[data-active="3"] .z3,.closer[data-active="4"] .z4{
+  opacity:1;filter:none;transform:translateZ(80px);box-shadow:0 0 0 2px var(--lime),0 0 60px -6px var(--lime-glow),0 40px 60px -30px rgba(0,0,0,.8);position:relative;z-index:2}
+.kpis.zone{padding:4px;background:var(--screen)}
+.steps{display:grid;gap:44vh;padding-block:16vh 34vh;counter-reset:s}
+.step{display:grid;gap:14px;opacity:.28;transition:opacity .6s var(--ease),transform .6s var(--ease);transform:translateX(12px)}
+.step.on{opacity:1;transform:none}
+.step .k{font:600 13px/1 var(--text);color:var(--lime);letter-spacing:.1em;counter-increment:s}
+.step .k::before{content:"0" counter(s) " — "}
+.step h3{font-size:clamp(28px,3vw,40px);font-weight:700}
+.step p{color:var(--f-ink-2);font-size:18px;max-width:420px}
+.dots{display:flex;gap:8px;margin-top:28px;justify-content:center}
+.dots i{width:28px;height:4px;border-radius:2px;background:var(--f-rule);transition:background .4s,width .4s}
+.closer[data-active="1"] .dots i:nth-child(1),.closer[data-active="2"] .dots i:nth-child(2),.closer[data-active="3"] .dots i:nth-child(3),.closer[data-active="4"] .dots i:nth-child(4){background:var(--lime);width:48px}
+@media (max-width:1068px){
+  .closer{grid-template-columns:1fr}
+  .closer .sticky{position:relative;top:0}
+  .stage3d,.closer[data-active] .stage3d{transform:rotateX(6deg)}
+  .closer[data-active] .zone{opacity:1;filter:none;transform:none;box-shadow:none}
+  .steps{gap:48px;padding-block:56px 0}
+  .step{opacity:1;transform:none}
+  .dots{display:none}
+}
+
+/* ============ CYCLE ============ */
+.cycle{position:relative}
+.cycle svg.path{display:block;width:100%;height:auto;overflow:visible}
+.cycle .track{fill:none;stroke:var(--rule);stroke-width:2}
+.cycle .draw{fill:none;stroke:var(--lime-deep);stroke-width:3;stroke-linecap:round}
+.cycle .node circle.o{fill:var(--paper);stroke:var(--rule);stroke-width:2;transition:all .5s var(--ease)}
+.cycle .node circle.i{fill:var(--rule);transition:all .5s var(--ease)}
+.cycle .node.on circle.o{stroke:var(--lime-deep);fill:var(--paper)}
+.cycle .node.on circle.i{fill:var(--lime);r:12}
+.cycle .node text{font:700 15px var(--display);fill:var(--ink-2)}
+.cycle .node.on text{fill:var(--on-lime)}
+.stations{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:22px;text-align:center}
+.stations div{display:grid;gap:8px;justify-items:center}
+.stations small{font:600 12px/1 var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--lime-deep)}
+.stations h3{font-size:28px;font-weight:700}
+.stations p{color:var(--ink-2);max-width:240px;font-size:16px}
+@media (max-width:734px){
+  .cycle svg.path{display:none}
+  .stations{grid-template-columns:1fr;text-align:left;gap:36px;padding-left:44px;position:relative}
+  .stations::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--lime-deep),var(--rule))}
+  .stations div{justify-items:start;position:relative}
+  .stations div::before{content:"";position:absolute;left:-41px;top:2px;width:20px;height:20px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px var(--paper)}
+}
+
+/* ============ MIEUX ENSEMBLE ============ */
+.duo{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(60px,12vw,200px);perspective:1400px;max-width:1040px;margin-inline:auto}
+.ledger{position:relative;border-radius:var(--r);padding:34px;display:grid;gap:10px;background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.08) inset;transform-style:preserve-3d}
+.ledger.l{transform:rotateY(18deg)}
+.ledger.r{transform:rotateY(-18deg)}
+.ledger .name{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--f-ink-2)}
+.ledger .amt{font:700 clamp(30px,3.6vw,46px)/1.05 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;transform:translateZ(40px)}
+.ledger .what{color:var(--f-ink-2)}
+.ledger .tag{justify-self:start;margin-top:8px;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;background:var(--glass);border:1px solid var(--glass-line)}
+.ledger.l .tag{color:#F6B8A0}
+.ledger.r .tag{color:var(--lime)}
+.flight{position:absolute;left:0;right:0;top:50%;height:0;pointer-events:none;z-index:4}
+.doc{position:absolute;left:calc(50% - 32px);top:-40px;width:64px;height:80px;border-radius:10px;background:var(--paper);box-shadow:0 20px 40px -10px rgba(0,0,0,.7),0 0 40px -6px var(--lime-glow);
+  display:grid;align-content:start;gap:6px;padding:12px 10px}
+.doc i{display:block;height:4px;border-radius:2px;background:var(--rule)}
+.doc i:first-child{background:var(--lime-deep);width:60%}
+.doc i:nth-child(3){width:80%}
+.forest .doc{animation:fly 3.6s var(--ease) infinite}
+@keyframes fly{0%{transform:translateX(-170px) translateY(0) rotate(-10deg) scale(.8);opacity:0}15%{opacity:1}50%{transform:translateX(0) translateY(-46px) rotate(0) scale(1)}85%{opacity:1}100%{transform:translateX(170px) translateY(0) rotate(10deg) scale(.8);opacity:0}}
+.share{position:absolute;left:50%;top:calc(50% + 70px);transform:translateX(-50%);font:600 12px/1 var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--lime);white-space:nowrap}
+.fine{max-width:620px;margin:56px auto 0;text-align:center;color:var(--f-ink-2)}
+@media (max-width:734px){
+  .duo{grid-template-columns:1fr;gap:140px}
+  .ledger.l{transform:rotateX(-12deg)}.ledger.r{transform:rotateX(12deg)}
+  .flight{top:50%;left:50%;right:auto;width:0}
+  .forest .doc{animation-name:flyv}
+  @keyframes flyv{0%{transform:translateY(-100px) rotate(-8deg) scale(.8);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(60px) rotate(8deg) scale(.8);opacity:0}}
+  .share{top:calc(50% + 6px);left:calc(50% + 50px);transform:none}
+}
+
+/* ============ MOBILE ============ */
+.mobile{display:grid;grid-template-columns:1fr 1fr;gap:clamp(48px,7vw,110px);align-items:center}
+.phone-stage{position:relative;perspective:1400px;display:grid;place-items:center;min-height:620px}
+.phone-stage::before{content:"";position:absolute;width:420px;height:420px;max-width:90%;border-radius:50%;background:radial-gradient(circle,rgba(140,190,40,.35),transparent 65%);filter:blur(30px)}
+.phone{position:relative;width:290px;max-width:78vw;aspect-ratio:9/19.2;border-radius:48px;padding:12px;background:linear-gradient(145deg,#2A3A31,#0B110D);
+  box-shadow:0 0 0 1.5px #3A4C42 inset,0 60px 100px -40px rgba(16,20,17,.6),30px 40px 80px -40px rgba(16,20,17,.5);transform-style:preserve-3d}
+.phone .scr{height:100%;border-radius:38px;background:var(--screen);color:var(--screen-ink);padding:44px 16px 16px;display:grid;gap:12px;align-content:start;font-size:12px;overflow:hidden;position:relative}
+.phone .scr::before{content:"";position:absolute;top:12px;left:50%;width:84px;height:24px;margin-left:-42px;border-radius:14px;background:#0B110D}
+.phone h5{margin:0;font:700 18px/1.2 var(--display);letter-spacing:-.02em}
+.phone .sub{color:var(--screen-ink-2);margin-top:-8px}
+.phone .card{border:1px solid var(--screen-rule);border-radius:16px;padding:12px;display:grid;gap:7px;background:var(--screen)}
+.phone .row{display:flex;justify-content:space-between;color:var(--screen-ink-2)}
+.phone .row b{color:var(--screen-ink);font-variant-numeric:tabular-nums}
+.ring{width:100%;display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}
+.ring svg{width:72px;height:72px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.ring .bg{stroke:var(--screen-rule)} .ring .fg{stroke:var(--lime-deep);stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:72}
+.notif{position:absolute;z-index:3;display:flex;gap:12px;align-items:center;padding:12px 16px 12px 12px;border-radius:18px;font-size:13px;background:rgba(255,255,255,.72);color:#101411;
+  border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 24px 50px -20px rgba(16,20,17,.45);white-space:nowrap}
+.notif .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--forest);color:var(--lime);flex:none}
+.notif .ic svg{width:16px;height:16px}
+.notif small{display:block;color:#5C6058;font-size:11.5px}
+.notif.n1{left:0;top:16%}
+.notif.n2{right:0;top:44%}
+.notif.n3{left:4%;bottom:12%}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notif{background:rgba(21,36,28,.72);color:var(--f-ink);border-color:var(--glass-line)}:root:not([data-theme="light"]) .notif small{color:var(--f-ink-2)}}
+:root[data-theme="dark"] .notif{background:rgba(21,36,28,.72);color:var(--f-ink);border-color:var(--glass-line)}
+:root[data-theme="dark"] .notif small{color:var(--f-ink-2)}
+.feats{display:grid;gap:30px;margin-top:8px}
+.feats div{display:grid;grid-template-columns:44px 1fr;gap:4px 16px}
+.feats .ic{grid-row:span 2;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--forest);color:var(--lime)}
+.feats .ic svg{width:20px;height:20px}
+.feats h3{font-size:22px;font-weight:700}
+.feats p{color:var(--ink-2)}
+@media (max-width:1068px){.mobile{grid-template-columns:1fr}.phone-stage{min-height:560px}}
+@media (max-width:734px){.notif{transform:scale(.85)}.notif.n1{left:-4%}.notif.n2{right:-4%}}
+
+/* ============ CHIFFRES ============ */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;text-align:center}
+.stat{position:relative;padding:44px 20px;border-radius:var(--r);background:linear-gradient(180deg,var(--glass),transparent);border:1px solid var(--f-rule)}
+.stat b{display:block;font:700 clamp(64px,9vw,128px)/.9 var(--display);letter-spacing:-.05em;font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#F4FFD6 0%,var(--lime) 55%,#7FA82A 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 30px rgba(196,239,78,.25))}
+.stat sup{font-size:.3em;vertical-align:super;-webkit-text-fill-color:var(--f-ink-2)}
+.stat span{display:block;margin-top:18px;font-size:var(--fs-lead);color:var(--f-ink-2)}
+@media (max-width:734px){.stats{grid-template-columns:1fr}}
+.marquee{margin-top:clamp(64px,8vw,110px);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee .row{display:flex;gap:56px;width:max-content;animation:marq 40s linear infinite;font:600 clamp(24px,3vw,40px)/1 var(--display);letter-spacing:-.02em;color:var(--f-ink-2)}
+.marquee .row span{display:inline-flex;align-items:center;gap:56px;white-space:nowrap}
+.marquee .row span::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--lime)}
+.marquee.rev .row{animation-direction:reverse;animation-duration:48s;color:rgba(242,239,232,.28);margin-top:20px}
+@keyframes marq{to{transform:translateX(-50%)}}
+.logos{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:56px}
+.logos div{height:76px;border:1px dashed var(--f-rule);border-radius:16px;display:grid;place-items:center;color:var(--f-ink-2);font-size:12px}
+@media (max-width:734px){.logos{grid-template-columns:repeat(2,1fr)}}
+
+/* ============ POURQUOI ============ */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(220px,auto);gap:18px}
+.tile{position:relative;overflow:hidden;border-radius:var(--r);padding:32px;background:var(--paper-2);display:grid;align-content:end;gap:10px;min-width:0;transition:transform .5s var(--ease)}
+.tile:hover{transform:translateY(-4px)}
+.tile h3{font-size:clamp(24px,2.4vw,32px);font-weight:700}
+.tile p{color:var(--ink-2);max-width:420px}
+.tile.big{grid-column:span 4;grid-row:span 2;background:var(--forest);color:var(--f-ink)}
+.tile.big p{color:var(--f-ink-2)}
+.tile.big h3{font-size:clamp(32px,3.6vw,52px)}
+.tile.s2{grid-column:span 2}
+.tile.s3{grid-column:span 3}
+.chips{position:absolute;inset:28px 28px auto;display:flex;flex-wrap:wrap;gap:10px}
+.chips span{padding:10px 16px;border-radius:999px;border:1px solid var(--glass-line);background:var(--glass);font-weight:600;font-size:15px;color:var(--f-ink)}
+.chips span:nth-child(3n+1){background:var(--lime);color:var(--on-lime);border-color:transparent}
+.tile .big-ic{position:absolute;top:26px;right:26px;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:var(--forest);color:var(--lime)}
+.tile .big-ic svg{width:26px;height:26px}
+@media (max-width:1068px){.bento{grid-template-columns:repeat(2,1fr)}.tile.big{grid-column:span 2;grid-row:auto;min-height:440px}.tile.s2,.tile.s3{grid-column:span 1}}
+@media (max-width:734px){.bento{grid-template-columns:1fr}.tile.big,.tile.s2,.tile.s3{grid-column:auto}.tile.big{min-height:520px}}
+
+/* ============ CONTACT ============ */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:center}
+.coords{display:grid;gap:22px;margin-top:40px}
+.coords small{display:block;color:var(--f-ink-2);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.coords b{font:600 clamp(20px,2vw,26px)/1.3 var(--display);user-select:all}
+.glassform{position:relative;padding:36px;border-radius:var(--r);background:linear-gradient(160deg,rgba(242,239,232,.08),rgba(242,239,232,.02));border:1px solid var(--glass-line);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 50px 100px -50px rgba(0,0,0,.9);display:grid;gap:16px}
+.glassform::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(140deg,var(--lime),transparent 40%,transparent 70%,rgba(196,239,78,.5));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+label{display:grid;gap:8px;font-size:13px;font-weight:500;color:var(--f-ink-2)}
+input,select{font:inherit;font-size:16px;padding:15px 16px;border-radius:14px;border:1px solid var(--glass-line);background:rgba(15,26,20,.55);color:var(--f-ink);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{outline:0;border-color:var(--lime);box-shadow:0 0 0 4px rgba(196,239,78,.15)}
+select option{background:var(--forest);color:var(--f-ink)}
+.form-msg{color:var(--lime);font-size:15px}
+.contact-glow{position:absolute;right:-10%;top:10%;width:60vw;height:60vw;max-width:800px;max-height:800px;z-index:-1;background:radial-gradient(circle,rgba(196,239,78,.18),transparent 60%);filter:blur(40px);pointer-events:none}
+@media (max-width:1068px){.contact{grid-template-columns:1fr}}
+
+footer{background:var(--forest);color:var(--f-ink-2);font-size:12px;padding-block:40px;border-top:1px solid var(--f-rule)}
+footer .wrap{display:grid;gap:18px}
+footer ol{margin:0;padding-left:18px}
+footer .base{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
+
+/* Révélations — l'état final est l'état de repos ; GSAP anime depuis un décalage */
+[data-reveal]{will-change:transform}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .tilt-inner,.card3d{transform:none!important}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<nav class="gnav" aria-label="Navigation principale">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="BitEye, accueil"><svg viewBox="0 0 32 22" aria-hidden="true"><path d="M2 16C7 4 25 4 30 16" fill="none" stroke="#C4EF4E" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="14.5" r="4.5" fill="#C4EF4E"/></svg>bit<span>eye</span></a>
+    <ul>
+      <li><a href="#metiers">VISION Estate</a></li>
+      <li><a href="#metiers">VISION Build</a></li>
+      <li><a href="#metiers">VISION Co-Owner</a></li>
+      <li><a href="#mobile">Mobile et CRM</a></li>
+      <li><a href="#pourquoi">BitEye</a></li>
+    </ul>
+    <a class="btn" href="#contact">Demander une démo</a>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ================= HÉROS ================= -->
+<section class="band forest hero">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="floor-grid" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow" data-hero>VISION Workspace</span>
+    <h1><span class="w"><span>L'immobilier,</span></span> <span class="w"><span>enfin</span></span> <span class="w"><span>sous</span></span> <span class="w"><span><em>contrôle.</em></span></span></h1>
+    <p class="lead" data-hero>Promotion, réalisation et copropriété, réunies dans une seule plateforme.</p>
+    <div class="actions" style="justify-content:center" data-hero>
+      <a class="btn" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="ghost" href="#closer"><span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z"/></svg></span>Voir VISION en action</a>
+    </div>
+
+    <div class="stage" id="heroStage">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="tilt" id="heroTilt">
+        <div class="tilt-inner" id="heroInner">
+          <div class="screen" role="img" aria-label="Maquette du tableau de bord VISION Estate : lots vendus, encaissements, avancement et échéances des acquéreurs">
+            <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Résidence Les Oliviers · 120 logements</em></div>
+            <div class="body">
+              <aside><span class="on">Tableau de bord</span><span>Projets</span><span>Commercial</span><span>Acquéreurs</span><span>Technique</span><span>Trésorerie</span><span>Suivi administratif</span></aside>
+              <main>
+                <div class="kpis">
+                  <div class="kpi"><small>Lots vendus</small><b>86 / 120</b><div class="meter"><i style="--w:72%"></i></div></div>
+                  <div class="kpi"><small>Encaissé</small><b>1,84 Md DA</b><div class="meter"><i style="--w:61%"></i></div></div>
+                  <div class="kpi"><small>Avancement</small><b>64 %</b><div class="meter"><i style="--w:64%"></i></div></div>
+                  <div class="kpi"><small>Échéances du mois</small><b>23</b><div class="meter"><i style="--w:40%"></i></div></div>
+                </div>
+                <div class="split">
+                  <div class="panel"><h4>Échéances des acquéreurs</h4>
+                    <table class="tbl"><tbody>
+                      <tr><td>Bloc A · Lot 12</td><td>Crédit bancaire</td><td><span class="pill ok">Réglé</span></td></tr>
+                      <tr><td>Bloc A · Lot 27</td><td>Autofinancement</td><td><span class="pill wait">J-5</span></td></tr>
+                      <tr><td>Bloc B · Lot 04</td><td>CNL</td><td><span class="pill ok">Réglé</span></td></tr>
+                      <tr><td>Bloc C · Lot 31</td><td>Autofinancement</td><td><span class="pill wait">J-12</span></td></tr>
+                    </tbody></table>
+                  </div>
+                  <div class="panel"><h4>État des lots</h4>
+                    <div class="lots" aria-hidden="true">
+                      <i class="s"></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i>
+                      <i class="s"></i><i class="r"></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i></i>
+                      <i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i></i><i class="s"></i>
+                    </div>
+                    <div class="legend"><span><i style="background:var(--lime-deep)"></i>Vendu</span><span><i style="background:color-mix(in srgb,var(--lime-deep) 40%,transparent)"></i>Réservé</span><span><i style="background:var(--screen-rule)"></i>Libre</span></div>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </div>
+          <div class="chip c1 float" data-depth="1.4"><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small>Lot 27 · Tranche 3</small><b>+4,2 M DA encaissés</b></span></div>
+          <div class="chip c2 float" data-depth="2"><span class="ic"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6h4M6 9h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><small>Bloc B</small><b>Lot 12 réservé</b></span></div>
+          <div class="chip c3 float" data-depth="1.1"><span class="ic"><svg viewBox="0 0 16 16"><path d="M2 13h12M4 13V7l4-3 4 3v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span><small>Gros œuvre</small><b>Avancement 85 %</b></span></div>
+          <div class="chip c4 float" data-depth="1.7"><span class="ic"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span><span><small>Suivi administratif</small><b>Visa CTC obtenu</b></span></div>
+        </div>
+      </div>
+      <span class="mock-tag">Maquette avec données fictives — à remplacer par de vraies captures de VISION.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TROIS MÉTIERS ================= -->
+<section class="band paper" id="metiers">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Une plateforme</span>
+      <h2 class="h2" data-reveal>Trois métiers. <em>Un seul espace.</em></h2>
+      <p class="lead" data-reveal>Gérez une, deux ou trois entreprises de votre groupe, sans changer de logiciel.</p>
+    </div>
+    <div class="trio">
+      <a class="card3d" href="#closer" data-reveal>
+        <span class="name">VISION Estate</span>
+        <div class="art"><svg class="iso" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="205" rx="120" ry="26"/><g class="floor"><polygon class="g-l" points="30,190 140,230 140,238 30,198"/><polygon class="g-r" points="140,230 250,190 250,198 140,238"/><polygon class="g-t" points="140,150 250,190 140,230 30,190"/></g><g class="floor"><polygon class="n-l" points="61,168 95,181 95,203 61,190"/><polygon class="n-r" points="95,181 129,168 129,190 95,203"/><polygon class="win" points="67.1,176.9 88.9,185.3 88.9,192.3 67.1,184.0"/><polygon class="win" points="101.1,185.3 122.9,176.9 122.9,184.0 101.1,192.3"/><polygon class="n-t" points="95,155 129,168 95,181 61,168"/></g><g class="floor"><polygon class="n-l" points="61,146 95,159 95,181 61,168"/><polygon class="n-r" points="95,159 129,146 129,168 95,181"/><polygon class="win" points="67.1,154.9 88.9,163.3 88.9,170.3 67.1,162.0"/><polygon class="win" points="101.1,163.3 122.9,154.9 122.9,162.0 101.1,170.3"/><polygon class="n-t" points="95,133 129,146 95,159 61,146"/></g><g class="floor"><polygon class="n-l" points="61,124 95,137 95,159 61,146"/><polygon class="n-r" points="95,137 129,124 129,146 95,159"/><polygon class="win" points="67.1,132.9 88.9,141.3 88.9,148.3 67.1,140.0"/><polygon class="win" points="101.1,141.3 122.9,132.9 122.9,140.0 101.1,148.3"/><polygon class="n-t" points="95,111 129,124 95,137 61,124"/></g><g class="floor"><polygon class="n-l" points="61,102 95,115 95,137 61,124"/><polygon class="n-r" points="95,115 129,102 129,124 95,137"/><polygon class="win" points="67.1,110.9 88.9,119.3 88.9,126.3 67.1,118.0"/><polygon class="win" points="101.1,119.3 122.9,110.9 122.9,118.0 101.1,126.3"/><polygon class="n-t" points="95,89 129,102 95,115 61,102"/></g><g class="floor"><polygon class="k-l" points="135,178 175,193 175,215 135,200"/><polygon class="k-r" points="175,193 215,178 215,200 175,215"/><polygon class="win" points="142.2,187.3 167.8,196.9 167.8,203.9 142.2,194.3"/><polygon class="win" points="182.2,196.9 207.8,187.3 207.8,194.3 182.2,203.9"/><polygon class="k-t" points="175,163 215,178 175,193 135,178"/></g><g class="floor"><polygon class="k-l" points="135,156 175,171 175,193 135,178"/><polygon class="k-r" points="175,171 215,156 215,178 175,193"/><polygon class="win" points="142.2,165.3 167.8,174.9 167.8,181.9 142.2,172.3"/><polygon class="win" points="182.2,174.9 207.8,165.3 207.8,172.3 182.2,181.9"/><polygon class="k-t" points="175,141 215,156 175,171 135,156"/></g><g class="floor"><polygon class="k-l" points="135,134 175,149 175,171 135,156"/><polygon class="k-r" points="175,149 215,134 215,156 175,171"/><polygon class="win" points="142.2,143.3 167.8,152.9 167.8,159.9 142.2,150.3"/><polygon class="win" points="182.2,152.9 207.8,143.3 207.8,150.3 182.2,159.9"/><polygon class="k-t" points="175,119 215,134 175,149 135,134"/></g><g class="floor"><polygon class="k-l" points="135,112 175,127 175,149 135,134"/><polygon class="k-r" points="175,127 215,112 215,134 175,149"/><polygon class="win" points="142.2,121.3 167.8,130.9 167.8,137.9 142.2,128.3"/><polygon class="win" points="182.2,130.9 207.8,121.3 207.8,128.3 182.2,137.9"/><polygon class="k-t" points="175,97 215,112 175,127 135,112"/></g><g class="floor"><polygon class="k-l" points="135,90 175,105 175,127 135,112"/><polygon class="k-r" points="175,105 215,90 215,112 175,127"/><polygon class="win" points="142.2,99.3 167.8,108.9 167.8,115.9 142.2,106.3"/><polygon class="win" points="182.2,108.9 207.8,99.3 207.8,106.3 182.2,115.9"/><polygon class="k-t" points="175,75 215,90 175,105 135,90"/></g><g class="floor"><polygon class="k-l" points="135,68 175,83 175,105 135,90"/><polygon class="k-r" points="175,83 215,68 215,90 175,105"/><polygon class="win" points="142.2,77.3 167.8,86.9 167.8,93.9 142.2,84.3"/><polygon class="win" points="182.2,86.9 207.8,77.3 207.8,84.3 182.2,93.9"/><polygon class="k-t" points="175,53 215,68 175,83 135,68"/></g><g class="floor"><polygon class="k-l" points="135,46 175,61 175,83 135,68"/><polygon class="k-r" points="175,61 215,46 215,68 175,83"/><polygon class="win" points="142.2,55.3 167.8,64.9 167.8,71.9 142.2,62.3"/><polygon class="win" points="182.2,64.9 207.8,55.3 207.8,62.3 182.2,71.9"/><polygon class="k-t" points="175,31 215,46 175,61 135,46"/></g></svg></div>
+        <h3>Promotion immobilière</h3>
+        <p>Pilotez chaque opération, de la commercialisation à la clôture fiscale.</p>
+        <span class="more">Découvrir ›</span>
+      </a>
+      <a class="card3d" href="#ensemble" data-reveal>
+        <span class="name">VISION Build</span>
+        <div class="art"><svg class="iso" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="205" rx="120" ry="26"/><g class="floor"><polygon class="g-l" points="30,190 140,230 140,238 30,198"/><polygon class="g-r" points="140,230 250,190 250,198 140,238"/><polygon class="g-t" points="140,150 250,190 140,230 30,190"/></g><g class="floor"><polygon class="n-l" points="82,176 130,194 130,216 82,198"/><polygon class="n-r" points="130,194 178,176 178,198 130,216"/><polygon class="win" points="90.6,185.8 121.4,197.4 121.4,204.4 90.6,192.9"/><polygon class="win" points="138.6,197.4 169.4,185.8 169.4,192.9 138.6,204.4"/><polygon class="n-t" points="130,158 178,176 130,194 82,176"/></g><g class="floor"><polygon class="n-l" points="82,154 130,172 130,194 82,176"/><polygon class="n-r" points="130,172 178,154 178,176 130,194"/><polygon class="win" points="90.6,163.8 121.4,175.4 121.4,182.4 90.6,170.9"/><polygon class="win" points="138.6,175.4 169.4,163.8 169.4,170.9 138.6,182.4"/><polygon class="n-t" points="130,136 178,154 130,172 82,154"/></g><g class="floor"><polygon class="n-l" points="82,132 130,150 130,172 82,154"/><polygon class="n-r" points="130,150 178,132 178,154 130,172"/><polygon class="win" points="90.6,141.8 121.4,153.4 121.4,160.4 90.6,148.9"/><polygon class="win" points="138.6,153.4 169.4,141.8 169.4,148.9 138.6,160.4"/><polygon class="n-t" points="130,114 178,132 130,150 82,132"/></g><g class="scaffold"><path d="M82 120V60M178 120V64M82 60L130 42L178 64" /></g><g class="crane"><path class="crane-l" d="M222 196V30M222 34H120M222 34L250 44M222 34L200 20"/><path class="crane-c" d="M150 34V70"/><g class="hook"><g class="floor"><polygon class="k-l" points="134,82 150,88 150,100 134,94"/><polygon class="k-r" points="150,88 166,82 166,94 150,100"/><polygon class="k-t" points="150,76 166,82 150,88 134,82"/></g></g></g><g class="ghost"><g class="floor"><polygon class="o-l" points="82,110 130,128 130,150 82,132"/><polygon class="o-r" points="130,128 178,110 178,132 130,150"/><polygon class="o-t" points="130,92 178,110 130,128 82,110"/></g></g></svg></div>
+        <h3>Réalisation</h3>
+        <p>Suivez vos chantiers et ceux de vos clients, lot par lot.</p>
+        <span class="more">Découvrir ›</span>
+      </a>
+      <a class="card3d" href="#cycle" data-reveal>
+        <span class="name">VISION Co-Owner</span>
+        <div class="art"><svg class="iso" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="205" rx="120" ry="26"/><g class="floor"><polygon class="g-l" points="30,190 140,230 140,238 30,198"/><polygon class="g-r" points="140,230 250,190 250,198 140,238"/><polygon class="g-t" points="140,150 250,190 140,230 30,190"/></g><g class="floor"><polygon class="n-l" points="56,170 92,184 92,206 56,192"/><polygon class="n-r" points="92,184 128,170 128,192 92,206"/><polygon class="win" points="62.5,179.1 85.5,188.1 85.5,195.1 62.5,186.2"/><polygon class="win" points="98.5,188.1 121.5,179.1 121.5,186.2 98.5,195.1"/><polygon class="n-t" points="92,156 128,170 92,184 56,170"/></g><g class="floor"><polygon class="n-l" points="56,148 92,162 92,184 56,170"/><polygon class="n-r" points="92,162 128,148 128,170 92,184"/><polygon class="win" points="62.5,157.1 85.5,166.1 85.5,173.1 62.5,164.2"/><polygon class="win" points="98.5,166.1 121.5,157.1 121.5,164.2 98.5,173.1"/><polygon class="n-t" points="92,134 128,148 92,162 56,148"/></g><g class="floor"><polygon class="n-l" points="56,126 92,140 92,162 56,148"/><polygon class="n-r" points="92,140 128,126 128,148 92,162"/><polygon class="win" points="62.5,135.1 85.5,144.1 85.5,151.1 62.5,142.2"/><polygon class="win" points="98.5,144.1 121.5,135.1 121.5,142.2 98.5,151.1"/><polygon class="n-t" points="92,112 128,126 92,140 56,126"/></g><g class="floor"><polygon class="n-l" points="152,170 188,184 188,206 152,192"/><polygon class="n-r" points="188,184 224,170 224,192 188,206"/><polygon class="win" points="158.5,179.1 181.5,188.1 181.5,195.1 158.5,186.2"/><polygon class="win" points="194.5,188.1 217.5,179.1 217.5,186.2 194.5,195.1"/><polygon class="n-t" points="188,156 224,170 188,184 152,170"/></g><g class="floor"><polygon class="n-l" points="152,148 188,162 188,184 152,170"/><polygon class="n-r" points="188,162 224,148 224,170 188,184"/><polygon class="win" points="158.5,157.1 181.5,166.1 181.5,173.1 158.5,164.2"/><polygon class="win" points="194.5,166.1 217.5,157.1 217.5,164.2 194.5,173.1"/><polygon class="n-t" points="188,134 224,148 188,162 152,148"/></g><g class="floor"><polygon class="n-l" points="152,126 188,140 188,162 152,148"/><polygon class="n-r" points="188,140 224,126 224,148 188,162"/><polygon class="win" points="158.5,135.1 181.5,144.1 181.5,151.1 158.5,142.2"/><polygon class="win" points="194.5,144.1 217.5,135.1 217.5,142.2 194.5,151.1"/><polygon class="n-t" points="188,112 224,126 188,140 152,126"/></g><g class="tree"><circle cx="140" cy="168" r="12"/><path d="M140 180v10"/></g><g class="badge"><circle cx="140" cy="62" r="24"/><path d="M129 62l8 8 15-15"/></g></svg></div>
+        <h3>Gestion de copropriété</h3>
+        <p>Gardez vos résidences et votre image impeccables après la livraison.</p>
+        <span class="more">Découvrir ›</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REGARDEZ DE PLUS PRÈS ================= -->
+<section class="band forest" id="closer">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">VISION Estate</span>
+      <h2 class="h2" data-reveal>Regardez <em>de plus près.</em></h2>
+    </div>
+    <div class="closer" id="closerGrid" data-active="1">
+      <div class="sticky">
+        <div class="stage3d">
+          <div class="screen" role="img" aria-label="Maquette de VISION Estate avec quatre zones : indicateurs, échéancier, suivi administratif, avancement">
+            <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Bloc A</em></div>
+            <main style="padding:20px;display:grid;gap:14px;transform-style:preserve-3d">
+              <div class="kpis zone z1">
+                <div class="kpi"><small>Lots vendus</small><b>86</b></div>
+                <div class="kpi"><small>Réservés</small><b>12</b></div>
+                <div class="kpi"><small>Encaissé</small><b>61 %</b></div>
+                <div class="kpi"><small>Reste à encaisser</small><b>1,17 Md</b></div>
+              </div>
+              <div class="split">
+                <div class="panel zone z2"><h4>Échéancier · Lot 27</h4>
+                  <table class="tbl"><tbody>
+                    <tr><td>Apport initial</td><td><span class="pill ok">Réglé</span></td></tr>
+                    <tr><td>Tranche 2 · fin gros œuvre</td><td><span class="pill ok">Réglé</span></td></tr>
+                    <tr><td>Tranche 3 · 15/11/2026</td><td><span class="pill wait">J-5</span></td></tr>
+                    <tr><td>Crédit bancaire</td><td><span class="pill wait">En attente</span></td></tr>
+                  </tbody></table>
+                </div>
+                <div class="panel zone z3"><h4>Suivi administratif</h4>
+                  <table class="tbl"><tbody>
+                    <tr><td>Acte notarié</td><td><span class="pill ok">Fait</span></td></tr>
+                    <tr><td>Visa CTC</td><td><span class="pill ok">Fait</span></td></tr>
+                    <tr><td>Raccordement Sonelgaz</td><td><span class="pill wait">En cours</span></td></tr>
+                  </tbody></table>
+                </div>
+              </div>
+              <div class="panel zone z4"><h4>Avancement physique</h4>
+                <div class="gantt">
+                  <div><span>Infrastructure</span><b style="--p:100%"></b></div>
+                  <div><span>Gros œuvre</span><b style="--p:85%"></b></div>
+                  <div><span>Corps d'état secondaires</span><b style="--p:40%"></b></div>
+                  <div><span>VRD</span><b style="--p:15%"></b></div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+        <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="steps">
+        <div class="step on" data-step="1"><span class="k">Indicateurs</span><h3>L'essentiel en un coup d'œil.</h3><p>Lots vendus, réservés, encaissés : chaque projet affiche sa situation réelle dès l'ouverture.</p></div>
+        <div class="step" data-step="2"><span class="k">Échéancier</span><h3>Chaque échéance, à temps.</h3><p>Autofinancement, crédit bancaire, CNL : l'échéancier de chaque acquéreur se suit tranche par tranche, à la date ou à l'avancement.</p></div>
+        <div class="step" data-step="3"><span class="k">Suivi administratif</span><h3>Les démarches, enfin visibles.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque démarche a son statut, pour le promoteur comme pour l'acquéreur.</p></div>
+        <div class="step" data-step="4"><span class="k">Avancement</span><h3>Le chantier relié aux ventes.</h3><p>L'avancement par lot déclenche les appels de fonds au bon moment.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CYCLE ================= -->
+<section class="band paper" id="cycle">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Un seul parcours</span>
+      <h2 class="h2" data-reveal>Du premier contact <em>à la copropriété.</em></h2>
+      <p class="lead" data-reveal>Chaque client suit un seul dossier, sans ressaisie, du prospect au résident.</p>
+    </div>
+    <div class="cycle" id="cycle3d">
+      <svg class="path" viewBox="0 0 1000 120" aria-hidden="true">
+        <path class="track" d="M125 60 C 210 0, 290 120, 375 60 S 540 0, 625 60 S 790 120, 875 60"/>
+        <path class="draw" id="drawPath" d="M125 60 C 210 0, 290 120, 375 60 S 540 0, 625 60 S 790 120, 875 60"/>
+        <g class="node on" data-i="0"><circle class="o" cx="125" cy="60" r="24"/><circle class="i" cx="125" cy="60" r="8"/></g>
+        <g class="node" data-i="1"><circle class="o" cx="375" cy="60" r="24"/><circle class="i" cx="375" cy="60" r="8"/></g>
+        <g class="node" data-i="2"><circle class="o" cx="625" cy="60" r="24"/><circle class="i" cx="625" cy="60" r="8"/></g>
+        <g class="node" data-i="3"><circle class="o" cx="875" cy="60" r="24"/><circle class="i" cx="875" cy="60" r="8"/></g>
+      </svg>
+      <div class="stations">
+        <div data-reveal><small>CRM</small><h3>Prospect</h3><p>Les contacts arrivent du site, de Meta et des réseaux sociaux.</p></div>
+        <div data-reveal><small>VISION Estate</small><h3>Acquéreur</h3><p>Attribution du lot, financement, documents commerciaux.</p></div>
+        <div data-reveal><small>VISION Estate</small><h3>Clôture</h3><p>Dossiers soldés, projet clôturé fiscalement.</p></div>
+        <div data-reveal><small>VISION Co-Owner</small><h3>Copropriétaire</h3><p>L'acquéreur devient résident, automatiquement.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MIEUX ENSEMBLE ================= -->
+<section class="band forest" id="ensemble">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Estate × Build</span>
+      <h2 class="h2" data-reveal>Une saisie. <em>Deux entreprises.</em></h2>
+      <p class="lead" data-reveal>Quand votre entreprise de réalisation travaille pour votre promotion, VISION partage le document une seule fois.</p>
+    </div>
+    <div class="duo">
+      <div class="ledger l" data-reveal><span class="name">VISION Estate · Promotion</span><span class="amt">48 600 000 DA</span><span class="what">Situation de travaux n° 7</span><span class="tag">Charge</span></div>
+      <div class="ledger r" data-reveal><span class="name">VISION Build · Réalisation</span><span class="amt">48 600 000 DA</span><span class="what">La même situation, reçue</span><span class="tag">Revenu</span></div>
+      <div class="flight" aria-hidden="true"><div class="doc"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <span class="share" aria-hidden="true">Partager</span>
+    </div>
+    <p class="fine">Seuls les documents sont partagés. Chaque entreprise garde sa propre trésorerie, ses comptes et ses caisses.</p>
+  </div>
+</section>
+
+<!-- ================= MOBILE ================= -->
+<section class="band paper" id="mobile">
+  <div class="wrap mobile">
+    <div class="phone-stage" id="phoneStage">
+      <div class="phone" id="phone" role="img" aria-label="Maquette de l'application mobile VISION">
+        <div class="scr">
+          <h5>Résidence Les Oliviers</h5>
+          <p class="sub">Bloc A · 120 logements</p>
+          <div class="card ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="32"/><circle class="fg" cx="40" cy="40" r="32"/></svg><div><b style="font:700 26px/1 var(--display)">64 %</b><div class="row"><span>Avancement global</span></div></div></div>
+          <div class="card"><div class="row"><span>Encaissé ce mois</span><b>92,4 M DA</b></div><div class="row"><span>Nouveaux prospects</span><b>18</b></div></div>
+          <div class="card"><div class="row"><span>Convention d'accord · Lot 27</span><b>PDF</b></div><div class="row"><span>Attestation de solde · Lot 12</span><b>PDF</b></div></div>
+        </div>
+      </div>
+      <div class="notif n1" data-pop><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>Paiement reçu</b><small>Lot 12 · 1 200 000 DA</small></span></div>
+      <div class="notif n2" data-pop><span class="ic"><svg viewBox="0 0 16 16"><circle cx="8" cy="6" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 14c1-3 3-4 5.5-4s4.5 1 5.5 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><b>Nouveau prospect</b><small>Via Meta · F3, Bloc B</small></span></div>
+      <div class="notif n3" data-pop><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 2h7l3 3v9H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span><b>Document signé</b><small>Convention d'accord · Lot 27</small></span></div>
+    </div>
+    <div>
+      <div class="head" style="margin-bottom:44px">
+        <span class="eyebrow">VISION Mobile et CRM</span>
+        <h2 class="h2" data-reveal>Votre projet, <em>dans la poche.</em></h2>
+      </div>
+      <div class="feats">
+        <div data-reveal><span class="ic"><svg viewBox="0 0 20 20"><path d="M3 17h14M5 17V9l5-4 5 4v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><h3>Le chantier, partout.</h3><p>Avancement, transactions et documents, sur votre téléphone.</p></div>
+        <div data-reveal><span class="ic"><svg viewBox="0 0 20 20"><path d="M3 4h14v9H8l-4 3v-3H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><h3>Aucun prospect perdu.</h3><p>Les contacts du site et de Meta arrivent directement dans le CRM.</p></div>
+        <div data-reveal><span class="ic"><svg viewBox="0 0 20 20"><path d="M10 2l1.8 4.6L16.5 8l-4.7 1.6L10 14l-1.8-4.4L3.5 8l4.7-1.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><h3>L'IA qui appelle.</h3><p>Un agent IA qualifie vos prospects par appel automatique.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHIFFRES ================= -->
+<section class="band forest" id="confiance">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Depuis 2014</span>
+      <h2 class="h2" data-reveal>Ils construisent <em>avec VISION.</em></h2>
+    </div>
+    <div class="stats">
+      <div class="stat" data-reveal><b><span class="count" data-to="250">250</span><sup>1</sup></b><span>promoteurs immobiliers clients</span></div>
+      <div class="stat" data-reveal><b><span class="count" data-to="12">12</span></b><span>ans au service du secteur</span></div>
+      <div class="stat" data-reveal><b><span class="count" data-to="3">3</span></b><span>métiers sur une plateforme</span></div>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true"><div class="row"><span>Promotion libre</span><span>LPA 1</span><span>LPA 2</span><span>Vente de terrain</span><span>Crédit bancaire</span><span>CNL</span><span>BNH</span><span>Autofinancement</span><span>Promotion libre</span><span>LPA 1</span><span>LPA 2</span><span>Vente de terrain</span><span>Crédit bancaire</span><span>CNL</span><span>BNH</span><span>Autofinancement</span></div></div>
+  <div class="marquee rev" aria-hidden="true"><div class="row"><span>Situations de travaux</span><span>Appels de fonds</span><span>Suivi administratif</span><span>Copropriété</span><span>Trésorerie</span><span>Acquéreurs</span><span>Situations de travaux</span><span>Appels de fonds</span><span>Suivi administratif</span><span>Copropriété</span><span>Trésorerie</span><span>Acquéreurs</span></div></div>
+  <div class="wrap">
+    <div class="logos" aria-label="Emplacements des logos clients"><div>Logo client</div><div>Logo client</div><div>Logo client</div><div>Logo client</div><div>Logo client</div><div>Logo client</div></div>
+  </div>
+</section>
+
+<!-- ================= POURQUOI ================= -->
+<section class="band paper" id="pourquoi">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Pourquoi BitEye</span>
+      <h2 class="h2" data-reveal>Conçu ici. <em>Pour ici.</em></h2>
+      <p class="lead" data-reveal>Un éditeur algérien, au plus près de vos chantiers.</p>
+    </div>
+    <div class="bento">
+      <div class="tile big" data-reveal>
+        <div class="chips"><span>Promotion libre</span><span>LPA 1</span><span>LPA 2</span><span>CNL</span><span>BNH</span><span>FNPOS</span><span>Crédit bancaire</span><span>Vente de terrain</span></div>
+        <h3>Votre réglementation, déjà intégrée.</h3>
+        <p>Types de projets, financements, échéanciers : VISION parle le langage de la promotion immobilière algérienne.</p>
+      </div>
+      <div class="tile s2" data-reveal><span class="big-ic"><svg viewBox="0 0 26 26"><path d="M4 21V9l9-5 9 5v12M9 21v-6h8v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span><h3>Formation sur site.</h3><p>Vos équipes, sur leurs propres projets.</p></div>
+      <div class="tile s2" data-reveal><span class="big-ic"><svg viewBox="0 0 26 26"><path d="M5 13l5 5 11-11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>Mise en place accompagnée.</h3><p>Installation, paramétrage, procès-verbal de fin de formation.</p></div>
+      <div class="tile s3" data-reveal><span class="big-ic"><svg viewBox="0 0 26 26"><path d="M13 23s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="13" cy="11" r="2.6" fill="currentColor"/></svg></span><h3>Support à Alger.</h3><p>Une équipe joignable à Gué de Constantine, qui connaît votre métier.</p></div>
+      <div class="tile s3" data-reveal><span class="big-ic"><svg viewBox="0 0 26 26"><rect x="4" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 10h18M9 3v4M17 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><h3>Depuis 2014.</h3><p>Douze ans de projets immobiliers algériens dans le logiciel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="band forest" id="contact" style="overflow:hidden">
+  <div class="contact-glow" aria-hidden="true"></div>
+  <div class="wrap contact">
+    <div>
+      <span class="eyebrow">Démonstration</span>
+      <h2 class="h2" style="margin-top:22px" data-reveal>Voyons <em>votre projet.</em></h2>
+      <p class="lead" style="margin-top:22px" data-reveal>Une démonstration sur un projet qui ressemble au vôtre.</p>
+      <div class="coords">
+        <div><small>Téléphone</small><b>0560 06 36 41</b></div>
+        <div><small>E-mail</small><b>contact@biteye-group.com</b></div>
+        <div><small>Adresse</small><b>Gué de Constantine, Alger</b></div>
+      </div>
+    </div>
+    <form class="glassform" id="demo" novalidate data-reveal>
+      <label for="f-nom">Nom et prénom<input id="f-nom" name="nom" autocomplete="name" required></label>
+      <label for="f-soc">Société<input id="f-soc" name="societe" autocomplete="organization" required></label>
+      <label for="f-tel">Téléphone<input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label for="f-met">Votre métier
+        <select id="f-met" name="metier">
+          <option>Promotion immobilière</option>
+          <option>Réalisation</option>
+          <option>Gestion de copropriété</option>
+          <option>Plusieurs de ces métiers</option>
+        </select>
+      </label>
+      <div class="actions" style="margin-top:8px"><button class="btn" type="submit">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <p class="form-msg" id="form-msg" hidden>Maquette : l'envoi sera branché par le développeur.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <ol><li>Nombre de promoteurs immobiliers clients de BitEye, 2026.</li></ol>
+    <div class="base"><span>© 2026 BitEye Group. Tous droits réservés.</span><span>Français · العربية</span></div>
+  </div>
+</footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  document.getElementById('demo').addEventListener('submit', function(e){ e.preventDefault(); document.getElementById('form-msg').hidden = false; });
+
+  /* Inclinaison à la souris : écran du héros */
+  var stage = document.getElementById('heroStage'), inner = document.getElementById('heroInner');
+  if (fine && !reduce) {
+    stage.addEventListener('pointermove', function(e){
+      var r = stage.getBoundingClientRect();
+      inner.style.setProperty('--mx', ((e.clientX - r.left) / r.width - .5) * 2);
+      inner.style.setProperty('--my', ((e.clientY - r.top) / r.height - .5) * 2);
+    });
+    stage.addEventListener('pointerleave', function(){ inner.style.setProperty('--mx', 0); inner.style.setProperty('--my', 0); });
+
+    /* Cartes 3D des modules */
+    document.querySelectorAll('.card3d').forEach(function(c){
+      c.addEventListener('pointermove', function(e){
+        var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--rx', ((x - .5) * 14).toFixed(2));
+        c.style.setProperty('--ry', ((.5 - y) * 12).toFixed(2));
+        c.style.setProperty('--gx', (x * 100) + '%'); c.style.setProperty('--gy', (y * 100) + '%');
+      });
+      c.addEventListener('pointerleave', function(){ c.style.setProperty('--rx', 0); c.style.setProperty('--ry', 0); });
+    });
+  }
+
+  /* Section collante : étape active */
+  var grid = document.getElementById('closerGrid'), steps = grid.querySelectorAll('.step');
+  if ('IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if (en.isIntersecting) {
+          steps.forEach(function(s){ s.classList.remove('on'); });
+          en.target.classList.add('on');
+          grid.setAttribute('data-active', en.target.getAttribute('data-step'));
+        }
+      });
+    }, {rootMargin:'-45% 0px -45% 0px'});
+    steps.forEach(function(s){ so.observe(s); });
+  }
+
+  if (reduce || !window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Barre de progression */
+  gsap.to('#progress', {scaleX:1, ease:'none', scrollTrigger:{start:0, end:'max', scrub:.2}});
+
+  /* Héros : titre mot par mot, puis le reste */
+  var tl = gsap.timeline({defaults:{ease:'power4.out'}});
+  tl.from('.hero h1 .w > span', {yPercent:110, rotate:4, duration:1.1, stagger:.09})
+    .from('[data-hero]', {y:24, opacity:0, duration:.9, stagger:.1}, '-=.7')
+    .from('.chip', {opacity:0, scale:.8, y:30, duration:.9, stagger:.12, ease:'back.out(1.6)'}, '-=.4')
+    .from('#heroStage .meter i', {scaleX:0, duration:1.2, stagger:.1, ease:'power2.out'}, '-=1');
+
+  /* Héros : l'écran incliné se redresse au défilement */
+  gsap.fromTo('#heroTilt', {rotateX:24, scale:.9, y:20}, {rotateX:0, scale:1, y:0, ease:'none',
+    scrollTrigger:{trigger:'#heroStage', start:'top 92%', end:'top 18%', scrub:.6}});
+  gsap.utils.toArray('.chip').forEach(function(c){
+    var d = parseFloat(c.dataset.depth || 1);
+    gsap.to(c, {y:-40 * d, ease:'none', scrollTrigger:{trigger:'#heroStage', start:'top bottom', end:'bottom top', scrub:true}});
+  });
+  gsap.to('.aurora', {yPercent:25, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+
+  /* Révélations génériques */
+  gsap.utils.toArray('[data-reveal]').forEach(function(el){
+    gsap.from(el, {y:50, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
+  });
+
+  /* Modules : les immeubles se construisent étage par étage */
+  gsap.utils.toArray('.card3d').forEach(function(card, i){
+    var floors = card.querySelectorAll('.floor');
+    gsap.from(floors, {y:-46, opacity:0, duration:.7, stagger:.09, delay:i * .15, ease:'back.out(1.4)',
+      scrollTrigger:{trigger:card, start:'top 80%', once:true}});
+  });
+
+  /* Cycle : la ligne se dessine au défilement */
+  var path = document.getElementById('drawPath');
+  if (path && path.getTotalLength) {
+    var len = path.getTotalLength(), nodes = document.querySelectorAll('#cycle3d .node');
+    path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+    ScrollTrigger.create({trigger:'#cycle3d', start:'top 75%', end:'bottom 45%', scrub:.5,
+      onUpdate:function(self){
+        path.style.strokeDashoffset = len * (1 - self.progress);
+        nodes.forEach(function(n, i){ n.classList.toggle('on', self.progress >= i / 3 - .02); });
+      }});
+  }
+
+  /* Mieux ensemble : les registres pivotent face à face */
+  gsap.from('.ledger.l', {rotateY:50, x:-60, scrollTrigger:{trigger:'.duo', start:'top 85%', end:'top 40%', scrub:.6}});
+  gsap.from('.ledger.r', {rotateY:-50, x:60, scrollTrigger:{trigger:'.duo', start:'top 85%', end:'top 40%', scrub:.6}});
+
+  /* Mobile : le téléphone se redresse, les notifications arrivent */
+  gsap.fromTo('#phone', {rotateY:-32, rotateX:14, rotateZ:4, y:60}, {rotateY:-8, rotateX:4, rotateZ:0, y:0, ease:'none',
+    scrollTrigger:{trigger:'#phoneStage', start:'top 90%', end:'center 50%', scrub:.6}});
+  gsap.from('[data-pop]', {x:function(i){ return i % 2 ? 80 : -80; }, opacity:0, scale:.85, duration:.9, stagger:.25, ease:'back.out(1.5)',
+    scrollTrigger:{trigger:'#phoneStage', start:'top 60%', once:true}});
+  gsap.from('.ring .fg', {strokeDashoffset:201, duration:1.6, ease:'power2.out', scrollTrigger:{trigger:'#phoneStage', start:'top 60%', once:true}});
+
+  /* Chiffres qui comptent */
+  gsap.utils.toArray('.count').forEach(function(el){
+    var to = +el.dataset.to, o = {v:0};
+    gsap.to(o, {v:to, duration:1.8, ease:'power2.out', scrollTrigger:{trigger:el, start:'top 85%', once:true},
+      onUpdate:function(){ el.textContent = Math.round(o.v); }});
+  });
+})();
+</script>
+</body>
+</html>
