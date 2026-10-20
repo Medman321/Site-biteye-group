@@ -6,6 +6,7 @@ Site statique en une page :
 
 - `index.html` — page d'accueil (HTML, CSS et JS intégrés) ; charge les bibliothèques depuis `vendor/`
 - `admin/` — administration du site : références et prestations, avec droits d'accès (administrateur, éditeur)
+- `i18n.js` — traductions anglaise et arabe des textes de la page (clé : le texte français)
 - `config.js` — adresse et clé publique de la base Supabase utilisée par l'administration (vide : le site affiche son contenu intégré)
 - `supabase/` — schéma de la base, import des références et **guide de mise en service** ([`supabase/README.md`](supabase/README.md))
 - `vendor/` — Three.js 0.159 (ville 3D du héros), GSAP 3.12.5 + ScrollTrigger (animations), Lenis 1.1.13 (défilement fluide), supabase-js 2.108 (administration)
@@ -13,7 +14,13 @@ Site statique en une page :
 - `favicon.svg` — icône du site
 - `CNAME` — domaine personnalisé `biteye-group.com` (GitHub Pages)
 
-Après toute modification de `index.html` ou de `config.js`, relancer `python3 build.py`.
+Après toute modification de `index.html`, `i18n.js` ou `config.js`, relancer `python3 build.py`.
+
+## Langues
+
+Le site existe en français (par défaut), en anglais et en arabe (mise en page de droite à gauche) : sélecteur FR · EN · ع dans la barre de navigation et dans le menu mobile, ou directement `?lang=en` / `?lang=ar` dans l'adresse. Le choix du visiteur est mémorisé dans son navigateur.
+
+Chaque texte de la page est cherché tel quel dans `i18n.js` ; un texte modifié dans `index.html` sans mise à jour de `i18n.js` reste affiché en français dans les autres langues. Le contenu saisi dans l'administration (références, prestations, événements) n'est pas traduit, sauf l'événement d'exemple Elogia 2026.
 
 ## Aperçu local
 
@@ -27,4 +34,4 @@ python3 -m http.server 8000
 - Mettre en service l'administration : suivre [`supabase/README.md`](supabase/README.md).
 - Remplacer les maquettes d'écran (données fictives) par de vraies captures de VISION.
 - Brancher le formulaire de démonstration sur un service d'envoi (aujourd'hui il ouvre la messagerie du visiteur avec la demande pré-remplie).
-- Version arabe (RTL).
+- Faire relire les versions anglaise et arabe par un locuteur natif.
