@@ -1276,27 +1276,52 @@ body.sheet-open{overflow:hidden}
 .sh-ask{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
 .sh-ask p{margin:0;font:600 clamp(17px,1.6vw,21px)/1.3 var(--display);color:var(--f-ink)}
 /* Témoignages */
-.tems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),370px));justify-content:center;gap:28px 24px}
-.tems > .tem{min-width:0}
-@media (max-width:620px){.tems{grid-template-columns:1fr}}
-.tem{display:grid;gap:14px;align-content:start}
-.tem-v{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:var(--forest);border:1px solid var(--rule)}
-.tem-v video,.tem-v img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.tem-v video{object-fit:contain;background:#000}
-.tem-v button{position:absolute;inset:0;display:grid;place-items:center;width:100%;border:0;padding:0;background:linear-gradient(180deg,transparent 50%,rgba(1,18,29,.55));cursor:pointer}
-.tem-v button span{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--lime);color:var(--on-lime);transition:transform .3s var(--ease)}
-.tem-v button:hover span{transform:scale(1.07)}
-.tem-v button svg{width:24px;height:24px;margin-inline-start:4px}
-.tem-v.playing button{display:none}
-.tem blockquote{margin:0;font:500 17px/1.45 var(--display);color:var(--ink)}
-.tem figcaption{font-size:14px;color:var(--ink-2)}
-.tem figcaption b{display:block;color:var(--ink);font-size:15px}
+.tem-head{display:grid;grid-template-columns:minmax(0,1.2fr) auto;align-items:end;gap:28px 56px;margin-bottom:clamp(32px,5vw,56px)}
+.tem-head .head{margin:0}
+.tem-proof{list-style:none;margin:0;padding:0;display:flex;gap:10px;flex-wrap:wrap}
+.tem-proof li{display:grid;gap:2px;min-width:118px;padding:14px 18px;border-radius:18px;background:var(--paper-2);border:1px solid var(--rule)}
+.tem-proof b{font:700 26px/1 var(--display);letter-spacing:-.02em;color:var(--ink)}
+.tem-proof span{font-size:13px;color:var(--ink-2)}
+.tems{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:22px}
+.tem{display:grid;gap:14px;align-content:start;min-width:0;margin:0}
+.tem-feat{grid-row:span 2;padding:18px;border-radius:26px;background:var(--paper-2);border:1px solid var(--rule)}
+.tems > .tem:not(.tem-feat){grid-template-columns:minmax(0,1fr)}
+.tem-v{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:var(--forest);border:1px solid var(--rule)}
+.tem-v img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tem-v button{position:absolute;inset:0;display:grid;place-items:center;width:100%;border:0;padding:0;background:linear-gradient(180deg,transparent 45%,rgba(1,18,29,.6));cursor:pointer;color:inherit}
+.tem-v button > span{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--lime);color:var(--on-lime);transition:transform .3s var(--ease)}
+.tem-feat .tem-v button > span{width:78px;height:78px}
+.tem-v button:hover > span{transform:scale(1.07)}
+.tem-v button:focus-visible{outline:3px solid var(--lime);outline-offset:-3px}
+.tem-v button svg{width:26px;height:26px;margin-inline-start:4px}
+.tem-dur{position:absolute;bottom:12px;inset-inline-end:12px;padding:4px 9px;border-radius:8px;background:rgba(1,18,29,.72);color:#EAEEF1;font-size:12px;font-variant-numeric:tabular-nums}
+.tem-body{display:grid;gap:12px;padding:6px 6px 0}
+.tem-q{width:34px;height:auto;color:var(--lime-deep)}
+.tem blockquote{margin:0;font:500 clamp(17px,1.6vw,21px)/1.45 var(--display);color:var(--ink)}
+.tem:not(.tem-feat) blockquote{font-size:15.5px}
+.tem figcaption{display:grid;gap:3px;padding-inline:6px;font-size:14px;color:var(--ink-2)}
+.tem figcaption b{color:var(--ink);font-size:15.5px}
+.tem-met{justify-self:start;margin-top:4px;padding:4px 10px;border-radius:999px;background:rgba(3,180,130,.12);color:var(--lime-deep);font-size:12px;font-weight:600}
 .tem-ph{display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 110%,rgba(3,218,159,.12),transparent 60%),linear-gradient(180deg,#05304A,#011A29);border-color:transparent}
+.tem-feat .tem-ph{aspect-ratio:16/9}
 .tem-eye{position:absolute;left:50%;top:50%;width:46%;transform:translate(-50%,-50%);color:#EAEEF1;opacity:.06}
 .tem-play{position:relative;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(234,238,241,.35);color:rgba(234,238,241,.6)}
 .tem-play svg{width:20px;height:20px;margin-inline-start:3px}
 .tem-chip{position:absolute;bottom:14px;inset-inline:14px;width:fit-content;margin-inline:auto;padding:7px 12px;border-radius:999px;background:rgba(1,26,41,.7);border:1px solid rgba(234,238,241,.14);color:#93A9B8;font-size:12.5px;text-align:center}
+.tem-ph-txt{margin:0;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
 .tem-soon figcaption b{color:var(--ink-2)}
+.tem-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;margin-top:clamp(28px,4vw,44px);padding-top:22px;border-top:1px solid var(--rule)}
+.tem-foot p{margin:0;color:var(--ink-2)}
+.tem-foot a{color:var(--lime-deep);font-weight:600}
+.tem-foot p a{text-decoration:underline;text-underline-offset:3px}
+.tem-dlg{width:min(1100px,94vw);max-width:none;max-height:none;padding:0;border:0;border-radius:22px;background:#011A29;color:#EAEEF1;box-shadow:0 40px 100px -30px rgba(0,0,0,.8)}
+.tem-dlg::backdrop{background:rgba(1,12,20,.82)}
+.tem-dlg-in{display:grid}
+.tem-dlg-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 20px}
+.tem-dlg-top p{margin:0;font-weight:600;font-size:15px}
+.tem-dlg video{display:block;width:100%;max-height:80svh;background:#000}
+@media (max-width:1068px){.tem-head{grid-template-columns:1fr}.tems{grid-template-columns:repeat(2,minmax(0,1fr))}.tem-feat{grid-column:1/-1;grid-row:auto}}
+@media (max-width:640px){.tems{grid-template-columns:1fr}.tem-feat{padding:12px}.tem-proof li{min-width:0;flex:1}.tem-proof b{font-size:22px}}
 /* FAQ */
 .faq-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
 .faq-wrap .head{margin:0;position:sticky;top:110px}
@@ -1317,7 +1342,7 @@ body.sheet-open{overflow:hidden}
 .wa-fab.show{opacity:1;transform:none;pointer-events:auto}
 .wa-fab svg{width:28px;height:28px}
 .wa-fab:hover{transform:scale(1.06)}
-body.sheet-open .wa-fab,body.nav-open .wa-fab{opacity:0;pointer-events:none}
+body.sheet-open .wa-fab,body.nav-open .wa-fab,body.tem-open .wa-fab{opacity:0;pointer-events:none}
 .c-wa svg{color:#25D366}
 .np-contact{display:flex;justify-content:center;gap:18px}
 .np-wa svg{color:#25D366}
@@ -1421,6 +1446,7 @@ html.i18n-wait body{visibility:hidden}
       <a class="np-main" href="#video"><span class="np-txt"><b>Vidéo de présentation</b><small>BitEye et VISION en images</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <p class="np-lbl np-group">Services</p>
       <div class="np-sub" id="navSvc"></div>
+      <a class="np-main" href="#temoignages"><span class="np-txt"><b>Témoignages</b><small>Nos clients en parlent, en vidéo</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="np-main" href="#confiance"><span class="np-txt"><b>Références</b><small>Plus de 250 clients depuis 2014</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="np-main" href="#pourquoi"><span class="np-txt"><b>Pourquoi BitEye</b><small>Éditeur algérien, support à Alger</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="np-main" href="#evenements" id="navEvP"><span class="np-txt"><b>Agenda</b><small>Salons et rendez-vous</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -1432,6 +1458,13 @@ html.i18n-wait body{visibility:hidden}
     <a class="np-tel" href="tel:+213560063641"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a></div>
   </div>
 </div>
+
+<dialog class="tem-dlg" id="temDlg" aria-labelledby="temDlgT" data-lenis-prevent>
+  <div class="tem-dlg-in">
+    <div class="tem-dlg-top"><p id="temDlgT"></p><button type="button" class="np-close" id="temDlgX" aria-label="Fermer la vidéo"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+    <video id="temDlgV" controls playsinline preload="none"></video>
+  </div>
+</dialog>
 
 <a class="wa-fab" id="waFab" href="https://wa.me/213560063641" target="_blank" rel="noopener" data-wa aria-label="Écrire à BitEye sur WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 00-8.4 14.6L2.2 21.8l5.1-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg></a>
 
@@ -2138,13 +2171,25 @@ html.i18n-wait body{visibility:hidden}
 <!-- ================= TÉMOIGNAGES =================
      Rempli depuis l'administration (onglet Témoignages) ou par le JSON #temData ci-dessous ;
      tant qu'aucun témoignage n'est publié, trois emplacements « bientôt disponible » réservent la place. -->
-<section class="band paper" id="temoignages" data-chapter="3">
+<section class="band paper" id="temoignages" data-chapter="3" aria-labelledby="temT">
   <div class="wrap">
-    <div class="head center">
-      <span class="eyebrow">Témoignages</span>
-      <h2 class="h2">Nos clients <em>en parlent.</em></h2>
+    <div class="tem-head">
+      <div class="head">
+        <span class="eyebrow">Témoignages</span>
+        <h2 class="h2" id="temT">Nos clients <em>en parlent.</em></h2>
+        <p class="lead">Ce que VISION a changé dans leur travail, raconté par ceux qui l’utilisent chaque jour.</p>
+      </div>
+      <ul class="tem-proof">
+        <li><b>250+</b><span>clients en 2026</span></li>
+        <li><b>19</b><span>wilayas couvertes</span></li>
+        <li><b>12</b><span>ans au service du secteur</span></li>
+      </ul>
     </div>
-    <div class="tems" id="temList"><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b>Vidéo à venir</figcaption></figure><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b>Vidéo à venir</figcaption></figure><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b>Vidéo à venir</figcaption></figure></div>
+    <div class="tems" id="temList"><figure class="tem tem-soon tem-feat"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><div class="tem-body"><svg class="tem-q" viewBox="0 0 48 36" aria-hidden="true"><path d="M0 36V22C0 9 7 1.5 19 0l2 6c-6.5 1.8-10 6-10.5 12H20v18zm28 0V22C28 9 35 1.5 47 0l1 6c-6.5 1.8-10 6-10.5 12H48v18z" fill="currentColor"/></svg><p class="tem-ph-txt">Promoteurs, entreprises de réalisation, gestionnaires de copropriété : nos clients racontent bientôt ici, en vidéo, comment ils travaillent avec VISION.</p></div><figcaption><b>Témoignage client</b><span>Vidéo à venir</span></figcaption></figure><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b><span>Vidéo à venir</span></figcaption></figure><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b><span>Vidéo à venir</span></figcaption></figure></div>
+    <div class="tem-foot">
+      <a class="tem-more" href="#confiance">Voir toutes nos références ›</a>
+      <p>Vous êtes client de BitEye ? <a href="#contact" data-sujet="Témoignage client">Partagez votre expérience</a></p>
+    </div>
   </div>
   <script type="application/json" id="temData">[]</script>
 </section>
@@ -3119,6 +3164,7 @@ html.i18n-wait body{visibility:hidden}
 
   /* Témoignages vidéo : section masquée tant qu'il n'y en a pas ; la vidéo ne se charge qu'au clic */
   var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
+  var QUOTE = '<svg class="tem-q" viewBox="0 0 48 36" aria-hidden="true"><path d="M0 36V22C0 9 7 1.5 19 0l2 6c-6.5 1.8-10 6-10.5 12H20v18zm28 0V22C28 9 35 1.5 47 0l1 6c-6.5 1.8-10 6-10.5 12H48v18z" fill="currentColor"/></svg>';
   var okUrl = /^(https:\/\/|assets\/|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/)/;
   function renderTems(rows){
     if (!Array.isArray(rows)) return;
@@ -3126,22 +3172,38 @@ html.i18n-wait body{visibility:hidden}
     var list = document.getElementById('temList');
     if (!rows.length) return;   /* sans témoignage publié, les emplacements « bientôt disponible » restent */
     list.innerHTML = rows.map(function(t, i){
-      var who = [t.fonction, t.societe].filter(Boolean).map(function(x){ return esc(T(x)); }).join(' · ');
-      return '<figure class="tem" data-reveal><div class="tem-v" data-src="' + esc(t.video_url) + '">'
-        + (okUrl.test(t.poster || '') ? '<img src="' + esc(t.poster) + '" alt="" loading="lazy">' : '')
-        + '<button type="button" aria-label="' + esc(T('Voir le témoignage de') + ' ' + t.nom) + '"><span>' + PLAY + '</span></button></div>'
-        + (t.citation ? '<blockquote>« ' + esc(T(t.citation)) + ' »</blockquote>' : '')
-        + '<figcaption><b>' + esc(t.nom) + '</b>' + who + '</figcaption></figure>';
+      var feat = i === 0, who = [t.fonction, t.societe].filter(Boolean).map(function(x){ return esc(T(x)); }).join(' · ');
+      return '<figure class="tem' + (feat ? ' tem-feat' : '') + '"><div class="tem-v" data-src="' + esc(t.video_url) + '" data-nom="' + esc(t.nom) + '">'
+        + (okUrl.test(t.poster || '') ? '<img src="' + esc(t.poster) + '" alt="" loading="lazy">' : '<svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg>')
+        + '<button type="button" aria-label="' + esc(T('Voir le témoignage de') + ' ' + t.nom) + '"><span>' + PLAY + '</span></button><span class="tem-dur" hidden></span></div>'
+        + (t.citation ? (feat ? '<div class="tem-body">' + QUOTE + '<blockquote>' + esc(T(t.citation)) + '</blockquote></div>' : '<blockquote>« ' + esc(T(t.citation)) + ' »</blockquote>') : '')
+        + '<figcaption><b>' + esc(t.nom) + '</b>' + (who ? '<span>' + who + '</span>' : '') + (t.metier ? '<span class="tem-met">' + esc(T(t.metier)) + '</span>' : '') + '</figcaption></figure>';
     }).join('');
+    /* durée de chaque vidéo : seules les métadonnées sont lues (quelques Ko) */
+    list.querySelectorAll('.tem-v').forEach(function(box){
+      var m = document.createElement('video'); m.preload = 'metadata'; m.muted = true; m.src = box.getAttribute('data-src');
+      m.addEventListener('loadedmetadata', function(){
+        var d = Math.round(m.duration); if (!isFinite(d) || !d) return;
+        var s = box.querySelector('.tem-dur'); s.textContent = Math.floor(d / 60) + ':' + String(d % 60).padStart(2, '0'); s.hidden = false;
+        m.removeAttribute('src'); m.load();
+      });
+    });
   }
+  /* Lecture dans une fenêtre dédiée : plus grande, au clavier, la page reste en place */
+  var temDlg = document.getElementById('temDlg'), temV = document.getElementById('temDlgV'), temFrom = null;
+  function temClose(){ temV.pause(); temV.removeAttribute('src'); temV.load(); if (temDlg.open) temDlg.close(); document.body.classList.remove('tem-open'); if (window.__lenis && !document.body.classList.contains('sheet-open')) window.__lenis.start(); if (temFrom) temFrom.focus({preventScroll:true}); }
   document.getElementById('temList').addEventListener('click', function(e){
     var b = e.target.closest('.tem-v button'); if (!b) return;
-    var box = b.parentNode, v = document.createElement('video');
-    document.querySelectorAll('#temList video').forEach(function(o){ o.pause(); });
-    v.src = box.getAttribute('data-src'); v.controls = true; v.playsInline = true; v.setAttribute('playsinline', '');
-    box.appendChild(v); box.classList.add('playing'); v.focus({preventScroll:true});
-    var p = v.play(); if (p && p.catch) p.catch(function(){});
+    var box = b.parentNode; temFrom = b;
+    document.getElementById('temDlgT').textContent = T('Témoignage') + ' · ' + box.getAttribute('data-nom');
+    temV.src = box.getAttribute('data-src');
+    if (temDlg.showModal) temDlg.showModal(); else temDlg.setAttribute('open', '');
+    document.body.classList.add('tem-open'); if (window.__lenis) window.__lenis.stop();
+    var p = temV.play(); if (p && p.catch) p.catch(function(){});
   });
+  document.getElementById('temDlgX').addEventListener('click', temClose);
+  temDlg.addEventListener('close', temClose);
+  temDlg.addEventListener('click', function(e){ if (e.target === temDlg) temClose(); });
   try { renderTems(JSON.parse(document.getElementById('temData').textContent)); } catch (x) {}
 
   /* WhatsApp : message d'accueil dans la langue du visiteur ; bouton flottant après l'en-tête, masqué près du formulaire */
@@ -3184,7 +3246,7 @@ html.i18n-wait body{visibility:hidden}
   if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting && !vidEl.paused) vidEl.pause(); }); }, {threshold:.15}).observe(vid);
   setVideo(vid.getAttribute('data-src'), vid.getAttribute('data-poster'));
   if (DB.url && DB.cle && window.fetch) {
-    dbGet('temoignages?select=nom,societe,fonction,citation,video_url,poster&publie=is.true&order=ordre.asc,id.asc').then(renderTems).catch(function(){});
+    dbGet('temoignages?select=nom,societe,fonction,metier,citation,video_url,poster&publie=is.true&order=ordre.asc,id.asc').then(renderTems).catch(function(){});
     dbGet('reglages?select=valeur&cle=eq.video_accueil').then(function(r){ var v = r && r[0] && r[0].valeur; if (v && v.publie && v.url) setVideo(v.url, v.poster, v.titre); }).catch(function(){});
     dbGet('references_clients?select=nom,ville,groupes,logo_url&publie=is.true&order=ordre.asc,nom.asc').then(renderRefs).catch(function(){});
     dbGet('evenements?select=slug,titre,type,lieu,ville,date_debut,date_fin,dates_confirmees,periode,stand,organisateur,accroche,description,programme,image_url,lien_externe,rendez_vous&publie=is.true&order=date_debut.asc').then(renderEvents).catch(function(){});

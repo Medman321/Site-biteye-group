@@ -307,7 +307,7 @@ input[type=file]{max-width:100%;font-size:14px}
 
     <!-- Témoignages -->
     <section id="pTem" role="tabpanel" aria-labelledby="tTem" hidden>
-      <div class="head"><div><h1>Témoignages</h1><p class="lead">Les vidéos de vos clients, affichées dans « Nos clients en parlent ». Tant qu’aucun témoignage n’est publié, le site affiche trois emplacements « Témoignage vidéo bientôt disponible ».</p></div>
+      <div class="head"><div><h1>Témoignages</h1><p class="lead">Les vidéos de vos clients, affichées dans « Nos clients en parlent ». Le premier de la liste est mis en avant, en grand. Tant qu’aucun témoignage n’est publié, le site affiche trois emplacements « Témoignage vidéo bientôt disponible ».</p></div>
         <button type="button" class="btn" id="bAddTem">+ Ajouter un témoignage</button></div>
       <div class="list" id="temList"><p class="loading">Chargement…</p></div>
     </section>
@@ -399,7 +399,10 @@ input[type=file]{max-width:100%;font-size:14px}
         <label class="f">Nom de la personne<input type="text" id="tNom" required minlength="2" maxlength="80" placeholder="ex. Karim Benali"></label>
         <label class="f">Fonction<input type="text" id="tFonc" maxlength="80" placeholder="ex. Gérant"></label>
       </div>
-      <label class="f">Société<input type="text" id="tSoc" maxlength="120" placeholder="ex. Sopimem Promotion immobilière"></label>
+      <div class="row c2">
+        <label class="f">Société<input type="text" id="tSoc" maxlength="120" placeholder="ex. Sopimem Promotion immobilière"></label>
+        <label class="f">Métier<select id="tMet"><option value="">—</option><option>Promotion immobilière</option><option>Réalisation</option><option>Gestion de copropriété</option><option>Plusieurs métiers</option></select></label>
+      </div>
       <label class="f">Phrase clé (facultative) <span class="counter" id="tCitN"></span><textarea id="tCit" maxlength="220" placeholder="Une phrase extraite de la vidéo, affichée sous la vignette."></textarea></label>
       <div class="vid-adm vid-adm-sm">
         <div class="vid-prev"><video id="tPrev" controls playsinline preload="metadata" hidden></video><p id="tNone">Aucune vidéo.</p></div>
@@ -1105,7 +1108,7 @@ input[type=file]{max-width:100%;font-size:14px}
   function drawTems(){
     $('temList').innerHTML = !tems.length ? '<p class="empty">Aucun témoignage pour l’instant.</p>' : tems.map(function(t){
       var th = t.poster ? '<span class="thumb"><img src="' + esc(t.poster) + '" alt="" loading="lazy" style="max-width:64px;max-height:48px;object-fit:cover"></span>' : '<span class="thumb ic">' + PLAYIC + '</span>';
-      return '<div class="item">' + th + '<div><b>' + esc(t.nom) + '</b><div class="meta">' + [t.fonction, t.societe].filter(Boolean).map(function(x){ return '<span>' + esc(x) + '</span>'; }).join('')
+      return '<div class="item">' + th + '<div><b>' + esc(t.nom) + '</b><div class="meta">' + [t.fonction, t.societe, t.metier].filter(Boolean).map(function(x){ return '<span>' + esc(x) + '</span>'; }).join('')
         + '<span class="tag ' + (t.publie ? 'on' : 'off') + '">' + (t.publie ? 'Publié' : 'Brouillon') + '</span></div></div>'
         + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-t="' + t.id + '">Modifier</button>'
         + '<button type="button" class="link" data-pub-t="' + t.id + '">' + (t.publie ? 'Dépublier' : 'Publier') + '</button>'
@@ -1119,7 +1122,7 @@ input[type=file]{max-width:100%;font-size:14px}
   function openTem(t){
     tEditing = t || null; tFileOk = null; tPosterBlob = null; tPosterDrop = false;
     $('dTemT').textContent = t ? 'Modifier le témoignage' : 'Nouveau témoignage';
-    $('tNom').value = t ? t.nom : ''; $('tFonc').value = t ? t.fonction : ''; $('tSoc').value = t ? t.societe : ''; $('tCit').value = t ? t.citation : '';
+    $('tNom').value = t ? t.nom : ''; $('tFonc').value = t ? t.fonction : ''; $('tSoc').value = t ? t.societe : ''; $('tMet').value = t ? (t.metier || '') : ''; $('tCit').value = t ? t.citation : '';
     $('tOrdre').value = t ? t.ordre : (tems.length ? Math.max.apply(null, tems.map(function(x){ return x.ordre; })) + 10 : 100); $('tPub').checked = t ? t.publie : true;
     $('tFile').value = ''; $('tPoster').value = ''; tPrev(t ? t.video_url : ''); tThumb(t && t.poster ? t.poster : ''); $('tErr').textContent = ''; tCount();
     $('dTem').showModal(); $('tNom').focus();
@@ -1139,7 +1142,7 @@ input[type=file]{max-width:100%;font-size:14px}
   $('fTem').addEventListener('submit', async function(e){
     e.preventDefault();
     var err = $('tErr'), b = $('tSave'), up = []; err.textContent = '';
-    var data = {nom:$('tNom').value.trim(), fonction:$('tFonc').value.trim(), societe:$('tSoc').value.trim(), citation:$('tCit').value.trim(),
+    var data = {nom:$('tNom').value.trim(), fonction:$('tFonc').value.trim(), societe:$('tSoc').value.trim(), metier:$('tMet').value, citation:$('tCit').value.trim(),
       ordre:parseInt($('tOrdre').value, 10) || 0, publie:$('tPub').checked};
     if (data.nom.length < 2) { err.textContent = 'Indiquez le nom de la personne.'; return $('tNom').focus(); }
     if (!tFileOk && !(tEditing && tEditing.video_url)) { err.textContent = 'Choisissez la vidéo du témoignage.'; return $('tFile').focus(); }

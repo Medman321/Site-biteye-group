@@ -164,6 +164,10 @@ create table if not exists public.temoignages (
   modifie_par uuid references auth.users (id) on delete set null
 );
 
+-- Métier du client (pastille affichée sous la vidéo) ; ajouté après coup, d'où « add column if not exists »
+alter table public.temoignages add column if not exists metier text not null default ''
+  check (metier in ('', 'Promotion immobilière', 'Réalisation', 'Gestion de copropriété', 'Plusieurs métiers'));
+
 -- Demandes envoyées par le formulaire du site (démonstration, rendez-vous, accompagnement)
 create table if not exists public.demandes (
   id          bigint generated always as identity primary key,
