@@ -182,9 +182,9 @@ a{color:inherit;text-decoration:none}
 
 .hero .lead{margin:clamp(16px,3svh,28px) auto clamp(22px,4.5svh,40px);color:var(--f-ink-2)}
 
-.stage{position:relative;margin-top:clamp(64px,8vw,104px);perspective:1800px;perspective-origin:50% 0%}
+
 .tilt{transform-style:preserve-3d;transform-origin:50% 0;will-change:transform}
-.tilt-inner{transform-style:preserve-3d;transition:transform .5s var(--ease);transform:rotateY(calc(var(--mx,0)*5deg)) rotateX(calc(var(--my,0)*-4deg))}
+
 
 /* Écran logiciel */
 .screen{position:relative;max-width:1080px;margin-inline:auto;background:var(--screen);color:var(--screen-ink);border-radius:22px;text-align:left;font-size:12.5px;line-height:1.35;
@@ -202,8 +202,8 @@ a{color:inherit;text-decoration:none}
 .kpi{border:1px solid var(--screen-rule);border-radius:14px;padding:12px 14px;background:var(--screen)}
 .kpi small{display:block;color:var(--screen-ink-2)}
 .kpi b{font:600 clamp(17px,4.8vw,22px)/1.2 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
-.meter{height:6px;border-radius:3px;background:var(--screen-rule);margin-top:10px;overflow:hidden}
-.meter i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--lime-deep),var(--lime));border-radius:3px;transform-origin:0 50%}
+
+
 .split{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;min-width:0;transform-style:preserve-3d}
 .panel{border:1px solid var(--screen-rule);border-radius:14px;padding:14px;min-width:0;background:var(--screen)}
 .panel .p-h{margin:0 0 10px;font:600 12.5px/1.2 var(--text);letter-spacing:0}
@@ -227,23 +227,21 @@ a{color:inherit;text-decoration:none}
 .gantt b::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--p);background:linear-gradient(90deg,var(--lime-deep),var(--lime));border-radius:5px}
 
 /* Puces flottantes en verre */
-.chip{position:absolute;z-index:3;display:flex;align-items:center;gap:12px;padding:12px 16px 12px 12px;border-radius:16px;text-align:left;font-size:13px;color:var(--f-ink);
-  background:rgba(5,48,74,.62);border:1px solid var(--glass-line);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
-  box-shadow:0 20px 50px -20px rgba(0,0,0,.7);white-space:nowrap}
-.chip .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(3,218,159,.14);color:var(--lime);flex:none}
-.chip .ic svg{width:16px;height:16px}
-.chip small{display:block;color:var(--f-ink-2);font-size:11.5px}
-.chip b{font-weight:600}
-.chip.c1{left:-6%;top:16%}
-.chip.c2{right:-4%;top:8%}
-.chip.c3{right:-6%;bottom:22%}
-.chip.c4{left:-5%;bottom:-4%}
+
+
+
+
+
+
+
+
+
 @keyframes bob{50%{translate:0 -10px}}
-@media (max-width:1068px){.chip.c1,.chip.c4{display:none}.chip.c2{right:2%;top:-6%}.chip.c3{right:2%;bottom:-6%}}
+
 @media (max-width:734px){
   .screen .body{grid-template-columns:1fr}.screen aside{display:none}
   .kpis{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}
-  .chip{transform:scale(.86);transform-origin:right center}
+  
 }
 .mock-tag{display:block;margin-top:28px;font-size:12px;color:var(--f-ink-2);text-align:center}
 .paper .mock-tag{color:var(--ink-2)}
@@ -468,27 +466,24 @@ a{color:inherit;text-decoration:none}
 @media (max-width:734px){.pub-card{grid-template-columns:1fr}.pub-logos{justify-self:start}}
 
 /* Les trois modules défilent à l'horizontale */
-.mods{margin-top:clamp(72px,9vw,120px);text-align:center}
-.mods-lbl{font:600 12px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--f-ink-2);margin-bottom:22px}
-.mod-marq{overflow-x:auto;perspective:1300px;padding-block:24px;touch-action:pan-y;user-select:none;-webkit-user-select:none;scrollbar-width:none;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.mod-marq.js{overflow:hidden;cursor:grab}
-.mod-marq.grab{cursor:grabbing}
-.mod-row{display:flex;gap:22px;width:max-content;padding-inline:24px;transform-style:preserve-3d}
-.mod{flex:none;width:min(400px,80vw);display:grid;gap:18px;align-content:start;padding:26px;border-radius:24px;text-align:left;will-change:transform;
-  background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);box-shadow:0 40px 70px -40px rgba(0,0,0,.9)}
-.mod header{display:flex;align-items:center;gap:14px}
-.mod-ic{display:grid;place-items:center;width:54px;height:54px;flex:none;border-radius:16px;background:rgba(3,218,159,.12);border:1px solid rgba(3,218,159,.3)}
-.mod-ic .eye{width:30px;height:19px;color:var(--lime)}
-.mod header b{display:block;font:700 24px/1.1 var(--display);color:var(--f-ink)}
-.mod header b em{font-style:normal;color:var(--lime)}
-.mod header small{font-size:13px;color:var(--f-ink-2)}
-.mod ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.mod li{position:relative;padding-block:10px;padding-inline:38px 12px;border-radius:12px;font-size:15px;color:var(--f-ink);}
-.mod li::before{content:"";position:absolute;inset-inline-start:12px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;
-  background:rgba(3,218,159,.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.6 2.6L12 5.5' fill='none' stroke='%2303DA9F' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat}
-.mods-hint{display:none}
-.mod-marq.js + .mods-hint{display:block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Bandeau de logos qui défile sous le héros */
 .ticker{margin:-20px 0 clamp(72px,9vw,120px);text-align:center}
@@ -709,55 +704,48 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .fx .rot > span{visibility:visible}
 
 /* Galerie horizontale : les cartes défilent de droite à gauche */
-.h-pin{position:relative}
-.h-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px max(24px,calc((100vw - var(--max)) / 2 + 24px)) 40px;scrollbar-width:none}
-.h-track::-webkit-scrollbar{display:none}
-.fx .h-track{overflow:visible;width:max-content;scroll-snap-type:none}
-.fx .h-track.nopin{overflow-x:auto;width:auto;scroll-snap-type:x mandatory}
-@media (min-width:735px){html:not(.fx) .h-track{flex-wrap:wrap;justify-content:center;overflow:visible;scroll-snap-type:none}}
+
+
+
+
+
+
 /* Mobile : pas d'épinglage, les cartes se suivent verticalement */
-@media (max-width:734px){.h-track,.fx .h-track,.fx .h-track.nopin{flex-direction:column;width:auto;overflow:visible;scroll-snap-type:none;padding:8px 16px 0}.feat-card{width:100%}.h-progress{display:none}}
-.feat-card{flex:none;width:min(420px,78vw);scroll-snap-align:center;display:grid;gap:10px;align-content:start;padding:22px 24px 28px;border-radius:var(--r);
-  background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);box-shadow:0 40px 80px -50px rgba(0,0,0,.9);will-change:transform}
-.feat-card small{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-top:8px}
-.feat-card h3{font-size:clamp(24px,2.4vw,30px);font-weight:700}
-.feat-card p{color:var(--f-ink-2)}
-.fc-art{width:100%;height:auto;border-radius:18px;background:rgba(1,26,41,.55);border:1px solid var(--f-rule)}
-.h-progress{height:3px;border-radius:2px;background:var(--f-rule);overflow:hidden;margin-top:8px}
-.h-progress i{display:block;height:100%;background:var(--lime);transform:scaleX(0);transform-origin:0 50%}
+
+
+
+
+
+
+
+
 /* Mini-animations des cartes */
-.fc-art .g{fill:var(--f-rule)}
-.fc-art .m{fill:var(--lime)}
-.fc-art .gs{fill:none;stroke:var(--f-rule);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.fc-art .ms{fill:none;stroke:var(--lime);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
-.fc-art .v{transform-box:fill-box;transform-origin:0 50%;animation:growx 3.4s var(--ease) infinite}
-.a-cols .v{transform-origin:50% 100%;animation-name:growy}
-@keyframes growx{0%{transform:scaleX(0)}45%,88%{transform:scaleX(1)}100%{transform:scaleX(0)}}
-@keyframes growy{0%{transform:scaleY(0)}45%,88%{transform:scaleY(1)}100%{transform:scaleY(0)}}
-.a-line .fill{stroke-dasharray:100;animation:dash 3.4s var(--ease) infinite}
-.a-line .node{fill:var(--forest);stroke:var(--lime);stroke-width:3;transform-box:fill-box;transform-origin:center;animation:pop 3.4s var(--ease) infinite}
+
+
+
+
+
+
+
+
 @keyframes dash{0%{stroke-dashoffset:100}60%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
-@keyframes pop{0%,10%{transform:scale(.6);fill:var(--forest)}25%,90%{transform:scale(1);fill:var(--lime)}100%{transform:scale(.6);fill:var(--forest)}}
-.a-chart .area{fill:rgba(3,218,159,.12);animation:fadein 3.6s ease infinite}
-.a-chart .draw{stroke-dasharray:100;animation:dash 3.6s var(--ease) infinite}
-.a-chart .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 1.2s ease-in-out infinite}
-@keyframes fadein{0%,20%{opacity:0}60%,90%{opacity:1}100%{opacity:0}}
+
+
+
 @keyframes pulse{50%{transform:scale(1.6);opacity:.6}}
-.a-check .box{fill:none;stroke:var(--f-rule);stroke-width:2.5}
-.a-check .tick{fill:none;stroke:var(--lime);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;animation:tick 3.6s var(--ease) infinite}
-@keyframes tick{0%,15%{stroke-dashoffset:100}35%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
-.a-funnel .drop{fill:var(--f-ink-2);animation:drop 2s ease-in infinite}
-.a-funnel .out{animation:pulse 1s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-@keyframes drop{0%{transform:translateY(0);opacity:0}15%{opacity:1}70%{transform:translateY(92px);opacity:1;fill:var(--lime)}100%{transform:translateY(110px);opacity:0}}
-.a-doc .page{fill:rgba(234,238,241,.06);stroke:var(--f-rule);stroke-width:2}
-.a-doc .sign{stroke-dasharray:100;animation:dash 3.4s var(--ease) infinite 1.2s}
-.a-donut .seg{fill:none;stroke-width:16}
-.a-donut .s1{stroke:var(--lime);stroke-dasharray:38 62}
-.a-donut .s2{stroke:#02A27A;stroke-dasharray:24 76;stroke-dashoffset:-38}
-.a-donut .s3{stroke:rgba(234,238,241,.45);stroke-dasharray:22 78;stroke-dashoffset:-62}
-.a-donut .s4{stroke:rgba(234,238,241,.18);stroke-dasharray:16 84;stroke-dashoffset:-84}
-.a-donut .spin{transform-origin:140px 80px;animation:spinf 12s linear infinite}
-.a-donut .core{animation:pulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ============ CHAPITRES ET MENU ============ */
 .chap{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--glass-line);font:600 12px/1 var(--text);color:var(--f-ink-2);white-space:nowrap;overflow:hidden}
@@ -823,33 +811,25 @@ body.nav-open{overflow:hidden}
 @media (max-width:1068px){.nav-burger{display:block}.gnav .wrap{gap:12px}.gnav .nav-cta{margin-inline-start:auto}.chap{margin-left:0}}
 
 /* ============ SERVICES : PARCOURS ============ */
-.journey{position:relative;margin-top:clamp(40px,5vw,64px)}
-.journey ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:16px}
-.journey li{display:grid;justify-items:center;align-content:start;gap:10px;text-align:center;min-width:0}
-.j-track{position:absolute;left:calc(100% / 14);right:calc(100% / 14);top:31px;height:3px;border-radius:2px;background:var(--rule)}
-.j-fill{position:absolute;inset:0;border-radius:2px;background:var(--lime-deep);transform-origin:0 50%}
-.j-node{position:relative;z-index:1;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--paper);border:2px solid var(--rule);color:var(--lime-deep);transition:background-color .5s,border-color .5s,color .5s,transform .6s var(--ease)}
-.j-node svg{width:26px;height:26px}
-.j-node i{position:absolute;right:-4px;top:-4px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font:700 11px/1 var(--text);font-style:normal;background:var(--ink);color:var(--paper)}
-.journey b{font:700 17px/1.25 var(--display);color:var(--ink)}
-.journey p{font-size:14px;color:var(--ink-2)}
+
+
+
+
+
+
+
+
+
+
 .j-link{font-size:14px;font-weight:600;color:var(--lime-deep)}
 .j-link:hover{text-decoration:underline}
-.fx .journey .j-fill{transform:scaleX(0);transition:transform 2.4s var(--ease)}
-.fx .journey.go .j-fill{transform:none}
-.fx .journey li{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i) * .3s)}
-.fx .journey.go li{opacity:1;transform:none}
-.journey.go .j-node{animation:jnode .6s var(--ease) both;animation-delay:calc(var(--i) * .3s + .2s)}
-@keyframes jnode{0%{transform:scale(.6)}60%{transform:scale(1.12);background:var(--lime);color:var(--on-lime);border-color:transparent}100%{transform:none}}
-.journey li:hover .j-node{background:var(--lime);color:var(--on-lime);border-color:transparent;transform:translateY(-4px)}
-@media (max-width:1068px){
-  .journey ol{grid-template-columns:1fr;gap:26px;padding-inline-start:84px}
-  .journey li{justify-items:start;text-align:start;position:relative;gap:4px}
-  .j-node{position:absolute;inset-inline-start:-84px;top:-4px;width:56px;height:56px}
-  .j-track{inset-inline:27px auto;top:20px;bottom:20px;width:3px;height:auto}
-  .j-fill{transform-origin:50% 0}
-  .fx .journey .j-fill{transform:scaleY(0)}
-}
+
+
+
+
+
+
+
 
 /* ============ SERVICES : COUCHES 3D ============ */
 .couches{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
@@ -1192,8 +1172,133 @@ body.sheet-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto!important}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .tilt-inner,.card3d{transform:none!important}
+  .card3d{transform:none!important}
 }
+/* En-tête : trois bénéfices */
+.hero-bens{list-style:none;padding:0}
+.hero-bens li{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:500;color:var(--f-ink);background:rgba(5,48,74,.55);border:1px solid var(--glass-line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.hero-bens svg{width:14px;height:14px;color:var(--lime);flex:none}
+.hero .lead b{color:var(--f-ink);font-weight:600}
+/* Métiers : modules de chaque carte */
+.c-mods{margin:2px 0 4px;gap:7px}
+.c-mods li{font-size:14px;color:var(--ink-2)}
+/* CRM de performance */
+.crm{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center}
+.crm-shot{position:relative;display:grid;gap:12px}
+.crm-screen{font-size:12px;max-width:none}
+.crm-body{display:grid;grid-template-columns:1.15fr 1fr;gap:12px;padding:16px}
+.crm-body .z1{grid-row:span 2}
+.crm-body .z5{grid-column:1/-1}
+.crm .cz{transition:opacity .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease)}
+.crm[data-active] .cz{opacity:.45}
+.crm[data-active="1"] .z1,.crm[data-active="2"] .z2,.crm[data-active="3"] .z3,.crm[data-active="4"] .z4,.crm[data-active="5"] .z5{opacity:1;box-shadow:0 0 0 2px var(--lime);transform:translateY(-2px)}
+.zn{display:inline-grid;place-items:center;width:18px;height:18px;margin-inline-end:8px;border-radius:50%;background:var(--lime);color:var(--on-lime);font-size:10.5px;font-weight:700;vertical-align:1px}
+.fun,.bars{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:10px;margin-top:9px}
+.fun span,.bars span{color:var(--screen-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fun i,.bars i{display:block;height:9px;border-radius:5px;background:linear-gradient(90deg,var(--screen-rule),var(--screen-rule)) ;position:relative;overflow:hidden}
+.fun i::after,.bars i::after{content:"";position:absolute;inset:0;width:var(--w);border-radius:5px;background:var(--lime-deep)}
+.fun b,.bars b{font-variant-numeric:tabular-nums;min-width:42px;text-align:end}
+.fun em{grid-column:2/-1;margin-top:-4px;font-style:normal;font-size:11px;font-weight:600;color:var(--warn)}
+.fun.alert span{color:var(--warn);font-weight:600}
+.fun.alert i::after{background:var(--warn)}
+.todo{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.todo li{padding:7px 11px;border-radius:9px;background:var(--screen-2);color:var(--screen-ink-2)}
+.todo b{color:var(--screen-ink);margin-inline-end:4px}
+.crm-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.crm-list li{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:16px 18px;border-radius:18px;border:1px solid transparent;cursor:default;transition:background-color .3s,border-color .3s}
+.crm-list li.on,.crm-list li:hover,.crm-list li:focus-visible{background:var(--glass);border-color:var(--glass-line);outline:0}
+.crm-n{font:700 13px/1.6 var(--text);color:var(--lime)}
+.crm-list b{display:block;font:600 18px/1.3 var(--display)}
+.crm-list p{margin:4px 0 0;font-size:14.5px;color:var(--f-ink-2)}
+@media (max-width:1068px){.crm{grid-template-columns:1fr}.crm[data-active] .cz{opacity:1}.crm .cz{box-shadow:none!important;transform:none!important}}
+@media (max-width:734px){.crm-body{grid-template-columns:1fr;padding:12px}.crm-body .z1{grid-row:auto}.crm-body .z4 td:nth-child(3){display:none}}
+/* Mise en place */
+.setup{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:none}
+.setup li{position:relative;display:grid;gap:10px;align-content:start;padding:26px 24px;border-radius:22px;background:var(--paper-2);border:1px solid var(--rule)}
+.su-ic{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:rgba(3,218,159,.14);color:var(--lime-deep)}
+.su-ic svg{width:22px;height:22px}
+.su-n{position:absolute;top:22px;inset-inline-end:24px;font:600 13px/1 var(--text);color:var(--ink-2)}
+.setup b{font:700 19px/1.25 var(--display)}
+.setup p{margin:0;font-size:15px;color:var(--ink-2)}
+.setup .j-link{font-weight:600;font-size:14px;color:var(--lime-deep)}
+@media (max-width:1068px){.setup{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.setup{grid-template-columns:1fr}}
+/* Formation et accompagnement commercial */
+.acc-band .head{max-width:900px}
+.acc-feat{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(22px,3.4vw,44px);padding:clamp(24px,3.4vw,40px);border-radius:var(--r);
+  background:linear-gradient(160deg,rgba(234,238,241,.06),rgba(234,238,241,.015));border:1px solid var(--glass-line)}
+.acc-art{display:grid;place-items:center;width:clamp(96px,11vw,140px);color:var(--lime);padding-inline-end:clamp(22px,3vw,40px);border-inline-end:1px solid var(--f-rule)}
+.acc-art svg{width:100%;height:auto}
+.acc-txt{display:grid;gap:10px;min-width:0}
+.acc-k{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.acc-txt h3{font:700 clamp(24px,2.8vw,38px)/1.12 var(--display);letter-spacing:-.02em}
+.acc-lead{margin:0;font-size:clamp(16px,1.4vw,19px);color:var(--f-ink)}
+.acc-txt p:not(.acc-lead){margin:0;font-size:15px;color:var(--f-ink-2);max-width:62ch}
+.acc-facts{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.acc-facts li{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--glass-line);background:rgba(1,26,41,.4);font-size:14px}
+.acc-facts svg{width:17px;height:17px;color:var(--lime)}
+@media (max-width:1068px){.acc-feat{grid-template-columns:auto 1fr}.acc-feat > .btn{grid-column:1/-1;justify-self:start}}
+@media (max-width:640px){.acc-feat{grid-template-columns:1fr}.acc-art{width:84px;padding:0 0 18px;border:0;border-bottom:1px solid var(--f-rule);justify-self:start}}
+.piliers{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.piliers li{position:relative;display:grid;justify-items:center;align-content:start;gap:10px;padding:26px 18px 28px;text-align:center;border-radius:22px;background:var(--paper-2);border:1px solid var(--rule);transition:border-color .3s,transform .4s var(--ease)}
+.piliers li:hover{border-color:var(--lime-deep);transform:translateY(-4px)}
+.pil-n{position:absolute;top:16px;inset-inline-start:18px;font:600 13px/1 var(--text);color:var(--ink-2)}
+.pil-ic{display:grid;place-items:center;width:64px;height:64px;color:var(--lime-deep);margin-top:10px}
+.pil-ic svg{width:48px;height:48px}
+.piliers b{font:700 19px/1.2 var(--display)}
+.piliers p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.acc-cta{display:grid;justify-items:center;gap:18px;margin-top:clamp(36px,5vw,56px);text-align:center}
+.acc-cta p{margin:0;font:600 clamp(19px,2vw,24px)/1.3 var(--display)}
+@media (max-width:1068px){.piliers{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:734px){.piliers{grid-template-columns:repeat(2,1fr)}.piliers li:last-child{grid-column:1/-1}}
+@media (max-width:420px){.piliers{grid-template-columns:1fr}}
+.card-grid.c5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:1068px){.card-grid.c5{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:734px){.card-grid.c5{grid-template-columns:1fr}}
+/* Témoignages */
+.tems{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
+.tems > .tem{flex:0 1 380px;min-width:0}
+.tem{display:grid;gap:14px;align-content:start}
+.tem-v{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:var(--forest);border:1px solid var(--rule)}
+.tem-v video,.tem-v img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tem-v video{object-fit:contain;background:#000}
+.tem-v button{position:absolute;inset:0;display:grid;place-items:center;width:100%;border:0;padding:0;background:linear-gradient(180deg,transparent 50%,rgba(1,18,29,.55));cursor:pointer}
+.tem-v button span{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--lime);color:var(--on-lime);transition:transform .3s var(--ease)}
+.tem-v button:hover span{transform:scale(1.07)}
+.tem-v button svg{width:24px;height:24px;margin-inline-start:4px}
+.tem-v.playing button{display:none}
+.tem blockquote{margin:0;font:500 17px/1.45 var(--display);color:var(--ink)}
+.tem figcaption{font-size:14px;color:var(--ink-2)}
+.tem figcaption b{display:block;color:var(--ink);font-size:15px}
+/* FAQ */
+.faq-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+.faq-wrap .head{margin:0;position:sticky;top:110px}
+.faq-wrap .h2{font-size:clamp(32px,min(3.8vw,7svh),54px)}
+.faq-wrap .lead a{color:var(--lime-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.faq{display:grid;border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;font:600 clamp(17px,1.5vw,19px)/1.35 var(--display);cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:14px;height:14px;border-right:2px solid var(--lime-deep);border-bottom:2px solid var(--lime-deep);transform:rotate(45deg) translate(-3px,-3px);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-3px,-3px)}
+.faq summary:focus-visible{outline:2px solid var(--lime-deep);outline-offset:2px;border-radius:8px}
+.faq p{margin:0 0 22px;color:var(--ink-2);max-width:62ch}
+@media (max-width:900px){.faq-wrap{grid-template-columns:1fr}.faq-wrap .head{position:static}}
+/* WhatsApp */
+.wa-fab{position:fixed;z-index:70;inset-inline-end:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:54px;height:54px;border-radius:50%;
+  background:#25D366;color:#fff;box-shadow:0 12px 28px -10px rgba(0,0,0,.5);transition:transform .35s var(--ease),opacity .3s;opacity:0;transform:translateY(16px) scale(.9);pointer-events:none}
+.wa-fab.show{opacity:1;transform:none;pointer-events:auto}
+.wa-fab svg{width:28px;height:28px}
+.wa-fab:hover{transform:scale(1.06)}
+body.sheet-open .wa-fab,body.nav-open .wa-fab{opacity:0;pointer-events:none}
+.c-wa svg{color:#25D366}
+.np-contact{display:flex;justify-content:center;gap:18px}
+.np-wa svg{color:#25D366}
+/* Formulaire : champ piège et erreur d'envoi */
+.glassform .hp{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.f-err{margin:0;padding:10px 14px;border-radius:12px;background:rgba(245,183,0,.12);color:#F6C95A;font-size:13.5px}
+.glassform.sent > .f-err{display:none}
+.glassform .actions .btn:disabled{opacity:.6;cursor:progress}
 /* Vidéo de présentation */
 .vid-band{padding-block:clamp(56px,min(8vw,11svh),112px)}
 .vid-band .head{margin-bottom:clamp(24px,4svh,44px)}
@@ -1236,11 +1341,11 @@ html.i18n-wait body{visibility:hidden}
 [lang="ar"] h1,[lang="ar"] h2,[lang="ar"] h3,[lang="ar"] h4{line-height:1.25}
 [lang="ar"] .eyebrow,[lang="ar"] .ev-type,[lang="ar"] .np-lbl{text-transform:none}
 [lang="ar"] .logo,[lang="ar"] .logo *,[lang="ar"] .foot-wm{font-family:"Poppins",sans-serif}
-[dir="rtl"] .logo-marq,[dir="rtl"] .mod-marq{direction:ltr}
-[dir="rtl"] .logo-marq .row > *,[dir="rtl"] .mod-marq .row > *{direction:rtl}
-[dir="rtl"] .progress,[dir="rtl"] .meter i,[dir="rtl"] .g-track i,[dir="rtl"] .ch-bar i,[dir="rtl"] .h-progress i,[dir="rtl"] .j-fill,[dir="rtl"] .meters i::after,[dir="rtl"] .fx .eyebrow::before{transform-origin:100% 50%}
+[dir="rtl"] .logo-marq{direction:ltr}
+[dir="rtl"] .logo-marq .row > *{direction:rtl}
+[dir="rtl"] .progress,[dir="rtl"] .g-track i,[dir="rtl"] .ch-bar i,[dir="rtl"] .meters i::after,[dir="rtl"] .fx .eyebrow::before{transform-origin:100% 50%}
 @media (max-width:734px){[dir="rtl"] .g-track i{transform-origin:50% 0}}
-@media (max-width:1068px){[dir="rtl"] .j-fill{transform-origin:50% 0}}
+
 [dir="rtl"] input[type="tel"],[dir="rtl"] input[type="email"]{direction:ltr;text-align:right}
 [dir="rtl"] .btn svg{transform:scaleX(-1)}
 [dir="rtl"] .btn:hover svg{transform:scaleX(-1) translateX(3px)}
@@ -1265,7 +1370,7 @@ html.i18n-wait body{visibility:hidden}
     <ul>
       <li><a href="#vision">VISION Workspace</a></li>
       <li class="has-menu"><button type="button" class="menu-btn" aria-expanded="false" aria-controls="svcMenu">Services <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
-        <div class="menu" id="svcMenu"><a href="#logiciel"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span>Logiciel VISION</a><a href="#acces-distant"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span>Accès à distance</a><a href="#infrastructure"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span>Serveur et réseau</a><a href="#securite"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span>Sécurité et sauvegarde</a><a href="#formation"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span>Formation et performance</a></div></li>
+        <div class="menu" id="svcMenu"><a href="#logiciel"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span>Logiciel VISION</a><a href="#acces-distant"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span>Accès à distance</a><a href="#infrastructure"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span>Serveur et réseau</a><a href="#securite"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span>Sécurité et sauvegarde</a><a href="#formation"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span>Formation et accompagnement</a></div></li>
       <li><a href="#confiance">Références</a></li>
       <li><a href="#pourquoi">BitEye</a></li>
       <li id="navEv"><a href="#evenements">Agenda</a></li>
@@ -1296,9 +1401,12 @@ html.i18n-wait body{visibility:hidden}
   </div>
   <div class="np-foot">
     <a class="btn np-cta" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="np-tel" href="tel:+213560063641"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a>
+    <div class="np-contact"><a class="np-tel np-wa" href="https://wa.me/213560063641" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 00-8.4 14.6L2.2 21.8l5.1-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg>WhatsApp</a>
+    <a class="np-tel" href="tel:+213560063641"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a></div>
   </div>
 </div>
+
+<a class="wa-fab" id="waFab" href="https://wa.me/213560063641" target="_blank" rel="noopener" data-wa aria-label="Écrire à BitEye sur WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 00-8.4 14.6L2.2 21.8l5.1-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg></a>
 
 <main id="top">
 
@@ -1309,13 +1417,13 @@ html.i18n-wait body{visibility:hidden}
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow" data-hero>Logiciel de gestion immobilière · BitEye</span>
-    <h1><span class="w"><span>Pilotez</span></span> <span class="w"><span>tous</span></span> <span class="w"><span>vos</span></span> <span class="w"><span>projets</span></span> <span class="w"><span><em>immobiliers.</em></span></span></h1>
-    <p class="lead" data-hero>VISION Workspace réunit la promotion, la réalisation et la copropriété dans un seul logiciel. Ventes, chantiers et charges, suivis en temps réel.</p>
+    <h1><span class="w"><span>Gardez</span></span> <span class="w"><span>une</span></span> <span class="w"><span><em>vision</em></span></span> <span class="w"><span><em>claire</em></span></span> <span class="w"><span>de</span></span> <span class="w"><span>chaque</span></span> <span class="w"><span>projet</span></span> <span class="w"><span>immobilier.</span></span></h1>
+    <p class="lead" data-hero>Vos ventes, vos encaissements et vos chantiers. <b>Enfin réunis.</b></p>
     <div class="actions" style="justify-content:center" data-hero>
       <a class="btn" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="ghost" href="#vision"><span class="play"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2.5 6.5L6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Explorer VISION</a>
     </div>
-    <div class="hero-tags" data-hero><span><b>250+</b> clients</span><span>Depuis <b>2014</b></span><span>Conçu à <b>Alger</b></span></div>
+    <ul class="hero-tags hero-bens" data-hero><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Centraliser l’information</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Suivre les résultats</li><li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Identifier les priorités</li></ul>
   </div>
   <div class="callouts" id="callouts" aria-hidden="true">
     <div class="co"><i class="co-dot"></i><span class="co-card"><small>Promotion · VISION Estate</small><b>86 lots vendus sur 120</b></span></div>
@@ -1358,122 +1466,15 @@ html.i18n-wait body{visibility:hidden}
     <div class="marquee logo-marq" aria-hidden="true"><div class="row" id="tickerRow"></div></div>
     <p class="ticker-hint" aria-hidden="true"><span>‹</span> Glissez pour parcourir <span>›</span></p>
   </div>
-  <div class="wrap">
-    <div class="head center" id="vision">
-      <span class="eyebrow">VISION Estate</span>
-      <h2 class="h2">Tout votre projet. <em>Un seul écran.</em></h2>
-      <p class="lead">Ventes, encaissements, chantier et démarches, à jour en temps réel.</p>
-    </div>
-    <div class="stage" id="heroStage" style="margin-top:0">
-      <div class="tilt" id="heroTilt">
-        <div class="tilt-inner" id="heroInner">
-          <div class="screen" role="img" aria-label="Maquette du tableau de bord VISION Estate : lots vendus, encaissements, avancement et échéances des acquéreurs">
-            <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION Estate</b><em>Résidence Les Oliviers · 120 logements</em></div>
-            <div class="body">
-              <aside><span class="on">Tableau de bord</span><span>Projets</span><span>Commercial</span><span>Acquéreurs</span><span>Technique</span><span>Trésorerie</span><span>Suivi administratif</span></aside>
-              <div class="scr-main">
-                <div class="kpis">
-                  <div class="kpi"><small>Lots vendus</small><b>86 / 120</b><div class="meter"><i style="--w:72%"></i></div></div>
-                  <div class="kpi"><small>Encaissé</small><b>1,84 Md DA</b><div class="meter"><i style="--w:61%"></i></div></div>
-                  <div class="kpi"><small>Avancement</small><b>64 %</b><div class="meter"><i style="--w:64%"></i></div></div>
-                  <div class="kpi"><small>Échéances du mois</small><b>23</b><div class="meter"><i style="--w:40%"></i></div></div>
-                </div>
-                <div class="split">
-                  <div class="panel"><p class="p-h">Échéances des acquéreurs</p>
-                    <table class="tbl"><tbody>
-                      <tr><td>Bloc A · Lot 12</td><td>Crédit bancaire</td><td><span class="pill ok">Réglé</span></td></tr>
-                      <tr><td>Bloc A · Lot 27</td><td>Autofinancement</td><td><span class="pill wait">J-5</span></td></tr>
-                      <tr><td>Bloc B · Lot 04</td><td>CNL</td><td><span class="pill ok">Réglé</span></td></tr>
-                      <tr><td>Bloc C · Lot 31</td><td>Autofinancement</td><td><span class="pill wait">J-12</span></td></tr>
-                    </tbody></table>
-                  </div>
-                  <div class="panel"><p class="p-h">État des lots</p>
-                    <div class="lots" aria-hidden="true">
-                      <i class="s"></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i>
-                      <i class="s"></i><i class="r"></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i></i>
-                      <i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="r"></i><i class="s"></i><i></i><i class="s"></i>
-                    </div>
-                    <div class="legend"><span><i style="background:var(--lime-deep)"></i>Vendu</span><span><i style="background:color-mix(in srgb,var(--lime-deep) 40%,transparent)"></i>Réservé</span><span><i style="background:var(--screen-rule)"></i>Libre</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="chip c1 float" data-depth="1.4"><span class="ic"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small>Lot 27 · Tranche 3</small><b>+4,2 M DA encaissés</b></span></div>
-          <div class="chip c2 float" data-depth="2"><span class="ic"><svg viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6h4M6 9h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><small>Bloc B</small><b>Lot 12 réservé</b></span></div>
-          <div class="chip c3 float" data-depth="1.1"><span class="ic"><svg viewBox="0 0 16 16"><path d="M2 13h12M4 13V7l4-3 4 3v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span><small>Gros œuvre</small><b>Avancement 85 %</b></span></div>
-          <div class="chip c4 float" data-depth="1.7"><span class="ic"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></span><span><small>Suivi administratif</small><b>Visa CTC obtenu</b></span></div>
-        </div>
-      </div>
-      <span class="mock-tag">Écran d’illustration, données fictives.</span>
-    </div>
-  </div>
-  <div class="mods">
-    <p class="mods-lbl">Les modules VISION, une seule plateforme</p>
-    <div class="mod-marq" id="modMarq">
-      <div class="mod-row" id="modRow">
-        <article class="mod">
-          <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Estate</em></b><small>Promotion immobilière</small></div></header>
-          <ul><li style="--i:0">Commercialisation et réservations</li><li style="--i:1">Échéanciers des acquéreurs</li><li style="--i:2">Appels de fonds</li><li style="--i:3">Suivi administratif</li><li style="--i:4">Trésorerie du projet</li></ul>
-        </article>
-        <article class="mod">
-          <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Build</em></b><small>Entreprise de réalisation</small></div></header>
-          <ul><li style="--i:0">Métré et quantités prévisionnelles</li><li style="--i:1">Lots de travaux</li><li style="--i:2">Situations de travaux</li><li style="--i:3">Budgets et coûts</li><li style="--i:4">Avancement par lot</li></ul>
-        </article>
-        <article class="mod">
-          <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Co-Owner</em></b><small>Gestion de copropriété</small></div></header>
-          <ul><li style="--i:0">Tantièmes et répartition</li><li style="--i:1">Appels de charges</li><li style="--i:2">Budget de la copropriété</li><li style="--i:3">Interventions et entretien</li><li style="--i:4">Fiche de chaque résident</li></ul>
-        </article>
-        <article class="mod">
-          <header><span class="mod-ic"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span><div><b>VISION <em>Mobile et CRM</em></b><small>Vos ventes, partout</small></div></header>
-          <ul><li style="--i:0">Application smartphone, tablette et PC</li><li style="--i:1">Leads, rendez-vous et visites</li><li style="--i:2">Appel en un clic depuis la fiche client</li><li style="--i:3">Résumé des appels par l’IA</li><li style="--i:4">Alertes d’échéances et validations</li></ul>
-        </article>
-      </div>
-    </div>
-    <p class="ticker-hint mods-hint" aria-hidden="true"><span>‹</span> Glissez pour parcourir <span>›</span></p>
-  </div>
 </section>
 
-<!-- ================= TROIS MÉTIERS ================= -->
-<section class="band paper" id="metiers" data-chapter="1">
-  <div class="wrap">
-    <div class="head center">
-      <span class="eyebrow">Une plateforme</span>
-      <h2 class="h2" data-reveal>Trois métiers. <em>Un seul espace.</em></h2>
-      <p class="lead" data-reveal>Gérez une, deux ou trois entreprises de votre groupe, sans changer de logiciel.</p>
-    </div>
-    <div class="trio">
-      <a class="card3d" href="#closer" data-reveal>
-        <span class="name">VISION Estate</span>
-        <div class="art"><svg class="iso iso-promo" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="200" rx="118" ry="24"/><g class="floor"><polygon class="g-l" points="16.0,168.0 140.0,220.1 140.0,215.1 16.0,163.0"/><polygon class="g-r" points="264.0,168.0 140.0,220.1 140.0,215.1 264.0,163.0"/><polygon class="g-t" points="140.0,110.9 264.0,163.0 140.0,215.1 16.0,163.0"/></g><g class="floor"><polygon class="n-l" points="60.0,156.3 90.0,168.9 90.0,154.9 60.0,142.3"/><polygon class="n-r" points="116.0,158.0 90.0,168.9 90.0,154.9 116.0,144.0"/><polygon class="n-t" points="86.0,131.4 116.0,144.0 90.0,154.9 60.0,142.3"/><polygon class="w sell" points="63.3,153.5 71.7,157.0 71.7,150.3 63.3,146.7" style="--i:0"/><polygon class="w sell" points="78.3,159.8 86.7,163.3 86.7,156.6 78.3,153.0" style="--i:1"/><polygon class="w sell" points="113.1,155.0 105.9,158.0 105.9,151.3 113.1,148.2" style="--i:2"/><polygon class="w sell" points="100.1,160.4 92.9,163.5 92.9,156.8 100.1,153.7" style="--i:3"/></g><g class="floor"><polygon class="n-l" points="60.0,142.3 90.0,154.9 90.0,140.9 60.0,128.3"/><polygon class="n-r" points="116.0,144.0 90.0,154.9 90.0,140.9 116.0,130.0"/><polygon class="n-t" points="86.0,117.4 116.0,130.0 90.0,140.9 60.0,128.3"/><polygon class="w sell" points="63.3,139.5 71.7,143.0 71.7,136.3 63.3,132.7" style="--i:4"/><polygon class="w sell" points="78.3,145.8 86.7,149.3 86.7,142.6 78.3,139.0" style="--i:5"/><polygon class="w sell" points="113.1,141.0 105.9,144.0 105.9,137.3 113.1,134.2" style="--i:6"/><polygon class="w sell" points="100.1,146.4 92.9,149.5 92.9,142.8 100.1,139.7" style="--i:7"/></g><g class="floor"><polygon class="n-l" points="60.0,128.3 90.0,140.9 90.0,126.9 60.0,114.3"/><polygon class="n-r" points="116.0,130.0 90.0,140.9 90.0,126.9 116.0,116.0"/><polygon class="n-t" points="86.0,103.4 116.0,116.0 90.0,126.9 60.0,114.3"/><polygon class="w sell" points="63.3,125.5 71.7,129.0 71.7,122.3 63.3,118.7" style="--i:8"/><polygon class="w sell" points="78.3,131.8 86.7,135.3 86.7,128.6 78.3,125.0" style="--i:9"/><polygon class="w sell" points="113.1,127.0 105.9,130.0 105.9,123.3 113.1,120.2" style="--i:10"/><polygon class="w sell" points="100.1,132.4 92.9,135.5 92.9,128.8 100.1,125.7" style="--i:11"/></g><g class="floor"><polygon class="n-l" points="60.0,114.3 90.0,126.9 90.0,112.9 60.0,100.3"/><polygon class="n-r" points="116.0,116.0 90.0,126.9 90.0,112.9 116.0,102.0"/><polygon class="n-t" points="86.0,89.4 116.0,102.0 90.0,112.9 60.0,100.3"/><polygon class="w sell" points="63.3,111.5 71.7,115.0 71.7,108.3 63.3,104.7" style="--i:12"/><polygon class="w sell" points="78.3,117.8 86.7,121.3 86.7,114.6 78.3,111.0" style="--i:13"/><polygon class="w sell" points="113.1,113.0 105.9,116.0 105.9,109.3 113.1,106.2" style="--i:14"/><polygon class="w sell" points="100.1,118.4 92.9,121.5 92.9,114.8 100.1,111.7" style="--i:15"/></g><g class="floor"><polygon class="k-l" points="136.0,164.7 172.0,179.8 172.0,165.8 136.0,150.7"/><polygon class="k-r" points="202.0,167.2 172.0,179.8 172.0,165.8 202.0,153.2"/><polygon class="k-t" points="166.0,138.1 202.0,153.2 172.0,165.8 136.0,150.7"/><polygon class="w sell" points="140.0,162.1 150.0,166.4 150.0,159.7 140.0,155.4" style="--i:16"/><polygon class="w sell" points="158.0,169.7 168.0,173.9 168.0,167.2 158.0,163.0" style="--i:17"/><polygon class="w sell" points="199.8,163.9 194.2,166.3 194.2,159.6 199.8,157.2" style="--i:18"/><polygon class="w sell" points="189.8,168.1 184.2,170.5 184.2,163.8 189.8,161.4" style="--i:19"/><polygon class="w sell" points="179.8,172.3 174.2,174.7 174.2,168.0 179.8,165.6" style="--i:20"/></g><g class="floor"><polygon class="k-l" points="136.0,150.7 172.0,165.8 172.0,151.8 136.0,136.7"/><polygon class="k-r" points="202.0,153.2 172.0,165.8 172.0,151.8 202.0,139.2"/><polygon class="k-t" points="166.0,124.1 202.0,139.2 172.0,151.8 136.0,136.7"/><polygon class="w sell" points="140.0,148.1 150.0,152.4 150.0,145.7 140.0,141.4" style="--i:21"/><polygon class="w sell" points="158.0,155.7 168.0,159.9 168.0,153.2 158.0,149.0" style="--i:22"/><polygon class="w sell" points="199.8,149.9 194.2,152.3 194.2,145.6 199.8,143.2" style="--i:23"/><polygon class="w sell" points="189.8,154.1 184.2,156.5 184.2,149.8 189.8,147.4" style="--i:24"/><polygon class="w sell" points="179.8,158.3 174.2,160.7 174.2,154.0 179.8,151.6" style="--i:25"/></g><g class="floor"><polygon class="k-l" points="136.0,136.7 172.0,151.8 172.0,137.8 136.0,122.7"/><polygon class="k-r" points="202.0,139.2 172.0,151.8 172.0,137.8 202.0,125.2"/><polygon class="k-t" points="166.0,110.1 202.0,125.2 172.0,137.8 136.0,122.7"/><polygon class="w sell" points="140.0,134.1 150.0,138.4 150.0,131.7 140.0,127.4" style="--i:26"/><polygon class="w sell" points="158.0,141.7 168.0,145.9 168.0,139.2 158.0,135.0" style="--i:27"/><polygon class="w sell" points="199.8,135.9 194.2,138.3 194.2,131.6 199.8,129.2" style="--i:28"/><polygon class="w sell" points="189.8,140.1 184.2,142.5 184.2,135.8 189.8,133.4" style="--i:29"/><polygon class="w sell" points="179.8,144.3 174.2,146.7 174.2,140.0 179.8,137.6" style="--i:30"/></g><g class="floor"><polygon class="k-l" points="136.0,122.7 172.0,137.8 172.0,123.8 136.0,108.7"/><polygon class="k-r" points="202.0,125.2 172.0,137.8 172.0,123.8 202.0,111.2"/><polygon class="k-t" points="166.0,96.1 202.0,111.2 172.0,123.8 136.0,108.7"/><polygon class="w sell" points="140.0,120.1 150.0,124.4 150.0,117.7 140.0,113.4" style="--i:31"/><polygon class="w sell" points="158.0,127.7 168.0,131.9 168.0,125.2 158.0,121.0" style="--i:32"/><polygon class="w sell" points="199.8,121.9 194.2,124.3 194.2,117.6 199.8,115.2" style="--i:33"/><polygon class="w sell" points="189.8,126.1 184.2,128.5 184.2,121.8 189.8,119.4" style="--i:34"/><polygon class="w sell" points="179.8,130.3 174.2,132.7 174.2,126.0 179.8,123.6" style="--i:35"/></g><g class="floor"><polygon class="k-l" points="136.0,108.7 172.0,123.8 172.0,109.8 136.0,94.7"/><polygon class="k-r" points="202.0,111.2 172.0,123.8 172.0,109.8 202.0,97.2"/><polygon class="k-t" points="166.0,82.1 202.0,97.2 172.0,109.8 136.0,94.7"/><polygon class="w sell" points="140.0,106.1 150.0,110.4 150.0,103.7 140.0,99.4" style="--i:36"/><polygon class="w sell" points="158.0,113.7 168.0,117.9 168.0,111.2 158.0,107.0" style="--i:37"/><polygon class="w sell" points="199.8,107.9 194.2,110.3 194.2,103.6 199.8,101.2" style="--i:38"/><polygon class="w sell" points="189.8,112.1 184.2,114.5 184.2,107.8 189.8,105.4" style="--i:39"/><polygon class="w sell" points="179.8,116.3 174.2,118.7 174.2,112.0 179.8,109.6" style="--i:40"/></g><g class="floor"><polygon class="k-l" points="136.0,94.7 172.0,109.8 172.0,95.8 136.0,80.7"/><polygon class="k-r" points="202.0,97.2 172.0,109.8 172.0,95.8 202.0,83.2"/><polygon class="k-t" points="166.0,68.1 202.0,83.2 172.0,95.8 136.0,80.7"/><polygon class="w sell" points="140.0,92.1 150.0,96.4 150.0,89.7 140.0,85.4" style="--i:41"/><polygon class="w sell" points="158.0,99.7 168.0,103.9 168.0,97.2 158.0,93.0" style="--i:42"/><polygon class="w sell" points="199.8,93.9 194.2,96.3 194.2,89.6 199.8,87.2" style="--i:43"/><polygon class="w sell" points="189.8,98.1 184.2,100.5 184.2,93.8 189.8,91.4" style="--i:44"/><polygon class="w sell" points="179.8,102.3 174.2,104.7 174.2,98.0 179.8,95.6" style="--i:45"/></g><g class="floor"><polygon class="k-l" points="136.0,80.7 172.0,95.8 172.0,81.8 136.0,66.7"/><polygon class="k-r" points="202.0,83.2 172.0,95.8 172.0,81.8 202.0,69.2"/><polygon class="k-t" points="166.0,54.1 202.0,69.2 172.0,81.8 136.0,66.7"/><polygon class="w sell" points="140.0,78.1 150.0,82.4 150.0,75.7 140.0,71.4" style="--i:46"/><polygon class="w sell" points="158.0,85.7 168.0,89.9 168.0,83.2 158.0,79.0" style="--i:47"/><polygon class="w sell" points="199.8,79.9 194.2,82.3 194.2,75.6 199.8,73.2" style="--i:48"/><polygon class="w sell" points="189.8,84.1 184.2,86.5 184.2,79.8 189.8,77.4" style="--i:49"/><polygon class="w sell" points="179.8,88.3 174.2,90.7 174.2,84.0 179.8,81.6" style="--i:50"/></g><g class="floor"><polygon class="k-l" points="136.0,66.7 172.0,81.8 172.0,67.8 136.0,52.7"/><polygon class="k-r" points="202.0,69.2 172.0,81.8 172.0,67.8 202.0,55.2"/><polygon class="k-t" points="166.0,40.1 202.0,55.2 172.0,67.8 136.0,52.7"/><polygon class="w sell" points="140.0,64.1 150.0,68.4 150.0,61.7 140.0,57.4" style="--i:51"/><polygon class="w sell" points="158.0,71.7 168.0,75.9 168.0,69.2 158.0,65.0" style="--i:52"/><polygon class="w sell" points="199.8,65.9 194.2,68.3 194.2,61.6 199.8,59.2" style="--i:53"/><polygon class="w sell" points="189.8,70.1 184.2,72.5 184.2,65.8 189.8,63.4" style="--i:54"/><polygon class="w sell" points="179.8,74.3 174.2,76.7 174.2,70.0 179.8,67.6" style="--i:55"/></g><g class="floor"><polygon class="k-l" points="136.0,52.7 172.0,67.8 172.0,53.8 136.0,38.7"/><polygon class="k-r" points="202.0,55.2 172.0,67.8 172.0,53.8 202.0,41.2"/><polygon class="k-t" points="166.0,26.1 202.0,41.2 172.0,53.8 136.0,38.7"/><polygon class="w sell" points="140.0,50.1 150.0,54.4 150.0,47.7 140.0,43.4" style="--i:56"/><polygon class="w sell" points="158.0,57.7 168.0,61.9 168.0,55.2 158.0,51.0" style="--i:57"/><polygon class="w sell" points="199.8,51.9 194.2,54.3 194.2,47.6 199.8,45.2" style="--i:58"/><polygon class="w sell" points="189.8,56.1 184.2,58.5 184.2,51.8 189.8,49.4" style="--i:59"/><polygon class="w sell" points="179.8,60.3 174.2,62.7 174.2,56.0 179.8,53.6" style="--i:60"/></g><g transform="translate(176 70)"><g class="sold-tag"><rect x="-26" y="-11" width="52" height="22" rx="11"/><text x="0" y="4">VENDU</text></g></g><g transform="translate(64 96)"><g class="key"><circle cx="0" cy="0" r="6"/><path d="M5 0h12M13 0v5M17 0v4"/></g></g><g class="gauge" transform="translate(232 44)"><circle class="g-bg" r="20"/><circle class="g-fg" r="20" pathLength="100"/><text class="g-txt" y="5">72%</text></g></svg></div>
-        <h3>Promotion immobilière</h3>
-        <p>Pilotez chaque opération, de la commercialisation à la clôture fiscale.</p>
-        <span class="more">Découvrir ›</span>
-      </a>
-      <a class="card3d" href="#chantier" data-reveal>
-        <span class="name">VISION Build</span>
-        <div class="art"><svg class="iso iso-build" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="200" rx="118" ry="24"/><g class="floor"><polygon class="g-l" points="16.0,168.0 140.0,220.1 140.0,215.1 16.0,163.0"/><polygon class="g-r" points="264.0,168.0 140.0,220.1 140.0,215.1 264.0,163.0"/><polygon class="g-t" points="140.0,110.9 264.0,163.0 140.0,215.1 16.0,163.0"/></g><g class="floor"><polygon class="n-l" points="100.0,163.0 140.0,179.8 140.0,165.8 100.0,149.0"/><polygon class="n-r" points="180.0,163.0 140.0,179.8 140.0,165.8 180.0,149.0"/><polygon class="n-t" points="140.0,132.2 180.0,149.0 140.0,165.8 100.0,149.0"/><polygon class="w" points="104.4,160.6 115.6,165.4 115.6,158.6 104.4,153.9" style="--i:0"/><polygon class="w" points="124.4,169.0 135.6,173.8 135.6,167.0 124.4,162.3" style="--i:1"/><polygon class="w" points="175.6,160.6 164.4,165.4 164.4,158.6 175.6,153.9" style="--i:2"/><polygon class="w" points="155.6,169.0 144.4,173.8 144.4,167.0 155.6,162.3" style="--i:3"/></g><g class="floor"><polygon class="n-l" points="100.0,149.0 140.0,165.8 140.0,151.8 100.0,135.0"/><polygon class="n-r" points="180.0,149.0 140.0,165.8 140.0,151.8 180.0,135.0"/><polygon class="n-t" points="140.0,118.2 180.0,135.0 140.0,151.8 100.0,135.0"/><polygon class="w" points="104.4,146.6 115.6,151.4 115.6,144.6 104.4,139.9" style="--i:4"/><polygon class="w" points="124.4,155.0 135.6,159.8 135.6,153.0 124.4,148.3" style="--i:5"/><polygon class="w" points="175.6,146.6 164.4,151.4 164.4,144.6 175.6,139.9" style="--i:6"/><polygon class="w" points="155.6,155.0 144.4,159.8 144.4,153.0 155.6,148.3" style="--i:7"/></g><g class="floor"><polygon class="n-l" points="100.0,135.0 140.0,151.8 140.0,137.8 100.0,121.0"/><polygon class="n-r" points="180.0,135.0 140.0,151.8 140.0,137.8 180.0,121.0"/><polygon class="n-t" points="140.0,104.2 180.0,121.0 140.0,137.8 100.0,121.0"/><polygon class="w" points="104.4,132.6 115.6,137.4 115.6,130.6 104.4,125.9" style="--i:8"/><polygon class="w" points="124.4,141.0 135.6,145.8 135.6,139.0 124.4,134.3" style="--i:9"/><polygon class="w" points="175.6,132.6 164.4,137.4 164.4,130.6 175.6,125.9" style="--i:10"/><polygon class="w" points="155.6,141.0 144.4,145.8 144.4,139.0 155.6,134.3" style="--i:11"/></g><g class="floor"><polygon class="n-l" points="100.0,121.0 140.0,137.8 140.0,123.8 100.0,107.0"/><polygon class="n-r" points="180.0,121.0 140.0,137.8 140.0,123.8 180.0,107.0"/><polygon class="n-t" points="140.0,90.2 180.0,107.0 140.0,123.8 100.0,107.0"/><polygon class="w" points="104.4,118.6 115.6,123.4 115.6,116.6 104.4,111.9" style="--i:12"/><polygon class="w" points="124.4,127.0 135.6,131.8 135.6,125.0 124.4,120.3" style="--i:13"/><polygon class="w" points="175.6,118.6 164.4,123.4 164.4,116.6 175.6,111.9" style="--i:14"/><polygon class="w" points="155.6,127.0 144.4,131.8 144.4,125.0 155.6,120.3" style="--i:15"/></g><g class="floor"><polygon class="n-l" points="100.0,107.0 140.0,123.8 140.0,109.8 100.0,93.0"/><polygon class="n-r" points="180.0,107.0 140.0,123.8 140.0,109.8 180.0,93.0"/><polygon class="n-t" points="140.0,76.2 180.0,93.0 140.0,109.8 100.0,93.0"/><polygon class="w" points="104.4,104.6 115.6,109.4 115.6,102.6 104.4,97.9" style="--i:16"/><polygon class="w" points="124.4,113.0 135.6,117.8 135.6,111.0 124.4,106.3" style="--i:17"/><polygon class="w" points="175.6,104.6 164.4,109.4 164.4,102.6 175.6,97.9" style="--i:18"/><polygon class="w" points="155.6,113.0 144.4,117.8 144.4,111.0 155.6,106.3" style="--i:19"/></g><g class="next"><polygon class="k-l" points="100.0,93.0 140.0,109.8 140.0,95.8 100.0,79.0"/><polygon class="k-r" points="180.0,93.0 140.0,109.8 140.0,95.8 180.0,79.0"/><polygon class="k-t" points="140.0,62.2 180.0,79.0 140.0,95.8 100.0,79.0"/></g><g class="ghost-f"><polygon class="o-l" points="100.0,79.0 140.0,95.8 140.0,81.8 100.0,65.0"/><polygon class="o-r" points="180.0,79.0 140.0,95.8 140.0,81.8 180.0,65.0"/><polygon class="o-t" points="140.0,48.2 180.0,65.0 140.0,81.8 100.0,65.0"/></g><g class="ghost-f"><polygon class="o-l" points="100.0,65.0 140.0,81.8 140.0,67.8 100.0,51.0"/><polygon class="o-r" points="180.0,65.0 140.0,81.8 140.0,67.8 180.0,51.0"/><polygon class="o-t" points="140.0,34.2 180.0,51.0 140.0,67.8 100.0,51.0"/></g><g class="crane2"><line class="mast" x1="58" y1="159" x2="58" y2="29"/><path class="mast-x" d="M54 159L62 145M54 145L62 131M54 131L62 117M54 117L62 103M54 103L62 89M54 89L62 75M54 75L62 61M54 61L62 47M54 47L62 33"/><g class="jib" style="transform-origin:58px 29px"><line class="arm" x1="32" y1="29" x2="178" y2="29"/><rect class="cw" x="28" y="27" width="14" height="10" rx="2"/><g class="load"><line class="cable" x1="140" y1="29" x2="140" y2="39"/><g class="block" transform="translate(0 -121)"><polygon class="k-l" points="116.0,168.0 140.0,178.1 140.0,169.1 116.0,159.0"/><polygon class="k-r" points="164.0,168.0 140.0,178.1 140.0,169.1 164.0,159.0"/><polygon class="k-t" points="140.0,148.9 164.0,159.0 140.0,169.1 116.0,159.0"/></g></g></g></g><circle class="dust" style="--dx:-30px" cx="134" cy="63" r="3"/><circle class="dust" style="--dx:-12px" cx="138" cy="63" r="3"/><circle class="dust" style="--dx:12px" cx="142" cy="63" r="3"/><circle class="dust" style="--dx:30px" cx="146" cy="63" r="3"/><g class="pbar"><rect class="pb-bg" x="70" y="218" width="140" height="6" rx="3"/><rect class="pb-fg" x="70" y="218" width="140" height="6" rx="3"/></g></svg></div>
-        <h3>Réalisation</h3>
-        <p>Suivez vos chantiers et ceux de vos clients, lot par lot.</p>
-        <span class="more">Découvrir ›</span>
-      </a>
-      <a class="card3d" href="#cycle" data-reveal>
-        <span class="name">VISION Co-Owner</span>
-        <div class="art"><svg class="iso iso-copro" viewBox="0 0 280 230" aria-hidden="true"><g class="sky"><circle class="sun" cx="140" cy="-20" r="11"/><g class="moon"><circle cx="140" cy="260" r="10"/><circle class="moon-cut" cx="145" cy="256" r="9"/></g></g><ellipse class="iso-shadow" cx="140" cy="200" rx="118" ry="24"/><g class="floor"><polygon class="g-l" points="16.0,168.0 140.0,220.1 140.0,215.1 16.0,163.0"/><polygon class="g-r" points="264.0,168.0 140.0,220.1 140.0,215.1 264.0,163.0"/><polygon class="g-t" points="140.0,110.9 264.0,163.0 140.0,215.1 16.0,163.0"/></g><g class="floor"><polygon class="n-l" points="84.0,144.5 116.0,158.0 116.0,144.0 84.0,130.5"/><polygon class="n-r" points="146.0,145.4 116.0,158.0 116.0,144.0 146.0,131.4"/><polygon class="n-t" points="114.0,117.9 146.0,131.4 116.0,144.0 84.0,130.5"/><polygon class="w night" points="87.5,141.8 96.5,145.6 96.5,138.8 87.5,135.1" style="--i:0"/><polygon class="w night" points="103.5,148.5 112.5,152.3 112.5,145.6 103.5,141.8" style="--i:1"/><polygon class="w night" points="142.7,142.5 134.3,146.1 134.3,139.4 142.7,135.8" style="--i:2"/><polygon class="w night" points="127.7,148.8 119.3,152.4 119.3,145.7 127.7,142.1" style="--i:3"/></g><g class="floor"><polygon class="n-l" points="84.0,130.5 116.0,144.0 116.0,130.0 84.0,116.5"/><polygon class="n-r" points="146.0,131.4 116.0,144.0 116.0,130.0 146.0,117.4"/><polygon class="n-t" points="114.0,103.9 146.0,117.4 116.0,130.0 84.0,116.5"/><polygon class="w night" points="87.5,127.8 96.5,131.6 96.5,124.8 87.5,121.1" style="--i:4"/><polygon class="w night" points="103.5,134.5 112.5,138.3 112.5,131.6 103.5,127.8" style="--i:5"/><polygon class="w night" points="142.7,128.5 134.3,132.1 134.3,125.4 142.7,121.8" style="--i:6"/><polygon class="w night" points="127.7,134.8 119.3,138.4 119.3,131.7 127.7,128.1" style="--i:7"/></g><g class="floor"><polygon class="n-l" points="84.0,116.5 116.0,130.0 116.0,116.0 84.0,102.5"/><polygon class="n-r" points="146.0,117.4 116.0,130.0 116.0,116.0 146.0,103.4"/><polygon class="n-t" points="114.0,89.9 146.0,103.4 116.0,116.0 84.0,102.5"/><polygon class="w night" points="87.5,113.8 96.5,117.6 96.5,110.8 87.5,107.1" style="--i:8"/><polygon class="w night" points="103.5,120.5 112.5,124.3 112.5,117.6 103.5,113.8" style="--i:9"/><polygon class="w night" points="142.7,114.5 134.3,118.1 134.3,111.4 142.7,107.8" style="--i:10"/><polygon class="w night" points="127.7,120.8 119.3,124.4 119.3,117.7 127.7,114.1" style="--i:11"/></g><g class="floor"><polygon class="n-l" points="84.0,102.5 116.0,116.0 116.0,102.0 84.0,88.5"/><polygon class="n-r" points="146.0,103.4 116.0,116.0 116.0,102.0 146.0,89.4"/><polygon class="n-t" points="114.0,75.9 146.0,89.4 116.0,102.0 84.0,88.5"/><polygon class="w night" points="87.5,99.8 96.5,103.6 96.5,96.8 87.5,93.1" style="--i:12"/><polygon class="w night" points="103.5,106.5 112.5,110.3 112.5,103.6 103.5,99.8" style="--i:13"/><polygon class="w night" points="142.7,100.5 134.3,104.1 134.3,97.4 142.7,93.8" style="--i:14"/><polygon class="w night" points="127.7,106.8 119.3,110.4 119.3,103.7 127.7,100.1" style="--i:15"/></g><g class="floor"><polygon class="n-l" points="84.0,88.5 116.0,102.0 116.0,88.0 84.0,74.5"/><polygon class="n-r" points="146.0,89.4 116.0,102.0 116.0,88.0 146.0,75.4"/><polygon class="n-t" points="114.0,61.9 146.0,75.4 116.0,88.0 84.0,74.5"/><polygon class="w night" points="87.5,85.8 96.5,89.6 96.5,82.8 87.5,79.1" style="--i:16"/><polygon class="w night" points="103.5,92.5 112.5,96.3 112.5,89.6 103.5,85.8" style="--i:17"/><polygon class="w night" points="142.7,86.5 134.3,90.1 134.3,83.4 142.7,79.8" style="--i:18"/><polygon class="w night" points="127.7,92.8 119.3,96.4 119.3,89.7 127.7,86.1" style="--i:19"/></g><g class="floor"><polygon class="n-l" points="84.0,74.5 116.0,88.0 116.0,74.0 84.0,60.5"/><polygon class="n-r" points="146.0,75.4 116.0,88.0 116.0,74.0 146.0,61.4"/><polygon class="n-t" points="114.0,47.9 146.0,61.4 116.0,74.0 84.0,60.5"/><polygon class="w night" points="87.5,71.8 96.5,75.6 96.5,68.8 87.5,65.1" style="--i:20"/><polygon class="w night" points="103.5,78.5 112.5,82.3 112.5,75.6 103.5,71.8" style="--i:21"/><polygon class="w night" points="142.7,72.5 134.3,76.1 134.3,69.4 142.7,65.8" style="--i:22"/><polygon class="w night" points="127.7,78.8 119.3,82.4 119.3,75.7 127.7,72.1" style="--i:23"/></g><g class="floor"><polygon class="n-l" points="126.0,180.6 158.0,194.1 158.0,180.1 126.0,166.6"/><polygon class="n-r" points="188.0,181.5 158.0,194.1 158.0,180.1 188.0,167.5"/><polygon class="n-t" points="156.0,154.0 188.0,167.5 158.0,180.1 126.0,166.6"/><polygon class="w night" points="129.5,177.9 138.5,181.7 138.5,175.0 129.5,171.2" style="--i:24"/><polygon class="w night" points="145.5,184.6 154.5,188.4 154.5,181.7 145.5,177.9" style="--i:25"/><polygon class="w night" points="184.7,178.7 176.3,182.2 176.3,175.5 184.7,171.9" style="--i:26"/><polygon class="w night" points="169.7,185.0 161.3,188.5 161.3,181.8 169.7,178.2" style="--i:27"/></g><g class="floor"><polygon class="n-l" points="126.0,166.6 158.0,180.1 158.0,166.1 126.0,152.6"/><polygon class="n-r" points="188.0,167.5 158.0,180.1 158.0,166.1 188.0,153.5"/><polygon class="n-t" points="156.0,140.0 188.0,153.5 158.0,166.1 126.0,152.6"/><polygon class="w night" points="129.5,163.9 138.5,167.7 138.5,161.0 129.5,157.2" style="--i:28"/><polygon class="w night" points="145.5,170.6 154.5,174.4 154.5,167.7 145.5,163.9" style="--i:29"/><polygon class="w night" points="184.7,164.7 176.3,168.2 176.3,161.5 184.7,157.9" style="--i:30"/><polygon class="w night" points="169.7,171.0 161.3,174.5 161.3,167.8 169.7,164.2" style="--i:31"/></g><g class="floor"><polygon class="n-l" points="126.0,152.6 158.0,166.1 158.0,152.1 126.0,138.6"/><polygon class="n-r" points="188.0,153.5 158.0,166.1 158.0,152.1 188.0,139.5"/><polygon class="n-t" points="156.0,126.0 188.0,139.5 158.0,152.1 126.0,138.6"/><polygon class="w night" points="129.5,149.9 138.5,153.7 138.5,147.0 129.5,143.2" style="--i:32"/><polygon class="w night" points="145.5,156.6 154.5,160.4 154.5,153.7 145.5,149.9" style="--i:33"/><polygon class="w night" points="184.7,150.7 176.3,154.2 176.3,147.5 184.7,143.9" style="--i:34"/><polygon class="w night" points="169.7,157.0 161.3,160.5 161.3,153.8 169.7,150.2" style="--i:35"/></g><g class="floor"><polygon class="n-l" points="126.0,138.6 158.0,152.1 158.0,138.1 126.0,124.6"/><polygon class="n-r" points="188.0,139.5 158.0,152.1 158.0,138.1 188.0,125.5"/><polygon class="n-t" points="156.0,112.0 188.0,125.5 158.0,138.1 126.0,124.6"/><polygon class="w night" points="129.5,135.9 138.5,139.7 138.5,133.0 129.5,129.2" style="--i:36"/><polygon class="w night" points="145.5,142.6 154.5,146.4 154.5,139.7 145.5,135.9" style="--i:37"/><polygon class="w night" points="184.7,136.7 176.3,140.2 176.3,133.5 184.7,129.9" style="--i:38"/><polygon class="w night" points="169.7,143.0 161.3,146.5 161.3,139.8 169.7,136.2" style="--i:39"/></g><g class="floor"><polygon class="n-l" points="126.0,124.6 158.0,138.1 158.0,124.1 126.0,110.6"/><polygon class="n-r" points="188.0,125.5 158.0,138.1 158.0,124.1 188.0,111.5"/><polygon class="n-t" points="156.0,98.0 188.0,111.5 158.0,124.1 126.0,110.6"/><polygon class="w night" points="129.5,121.9 138.5,125.7 138.5,119.0 129.5,115.2" style="--i:40"/><polygon class="w night" points="145.5,128.6 154.5,132.4 154.5,125.7 145.5,121.9" style="--i:41"/><polygon class="w night" points="184.7,122.7 176.3,126.2 176.3,119.5 184.7,115.9" style="--i:42"/><polygon class="w night" points="169.7,129.0 161.3,132.5 161.3,125.8 169.7,122.2" style="--i:43"/></g><g class="tree2" style="transform-origin:90px 176px"><path class="trunk" d="M90 176v-16"/><circle class="leaf" cx="90" cy="152" r="12"/><circle class="leaf" cx="82" cy="160" r="8"/></g><g class="tree2 t-b" style="transform-origin:224px 165px"><path class="trunk" d="M224 165v-12"/><circle class="leaf" cx="224" cy="147" r="9"/></g><g class="walk"><circle class="resident" style="--d:0s" cx="0" cy="0" r="3.4"/><circle class="resident" style="--d:2.6s" cx="0" cy="0" r="3.4"/></g><g class="paid" transform="translate(214 58)"><rect x="-52" y="-12" width="104" height="24" rx="12"/><path class="ok" d="M-42 0l4 4 7-8"/><text x="8" y="4">Charges à jour</text></g></svg></div>
-        <h3>Gestion de copropriété</h3>
-        <p>Gardez vos résidences et votre image impeccables après la livraison.</p>
-        <span class="more">Découvrir ›</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= REGARDEZ DE PLUS PRÈS ================= -->
+<!-- ================= LE LOGICIEL (aperçu commenté) ================= -->
 <section class="band forest" id="closer" data-chapter="1">
   <div class="wrap">
-    <div class="head">
-      <span class="eyebrow">VISION Estate</span>
-      <h2 class="h2" data-reveal>Regardez <em>de plus près.</em></h2>
+    <div class="head center" id="vision">
+      <span class="eyebrow">Le logiciel</span>
+      <h2 class="h2" data-reveal>Tout votre projet. <em>Un seul écran.</em></h2>
+      <p class="lead" data-reveal>Ventes, encaissements, chantier et démarches, à jour en temps réel.</p>
     </div>
     <div class="closer" id="closerGrid" data-active="1">
       <div class="sticky">
@@ -1523,6 +1524,100 @@ html.i18n-wait body{visibility:hidden}
         <div class="step" data-step="3"><span class="k">Suivi administratif</span><h3>Les démarches, enfin visibles.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque démarche a son statut, pour le promoteur comme pour l’acquéreur.</p></div>
         <div class="step" data-step="4"><span class="k">Avancement</span><h3>Le chantier relié aux ventes.</h3><p>L’avancement par lot déclenche les appels de fonds au bon moment.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TROIS MÉTIERS ================= -->
+<section class="band paper" id="metiers" data-chapter="1">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Une plateforme</span>
+      <h2 class="h2" data-reveal>Trois métiers. <em>Un seul espace.</em></h2>
+      <p class="lead" data-reveal>Gérez une, deux ou trois entreprises de votre groupe, sans changer de logiciel. Les modules Stocks, Fiscalité, RH, CRM et l’application mobile complètent l’ensemble.</p>
+    </div>
+    <div class="trio">
+      <a class="card3d" href="#vision" data-reveal>
+        <span class="name">VISION Estate</span>
+        <div class="art"><svg class="iso iso-promo" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="200" rx="118" ry="24"/><g class="floor"><polygon class="g-l" points="16.0,168.0 140.0,220.1 140.0,215.1 16.0,163.0"/><polygon class="g-r" points="264.0,168.0 140.0,220.1 140.0,215.1 264.0,163.0"/><polygon class="g-t" points="140.0,110.9 264.0,163.0 140.0,215.1 16.0,163.0"/></g><g class="floor"><polygon class="n-l" points="60.0,156.3 90.0,168.9 90.0,154.9 60.0,142.3"/><polygon class="n-r" points="116.0,158.0 90.0,168.9 90.0,154.9 116.0,144.0"/><polygon class="n-t" points="86.0,131.4 116.0,144.0 90.0,154.9 60.0,142.3"/><polygon class="w sell" points="63.3,153.5 71.7,157.0 71.7,150.3 63.3,146.7" style="--i:0"/><polygon class="w sell" points="78.3,159.8 86.7,163.3 86.7,156.6 78.3,153.0" style="--i:1"/><polygon class="w sell" points="113.1,155.0 105.9,158.0 105.9,151.3 113.1,148.2" style="--i:2"/><polygon class="w sell" points="100.1,160.4 92.9,163.5 92.9,156.8 100.1,153.7" style="--i:3"/></g><g class="floor"><polygon class="n-l" points="60.0,142.3 90.0,154.9 90.0,140.9 60.0,128.3"/><polygon class="n-r" points="116.0,144.0 90.0,154.9 90.0,140.9 116.0,130.0"/><polygon class="n-t" points="86.0,117.4 116.0,130.0 90.0,140.9 60.0,128.3"/><polygon class="w sell" points="63.3,139.5 71.7,143.0 71.7,136.3 63.3,132.7" style="--i:4"/><polygon class="w sell" points="78.3,145.8 86.7,149.3 86.7,142.6 78.3,139.0" style="--i:5"/><polygon class="w sell" points="113.1,141.0 105.9,144.0 105.9,137.3 113.1,134.2" style="--i:6"/><polygon class="w sell" points="100.1,146.4 92.9,149.5 92.9,142.8 100.1,139.7" style="--i:7"/></g><g class="floor"><polygon class="n-l" points="60.0,128.3 90.0,140.9 90.0,126.9 60.0,114.3"/><polygon class="n-r" points="116.0,130.0 90.0,140.9 90.0,126.9 116.0,116.0"/><polygon class="n-t" points="86.0,103.4 116.0,116.0 90.0,126.9 60.0,114.3"/><polygon class="w sell" points="63.3,125.5 71.7,129.0 71.7,122.3 63.3,118.7" style="--i:8"/><polygon class="w sell" points="78.3,131.8 86.7,135.3 86.7,128.6 78.3,125.0" style="--i:9"/><polygon class="w sell" points="113.1,127.0 105.9,130.0 105.9,123.3 113.1,120.2" style="--i:10"/><polygon class="w sell" points="100.1,132.4 92.9,135.5 92.9,128.8 100.1,125.7" style="--i:11"/></g><g class="floor"><polygon class="n-l" points="60.0,114.3 90.0,126.9 90.0,112.9 60.0,100.3"/><polygon class="n-r" points="116.0,116.0 90.0,126.9 90.0,112.9 116.0,102.0"/><polygon class="n-t" points="86.0,89.4 116.0,102.0 90.0,112.9 60.0,100.3"/><polygon class="w sell" points="63.3,111.5 71.7,115.0 71.7,108.3 63.3,104.7" style="--i:12"/><polygon class="w sell" points="78.3,117.8 86.7,121.3 86.7,114.6 78.3,111.0" style="--i:13"/><polygon class="w sell" points="113.1,113.0 105.9,116.0 105.9,109.3 113.1,106.2" style="--i:14"/><polygon class="w sell" points="100.1,118.4 92.9,121.5 92.9,114.8 100.1,111.7" style="--i:15"/></g><g class="floor"><polygon class="k-l" points="136.0,164.7 172.0,179.8 172.0,165.8 136.0,150.7"/><polygon class="k-r" points="202.0,167.2 172.0,179.8 172.0,165.8 202.0,153.2"/><polygon class="k-t" points="166.0,138.1 202.0,153.2 172.0,165.8 136.0,150.7"/><polygon class="w sell" points="140.0,162.1 150.0,166.4 150.0,159.7 140.0,155.4" style="--i:16"/><polygon class="w sell" points="158.0,169.7 168.0,173.9 168.0,167.2 158.0,163.0" style="--i:17"/><polygon class="w sell" points="199.8,163.9 194.2,166.3 194.2,159.6 199.8,157.2" style="--i:18"/><polygon class="w sell" points="189.8,168.1 184.2,170.5 184.2,163.8 189.8,161.4" style="--i:19"/><polygon class="w sell" points="179.8,172.3 174.2,174.7 174.2,168.0 179.8,165.6" style="--i:20"/></g><g class="floor"><polygon class="k-l" points="136.0,150.7 172.0,165.8 172.0,151.8 136.0,136.7"/><polygon class="k-r" points="202.0,153.2 172.0,165.8 172.0,151.8 202.0,139.2"/><polygon class="k-t" points="166.0,124.1 202.0,139.2 172.0,151.8 136.0,136.7"/><polygon class="w sell" points="140.0,148.1 150.0,152.4 150.0,145.7 140.0,141.4" style="--i:21"/><polygon class="w sell" points="158.0,155.7 168.0,159.9 168.0,153.2 158.0,149.0" style="--i:22"/><polygon class="w sell" points="199.8,149.9 194.2,152.3 194.2,145.6 199.8,143.2" style="--i:23"/><polygon class="w sell" points="189.8,154.1 184.2,156.5 184.2,149.8 189.8,147.4" style="--i:24"/><polygon class="w sell" points="179.8,158.3 174.2,160.7 174.2,154.0 179.8,151.6" style="--i:25"/></g><g class="floor"><polygon class="k-l" points="136.0,136.7 172.0,151.8 172.0,137.8 136.0,122.7"/><polygon class="k-r" points="202.0,139.2 172.0,151.8 172.0,137.8 202.0,125.2"/><polygon class="k-t" points="166.0,110.1 202.0,125.2 172.0,137.8 136.0,122.7"/><polygon class="w sell" points="140.0,134.1 150.0,138.4 150.0,131.7 140.0,127.4" style="--i:26"/><polygon class="w sell" points="158.0,141.7 168.0,145.9 168.0,139.2 158.0,135.0" style="--i:27"/><polygon class="w sell" points="199.8,135.9 194.2,138.3 194.2,131.6 199.8,129.2" style="--i:28"/><polygon class="w sell" points="189.8,140.1 184.2,142.5 184.2,135.8 189.8,133.4" style="--i:29"/><polygon class="w sell" points="179.8,144.3 174.2,146.7 174.2,140.0 179.8,137.6" style="--i:30"/></g><g class="floor"><polygon class="k-l" points="136.0,122.7 172.0,137.8 172.0,123.8 136.0,108.7"/><polygon class="k-r" points="202.0,125.2 172.0,137.8 172.0,123.8 202.0,111.2"/><polygon class="k-t" points="166.0,96.1 202.0,111.2 172.0,123.8 136.0,108.7"/><polygon class="w sell" points="140.0,120.1 150.0,124.4 150.0,117.7 140.0,113.4" style="--i:31"/><polygon class="w sell" points="158.0,127.7 168.0,131.9 168.0,125.2 158.0,121.0" style="--i:32"/><polygon class="w sell" points="199.8,121.9 194.2,124.3 194.2,117.6 199.8,115.2" style="--i:33"/><polygon class="w sell" points="189.8,126.1 184.2,128.5 184.2,121.8 189.8,119.4" style="--i:34"/><polygon class="w sell" points="179.8,130.3 174.2,132.7 174.2,126.0 179.8,123.6" style="--i:35"/></g><g class="floor"><polygon class="k-l" points="136.0,108.7 172.0,123.8 172.0,109.8 136.0,94.7"/><polygon class="k-r" points="202.0,111.2 172.0,123.8 172.0,109.8 202.0,97.2"/><polygon class="k-t" points="166.0,82.1 202.0,97.2 172.0,109.8 136.0,94.7"/><polygon class="w sell" points="140.0,106.1 150.0,110.4 150.0,103.7 140.0,99.4" style="--i:36"/><polygon class="w sell" points="158.0,113.7 168.0,117.9 168.0,111.2 158.0,107.0" style="--i:37"/><polygon class="w sell" points="199.8,107.9 194.2,110.3 194.2,103.6 199.8,101.2" style="--i:38"/><polygon class="w sell" points="189.8,112.1 184.2,114.5 184.2,107.8 189.8,105.4" style="--i:39"/><polygon class="w sell" points="179.8,116.3 174.2,118.7 174.2,112.0 179.8,109.6" style="--i:40"/></g><g class="floor"><polygon class="k-l" points="136.0,94.7 172.0,109.8 172.0,95.8 136.0,80.7"/><polygon class="k-r" points="202.0,97.2 172.0,109.8 172.0,95.8 202.0,83.2"/><polygon class="k-t" points="166.0,68.1 202.0,83.2 172.0,95.8 136.0,80.7"/><polygon class="w sell" points="140.0,92.1 150.0,96.4 150.0,89.7 140.0,85.4" style="--i:41"/><polygon class="w sell" points="158.0,99.7 168.0,103.9 168.0,97.2 158.0,93.0" style="--i:42"/><polygon class="w sell" points="199.8,93.9 194.2,96.3 194.2,89.6 199.8,87.2" style="--i:43"/><polygon class="w sell" points="189.8,98.1 184.2,100.5 184.2,93.8 189.8,91.4" style="--i:44"/><polygon class="w sell" points="179.8,102.3 174.2,104.7 174.2,98.0 179.8,95.6" style="--i:45"/></g><g class="floor"><polygon class="k-l" points="136.0,80.7 172.0,95.8 172.0,81.8 136.0,66.7"/><polygon class="k-r" points="202.0,83.2 172.0,95.8 172.0,81.8 202.0,69.2"/><polygon class="k-t" points="166.0,54.1 202.0,69.2 172.0,81.8 136.0,66.7"/><polygon class="w sell" points="140.0,78.1 150.0,82.4 150.0,75.7 140.0,71.4" style="--i:46"/><polygon class="w sell" points="158.0,85.7 168.0,89.9 168.0,83.2 158.0,79.0" style="--i:47"/><polygon class="w sell" points="199.8,79.9 194.2,82.3 194.2,75.6 199.8,73.2" style="--i:48"/><polygon class="w sell" points="189.8,84.1 184.2,86.5 184.2,79.8 189.8,77.4" style="--i:49"/><polygon class="w sell" points="179.8,88.3 174.2,90.7 174.2,84.0 179.8,81.6" style="--i:50"/></g><g class="floor"><polygon class="k-l" points="136.0,66.7 172.0,81.8 172.0,67.8 136.0,52.7"/><polygon class="k-r" points="202.0,69.2 172.0,81.8 172.0,67.8 202.0,55.2"/><polygon class="k-t" points="166.0,40.1 202.0,55.2 172.0,67.8 136.0,52.7"/><polygon class="w sell" points="140.0,64.1 150.0,68.4 150.0,61.7 140.0,57.4" style="--i:51"/><polygon class="w sell" points="158.0,71.7 168.0,75.9 168.0,69.2 158.0,65.0" style="--i:52"/><polygon class="w sell" points="199.8,65.9 194.2,68.3 194.2,61.6 199.8,59.2" style="--i:53"/><polygon class="w sell" points="189.8,70.1 184.2,72.5 184.2,65.8 189.8,63.4" style="--i:54"/><polygon class="w sell" points="179.8,74.3 174.2,76.7 174.2,70.0 179.8,67.6" style="--i:55"/></g><g class="floor"><polygon class="k-l" points="136.0,52.7 172.0,67.8 172.0,53.8 136.0,38.7"/><polygon class="k-r" points="202.0,55.2 172.0,67.8 172.0,53.8 202.0,41.2"/><polygon class="k-t" points="166.0,26.1 202.0,41.2 172.0,53.8 136.0,38.7"/><polygon class="w sell" points="140.0,50.1 150.0,54.4 150.0,47.7 140.0,43.4" style="--i:56"/><polygon class="w sell" points="158.0,57.7 168.0,61.9 168.0,55.2 158.0,51.0" style="--i:57"/><polygon class="w sell" points="199.8,51.9 194.2,54.3 194.2,47.6 199.8,45.2" style="--i:58"/><polygon class="w sell" points="189.8,56.1 184.2,58.5 184.2,51.8 189.8,49.4" style="--i:59"/><polygon class="w sell" points="179.8,60.3 174.2,62.7 174.2,56.0 179.8,53.6" style="--i:60"/></g><g transform="translate(176 70)"><g class="sold-tag"><rect x="-26" y="-11" width="52" height="22" rx="11"/><text x="0" y="4">VENDU</text></g></g><g transform="translate(64 96)"><g class="key"><circle cx="0" cy="0" r="6"/><path d="M5 0h12M13 0v5M17 0v4"/></g></g><g class="gauge" transform="translate(232 44)"><circle class="g-bg" r="20"/><circle class="g-fg" r="20" pathLength="100"/><text class="g-txt" y="5">72%</text></g></svg></div>
+        <h3>Promotion immobilière</h3>
+        <p>Pilotez chaque opération, de la commercialisation à la clôture fiscale.</p>
+        <ul class="ticks c-mods"><li>Commercialisation et réservations</li><li>Échéanciers des acquéreurs</li><li>Appels de fonds</li><li>Suivi administratif</li><li>Trésorerie du projet</li></ul>
+        <span class="more">Découvrir ›</span>
+      </a>
+      <a class="card3d" href="#chantier" data-reveal>
+        <span class="name">VISION Build</span>
+        <div class="art"><svg class="iso iso-build" viewBox="0 0 280 230" aria-hidden="true"><ellipse class="iso-shadow" cx="140" cy="200" rx="118" ry="24"/><g class="floor"><polygon class="g-l" points="16.0,168.0 140.0,220.1 140.0,215.1 16.0,163.0"/><polygon class="g-r" points="264.0,168.0 140.0,220.1 140.0,215.1 264.0,163.0"/><polygon class="g-t" points="140.0,110.9 264.0,163.0 140.0,215.1 16.0,163.0"/></g><g class="floor"><polygon class="n-l" points="100.0,163.0 140.0,179.8 140.0,165.8 100.0,149.0"/><polygon class="n-r" points="180.0,163.0 140.0,179.8 140.0,165.8 180.0,149.0"/><polygon class="n-t" points="140.0,132.2 180.0,149.0 140.0,165.8 100.0,149.0"/><polygon class="w" points="104.4,160.6 115.6,165.4 115.6,158.6 104.4,153.9" style="--i:0"/><polygon class="w" points="124.4,169.0 135.6,173.8 135.6,167.0 124.4,162.3" style="--i:1"/><polygon class="w" points="175.6,160.6 164.4,165.4 164.4,158.6 175.6,153.9" style="--i:2"/><polygon class="w" points="155.6,169.0 144.4,173.8 144.4,167.0 155.6,162.3" style="--i:3"/></g><g class="floor"><polygon class="n-l" points="100.0,149.0 140.0,165.8 140.0,151.8 100.0,135.0"/><polygon class="n-r" points="180.0,149.0 140.0,165.8 140.0,151.8 180.0,135.0"/><polygon class="n-t" points="140.0,118.2 180.0,135.0 140.0,151.8 100.0,135.0"/><polygon class="w" points="104.4,146.6 115.6,151.4 115.6,144.6 104.4,139.9" style="--i:4"/><polygon class="w" points="124.4,155.0 135.6,159.8 135.6,153.0 124.4,148.3" style="--i:5"/><polygon class="w" points="175.6,146.6 164.4,151.4 164.4,144.6 175.6,139.9" style="--i:6"/><polygon class="w" points="155.6,155.0 144.4,159.8 144.4,153.0 155.6,148.3" style="--i:7"/></g><g class="floor"><polygon class="n-l" points="100.0,135.0 140.0,151.8 140.0,137.8 100.0,121.0"/><polygon class="n-r" points="180.0,135.0 140.0,151.8 140.0,137.8 180.0,121.0"/><polygon class="n-t" points="140.0,104.2 180.0,121.0 140.0,137.8 100.0,121.0"/><polygon class="w" points="104.4,132.6 115.6,137.4 115.6,130.6 104.4,125.9" style="--i:8"/><polygon class="w" points="124.4,141.0 135.6,145.8 135.6,139.0 124.4,134.3" style="--i:9"/><polygon class="w" points="175.6,132.6 164.4,137.4 164.4,130.6 175.6,125.9" style="--i:10"/><polygon class="w" points="155.6,141.0 144.4,145.8 144.4,139.0 155.6,134.3" style="--i:11"/></g><g class="floor"><polygon class="n-l" points="100.0,121.0 140.0,137.8 140.0,123.8 100.0,107.0"/><polygon class="n-r" points="180.0,121.0 140.0,137.8 140.0,123.8 180.0,107.0"/><polygon class="n-t" points="140.0,90.2 180.0,107.0 140.0,123.8 100.0,107.0"/><polygon class="w" points="104.4,118.6 115.6,123.4 115.6,116.6 104.4,111.9" style="--i:12"/><polygon class="w" points="124.4,127.0 135.6,131.8 135.6,125.0 124.4,120.3" style="--i:13"/><polygon class="w" points="175.6,118.6 164.4,123.4 164.4,116.6 175.6,111.9" style="--i:14"/><polygon class="w" points="155.6,127.0 144.4,131.8 144.4,125.0 155.6,120.3" style="--i:15"/></g><g class="floor"><polygon class="n-l" points="100.0,107.0 140.0,123.8 140.0,109.8 100.0,93.0"/><polygon class="n-r" points="180.0,107.0 140.0,123.8 140.0,109.8 180.0,93.0"/><polygon class="n-t" points="140.0,76.2 180.0,93.0 140.0,109.8 100.0,93.0"/><polygon class="w" points="104.4,104.6 115.6,109.4 115.6,102.6 104.4,97.9" style="--i:16"/><polygon class="w" points="124.4,113.0 135.6,117.8 135.6,111.0 124.4,106.3" style="--i:17"/><polygon class="w" points="175.6,104.6 164.4,109.4 164.4,102.6 175.6,97.9" style="--i:18"/><polygon class="w" points="155.6,113.0 144.4,117.8 144.4,111.0 155.6,106.3" style="--i:19"/></g><g class="next"><polygon class="k-l" points="100.0,93.0 140.0,109.8 140.0,95.8 100.0,79.0"/><polygon class="k-r" points="180.0,93.0 140.0,109.8 140.0,95.8 180.0,79.0"/><polygon class="k-t" points="140.0,62.2 180.0,79.0 140.0,95.8 100.0,79.0"/></g><g class="ghost-f"><polygon class="o-l" points="100.0,79.0 140.0,95.8 140.0,81.8 100.0,65.0"/><polygon class="o-r" points="180.0,79.0 140.0,95.8 140.0,81.8 180.0,65.0"/><polygon class="o-t" points="140.0,48.2 180.0,65.0 140.0,81.8 100.0,65.0"/></g><g class="ghost-f"><polygon class="o-l" points="100.0,65.0 140.0,81.8 140.0,67.8 100.0,51.0"/><polygon class="o-r" points="180.0,65.0 140.0,81.8 140.0,67.8 180.0,51.0"/><polygon class="o-t" points="140.0,34.2 180.0,51.0 140.0,67.8 100.0,51.0"/></g><g class="crane2"><line class="mast" x1="58" y1="159" x2="58" y2="29"/><path class="mast-x" d="M54 159L62 145M54 145L62 131M54 131L62 117M54 117L62 103M54 103L62 89M54 89L62 75M54 75L62 61M54 61L62 47M54 47L62 33"/><g class="jib" style="transform-origin:58px 29px"><line class="arm" x1="32" y1="29" x2="178" y2="29"/><rect class="cw" x="28" y="27" width="14" height="10" rx="2"/><g class="load"><line class="cable" x1="140" y1="29" x2="140" y2="39"/><g class="block" transform="translate(0 -121)"><polygon class="k-l" points="116.0,168.0 140.0,178.1 140.0,169.1 116.0,159.0"/><polygon class="k-r" points="164.0,168.0 140.0,178.1 140.0,169.1 164.0,159.0"/><polygon class="k-t" points="140.0,148.9 164.0,159.0 140.0,169.1 116.0,159.0"/></g></g></g></g><circle class="dust" style="--dx:-30px" cx="134" cy="63" r="3"/><circle class="dust" style="--dx:-12px" cx="138" cy="63" r="3"/><circle class="dust" style="--dx:12px" cx="142" cy="63" r="3"/><circle class="dust" style="--dx:30px" cx="146" cy="63" r="3"/><g class="pbar"><rect class="pb-bg" x="70" y="218" width="140" height="6" rx="3"/><rect class="pb-fg" x="70" y="218" width="140" height="6" rx="3"/></g></svg></div>
+        <h3>Réalisation</h3>
+        <p>Suivez vos chantiers et ceux de vos clients, lot par lot.</p>
+        <ul class="ticks c-mods"><li>Métré et quantités prévisionnelles</li><li>Lots de travaux</li><li>Situations de travaux</li><li>Budgets et coûts</li><li>Avancement par lot</li></ul>
+        <span class="more">Découvrir ›</span>
+      </a>
+      <a class="card3d" href="#cycle" data-reveal>
+        <span class="name">VISION Co-Owner</span>
+        <div class="art"><svg class="iso iso-copro" viewBox="0 0 280 230" aria-hidden="true"><g class="sky"><circle class="sun" cx="140" cy="-20" r="11"/><g class="moon"><circle cx="140" cy="260" r="10"/><circle class="moon-cut" cx="145" cy="256" r="9"/></g></g><ellipse class="iso-shadow" cx="140" cy="200" rx="118" ry="24"/><g class="floor"><polygon class="g-l" points="16.0,168.0 140.0,220.1 140.0,215.1 16.0,163.0"/><polygon class="g-r" points="264.0,168.0 140.0,220.1 140.0,215.1 264.0,163.0"/><polygon class="g-t" points="140.0,110.9 264.0,163.0 140.0,215.1 16.0,163.0"/></g><g class="floor"><polygon class="n-l" points="84.0,144.5 116.0,158.0 116.0,144.0 84.0,130.5"/><polygon class="n-r" points="146.0,145.4 116.0,158.0 116.0,144.0 146.0,131.4"/><polygon class="n-t" points="114.0,117.9 146.0,131.4 116.0,144.0 84.0,130.5"/><polygon class="w night" points="87.5,141.8 96.5,145.6 96.5,138.8 87.5,135.1" style="--i:0"/><polygon class="w night" points="103.5,148.5 112.5,152.3 112.5,145.6 103.5,141.8" style="--i:1"/><polygon class="w night" points="142.7,142.5 134.3,146.1 134.3,139.4 142.7,135.8" style="--i:2"/><polygon class="w night" points="127.7,148.8 119.3,152.4 119.3,145.7 127.7,142.1" style="--i:3"/></g><g class="floor"><polygon class="n-l" points="84.0,130.5 116.0,144.0 116.0,130.0 84.0,116.5"/><polygon class="n-r" points="146.0,131.4 116.0,144.0 116.0,130.0 146.0,117.4"/><polygon class="n-t" points="114.0,103.9 146.0,117.4 116.0,130.0 84.0,116.5"/><polygon class="w night" points="87.5,127.8 96.5,131.6 96.5,124.8 87.5,121.1" style="--i:4"/><polygon class="w night" points="103.5,134.5 112.5,138.3 112.5,131.6 103.5,127.8" style="--i:5"/><polygon class="w night" points="142.7,128.5 134.3,132.1 134.3,125.4 142.7,121.8" style="--i:6"/><polygon class="w night" points="127.7,134.8 119.3,138.4 119.3,131.7 127.7,128.1" style="--i:7"/></g><g class="floor"><polygon class="n-l" points="84.0,116.5 116.0,130.0 116.0,116.0 84.0,102.5"/><polygon class="n-r" points="146.0,117.4 116.0,130.0 116.0,116.0 146.0,103.4"/><polygon class="n-t" points="114.0,89.9 146.0,103.4 116.0,116.0 84.0,102.5"/><polygon class="w night" points="87.5,113.8 96.5,117.6 96.5,110.8 87.5,107.1" style="--i:8"/><polygon class="w night" points="103.5,120.5 112.5,124.3 112.5,117.6 103.5,113.8" style="--i:9"/><polygon class="w night" points="142.7,114.5 134.3,118.1 134.3,111.4 142.7,107.8" style="--i:10"/><polygon class="w night" points="127.7,120.8 119.3,124.4 119.3,117.7 127.7,114.1" style="--i:11"/></g><g class="floor"><polygon class="n-l" points="84.0,102.5 116.0,116.0 116.0,102.0 84.0,88.5"/><polygon class="n-r" points="146.0,103.4 116.0,116.0 116.0,102.0 146.0,89.4"/><polygon class="n-t" points="114.0,75.9 146.0,89.4 116.0,102.0 84.0,88.5"/><polygon class="w night" points="87.5,99.8 96.5,103.6 96.5,96.8 87.5,93.1" style="--i:12"/><polygon class="w night" points="103.5,106.5 112.5,110.3 112.5,103.6 103.5,99.8" style="--i:13"/><polygon class="w night" points="142.7,100.5 134.3,104.1 134.3,97.4 142.7,93.8" style="--i:14"/><polygon class="w night" points="127.7,106.8 119.3,110.4 119.3,103.7 127.7,100.1" style="--i:15"/></g><g class="floor"><polygon class="n-l" points="84.0,88.5 116.0,102.0 116.0,88.0 84.0,74.5"/><polygon class="n-r" points="146.0,89.4 116.0,102.0 116.0,88.0 146.0,75.4"/><polygon class="n-t" points="114.0,61.9 146.0,75.4 116.0,88.0 84.0,74.5"/><polygon class="w night" points="87.5,85.8 96.5,89.6 96.5,82.8 87.5,79.1" style="--i:16"/><polygon class="w night" points="103.5,92.5 112.5,96.3 112.5,89.6 103.5,85.8" style="--i:17"/><polygon class="w night" points="142.7,86.5 134.3,90.1 134.3,83.4 142.7,79.8" style="--i:18"/><polygon class="w night" points="127.7,92.8 119.3,96.4 119.3,89.7 127.7,86.1" style="--i:19"/></g><g class="floor"><polygon class="n-l" points="84.0,74.5 116.0,88.0 116.0,74.0 84.0,60.5"/><polygon class="n-r" points="146.0,75.4 116.0,88.0 116.0,74.0 146.0,61.4"/><polygon class="n-t" points="114.0,47.9 146.0,61.4 116.0,74.0 84.0,60.5"/><polygon class="w night" points="87.5,71.8 96.5,75.6 96.5,68.8 87.5,65.1" style="--i:20"/><polygon class="w night" points="103.5,78.5 112.5,82.3 112.5,75.6 103.5,71.8" style="--i:21"/><polygon class="w night" points="142.7,72.5 134.3,76.1 134.3,69.4 142.7,65.8" style="--i:22"/><polygon class="w night" points="127.7,78.8 119.3,82.4 119.3,75.7 127.7,72.1" style="--i:23"/></g><g class="floor"><polygon class="n-l" points="126.0,180.6 158.0,194.1 158.0,180.1 126.0,166.6"/><polygon class="n-r" points="188.0,181.5 158.0,194.1 158.0,180.1 188.0,167.5"/><polygon class="n-t" points="156.0,154.0 188.0,167.5 158.0,180.1 126.0,166.6"/><polygon class="w night" points="129.5,177.9 138.5,181.7 138.5,175.0 129.5,171.2" style="--i:24"/><polygon class="w night" points="145.5,184.6 154.5,188.4 154.5,181.7 145.5,177.9" style="--i:25"/><polygon class="w night" points="184.7,178.7 176.3,182.2 176.3,175.5 184.7,171.9" style="--i:26"/><polygon class="w night" points="169.7,185.0 161.3,188.5 161.3,181.8 169.7,178.2" style="--i:27"/></g><g class="floor"><polygon class="n-l" points="126.0,166.6 158.0,180.1 158.0,166.1 126.0,152.6"/><polygon class="n-r" points="188.0,167.5 158.0,180.1 158.0,166.1 188.0,153.5"/><polygon class="n-t" points="156.0,140.0 188.0,153.5 158.0,166.1 126.0,152.6"/><polygon class="w night" points="129.5,163.9 138.5,167.7 138.5,161.0 129.5,157.2" style="--i:28"/><polygon class="w night" points="145.5,170.6 154.5,174.4 154.5,167.7 145.5,163.9" style="--i:29"/><polygon class="w night" points="184.7,164.7 176.3,168.2 176.3,161.5 184.7,157.9" style="--i:30"/><polygon class="w night" points="169.7,171.0 161.3,174.5 161.3,167.8 169.7,164.2" style="--i:31"/></g><g class="floor"><polygon class="n-l" points="126.0,152.6 158.0,166.1 158.0,152.1 126.0,138.6"/><polygon class="n-r" points="188.0,153.5 158.0,166.1 158.0,152.1 188.0,139.5"/><polygon class="n-t" points="156.0,126.0 188.0,139.5 158.0,152.1 126.0,138.6"/><polygon class="w night" points="129.5,149.9 138.5,153.7 138.5,147.0 129.5,143.2" style="--i:32"/><polygon class="w night" points="145.5,156.6 154.5,160.4 154.5,153.7 145.5,149.9" style="--i:33"/><polygon class="w night" points="184.7,150.7 176.3,154.2 176.3,147.5 184.7,143.9" style="--i:34"/><polygon class="w night" points="169.7,157.0 161.3,160.5 161.3,153.8 169.7,150.2" style="--i:35"/></g><g class="floor"><polygon class="n-l" points="126.0,138.6 158.0,152.1 158.0,138.1 126.0,124.6"/><polygon class="n-r" points="188.0,139.5 158.0,152.1 158.0,138.1 188.0,125.5"/><polygon class="n-t" points="156.0,112.0 188.0,125.5 158.0,138.1 126.0,124.6"/><polygon class="w night" points="129.5,135.9 138.5,139.7 138.5,133.0 129.5,129.2" style="--i:36"/><polygon class="w night" points="145.5,142.6 154.5,146.4 154.5,139.7 145.5,135.9" style="--i:37"/><polygon class="w night" points="184.7,136.7 176.3,140.2 176.3,133.5 184.7,129.9" style="--i:38"/><polygon class="w night" points="169.7,143.0 161.3,146.5 161.3,139.8 169.7,136.2" style="--i:39"/></g><g class="floor"><polygon class="n-l" points="126.0,124.6 158.0,138.1 158.0,124.1 126.0,110.6"/><polygon class="n-r" points="188.0,125.5 158.0,138.1 158.0,124.1 188.0,111.5"/><polygon class="n-t" points="156.0,98.0 188.0,111.5 158.0,124.1 126.0,110.6"/><polygon class="w night" points="129.5,121.9 138.5,125.7 138.5,119.0 129.5,115.2" style="--i:40"/><polygon class="w night" points="145.5,128.6 154.5,132.4 154.5,125.7 145.5,121.9" style="--i:41"/><polygon class="w night" points="184.7,122.7 176.3,126.2 176.3,119.5 184.7,115.9" style="--i:42"/><polygon class="w night" points="169.7,129.0 161.3,132.5 161.3,125.8 169.7,122.2" style="--i:43"/></g><g class="tree2" style="transform-origin:90px 176px"><path class="trunk" d="M90 176v-16"/><circle class="leaf" cx="90" cy="152" r="12"/><circle class="leaf" cx="82" cy="160" r="8"/></g><g class="tree2 t-b" style="transform-origin:224px 165px"><path class="trunk" d="M224 165v-12"/><circle class="leaf" cx="224" cy="147" r="9"/></g><g class="walk"><circle class="resident" style="--d:0s" cx="0" cy="0" r="3.4"/><circle class="resident" style="--d:2.6s" cx="0" cy="0" r="3.4"/></g><g class="paid" transform="translate(214 58)"><rect x="-52" y="-12" width="104" height="24" rx="12"/><path class="ok" d="M-42 0l4 4 7-8"/><text x="8" y="4">Charges à jour</text></g></svg></div>
+        <h3>Gestion de copropriété</h3>
+        <p>Gardez vos résidences et votre image impeccables après la livraison.</p>
+        <ul class="ticks c-mods"><li>Tantièmes et répartition</li><li>Appels de charges</li><li>Budget de la copropriété</li><li>Interventions et entretien</li><li>Fiche de chaque résident</li></ul>
+        <span class="more">Découvrir ›</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CRM DE PERFORMANCE ================= -->
+<section class="band forest" id="crm" data-chapter="1">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">CRM de performance</span>
+      <h2 class="h2">Voyez où vos ventes progressent. <em>Et où agir.</em></h2>
+      <p class="lead">Chaque contact, chaque visite et chaque réservation alimente vos tableaux de bord : vous savez ce qui avance, ce qui bloque et qui accompagner.</p>
+    </div>
+    <div class="crm" id="crmGrid" data-active="1">
+      <div class="crm-shot">
+        <div class="screen crm-screen" role="img" aria-label="Maquette du tableau de bord commercial de VISION : entonnoir de vente, comparaison des projets, résultats des commerciaux, canaux marketing et actions urgentes">
+          <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><b>VISION CRM</b><em>Performance commerciale · ce mois-ci</em></div>
+          <div class="crm-body">
+            <div class="panel cz z1"><p class="p-h"><span class="zn">1</span>Parcours des prospects</p>
+              <div class="fun"><span>Prospects</span><i style="--w:100%"></i><b>1 240</b></div>
+              <div class="fun"><span>Qualifiés</span><i style="--w:49%"></i><b>610</b></div>
+              <div class="fun alert"><span>Visites</span><i style="--w:19%"></i><b>238</b><em>−61 %</em></div>
+              <div class="fun"><span>Réservations</span><i style="--w:7.4%"></i><b>92</b></div>
+              <div class="fun"><span>Ventes</span><i style="--w:5.7%"></i><b>71</b></div>
+            </div>
+            <div class="panel cz z2"><p class="p-h"><span class="zn">2</span>Ventes par projet</p>
+              <div class="bars"><span>Les Oliviers</span><i style="--w:72%"></i><b>72 %</b></div>
+              <div class="bars"><span>El Bahia</span><i style="--w:54%"></i><b>54 %</b></div>
+              <div class="bars"><span>Les Jardins</span><i style="--w:31%"></i><b>31 %</b></div>
+            </div>
+            <div class="panel cz z3"><p class="p-h"><span class="zn">3</span>Commerciaux</p>
+              <table class="tbl"><tbody>
+                <tr><td>Amine</td><td>42 RDV</td><td><span class="pill ok">43 %</span></td></tr>
+                <tr><td>Sara</td><td>37 RDV</td><td><span class="pill ok">30 %</span></td></tr>
+                <tr><td>Karim</td><td>29 RDV</td><td><span class="pill wait">À accompagner</span></td></tr>
+              </tbody></table>
+            </div>
+            <div class="panel cz z4"><p class="p-h"><span class="zn">4</span>Canaux marketing</p>
+              <table class="tbl"><tbody>
+                <tr><td>Facebook et Instagram</td><td>31 ventes</td><td>38 000 DA / vente</td></tr>
+                <tr><td>Site web</td><td>17 ventes</td><td>21 000 DA / vente</td></tr>
+                <tr><td>Recommandation</td><td>14 ventes</td><td>—</td></tr>
+              </tbody></table>
+            </div>
+            <div class="panel cz z5"><p class="p-h"><span class="zn">5</span>À traiter aujourd’hui</p>
+              <ul class="todo"><li><b>14</b> prospects non contactés</li><li><b>6</b> réservations à finaliser</li><li><b>71 / 90</b> ventes : objectif du mois</li></ul>
+            </div>
+          </div>
+        </div>
+        <span class="mock-tag">Écran d’illustration, données fictives.</span>
+      </div>
+      <ol class="crm-list" id="crmList">
+        <li data-z="1" tabindex="0"><span class="crm-n">01</span><div><b>Repérez où les prospects bloquent</b><p>L’étape où vos prospects décrochent avant l’achat apparaît d’elle-même.</p></div></li>
+        <li data-z="2" tabindex="0"><span class="crm-n">02</span><div><b>Comparez vos projets</b><p>Rythme de vente et résultats de chaque projet, côte à côte.</p></div></li>
+        <li data-z="3" tabindex="0"><span class="crm-n">03</span><div><b>Accompagnez chaque commercial</b><p>Rendez-vous, ventes et taux de conversion : vous voyez qui soutenir, et sur quoi.</p></div></li>
+        <li data-z="4" tabindex="0"><span class="crm-n">04</span><div><b>Mesurez vos canaux marketing</b><p>Les canaux qui génèrent des ventes, et ce que chaque vente vous coûte.</p></div></li>
+        <li data-z="5" tabindex="0"><span class="crm-n">05</span><div><b>Agissez sur l’urgent</b><p>Prospects non contactés, réservations à finaliser, objectifs à suivre.</p></div></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -1644,84 +1739,13 @@ html.i18n-wait body{visibility:hidden}
   </div>
 </section>
 
-<!-- ================= FONCTIONNALITÉS (défilement horizontal) ================= -->
-<section class="band forest" id="fonctions" data-chapter="1">
-  <div class="wrap">
-    <div class="head">
-      <span class="eyebrow">Fonctionnalités</span>
-      <h2 class="h2">Tout ce qu’il faut. <em>Rien de trop.</em></h2>
-      <p class="lead">Huit outils parmi d’autres, chacun montré en mouvement.</p>
-    </div>
-  </div>
-  <div class="h-pin" id="hPin">
-    <div class="h-track" id="hTrack">
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-bars"><rect class="g" x="24" y="28" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.0s" x="92" y="28" width="150" height="10" rx="5"/><rect class="g" x="24" y="56" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.25s" x="92" y="56" width="110" height="10" rx="5"/><rect class="g" x="24" y="84" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.5s" x="92" y="84" width="164" height="10" rx="5"/><rect class="g" x="24" y="112" width="56" height="10" rx="5"/><rect class="m v" style="animation-delay:0.75s" x="92" y="112" width="90" height="10" rx="5"/></g></svg>
-          <small>VISION Build</small><h3>Du métré au budget.</h3><p>Quantités prévisionnelles par lot : béton armé, revêtements, VRD, électricité, plomberie.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-line"><line class="gs" x1="30" y1="80" x2="250" y2="80"/><line class="ms fill" x1="30" y1="80" x2="250" y2="80" pathLength="100"/><circle class="node" style="animation-delay:0.0s" cx="30" cy="80" r="9"/><circle class="node" style="animation-delay:0.45s" cx="85" cy="80" r="9"/><circle class="node" style="animation-delay:0.9s" cx="140" cy="80" r="9"/><circle class="node" style="animation-delay:1.35s" cx="195" cy="80" r="9"/><circle class="node" style="animation-delay:1.8s" cx="250" cy="80" r="9"/></g></svg>
-          <small>VISION Estate</small><h3>Chaque tranche, à sa date.</h3><p>Échéanciers acquéreurs à la date ou à l’avancement, avec relances.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-cols"><rect class="g" x="34" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.0s" x="34" y="34" width="22" height="96" rx="6"/><rect class="g" x="70" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.18s" x="70" y="52" width="22" height="78" rx="6"/><rect class="g" x="106" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.36s" x="106" y="70" width="22" height="60" rx="6"/><rect class="g" x="142" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.54s" x="142" y="42" width="22" height="88" rx="6"/><rect class="g" x="178" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.72s" x="178" y="90" width="22" height="40" rx="6"/><rect class="g" x="214" y="30" width="22" height="100" rx="6"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="214" y="106" width="22" height="24" rx="6"/><line class="gs" x1="24" y1="134" x2="256" y2="134"/></g></svg>
-          <small>VISION Build</small><h3>L’avancement, lot par lot.</h3><p>Situations de travaux et attachements suivis depuis le chantier.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-chart"><path class="area" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52 L260 140 L20 140Z"/><path class="ms draw" pathLength="100" d="M20 120 L60 98 L100 104 L140 72 L180 80 L220 44 L260 52"/><circle class="m pulse" cx="260" cy="52" r="6"/></g></svg>
-          <small>VISION Estate</small><h3>La trésorerie, en direct.</h3><p>Encaissements, décaissements et caisses de chaque projet.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-check"><rect class="box" x="40" y="26" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.0s" pathLength="100" d="M46 38 l5 5 9-10"/><rect class="g" x="78" y="33" width="140" height="10" rx="5"/><rect class="box" x="40" y="66" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:0.6s" pathLength="100" d="M46 78 l5 5 9-10"/><rect class="g" x="78" y="73" width="110" height="10" rx="5"/><rect class="box" x="40" y="106" width="24" height="24" rx="7"/><path class="tick" style="animation-delay:1.2s" pathLength="100" d="M46 118 l5 5 9-10"/><rect class="g" x="78" y="113" width="160" height="10" rx="5"/></g></svg>
-          <small>VISION Estate</small><h3>Les démarches, cochées.</h3><p>Notaire, CTC, Sonelgaz, cadastre : chaque dossier a son statut.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-funnel"><path class="gs" d="M70 30 H210 L160 90 V128 H120 V90 Z"/><circle class="drop" style="animation-delay:0.0s" cx="100" cy="14" r="6"/><circle class="drop" style="animation-delay:0.5s" cx="120" cy="14" r="6"/><circle class="drop" style="animation-delay:1.0s" cx="140" cy="14" r="6"/><circle class="drop" style="animation-delay:1.5s" cx="160" cy="14" r="6"/><circle class="m out" cx="140" cy="140" r="7"/></g></svg>
-          <small>CRM</small><h3>Aucun prospect perdu.</h3><p>Les contacts du site et de Meta arrivent directement dans le CRM.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-doc"><rect class="page" x="90" y="14" width="100" height="132" rx="10"/><rect class="m v" style="animation-delay:0.0s" x="104" y="34" width="72" height="6" rx="3"/><rect class="m v" style="animation-delay:0.3s" x="104" y="50" width="60" height="6" rx="3"/><rect class="m v" style="animation-delay:0.6s" x="104" y="66" width="70" height="6" rx="3"/><rect class="m v" style="animation-delay:0.8999999999999999s" x="104" y="82" width="48" height="6" rx="3"/><rect class="m v" style="animation-delay:1.2s" x="104" y="98" width="66" height="6" rx="3"/><path class="ms sign" pathLength="100" d="M108 128 c8-14 14 6 22-4 s10-8 16 2 s12-6 20-2"/></g></svg>
-          <small>Documents</small><h3>Les contrats, en un clic.</h3><p>Conventions, attestations et appels de fonds générés depuis le dossier.</p>
-        </article>
-        <article class="feat-card">
-          <svg class="fc-art" viewBox="0 0 280 160" aria-hidden="true"><g class="a-donut"><g class="spin"><circle class="seg s1" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s2" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s3" cx="140" cy="80" r="50" pathLength="100"/><circle class="seg s4" cx="140" cy="80" r="50" pathLength="100"/></g><circle class="m core" cx="140" cy="80" r="14"/></g></svg>
-          <small>VISION Co-Owner</small><h3>Des charges bien réparties.</h3><p>Tantièmes, appels de charges et budget de chaque copropriété.</p>
-        </article>
-    </div>
-    <div class="wrap"><div class="h-progress" aria-hidden="true"><i id="hBar"></i></div></div>
-  </div>
-</section>
-
-<!-- ================= SERVICES : PARCOURS ================= -->
-<section class="band paper" id="parcours" data-chapter="2">
-  <div class="wrap">
-    <div class="head center">
-      <span class="eyebrow">Chapitre 02 · Les services</span>
-      <h2 class="h2">Du premier rendez-vous <em>à la première vente.</em></h2>
-      <p class="lead">BitEye installe, sécurise et forme. Un seul interlocuteur, du début à la fin.</p>
-    </div>
-    <div class="journey" id="journey">
-      <span class="j-track" aria-hidden="true"><i class="j-fill"></i><i class="j-dot"></i></span>
-      <ol>
-        <li style="--i:0"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5M8 10.5h5M10.5 8v5"/></svg><i>1</i></span><b>Audit</b><p>Vos besoins, vos équipes et votre parc informatique, analysés.</p><a href="#contact" class="j-link">Nous contacter ›</a></li>
-        <li style="--i:1"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg><i>2</i></span><b>Serveur et réseau</b><p>Un serveur et un réseau dimensionnés pour vos utilisateurs.</p><a href="#infrastructure" class="j-link">Voir la fiche ›</a></li>
-        <li style="--i:2"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg><i>3</i></span><b>Installation et accès à distance</b><p>VISION accessible au bureau, sur le chantier ou chez vous.</p><a href="#acces-distant" class="j-link">Voir la fiche ›</a></li>
-        <li style="--i:3"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg><i>4</i></span><b>Sécurité et sauvegarde</b><p>Vos données protégées et sauvegardées automatiquement.</p><a href="#securite" class="j-link">Voir la fiche ›</a></li>
-        <li style="--i:4"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg><i>5</i></span><b>Formation au logiciel</b><p>Vos équipes prennent VISION en main sur leurs projets.</p><a href="#logiciel" class="j-link">Voir la fiche ›</a></li>
-        <li style="--i:5"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 19h16M6 15l4-4 3 3 5-6"/><path d="M15 8h3v3"/></svg><i>6</i></span><b>Formation commerciale</b><p>Vos commerciaux transforment les prospects en ventes.</p><a href="#formation" class="j-link">Voir la fiche ›</a></li>
-        <li style="--i:6"><span class="j-node"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0116 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg><i>7</i></span><b>Suivi</b><p>Mises à jour, support à Alger, accompagnement dans la durée.</p><a href="#logiciel" class="j-link">Voir la fiche ›</a></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
 <!-- ================= SERVICES : COUCHES ================= -->
 <section class="band forest" id="couches" data-chapter="2">
   <div class="wrap">
     <div class="head center">
-      <span class="eyebrow">Une offre complète</span>
+      <span class="eyebrow">Chapitre 02 · L’offre BitEye</span>
       <h2 class="h2">Cinq couches. <em>Un seul partenaire.</em></h2>
-      <p class="lead">De l’équipe à la sauvegarde, BitEye prend tout en charge. Chaque couche a sa fiche détaillée.</p>
+      <p class="lead">Le logiciel structure votre suivi. L’accompagnement aide votre équipe à en tirer pleinement parti. BitEye installe, sécurise, forme et suit : chaque couche a sa fiche détaillée.</p>
     </div>
     <div class="couches" id="couchesGrid">
       <div class="stack" aria-hidden="true">
@@ -1734,12 +1758,71 @@ html.i18n-wait body{visibility:hidden}
         </div>
       </div>
       <ol class="layer-list" id="layerList">
-          <li data-i="0"><span class="ll-n">01</span><div><small>L’équipe</small><b>Formation et performance commerciale</b><p>Des commerciaux formés qui transforment les prospects en ventes.</p><a href="#formation" class="ll-link">Découvrir ›</a></div></li>
+          <li data-i="0"><span class="ll-n">01</span><div><small>L’équipe</small><b>Formation et accompagnement commercial</b><p>Une équipe formée et accompagnée, qui transforme les prospects en ventes.</p><a href="#accompagnement" class="ll-link">Découvrir ›</a></div></li>
           <li data-i="1"><span class="ll-n">02</span><div><small>Le logiciel</small><b>VISION Workspace</b><p>Promotion, réalisation, copropriété, stocks, fiscalité, RH et CRM.</p><a href="#logiciel" class="ll-link">Découvrir ›</a></div></li>
           <li data-i="2"><span class="ll-n">03</span><div><small>L’accès à distance</small><b>Travaillez de partout</b><p>VISION depuis le chantier ou la maison, en connexion chiffrée.</p><a href="#acces-distant" class="ll-link">Découvrir ›</a></div></li>
           <li data-i="3"><span class="ll-n">04</span><div><small>Le serveur et le réseau</small><b>Une infrastructure dimensionnée</b><p>Serveur, réseau et Wi-Fi adaptés à votre nombre d’utilisateurs.</p><a href="#infrastructure" class="ll-link">Découvrir ›</a></div></li>
           <li data-i="4"><span class="ll-n">05</span><div><small>La sécurité</small><b>Des données protégées</b><p>Antivirus, pare-feu, VPN et sauvegardes automatiques.</p><a href="#securite" class="ll-link">Découvrir ›</a></div></li>
       </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MISE EN PLACE ================= -->
+<section class="band paper" id="mise-en-place" data-chapter="2">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Mise en place</span>
+      <h2 class="h2">Un démarrage accompagné, <em>étape par étape.</em></h2>
+      <p class="lead">Vous n’êtes jamais seuls : nous reprenons vos données, installons, formons vos équipes et restons à vos côtés.</p>
+    </div>
+    <ol class="setup" data-reveal>
+      <li style="--i:0"><span class="su-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6M5 11.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"/></svg></span><span class="su-n">01</span><b>Reprise des données</b><p>Vos fichiers Excel et votre ancien logiciel importés dans VISION. Vos données restent exportables à tout moment.</p></li>
+      <li style="--i:1"><span class="su-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M7 21h10M12 17v4"/></svg></span><span class="su-n">02</span><b>Installation</b><p>Serveur, réseau et accès à distance configurés pour vos équipes.</p><a href="#infrastructure" class="j-link">Voir la fiche ›</a></li>
+      <li style="--i:2"><span class="su-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span><span class="su-n">03</span><b>Formation</b><p>Vos équipes prennent VISION en main sur leurs propres projets.</p><a href="#logiciel" class="j-link">Voir la fiche ›</a></li>
+      <li style="--i:3"><span class="su-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 13a8 8 0 0116 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></span><span class="su-n">04</span><b>Assistance</b><p>Support à Alger, mises à jour et accompagnement dans la durée.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= FORMATION ET ACCOMPAGNEMENT COMMERCIAL ================= -->
+<section class="band forest acc-band" id="accompagnement" data-chapter="2">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Formation et accompagnement commercial immobilier</span>
+      <h2 class="h2 accent">Chaque opportunité mérite <em>de devenir une vente.</em></h2>
+      <p class="lead">Formez vos équipes et activez les cinq piliers de votre performance commerciale immobilière.</p>
+    </div>
+    <article class="acc-feat" data-reveal>
+      <span class="acc-art" aria-hidden="true"><svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="8" width="56" height="38" rx="4"/><path d="M58 36V28M68 36V22M78 36V16"/><circle cx="20" cy="26" r="7"/><path d="M8 52v-6a10 10 0 0110-10h6l14-10"/><circle cx="16" cy="64" r="6"/><circle cx="40" cy="64" r="6"/><circle cx="64" cy="64" r="6"/><path d="M5 88a11 11 0 0122 0M29 88a11 11 0 0122 0M53 88a11 11 0 0122 0"/></svg></span>
+      <div class="acc-txt">
+        <span class="acc-k">La formation phare</span>
+        <h3>Intelligence Commerciale Immobilière</h3>
+        <p class="acc-lead">Donnez à votre équipe les méthodes pour transformer les opportunités en ventes.</p>
+        <p>Trois jours pour mieux comprendre l’acheteur, valoriser vos projets, conduire les visites et négocier avec confiance. Une formation pratique, appliquée à vos situations commerciales et à l’utilisation du CRM.</p>
+        <ul class="acc-facts"><li><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>3 jours</li><li><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>10 modules</li><li><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 20v-5M12 20V9M18 20V4"/></svg>80 % de pratique</li></ul>
+      </div>
+      <a class="btn" href="#formation">Découvrir le programme <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </article>
+  </div>
+</section>
+
+<section class="band paper" id="piliers" data-chapter="2">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Les cinq piliers</span>
+      <h2 class="h2">Renforcez chaque levier <em>de votre performance commerciale.</em></h2>
+    </div>
+    <ol class="piliers">
+      <li style="--i:0"><span class="pil-n">01</span><span class="pil-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="9" r="2.2"/><circle cx="19" cy="9" r="2.2"/><path d="M6.5 19a5.5 5.5 0 0111 0M1.5 18a3.5 3.5 0 015-3M22.5 18a3.5 3.5 0 00-5-3"/></svg></span><b>Capital humain</b><p>Recrutez les profils adaptés et structurez leur intégration.</p></li>
+      <li style="--i:1"><span class="pil-n">02</span><span class="pil-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10z"/><path d="M16.5 9.5a3.5 3.5 0 010 5M19 7a7 7 0 010 10"/></svg></span><b>Visibilité</b><p>Valorisez vos projets avec des supports et une communication qui donnent envie de vous contacter.</p></li>
+      <li style="--i:2"><span class="pil-n">03</span><span class="pil-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/><path d="M14 10l6-6M17 4h3v3"/></svg></span><b>Conversion</b><p>Organisez le parcours du premier contact à la réservation : qualification, visites et relances.</p></li>
+      <li style="--i:3"><span class="pil-n">04</span><span class="pil-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6"/></svg></span><b>Formation</b><p>Développez les compétences et la confiance de votre équipe grâce à la pratique.</p></li>
+      <li style="--i:4"><span class="pil-n">05</span><span class="pil-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 20h17M6 16v-3M10.5 16V10M15 16v-5M19.5 16V7"/><path d="M5 10l5-5 4 3 6-5M17 3h3v3"/></svg></span><b>Performance</b><p>Suivez vos indicateurs dans le CRM et transformez les résultats en actions concrètes.</p></li>
+    </ol>
+    <div class="acc-cta" data-reveal>
+      <p>De quel accompagnement votre équipe a-t-elle besoin ?</p>
+      <a class="btn" href="#contact" data-sujet="Accompagnement commercial">Échanger sur mes besoins <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </section>
@@ -1755,7 +1838,7 @@ html.i18n-wait body{visibility:hidden}
       <div class="need-btns" role="group" aria-label="Choisissez votre besoin">
         <button type="button" data-need="equiper" data-svc="infrastructure securite logiciel" data-msg="Un serveur dimensionné, un réseau propre et des données protégées, avec VISION installé." aria-pressed="false">Équiper mon entreprise</button>
         <button type="button" data-need="distance" data-svc="acces-distant securite" data-msg="Vos équipes ouvrent VISION depuis le chantier ou la maison, en toute sécurité." aria-pressed="false">Travailler à distance</button>
-        <button type="button" data-need="vendre" data-svc="formation logiciel" data-msg="Des commerciaux formés et un CRM qui suit chaque prospect jusqu’à la vente." aria-pressed="false">Vendre plus</button>
+        <button type="button" data-need="vendre" data-svc="formation logiciel" data-msg="Une équipe formée et accompagnée, et un CRM qui suit chaque prospect jusqu’à la vente." aria-pressed="false">Vendre plus</button>
         <button type="button" data-need="tout" data-svc="logiciel acces-distant infrastructure securite formation" data-msg="De l’audit au suivi : BitEye prend en charge l’ensemble." aria-pressed="true" class="on">Tout mettre en place</button>
       </div>
       <p class="need-msg" id="needMsg" aria-live="polite">De l’audit au suivi : BitEye prend en charge l’ensemble.</p>
@@ -1764,7 +1847,7 @@ html.i18n-wait body{visibility:hidden}
         <a class="nt on" href="#acces-distant" data-svc="acces-distant"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span><b>Accès à distance</b><span class="nt-go">Voir la fiche ›</span></a>
         <a class="nt on" href="#infrastructure" data-svc="infrastructure"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span><b>Serveur et réseau</b><span class="nt-go">Voir la fiche ›</span></a>
         <a class="nt on" href="#securite" data-svc="securite"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span><b>Sécurité et sauvegarde</b><span class="nt-go">Voir la fiche ›</span></a>
-        <a class="nt on" href="#formation" data-svc="formation"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span><b>Formation et performance</b><span class="nt-go">Voir la fiche ›</span></a>
+        <a class="nt on" href="#formation" data-svc="formation"><span class="nt-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span><b>Formation et accompagnement</b><span class="nt-go">Voir la fiche ›</span></a>
       </div>
     </div>
   </div>
@@ -1990,6 +2073,19 @@ html.i18n-wait body{visibility:hidden}
   </div>
 </section>
 
+<!-- ================= TÉMOIGNAGES =================
+     Rempli depuis l'administration (onglet Témoignages) ou par le JSON #temData ci-dessous ; masqué tant qu'il est vide. -->
+<section class="band paper" id="temoignages" data-chapter="3" hidden>
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Témoignages</span>
+      <h2 class="h2">Nos clients <em>en parlent.</em></h2>
+    </div>
+    <div class="tems" id="temList"></div>
+  </div>
+  <script type="application/json" id="temData">[]</script>
+</section>
+
 <!-- ================= POURQUOI ================= -->
 <section class="band paper" id="pourquoi" data-chapter="3">
   <div class="wrap">
@@ -2025,6 +2121,27 @@ html.i18n-wait body{visibility:hidden}
   <script type="application/json" id="evData">[{"slug": "elogia-2026", "titre": "BitEye au salon Elogia 2026", "type": "salon", "lieu": "Centre des conventions Mohamed-Benahmed", "ville": "Oran", "date_debut": "2026-12-10", "date_fin": "2026-12-14", "dates_confirmees": true, "periode": "", "stand": "Numéro de stand communiqué prochainement", "organisateur": "AB Concept Design", "accroche": "Pour la sixième année de suite, BitEye vous donne rendez-vous à Elogia : venez voir VISION en action sur notre stand, et repartez avec une démonstration préparée pour votre projet.", "description": "Elogia, le Salon international des promoteurs immobiliers, de l’habitat intelligent et de la décoration, réunit chaque année à Oran les promoteurs, les constructeurs et leurs partenaires (plus de 190 exposants lors de l’édition de décembre 2025). BitEye a participé à ses cinq dernières éditions : c’est là que beaucoup de nos clients ont découvert VISION. Cette année encore, nous y présentons VISION Workspace, la promotion, la réalisation et la copropriété dans un seul logiciel.", "programme": [{"titre": "Démonstrations en continu", "texte": "Commercialisation, échéanciers des acquéreurs et suivi de chantier sur un projet type, en quinze minutes."}, {"titre": "Diagnostic de votre promotion", "texte": "Un conseiller fait le point avec vous sur vos outils actuels et sur ce que VISION peut simplifier."}, {"titre": "VISION Mobile et CRM", "texte": "L’application smartphone, l’appel en un clic depuis la fiche client et le résumé des appels par l’IA."}, {"titre": "Rendez-vous réservés", "texte": "Réservez un créneau : nous préparons la démonstration sur un projet proche du vôtre."}], "image_url": null, "lien_externe": "https://elogiaexpo.com/", "rendez_vous": true}]</script>
 </section>
 
+<!-- ================= FAQ ================= -->
+<section class="band paper" id="faq" data-chapter="3">
+  <div class="wrap faq-wrap">
+    <div class="head">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2 class="h2">Vos questions, <em>nos réponses.</em></h2>
+      <p class="lead">Une autre question ? <a href="#contact">Écrivez-nous</a> ou contactez-nous sur WhatsApp.</p>
+    </div>
+    <div class="faq">
+      <details><summary>VISION Workspace convient-il à mon entreprise ?</summary><p>VISION s’adresse aux promoteurs immobiliers, aux entreprises de réalisation et aux sociétés de gestion de copropriété. Vous pouvez gérer une, deux ou trois de ces activités dans le même logiciel.</p></details>
+      <details><summary>Pouvez-vous reprendre nos données existantes ?</summary><p>Oui. Nous importons vos fichiers Excel et les données de votre ancien logiciel dans VISION. Vos données restent les vôtres : elles sont exportables à tout moment.</p></details>
+      <details><summary>Peut-on travailler depuis le chantier ou à distance ?</summary><p>Oui. VISION s’ouvre au bureau, sur le chantier ou chez vous grâce à l’accès à distance sécurisé, et l’application mobile fonctionne sur smartphone, tablette et PC.</p></details>
+      <details><summary>Nos données sont-elles en sécurité ?</summary><p>Antivirus, pare-feu, VPN et sauvegardes automatiques : BitEye met en place la protection de vos données et en assure le suivi.</p></details>
+      <details><summary>Comment nos équipes sont-elles formées ?</summary><p>Vos équipes sont formées à VISION sur leurs propres projets. Pour vos commerciaux, la formation Intelligence Commerciale Immobilière (3 jours, 10 modules) complète l’accompagnement.</p></details>
+      <details><summary>Le CRM est-il relié au reste du logiciel ?</summary><p>Oui. Un prospect suivi dans le CRM devient acquéreur dans VISION Estate, puis copropriétaire dans VISION Co-Owner, sans ressaisie.</p></details>
+      <details><summary>Quelle assistance après l’installation ?</summary><p>Notre équipe, basée à Gué de Constantine (Alger), assure le support, les mises à jour et l’accompagnement dans la durée.</p></details>
+      <details><summary>Comment connaître le tarif ?</summary><p>Le tarif dépend des modules retenus et du nombre d’utilisateurs. Demandez une démonstration : un conseiller vous présente la formule adaptée à votre entreprise.</p></details>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section class="band forest" id="contact" data-chapter="3" style="overflow:hidden">
   <div class="wrap contact">
@@ -2039,6 +2156,7 @@ html.i18n-wait body{visibility:hidden}
       </ol>
       <div class="c-coords">
         <a class="c-chip" href="tel:+213560063641" aria-label="Appeler BitEye au 0560 06 36 41"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a>
+        <a class="c-chip c-wa" href="https://wa.me/213560063641" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 00-8.4 14.6L2.2 21.8l5.1-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg>WhatsApp</a>
         <a class="c-chip" href="mailto:contact@biteye-group.com"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 4.5L8 9l5.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>contact@biteye-group.com</a>
         <span class="c-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg>Gué de Constantine, Alger</span>
       </div>
@@ -2049,6 +2167,7 @@ html.i18n-wait body{visibility:hidden}
         <div><b>Réservez votre démonstration</b><small><i class="live"></i>Nous vous rappelons pour fixer un créneau.</small></div>
       </div>
       <p class="rdv-tag" id="rdvTag" hidden><span>Rendez-vous : <b></b></span><button type="button" aria-label="Retirer le rendez-vous">×</button></p>
+      <label class="hp" aria-hidden="true">Site web<input name="site" tabindex="-1" autocomplete="off"></label>
       <label for="f-nom">Nom et prénom<input id="f-nom" name="nom" autocomplete="name" required minlength="2" placeholder="Votre nom"></label>
       <label for="f-soc">Société<input id="f-soc" name="societe" autocomplete="organization" required placeholder="Nom de votre entreprise"></label>
       <label for="f-tel">Téléphone<input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required pattern="(\+213|0)[ .]?[2-7]([ .]?[0-9]){8}" title="Un numéro algérien, par exemple 0560 06 36 41" placeholder="05 XX XX XX XX"></label>
@@ -2059,7 +2178,14 @@ html.i18n-wait body{visibility:hidden}
         <label><input type="radio" name="metier" id="f-met4" value="Plusieurs métiers"><span>Plusieurs</span></label>
       </fieldset>
       <div class="actions"><button class="btn" type="submit">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-      <p class="f-note">Le bouton ouvre votre messagerie avec la demande déjà rédigée : il vous reste à l’envoyer.</p>
+      <p class="f-note" id="fNoteMail">Le bouton ouvre votre messagerie avec la demande déjà rédigée : il vous reste à l’envoyer.</p>
+      <p class="f-note" id="fNoteDirect" hidden>Vos coordonnées sont transmises à l’équipe BitEye, uniquement pour vous rappeler.</p>
+      <p class="f-err" id="fErr" role="alert" hidden>L’envoi n’a pas abouti. Réessayez, ou appelez-nous au 0560 06 36 41.</p>
+      <div class="f-done f-ok" id="form-ok" role="status" tabindex="-1" hidden>
+        <b>Demande envoyée</b>
+        <small>Merci. Un conseiller BitEye vous rappelle pour fixer un créneau.</small>
+        <div class="f-done-acts"><button type="button" class="ghost-btn" id="formNew">Faire une autre demande</button></div>
+      </div>
       <div class="f-done" id="form-msg" role="status" tabindex="-1" hidden>
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5L12 13l8.5-6.5"/></svg>
         <b>Dernière étape : envoyez l’e-mail</b>
@@ -2074,7 +2200,7 @@ html.i18n-wait body{visibility:hidden}
 
 <div class="sheet-bg" id="sheetBg" hidden></div>
 <section class="sheet" id="logiciel" role="dialog" aria-modal="true" aria-labelledby="logiciel-t" tabindex="-1" hidden data-lenis-prevent>
-  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel" class="on" aria-current="page">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel" class="on" aria-current="page">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et accompagnement</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
     <div class="sh-copy"><span class="eyebrow">Le logiciel</span><h2 class="h2 no-split" id="logiciel-t">Un logiciel. <em>Tous vos métiers.</em></h2><p class="s-lead">Choisissez les modules dont vous avez besoin aujourd’hui, ajoutez les autres demain. Tout se parle dans VISION.</p></div>
     <div class="sh-art" aria-hidden="true"><div class="bricks-art"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i></div></div>
@@ -2100,7 +2226,7 @@ html.i18n-wait body{visibility:hidden}
   </div></div>
 </section>
 <section class="sheet" id="acces-distant" role="dialog" aria-modal="true" aria-labelledby="acces-distant-t" tabindex="-1" hidden data-lenis-prevent>
-  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant" class="on" aria-current="page">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant" class="on" aria-current="page">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et accompagnement</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
     <div class="sh-copy"><span class="eyebrow">Accès à distance</span><h2 class="h2 no-split" id="acces-distant-t">Votre bureau, <em>partout.</em></h2><p class="s-lead">Le chantier, l’agence, la maison : vos équipes travaillent dans VISION comme si elles étaient au siège.</p></div>
     <div class="sh-art" aria-hidden="true"><svg class="net-art" viewBox="0 0 360 260"><g class="links"><path d="M180 130 L60 60"/><path d="M180 130 L300 60"/><path d="M180 130 L180 225"/></g>
@@ -2117,7 +2243,7 @@ html.i18n-wait body{visibility:hidden}
   </div></div>
 </section>
 <section class="sheet" id="infrastructure" role="dialog" aria-modal="true" aria-labelledby="infrastructure-t" tabindex="-1" hidden data-lenis-prevent>
-  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure" class="on" aria-current="page">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure" class="on" aria-current="page">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation">Formation et accompagnement</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
     <div class="sh-copy"><span class="eyebrow">Serveur et réseau</span><h2 class="h2 no-split" id="infrastructure-t">Le bon serveur. <em>Pour votre équipe.</em></h2><p class="s-lead">Chaque serveur est dimensionné selon le nombre de personnes qui travaillent dans VISION. Dites-nous combien vous êtes.</p></div>
     <div class="sh-art" aria-hidden="true"><div class="rack"><i style="--i:0"><b></b><b></b><b></b></i><i style="--i:1"><b></b><b></b><b></b></i><i style="--i:2"><b></b><b></b><b></b></i><i style="--i:3"><b></b><b></b><b></b></i><i style="--i:4"><b></b><b></b><b></b></i><i style="--i:5"><b></b><b></b><b></b></i></div></div>
@@ -2166,7 +2292,7 @@ html.i18n-wait body{visibility:hidden}
   </div></div>
 </section>
 <section class="sheet" id="securite" role="dialog" aria-modal="true" aria-labelledby="securite-t" tabindex="-1" hidden data-lenis-prevent>
-  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite" class="on" aria-current="page">Sécurité et sauvegarde</a><a href="#formation">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite" class="on" aria-current="page">Sécurité et sauvegarde</a><a href="#formation">Formation et accompagnement</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
     <div class="sh-copy"><span class="eyebrow">Sécurité et sauvegarde</span><h2 class="h2 no-split" id="securite-t">Vos données. <em>À l’abri.</em></h2><p class="s-lead">Des années de ventes, de contrats et de chantiers dans VISION. Nous les protégeons et les sauvegardons, automatiquement.</p></div>
     <div class="sh-art" aria-hidden="true"><svg class="shield-art" viewBox="0 0 300 260"><circle class="ring r1" cx="150" cy="130" r="92"/><circle class="ring r2" cx="150" cy="130" r="118"/>
@@ -2183,13 +2309,13 @@ html.i18n-wait body{visibility:hidden}
   </div></div>
   <div class="sh-end"><div class="wrap">
     <a class="btn" href="#contact" data-close>Parler à un conseiller <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a class="sh-next" href="#formation">Fiche suivante : <b>Formation et performance</b> ›</a>
+    <a class="sh-next" href="#formation">Fiche suivante : <b>Formation et accompagnement</b> ›</a>
   </div></div>
 </section>
 <section class="sheet" id="formation" role="dialog" aria-modal="true" aria-labelledby="formation-t" tabindex="-1" hidden data-lenis-prevent>
-  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation" class="on" aria-current="page">Formation et performance</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
+  <div class="sh-top"><div class="wrap"><nav class="sh-tabs" aria-label="Services BitEye"><a href="#logiciel">Logiciel VISION</a><a href="#acces-distant">Accès à distance</a><a href="#infrastructure">Serveur et réseau</a><a href="#securite">Sécurité et sauvegarde</a><a href="#formation" class="on" aria-current="page">Formation et accompagnement</a></nav><button type="button" class="sh-close" data-close aria-label="Fermer la fiche"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div>
   <div class="sh-hero"><div class="wrap sh-hero-in">
-    <div class="sh-copy"><span class="eyebrow">Formation et performance commerciale</span><h2 class="h2 no-split" id="formation-t">Des commerciaux <em>qui convertissent.</em></h2><p class="s-lead">Un bon outil ne suffit pas : l’humain reste au cœur de la vente. Trois jours pour comprendre l’acheteur, conduire la vente et transformer les opportunités en signatures.</p></div>
+    <div class="sh-copy"><span class="eyebrow">Formation et accompagnement commercial immobilier</span><h2 class="h2 no-split" id="formation-t">Des commerciaux <em>qui convertissent.</em></h2><p class="s-lead">Un bon outil ne suffit pas : l’humain reste au cœur de la vente. Trois jours pour comprendre l’acheteur, conduire la vente et transformer les opportunités en signatures.</p></div>
     <div class="sh-art" aria-hidden="true"><div class="funnel"><div style="--i:0;--w:100%"><span>Prospects</span></div><div style="--i:1;--w:78%"><span>Rendez-vous</span></div><div style="--i:2;--w:58%"><span>Visites</span></div><div style="--i:3;--w:40%"><span>Ventes</span></div><i class="fd"></i><i class="fd"></i><i class="fd"></i></div></div>
   </div></div>
   <div class="s-block"><div class="wrap">
@@ -2198,8 +2324,8 @@ html.i18n-wait body{visibility:hidden}
     <p class="s-note">Les exercices se font sur vos projets et directement dans VISION : fiche prospect, source du lead, compte rendu de visite, séquence de relance.</p>
     <h3 class="s-h3">Ce que votre équipe reçoit</h3>
     <div class="chip-grid"><span style="--i:0">Support apprenant</span><span style="--i:1">Exercices et simulations</span><span style="--i:2">Évaluation des acquis</span><span style="--i:3">Synthèse des axes de progrès de l’équipe</span><span style="--i:4">Attestation de formation BitEye</span></div>
-    <h3 class="s-h3">Aller plus loin</h3>
-    <div class="card-grid c4"><article class="s-card" style="--i:0"><b>Recrutement des commerciaux</b><p>Profil, recherche, présélection, mises en situation et intégration.</p></article><article class="s-card" style="--i:1"><b>Visibilité des projets</b><p>Pages projets, réseaux sociaux, photos, vidéos, drone et rendus.</p></article><article class="s-card" style="--i:2"><b>Acquisition de prospects</b><p>Formulaires, origine des contacts, qualification et transmission au CRM.</p></article><article class="s-card" style="--i:3"><b>Performance commerciale</b><p>Pipeline, relances, motifs de perte, KPI et 4 semaines d’accompagnement du manager.</p></article></div>
+    <h3 class="s-h3">Les cinq piliers de l’accompagnement</h3>
+    <div class="card-grid c5"><article class="s-card" style="--i:0"><b>Capital humain</b><p>Recrutement des commerciaux : profil, recherche, présélection, mises en situation et intégration.</p></article><article class="s-card" style="--i:1"><b>Visibilité</b><p>Pages projets, réseaux sociaux, photos, vidéos, drone et rendus.</p></article><article class="s-card" style="--i:2"><b>Conversion</b><p>Formulaires, origine des contacts, qualification, visites et relances, jusqu’à la réservation.</p></article><article class="s-card" style="--i:3"><b>Formation</b><p>La formation Intelligence Commerciale Immobilière, puis la pratique sur vos projets.</p></article><article class="s-card" style="--i:4"><b>Performance</b><p>Pipeline, motifs de perte, KPI dans le CRM et 4 semaines d’accompagnement du manager.</p></article></div>
     <div class="s-band"><span>Suivi mensuel du manager</span><span>Client mystère : un faux prospect teste votre accueil commercial</span></div>
   </div></div>
   <div class="sh-end"><div class="wrap">
@@ -2285,19 +2411,50 @@ html.i18n-wait body{visibility:hidden}
   var mobile = window.innerWidth <= 734;
   var rtl = document.documentElement.dir === 'rtl';
 
+  /* Formulaire : envoi direct si la base est branchée (table « demandes », et le CRM BitEye s'il est configuré),
+     sinon la demande est rédigée dans la messagerie du visiteur. La page n'annonce « envoyée » que si c'est vrai. */
+  var DB0 = window.BITEYE_DB || {}, CRM = window.BITEYE_CRM || {};
+  var direct = !!((DB0.url && DB0.cle) || CRM.url) && !!window.fetch;
+  document.getElementById('fNoteMail').hidden = direct; document.getElementById('fNoteDirect').hidden = !direct;
+  function sendLead(d){
+    var jobs = [];
+    var hd = {apikey:DB0.cle, 'Content-Type':'application/json', Prefer:'return=minimal'};
+    if (/^eyJ/.test(DB0.cle || '')) hd.Authorization = 'Bearer ' + DB0.cle;
+    if (DB0.url && DB0.cle) jobs.push(fetch(String(DB0.url).replace(/\/+$/, '') + '/rest/v1/demandes', {method:'POST',
+      headers:hd, body:JSON.stringify(d)})
+      /* même demande renvoyée dans la minute : la première est déjà arrivée */
+      .then(function(r){ if (!r.ok) return r.text().then(function(t){ if (!/déjà reçue/.test(t)) throw new Error(r.status); }); }));
+    if (CRM.url) jobs.push(fetch(CRM.url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(d)})
+      .then(function(r){ if (!r.ok) throw new Error(r.status); }));
+    /* réussi dès qu'une destination a bien reçu la demande */
+    return new Promise(function(ok, ko){ var n = jobs.length, e = null; jobs.forEach(function(j){ j.then(ok, function(x){ e = x; if (!--n) ko(e); }); }); });
+  }
   document.getElementById('demo').addEventListener('submit', function(e){
     e.preventDefault();
     var f = e.currentTarget;
     if (!f.checkValidity()) { f.reportValidity(); return; }
+    if (f.site.value) return;   /* champ piège : rempli seulement par les robots */
     var msg = document.getElementById('form-msg'), met = f.querySelector('input[name="metier"]:checked');
-    var rdv = f.getAttribute('data-rdv');
-    var SEP = T(' : '), body = T('Bonjour,') + '\n\n' + (rdv ? T('Je souhaite un rendez-vous avec BitEye : ') + rdv + '.' : T('Je souhaite une démonstration de VISION Workspace.')) + '\n\n' + T('Nom') + SEP + f.nom.value.trim() + '\n' + T('Société') + SEP + f.societe.value.trim() +
+    var rdv = f.getAttribute('data-rdv'), sujet = f.getAttribute('data-sujet');
+    if (direct) {
+      var b = f.querySelector('.actions .btn'), err = document.getElementById('fErr'); err.hidden = true; b.disabled = true;
+      sendLead({nom:f.nom.value.trim(), societe:f.societe.value.trim(), tel:f.tel.value.trim(), metier:met ? met.value : '',
+        sujet:rdv ? 'Rendez-vous : ' + rdv : sujet || 'Démonstration', langue:window.BITEYE_LANG || 'fr', page:location.href.split('#')[0].slice(0, 200)})
+        .then(function(){ f.classList.add('sent'); var ok = document.getElementById('form-ok'); ok.hidden = false; ok.focus({preventScroll:true}); })
+        .catch(function(){ err.hidden = false; })
+        .then(function(){ b.disabled = false; });
+      return;
+    }
+    var SEP = T(' : '), body = T('Bonjour,') + '\n\n' + (rdv ? T('Je souhaite un rendez-vous avec BitEye : ') + rdv + '.' : sujet ? T('Je souhaite échanger sur l’accompagnement commercial de mon équipe.') : T('Je souhaite une démonstration de VISION Workspace.')) + '\n\n' + T('Nom') + SEP + f.nom.value.trim() + '\n' + T('Société') + SEP + f.societe.value.trim() +
       '\n' + T('Téléphone') + SEP + f.tel.value.trim() + '\n' + T('Métier') + SEP + (met ? T(met.value) : '') + '\n';
-    var url = 'mailto:contact@biteye-group.com?subject=' + encodeURIComponent((rdv ? T('Rendez-vous') + ' ' + rdv : T('Demande de démonstration VISION')) + ' — ' + f.societe.value.trim()) + '&body=' + encodeURIComponent(body);
+    var url = 'mailto:contact@biteye-group.com?subject=' + encodeURIComponent((rdv ? T('Rendez-vous') + ' ' + rdv : sujet ? T(sujet) : T('Demande de démonstration VISION')) + ' — ' + f.societe.value.trim()) + '&body=' + encodeURIComponent(body);
     /* Envoi par la messagerie du visiteur : la page ne prétend jamais que la demande est déjà partie */
     document.getElementById('mailAgain').href = url;
     f.classList.add('sent'); msg.hidden = false; msg.focus({preventScroll:true});
     setTimeout(function(){ location.href = url; }, 400);
+  });
+  document.getElementById('formNew').addEventListener('click', function(){
+    var f = document.getElementById('demo'); f.reset(); f.classList.remove('sent'); document.getElementById('form-ok').hidden = true; document.getElementById('f-nom').focus();
   });
 
   document.getElementById('formEdit').addEventListener('click', function(){
@@ -2418,9 +2575,6 @@ html.i18n-wait body{visibility:hidden}
   }
   var tickerBand = {speed:-.45, angle:38, depth:140};
   dragBand(document.querySelector('.logo-marq'), tickerRow, tickerBand);
-  var modRow = document.getElementById('modRow'), modSet = modRow.innerHTML;
-  modRow.insertAdjacentHTML('beforeend', modSet + modSet + modSet);
-  dragBand(document.getElementById('modMarq'), modRow, {speed:-.35, angle:22, depth:90});
   if (reduce) document.querySelectorAll('svg').forEach(function(sv){ if (sv.pauseAnimations) sv.pauseAnimations(); });
 
   /* Menu Services : survol sur ordinateur, clic au clavier ou au doigt */
@@ -2492,13 +2646,6 @@ html.i18n-wait body{visibility:hidden}
     }, {rootMargin:'-50% 0px -50% 0px'});
     document.querySelectorAll('[data-chapter]').forEach(function(sec){ chIO.observe(sec); });
   }
-
-  /* Parcours : la frise s'anime une fois visible */
-  var journeyEl = document.getElementById('journey');
-  if ('IntersectionObserver' in window) {
-    var jIO = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { journeyEl.classList.add('go'); jIO.disconnect(); } }, {threshold:.3});
-    jIO.observe(journeyEl);
-  } else journeyEl.classList.add('go');
 
   /* Besoin : chaque choix allume les services concernés */
   var needBtns = document.querySelectorAll('.need-btns button'), needMsg = document.getElementById('needMsg');
@@ -2851,14 +2998,69 @@ html.i18n-wait body{visibility:hidden}
 
   /* Rendez-vous demandé depuis l'agenda : le formulaire de démo le reprend */
   var demoForm = document.getElementById('demo'), rdvTag = document.getElementById('rdvTag');
-  function setRdv(name){
+  function setRdv(name, sujet){
     if (name) demoForm.setAttribute('data-rdv', name); else demoForm.removeAttribute('data-rdv');
-    rdvTag.hidden = !name; rdvTag.querySelector('b').textContent = name || '';
+    if (sujet) demoForm.setAttribute('data-sujet', sujet); else demoForm.removeAttribute('data-sujet');
+    rdvTag.hidden = !(name || sujet); rdvTag.querySelector('b').textContent = name || (sujet ? T(sujet) : '');
+    rdvTag.querySelector('span').firstChild.nodeValue = T(name || !sujet ? 'Rendez-vous' : 'Sujet') + (window.BITEYE_LANG && window.BITEYE_LANG !== 'fr' ? T(' : ') : '\u202f: ');
     demoForm.querySelector('.f-head b').textContent = T(name ? 'Réservez votre rendez-vous' : 'Réservez votre démonstration');
     demoForm.querySelector('.actions .btn').firstChild.nodeValue = T(name ? 'Demander un rendez-vous ' : 'Demander une démo ');
   }
-  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('[data-rdv]'); if (a) setRdv(a.getAttribute('data-rdv')); }, true);
-  rdvTag.querySelector('button').addEventListener('click', function(){ setRdv(null); document.getElementById('f-nom').focus(); });
+  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('[data-rdv], [data-sujet]'); if (a) setRdv(a.getAttribute('data-rdv'), a.getAttribute('data-sujet')); }, true);
+  rdvTag.querySelector('button').addEventListener('click', function(){ setRdv(null, null); document.getElementById('f-nom').focus(); });
+  /* CRM : chaque point de la liste éclaire sa zone du tableau de bord (survol, focus ou défilement) */
+  var crmGrid = document.getElementById('crmGrid'), crmItems = document.querySelectorAll('#crmList li');
+  function crmOn(z){ crmGrid.setAttribute('data-active', z); crmItems.forEach(function(li){ li.classList.toggle('on', li.getAttribute('data-z') === String(z)); }); }
+  crmItems.forEach(function(li){
+    li.addEventListener('mouseenter', function(){ crmOn(li.getAttribute('data-z')); });
+    li.addEventListener('focus', function(){ crmOn(li.getAttribute('data-z')); });
+  });
+  if ('IntersectionObserver' in window && !mobile) {
+    var crmIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) crmOn(e.target.getAttribute('data-z')); }); }, {rootMargin:'-45% 0px -45% 0px'});
+    crmItems.forEach(function(li){ crmIO.observe(li); });
+  }
+  crmOn(1);
+
+  /* Témoignages vidéo : section masquée tant qu'il n'y en a pas ; la vidéo ne se charge qu'au clic */
+  var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
+  var okUrl = /^(https:\/\/|assets\/|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/)/;
+  function renderTems(rows){
+    if (!Array.isArray(rows)) return;
+    rows = rows.filter(function(t){ return t && t.nom && okUrl.test(t.video_url || ''); });
+    var sec = document.getElementById('temoignages'), list = document.getElementById('temList');
+    sec.hidden = !rows.length;
+    list.innerHTML = rows.map(function(t, i){
+      var who = [t.fonction, t.societe].filter(Boolean).map(function(x){ return esc(T(x)); }).join(' · ');
+      return '<figure class="tem" data-reveal><div class="tem-v" data-src="' + esc(t.video_url) + '">'
+        + (okUrl.test(t.poster || '') ? '<img src="' + esc(t.poster) + '" alt="" loading="lazy">' : '')
+        + '<button type="button" aria-label="' + esc(T('Voir le témoignage de') + ' ' + t.nom) + '"><span>' + PLAY + '</span></button></div>'
+        + (t.citation ? '<blockquote>« ' + esc(T(t.citation)) + ' »</blockquote>' : '')
+        + '<figcaption><b>' + esc(t.nom) + '</b>' + who + '</figcaption></figure>';
+    }).join('');
+  }
+  document.getElementById('temList').addEventListener('click', function(e){
+    var b = e.target.closest('.tem-v button'); if (!b) return;
+    var box = b.parentNode, v = document.createElement('video');
+    document.querySelectorAll('#temList video').forEach(function(o){ o.pause(); });
+    v.src = box.getAttribute('data-src'); v.controls = true; v.playsInline = true; v.setAttribute('playsinline', '');
+    box.appendChild(v); box.classList.add('playing'); v.focus({preventScroll:true});
+    var p = v.play(); if (p && p.catch) p.catch(function(){});
+  });
+  try { renderTems(JSON.parse(document.getElementById('temData').textContent)); } catch (x) {}
+
+  /* WhatsApp : message d'accueil dans la langue du visiteur ; bouton flottant après l'en-tête, masqué près du formulaire */
+  var waText = encodeURIComponent(T('Bonjour BitEye, je souhaite en savoir plus sur VISION Workspace.'));
+  document.querySelectorAll('[data-wa]').forEach(function(a){ a.href = 'https://wa.me/213560063641?text=' + waText; });
+  var waFab = document.getElementById('waFab'), heroEl = document.querySelector('.hero'), contactEl = document.getElementById('contact');
+  if ('IntersectionObserver' in window) {
+    var waSeen = {hero:true, contact:false};
+    var waIO = new IntersectionObserver(function(es){
+      es.forEach(function(e){ waSeen[e.target === heroEl ? 'hero' : 'contact'] = e.isIntersecting; });
+      waFab.classList.toggle('show', !waSeen.hero && !waSeen.contact);
+    }, {threshold:0});
+    waIO.observe(heroEl); waIO.observe(contactEl);
+  } else waFab.classList.add('show');
+
   /* Vidéo de présentation : la source vient de data-src (ou de l'administration) ; rien n'est téléchargé avant le clic */
   var vid = document.getElementById('vid'), vidEl = document.getElementById('vidEl'), vidCover = document.getElementById('vidCover');
   function setVideo(src, poster, titre){
@@ -2886,6 +3088,7 @@ html.i18n-wait body{visibility:hidden}
   if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting && !vidEl.paused) vidEl.pause(); }); }, {threshold:.15}).observe(vid);
   setVideo(vid.getAttribute('data-src'), vid.getAttribute('data-poster'));
   if (DB.url && DB.cle && window.fetch) {
+    dbGet('temoignages?select=nom,societe,fonction,citation,video_url,poster&publie=is.true&order=ordre.asc,id.asc').then(renderTems).catch(function(){});
     dbGet('reglages?select=valeur&cle=eq.video_accueil').then(function(r){ var v = r && r[0] && r[0].valeur; if (v && v.publie && v.url) setVideo(v.url, v.poster, v.titre); }).catch(function(){});
     dbGet('references_clients?select=nom,ville,groupes,logo_url&publie=is.true&order=ordre.asc,nom.asc').then(renderRefs).catch(function(){});
     dbGet('evenements?select=slug,titre,type,lieu,ville,date_debut,date_fin,dates_confirmees,periode,stand,organisateur,accroche,description,programme,image_url,lien_externe,rendez_vous&publie=is.true&order=date_debut.asc').then(renderEvents).catch(function(){});
@@ -2968,18 +3171,6 @@ html.i18n-wait body{visibility:hidden}
   var tl = gsap.timeline({defaults:{ease:'power4.out'}});
   tl.from('.hero h1 .w > span', {yPercent:110, duration:1, stagger:.08})
     .from('[data-hero]', {y:24, opacity:0, duration:.9, stagger:.1}, '-=.7');
-  gsap.timeline({scrollTrigger:{trigger:'#heroStage', start:'top 75%', once:true}})
-    .from('.chip', {opacity:0, y:20, duration:.8, stagger:.1, ease:'power3.out'})
-    .from('#heroStage .meter i', {scaleX:0, duration:1.2, stagger:.1, ease:'power2.out'}, '-=.8');
-
-  /* Héros : l'écran incliné se redresse au défilement */
-  gsap.fromTo('#heroTilt', {rotateX:24, scale:.9, y:20}, {rotateX:0, scale:1, y:0, ease:'none',
-    scrollTrigger:{trigger:'#heroStage', start:'top 92%', end:'top 18%', scrub:.6}});
-  gsap.utils.toArray('.chip').forEach(function(c){
-    var d = parseFloat(c.dataset.depth || 1);
-    gsap.to(c, {y:-40 * d, ease:'none', scrollTrigger:{trigger:'#heroStage', start:'top bottom', end:'bottom top', scrub:true}});
-  });
-
   /* Révélations génériques */
   gsap.utils.toArray('[data-reveal]:not(.h2):not(.ledger), .lead:not([data-hero])').forEach(function(el){
     gsap.from(el, {y:32, opacity:0, duration:.9, ease:'power3.out', clearProps:'transform,opacity', scrollTrigger:{trigger:el, start:'top 88%', once:true}});
@@ -2996,29 +3187,6 @@ html.i18n-wait body{visibility:hidden}
   });
 
   gsap.from('#contact .h2', {y:40, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:'#contact .h2', start:'top 88%', once:true}});
-
-  /* Fonctionnalités : la galerie défile à l'horizontale pendant qu'on fait défiler la page,
-     chaque carte pivote en 3D selon sa distance au centre */
-  var hTrack = document.getElementById('hTrack'), hCards = hTrack.querySelectorAll('.feat-card'), hBar = document.getElementById('hBar');
-  function hDist(){ return Math.max(0, hTrack.scrollWidth - window.innerWidth); }
-  function hTilt(){
-    var cx = window.innerWidth / 2;
-    hCards.forEach(function(c){
-      var r = c.getBoundingClientRect(), d = Math.max(-1.2, Math.min(1.2, (r.left + r.width / 2 - cx) / cx));
-      c.style.transform = 'perspective(1100px) rotateY(' + (d * -22).toFixed(1) + 'deg) scale(' + (1 - Math.abs(d) * .08).toFixed(3) + ')';
-      c.style.opacity = (1 - Math.max(0, Math.abs(d) - .95) * 1.2).toFixed(2);
-    });
-  }
-  var hPinEl = document.getElementById('hPin');
-  if (mobile) hTilt = function(){};
-  else if (hPinEl.offsetHeight > window.innerHeight - 16) {
-    /* Écran trop bas pour épingler : la galerie défile simplement à l'horizontale */
-    hTrack.classList.add('nopin');
-    hTrack.addEventListener('scroll', function(){ hTilt(); hBar.style.transform = 'scaleX(' + (Math.abs(hTrack.scrollLeft) / Math.max(1, hTrack.scrollWidth - hTrack.clientWidth)) + ')'; }, {passive:true});
-  } else gsap.to(hTrack, {x:function(){ return rtl ? hDist() : -hDist(); }, ease:'none',   /* en arabe, la galerie part de la droite */
-    scrollTrigger:{trigger:'#hPin', start:'center center', end:function(){ return '+=' + hDist(); }, pin:true, scrub:.6, invalidateOnRefresh:true, refreshPriority:2,
-      onUpdate:function(self){ hBar.style.transform = 'scaleX(' + self.progress + ')'; hTilt(); }, onRefresh:hTilt}});
-  hTilt();
 
   /* Héros : le titre s'éloigne quand on quitte la section */
   gsap.to('.hero3d .wrap', {yPercent:-18, opacity:0, scale:.96, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'55% top', scrub:true}});
@@ -3157,7 +3325,7 @@ html.i18n-wait body{visibility:hidden}
   function layoutSig(){
     if (window.innerWidth <= 734) return 'mobile';
     var fit = function(id){ return document.getElementById(id).offsetHeight <= window.innerHeight - 16 ? 1 : 0; };
-    return [fit('chGrid'), fit('hPin'), window.innerWidth >= 1069 && fit('couchesGrid') ? 1 : 0, window.innerWidth <= 734 ? 1 : 0].join('');
+    return [fit('chGrid'), window.innerWidth >= 1069 && fit('couchesGrid') ? 1 : 0, window.innerWidth <= 734 ? 1 : 0].join('');
   }
   function sectionAt(){
     var secs = document.querySelectorAll('main section[id]');

@@ -5,7 +5,7 @@ Site vitrine de BitEye et de VISION Workspace (promotion immobilière, réalisat
 Site statique en une page :
 
 - `index.html` — page d'accueil (HTML, CSS et JS intégrés) ; charge les bibliothèques depuis `vendor/`
-- `admin/` — administration du site : références, prestations, agenda et vidéo de présentation, avec droits d'accès (administrateur, éditeur)
+- `admin/` — administration du site : demandes reçues, références, prestations, agenda, vidéo de présentation et témoignages, avec droits d'accès (administrateur, éditeur)
 - `i18n.js` — traductions anglaise et arabe des textes de la page (clé : le texte français)
 - `config.js` — adresse et clé publique de la base Supabase utilisée par l'administration (vide : le site affiche son contenu intégré)
 - `supabase/` — schéma de la base, import des références et **guide de mise en service** ([`supabase/README.md`](supabase/README.md))
@@ -38,10 +38,14 @@ L'emplacement est juste après l'en-tête (`#video`). Deux façons d'y mettre la
 
 Format conseillé : MP4 H.264 + AAC, 1920×1080, 50 Mo maximum. Rien n'est téléchargé avant le clic sur « Lire », hormis la durée.
 
+## Formulaire de contact
+
+Une fois Supabase branché (`config.js`), le formulaire envoie directement chaque demande dans l'administration (onglet **Demandes**, export CSV). Pour la relier au CRM BitEye, renseigner `window.BITEYE_CRM.url` dans `config.js` : chaque demande y est aussi envoyée en JSON. Sans base ni CRM, le formulaire rédige la demande dans la messagerie du visiteur.
+
 ## Reste à faire avant la mise en ligne
 
 - Mettre en service l'administration : suivre [`supabase/README.md`](supabase/README.md).
 - Remplacer les maquettes d'écran (données fictives) par de vraies captures de VISION.
-- Brancher le formulaire de démonstration sur un service d'envoi (aujourd'hui il ouvre la messagerie du visiteur avec la demande pré-remplie).
+- Relier le formulaire au CRM BitEye (`window.BITEYE_CRM.url` dans `config.js`).
 - Faire relire les versions anglaise et arabe par un locuteur natif.
-- Déposer la vidéo de présentation.
+- Déposer la vidéo de présentation et les témoignages vidéo des clients (onglets Vidéo et Témoignages).

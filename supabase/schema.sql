@@ -149,6 +149,52 @@ create table if not exists public.reglages (
   modifie_par uuid references auth.users (id) on delete set null
 );
 
+-- Témoignages vidéo des clients (section « Nos clients en parlent »)
+create table if not exists public.temoignages (
+  id          bigint generated always as identity primary key,
+  nom         text not null check (char_length(trim(nom)) between 2 and 80),
+  societe     text not null default '' check (char_length(societe) <= 120),
+  fonction    text not null default '' check (char_length(fonction) <= 80),
+  citation    text not null default '' check (char_length(citation) <= 220),
+  video_url   text not null check (video_url ~ '^(https://|assets/|http://(localhost|127\.0\.0\.1)(:[0-9]+)?/)'),
+  poster      text check (poster is null or poster ~ '^(https://|assets/|http://(localhost|127\.0\.0\.1)(:[0-9]+)?/)'),
+  ordre       integer not null default 100,
+  publie      boolean not null default false,
+  modifie_le  timestamptz not null default now(),
+  modifie_par uuid references auth.users (id) on delete set null
+);
+
+-- Demandes envoyées par le formulaire du site (démonstration, rendez-vous, accompagnement)
+create table if not exists public.demandes (
+  id          bigint generated always as identity primary key,
+  cree_le     timestamptz not null default now(),
+  nom         text not null check (char_length(trim(nom)) between 2 and 80),
+  societe     text not null check (char_length(trim(societe)) between 1 and 120),
+  tel         text not null check (tel ~ '^[0-9 +.()-]{8,20}$'),
+  metier      text not null default '' check (char_length(metier) <= 40),
+  sujet       text not null default '' check (char_length(sujet) <= 140),
+  langue      text not null default 'fr' check (langue in ('fr', 'en', 'ar')),
+  page        text not null default '' check (char_length(page) <= 200),
+  statut      text not null default 'nouvelle' check (statut in ('nouvelle', 'traitee')),
+  note        text not null default '' check (char_length(note) <= 500),
+  modifie_le  timestamptz,
+  modifie_par uuid references auth.users (id) on delete set null
+);
+
+-- Anti-répétition : une même ligne téléphonique ne peut pas envoyer plus d'une demande par minute
+create or replace function public.demande_freiner() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if exists (select 1 from public.demandes where tel = new.tel and cree_le > now() - interval '1 minute') then
+    raise exception 'Demande déjà reçue, merci de patienter une minute.' using errcode = 'P0001';
+  end if;
+  new.statut := 'nouvelle'; new.note := ''; new.cree_le := now();
+  return new;
+end $$;
+drop trigger if exists demande_freiner on public.demandes;
+create trigger demande_freiner before insert on public.demandes
+  for each row execute function public.demande_freiner();
+
 create or replace function public.horodater() returns trigger
 language plpgsql as $$
 begin
@@ -165,6 +211,12 @@ create trigger horodater before insert or update on public.prestations
   for each row execute function public.horodater();
 drop trigger if exists horodater on public.evenements;
 create trigger horodater before insert or update on public.evenements
+  for each row execute function public.horodater();
+drop trigger if exists horodater on public.temoignages;
+create trigger horodater before insert or update on public.temoignages
+  for each row execute function public.horodater();
+drop trigger if exists horodater on public.demandes;
+create trigger horodater before update on public.demandes
   for each row execute function public.horodater();
 drop trigger if exists horodater on public.reglages;
 create trigger horodater before insert or update on public.reglages
@@ -188,7 +240,7 @@ declare
   ligne jsonb := to_jsonb(coalesce(new, old));
   quoi  text;
 begin
-  quoi := coalesce(nullif(ligne ->> 'nom', ''), ligne ->> 'titre', ligne ->> 'email', ligne ->> 'cle');
+  quoi := coalesce(nullif(ligne ->> 'nom', '') || coalesce(' · ' || nullif(ligne ->> 'societe', ''), ''), ligne ->> 'titre', ligne ->> 'email', ligne ->> 'cle');
   if tg_table_name = 'profils' then
     quoi := quoi || ' → ' || coalesce(new.role::text, 'sans rôle');
   end if;
@@ -208,6 +260,12 @@ create trigger journaliser after insert or update or delete on public.prestation
 drop trigger if exists journaliser on public.evenements;
 create trigger journaliser after insert or update or delete on public.evenements
   for each row execute function public.journaliser();
+drop trigger if exists journaliser on public.temoignages;
+create trigger journaliser after insert or update or delete on public.temoignages
+  for each row execute function public.journaliser();
+drop trigger if exists journaliser on public.demandes;
+create trigger journaliser after update or delete on public.demandes
+  for each row execute function public.journaliser();
 drop trigger if exists journaliser on public.reglages;
 create trigger journaliser after insert or update or delete on public.reglages
   for each row execute function public.journaliser();
@@ -223,6 +281,8 @@ alter table public.prestations        enable row level security;
 alter table public.journal            enable row level security;
 alter table public.evenements         enable row level security;
 alter table public.reglages           enable row level security;
+alter table public.temoignages        enable row level security;
+alter table public.demandes           enable row level security;
 
 -- Seuls le rôle et le nom d'un profil peuvent être modifiés (jamais l'identifiant ni l'e-mail)
 revoke all on public.profils from anon;
@@ -291,6 +351,35 @@ create policy "réglages : modification" on public.reglages
   for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
 drop policy if exists "réglages : suppression" on public.reglages;
 create policy "réglages : suppression" on public.reglages
+  for delete to authenticated using (public.est_admin());
+
+drop policy if exists "témoignages : lecture" on public.temoignages;
+create policy "témoignages : lecture" on public.temoignages
+  for select to anon, authenticated using (publie or public.est_equipe());
+drop policy if exists "témoignages : ajout" on public.temoignages;
+create policy "témoignages : ajout" on public.temoignages
+  for insert to authenticated with check (public.est_equipe());
+drop policy if exists "témoignages : modification" on public.temoignages;
+create policy "témoignages : modification" on public.temoignages
+  for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
+drop policy if exists "témoignages : suppression" on public.temoignages;
+create policy "témoignages : suppression" on public.temoignages
+  for delete to authenticated using (public.est_admin());
+
+-- Demandes : le site peut seulement en déposer ; l'équipe les lit et les traite
+revoke all on public.demandes from anon;
+grant insert (nom, societe, tel, metier, sujet, langue, page) on public.demandes to anon, authenticated;
+drop policy if exists "demandes : dépôt" on public.demandes;
+create policy "demandes : dépôt" on public.demandes
+  for insert to anon, authenticated with check (true);
+drop policy if exists "demandes : lecture" on public.demandes;
+create policy "demandes : lecture" on public.demandes
+  for select to authenticated using (public.est_equipe());
+drop policy if exists "demandes : traitement" on public.demandes;
+create policy "demandes : traitement" on public.demandes
+  for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
+drop policy if exists "demandes : suppression" on public.demandes;
+create policy "demandes : suppression" on public.demandes
   for delete to authenticated using (public.est_admin());
 
 drop policy if exists "journal : admin" on public.journal;
