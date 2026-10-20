@@ -1,0 +1,44 @@
+# Réglages Apache / LiteSpeed pour biteye-group.com (facultatif ; sans effet si le module manque)
+
+# HTTPS obligatoire
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Fichiers de développement non publics
+<FilesMatch "^(build\.py|README\.md|DEPLOIEMENT\.md|CNAME)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/(supabase|dist|\.git)(/|$)
+
+# Types de fichiers
+AddType text/javascript .js
+AddType image/svg+xml .svg
+AddType image/webp .webp
+AddType video/mp4 .mp4
+AddType video/webm .webm
+AddCharset utf-8 .html .js .css .svg
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript image/svg+xml application/json
+</IfModule>
+
+# Cache : la page et la configuration sont relues à chaque visite, le reste est gardé
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|js)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(webp|png|jpg|svg|mp4|webm|woff2)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+DirectoryIndex index.html
+Options -Indexes

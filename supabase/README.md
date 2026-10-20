@@ -2,7 +2,7 @@
 
 L’administration (`biteye-group.com/admin/`) permet de gérer **les références** et **les prestations** du site,
 avec des **droits d’accès** par rôle. Les données sont stockées dans **Supabase** (base de données, comptes et
-stockage des logos), le site restant hébergé sur GitHub Pages.
+stockage des logos et des vidéos), le site lui-même restant hébergé chez votre hébergeur (voir [`DEPLOIEMENT.md`](../DEPLOIEMENT.md)).
 
 Tant que Supabase n’est pas configuré, le site affiche son contenu intégré : rien ne casse.
 
@@ -55,7 +55,7 @@ window.BITEYE_DB = {
 Ces deux valeurs sont **publiques par nature** (elles sont lisibles dans le site) : la sécurité repose sur les
 règles de la base, pas sur ce fichier. Ne mettez **jamais** la clé *service_role* ou *secret* dans le site.
 
-Enregistrez, publiez sur GitHub : le site lit désormais ses références et ses prestations dans Supabase.
+Enregistrez et renvoyez `config.js` sur le serveur : le site lit désormais ses références et ses prestations dans Supabase.
 
 ### 5. Devenir administrateur
 1. Ouvrez `https://biteye-group.com/admin/`, cliquez **Créer un compte**, puis confirmez votre e-mail.

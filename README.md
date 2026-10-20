@@ -22,6 +22,10 @@ Le site existe en français (par défaut), en anglais et en arabe (mise en page 
 
 Chaque texte de la page est cherché tel quel dans `i18n.js` ; un texte modifié dans `index.html` sans mise à jour de `i18n.js` reste affiché en français dans les autres langues. Le contenu saisi dans l'administration (références, prestations, événements) n'est pas traduit, sauf l'événement d'exemple Elogia 2026.
 
+## Mise en ligne
+
+Guide complet pour l'hébergeur et Supabase : [`DEPLOIEMENT.md`](DEPLOIEMENT.md). Le fichier `.htaccess` fourni règle HTTPS, cache et types de fichiers sur Apache.
+
 ## Aperçu local
 
 ```sh
