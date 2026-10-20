@@ -21,7 +21,7 @@
 :root{
   --paper:#F4F6F8; --paper-2:#E6ECF0; --ink:#0B1E2B; --ink-2:#4D6070; --rule:#D3DCE3;
   --forest:#022539; --forest-2:#05304A; --forest-3:#0A3D5C; --f-ink:#EAEEF1; --f-ink-2:#93A9B8; --f-rule:rgba(234,238,241,.12);
-  --lime:#03DA9F; --lime-deep:#007A5A; --lime-glow:rgba(3,218,159,.35);
+  --lime:#03DA9F; --lime-deep:#006F52; --lime-glow:rgba(3,218,159,.35);
   --on-lime:#022539;
   --glass:rgba(234,238,241,.06); --glass-line:rgba(234,238,241,.14);
   --screen:#FFFFFF; --screen-2:#F3F6F8; --screen-ink:#0B1E2B; --screen-ink-2:#637684; --screen-rule:#E1E8ED;
@@ -97,7 +97,7 @@ a{color:inherit;text-decoration:none}
 .progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:100;transform-origin:0 50%;transform:scaleX(0);background:var(--lime)}
 
 /* Navigation */
-.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:rgba(2,37,57,.72);backdrop-filter:saturate(160%) blur(20px);-webkit-backdrop-filter:saturate(160%) blur(20px);border-bottom:1px solid var(--f-rule);color:var(--f-ink)}
+.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:80;background:rgba(2,37,57,.9);backdrop-filter:saturate(160%) blur(20px);-webkit-backdrop-filter:saturate(160%) blur(20px);border-bottom:1px solid var(--f-rule);color:var(--f-ink)}
 .gnav .wrap{display:flex;align-items:center;gap:32px;height:60px}
 .logo{display:inline-flex;align-items:center;gap:10px;font:300 25px/1 var(--display);letter-spacing:-.02em;color:var(--f-ink)}
 .logo .wm b{font-weight:700}
@@ -126,7 +126,11 @@ a{color:inherit;text-decoration:none}
 .hero h1{font-size:clamp(44px,7.2vw,100px);font-weight:700;line-height:.98;margin:26px auto 0;max-width:13ch}
 .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .08em}
 .hero h1 .w>span{display:inline-block}
-.hero h1 em{font-style:italic;color:var(--lime);background:linear-gradient(100deg,var(--lime) 30%,#D6FFF2 50%,var(--lime) 70%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 30px rgba(3,218,159,.35));animation:shine 5s linear infinite}
+/* Une fois les mots arrivés, le cadre s'ouvre pour laisser respirer le halo du mot en couleur */
+.hero h1.free .w,html:not(.fx) .hero h1 .w{overflow:visible}
+.hero h1 em{font-style:italic;color:var(--lime);background:linear-gradient(100deg,var(--lime) 30%,#D6FFF2 50%,var(--lime) 70%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 5s linear infinite;position:relative}
+/* Halo : une copie floutée du mot, derrière lui (un drop-shadow sur un texte en dégradé dessinerait un rectangle) */
+.hero h1 em::before{content:attr(data-glow) / "";position:absolute;left:0;top:0;z-index:-1;white-space:nowrap;-webkit-text-fill-color:rgba(3,218,159,.5);filter:blur(20px);pointer-events:none}
 @keyframes shine{from{background-position:120% 0}to{background-position:-130% 0}}
 
 /* Héros plein écran : une ville en WebGL (Three.js) derrière le titre */
@@ -765,7 +769,8 @@ html.lenis,html.lenis body{height:auto}
 @keyframes stepon{0%,30%{background:var(--lime);color:var(--on-lime);border-color:transparent;box-shadow:0 0 0 8px rgba(3,218,159,.15)}36%,100%{background:var(--glass);color:var(--f-ink);border-color:var(--glass-line);box-shadow:none}}
 .c-coords{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
 .c-chip{display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;font-size:14.5px;font-weight:500;color:var(--f-ink);background:var(--glass);border:1px solid var(--glass-line);user-select:all;transition:border-color .3s,transform .4s var(--ease)}
-.c-chip:hover{border-color:var(--lime);transform:translateY(-3px)}
+.c-chip:hover,a.c-chip:focus-visible{border-color:var(--lime);transform:translateY(-3px)}
+a.c-chip{user-select:auto}
 .c-chip svg{width:16px;height:16px;color:var(--lime);flex:none}
 .f-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid var(--f-rule)}
 .f-eye{display:grid;place-items:center;width:50px;height:50px;flex:none;border-radius:15px;background:var(--lime);box-shadow:0 10px 30px -10px var(--lime-glow)}
@@ -824,10 +829,16 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .h2 em{position:relative}
 .h2 em{background:linear-gradient(90deg,rgba(3,218,159,.7),rgba(3,218,159,.35)) 0 94%/0% .07em no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.3s var(--ease) .5s}
 .h2 em.on,html:not(.fx) .h2 em{background-size:100% .07em}
+/* Contact : le soulignement suit le mot affiché, pas la place réservée au mot le plus long */
+#contact .h2 em{background:none}
+#contact .h2 em .ul,#contact .rot > span{background:linear-gradient(90deg,rgba(3,218,159,.7),rgba(3,218,159,.35)) 0 94%/0% .07em no-repeat}
+#contact .h2 em .ul{transition:background-size 1.3s var(--ease) .5s}
+#contact .rot > span{transition:transform .8s var(--ease),opacity .5s,background-size 1.3s var(--ease) .5s}
+#contact .h2 em.on .ul,#contact .h2 em.on .rot > span,html:not(.fx) #contact .h2 em .ul,html:not(.fx) #contact .rot > span{background-size:100% .07em}
 
 /* Mot qui tourne dans le titre du contact */
 .rot{display:inline-grid;vertical-align:bottom;overflow:hidden;padding-bottom:.08em}
-.rot > span{grid-area:1/1;transition:transform .8s var(--ease),opacity .5s}
+.rot > span{grid-area:1/1;justify-self:start;white-space:nowrap;transition:transform .8s var(--ease),opacity .5s}
 .fx .rot > span{transform:translateY(105%);opacity:0}
 .fx .rot > span.on{transform:none;opacity:1}
 .fx .rot > span.out{transform:translateY(-105%);opacity:0}
@@ -978,6 +989,7 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .ll-link{display:inline-block;margin-top:8px;font-size:14px;font-weight:600;color:var(--lime)}
 .layer-list li:hover{border-color:var(--glass-line)}
 .layer-list[data-active] li{opacity:.4}
+.layer-list[data-active] li:focus-within{opacity:1}
 .layer-list[data-active] li.on{opacity:1;background:rgba(3,218,159,.08);border-color:rgba(3,218,159,.35)}
 @media (max-width:1068px){.couches{grid-template-columns:1fr}.stack{height:420px}.stack-in{--gap:48px;scale:.82}}
 @media (max-width:734px){.stack{height:340px}.stack-in{--gap:40px;scale:.64}}
@@ -1180,7 +1192,9 @@ body.sheet-full #top,body.sheet-full footer,body.sheet-full .gnav{visibility:hid
 .day{display:grid;align-content:start;border-radius:24px;overflow:hidden;background:var(--glass);border:1px solid var(--glass-line)}
 .day header{display:grid;gap:4px;padding:22px 22px 18px}
 .day.d1 header{background:linear-gradient(135deg,#0E4466,#0A3550)}
-.day.d2 header{background:linear-gradient(135deg,#047A62,#035A4A)}
+.day.d2 header{background:linear-gradient(135deg,#036B56,#035A4A)}
+.day.d2 header span{color:#A6F3DB}
+.day.d2 header small{color:var(--f-ink)}
 .day.d3 header{background:linear-gradient(135deg,#02A27A,#03DA9F)}
 .day.d3 header,.day.d3 header small,.day.d3 header span{color:var(--on-lime)}
 .day header span{font:700 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
@@ -1274,7 +1288,7 @@ body.sheet-open{overflow:hidden}
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow" data-hero>Logiciel de gestion immobilière · BitEye</span>
-    <h1><span class="w"><span>Pilotez</span></span> <span class="w"><span>tous</span></span> <span class="w"><span>vos</span></span> <span class="w"><span>projets</span></span> <span class="w"><span><em>immobiliers.</em></span></span></h1>
+    <h1><span class="w"><span>Pilotez</span></span> <span class="w"><span>tous</span></span> <span class="w"><span>vos</span></span> <span class="w"><span>projets</span></span> <span class="w"><span><em data-glow="immobiliers.">immobiliers.</em></span></span></h1>
     <p class="lead" data-hero>VISION Workspace réunit la promotion, la réalisation et la copropriété dans un seul logiciel. Ventes, chantiers et charges, suivis en temps réel.</p>
     <div class="actions" style="justify-content:center" data-hero>
       <a class="btn" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -1975,7 +1989,7 @@ body.sheet-open{overflow:hidden}
   <div class="wrap contact">
     <div class="c-left">
       <span class="eyebrow">Démonstration gratuite</span>
-      <h2 class="h2 no-split" style="margin-top:22px">Voyons <em>votre <span class="rot" id="rot"><span class="on">projet.</span><span>promotion.</span><span>chantier.</span><span>copropriété.</span></span></em></h2>
+      <h2 class="h2 no-split" style="margin-top:22px">Voyons <em><span class="ul">votre </span><span class="rot" id="rot"><span class="on">projet.</span><span>promotion.</span><span>chantier.</span><span>copropriété.</span></span></em></h2>
       <p class="lead" style="margin-top:22px">Une démonstration sur un projet qui ressemble au vôtre.</p>
       <ol class="c-steps">
         <li style="--i:0"><span class="n">1</span><div><b>Vous laissez vos coordonnées</b><small>Quatre champs, moins d’une minute.</small></div></li>
@@ -1983,8 +1997,8 @@ body.sheet-open{overflow:hidden}
         <li style="--i:2"><span class="n">3</span><div><b>Vous voyez VISION en action</b><small>Sur un projet proche du vôtre.</small></div></li>
       </ol>
       <div class="c-coords">
-        <span class="c-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</span>
-        <span class="c-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 4.5L8 9l5.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>contact@biteye-group.com</span>
+        <a class="c-chip" href="tel:+213560063641" aria-label="Appeler BitEye au 0560 06 36 41"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a>
+        <a class="c-chip" href="mailto:contact@biteye-group.com"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 4.5L8 9l5.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>contact@biteye-group.com</a>
         <span class="c-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg>Gué de Constantine, Alger</span>
       </div>
     </div>
@@ -2407,6 +2421,7 @@ body.sheet-open{overflow:hidden}
     if (!openSheet) { if (then) then(); return; }
     var sh = openSheet; openSheet = null;
     clearTimeout(fullTimer); document.body.classList.remove('sheet-full');
+    if (window.__layoutCheck) setTimeout(window.__layoutCheck, 700);
     sh.classList.remove('open'); sheetBg.classList.remove('open');
     document.body.classList.remove('sheet-open'); if (window.__lenis) window.__lenis.start();
     setInert(false);
@@ -2489,6 +2504,13 @@ body.sheet-open{overflow:hidden}
   if (window.Lenis) {
     var lenis = new Lenis({lerp:.09}); window.__lenis = lenis; if (document.body.classList.contains('sheet-open')) lenis.stop();
     lenis.on('scroll', ScrollTrigger.update);
+    /* Navigation au clavier : l'élément qui reçoit le focus est amené à l'écran */
+    document.addEventListener('focusin', function(e){
+      var t = e.target;
+      if (!t.getBoundingClientRect || !t.closest || t.closest('.sheet, .gnav, footer')) return;
+      var r = t.getBoundingClientRect();
+      if (r.top < 90 || r.bottom > window.innerHeight - 40) lenis.scrollTo(t, {offset:-Math.round(window.innerHeight * .35), duration:.6});
+    });
     gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
     document.querySelectorAll('a[href^="#"]').forEach(function(a){
@@ -2526,7 +2548,7 @@ body.sheet-open{overflow:hidden}
 
   /* Héros : titre mot par mot, puis le reste */
   var tl = gsap.timeline({defaults:{ease:'power4.out'}});
-  tl.from('.hero h1 .w > span', {yPercent:110, rotate:4, duration:1.1, stagger:.09})
+  tl.from('.hero h1 .w > span', {yPercent:110, rotate:4, duration:1.1, stagger:.09, onComplete:function(){ document.querySelector('.hero h1').classList.add('free'); }})
     .from('[data-hero]', {y:24, opacity:0, duration:.9, stagger:.1}, '-=.7');
   gsap.timeline({scrollTrigger:{trigger:'#heroStage', start:'top 75%', once:true}})
     .from('.chip', {opacity:0, scale:.8, y:30, duration:.9, stagger:.12, ease:'back.out(1.6)'})
@@ -2784,7 +2806,52 @@ body.sheet-open{overflow:hidden}
   })();
 
   /* Les épinglages s'empilent : on recalcule tout une fois les images chargées */
-  window.addEventListener('load', function(){ ScrollTrigger.sort(); ScrollTrigger.refresh(); });
+  window.addEventListener('load', function(){ ScrollTrigger.sort(); ScrollTrigger.refresh(); restoreAnchor(); });
+
+  /* Rotation de l'écran ou fenêtre redimensionnée : si une section épinglée ne tient plus à l'écran (ou y tient désormais),
+     la page se recompose et revient au même endroit. Seul un changement de largeur compte (la barre d'adresse mobile ne déclenche rien). */
+  var loadW = window.innerWidth, baseSig = null;
+  function layoutSig(){
+    var fit = function(id){ return document.getElementById(id).offsetHeight <= window.innerHeight - 16 ? 1 : 0; };
+    return [fit('chGrid'), fit('hPin'), window.innerWidth >= 1069 && fit('couchesGrid') ? 1 : 0, window.innerWidth <= 734 ? 1 : 0].join('');
+  }
+  function sectionAt(){
+    var secs = document.querySelectorAll('main section[id]');
+    for (var i = 0; i < secs.length; i++) { var r = secs[i].getBoundingClientRect(); if (r.bottom > 0) return {el:secs[i], r:r}; }
+    return null;
+  }
+  /* Retour au même endroit après recomposition : réappliqué à chaque recalcul des 2,5 premières secondes, sauf si le visiteur défile */
+  var anchor = null, anchorUntil = 0;
+  function applyAnchor(){
+    if (!anchor || performance.now() > anchorUntil) { anchor = null; return; }
+    var t = anchor.id && document.getElementById(anchor.id), r = t && t.getBoundingClientRect(),
+        y = r ? window.scrollY + r.top + anchor.f * r.height : document.documentElement.scrollHeight;
+    if (window.__lenis) window.__lenis.scrollTo(y, {immediate:true, force:true}); else window.scrollTo(0, y);
+  }
+  function restoreAnchor(){
+    try { anchor = JSON.parse(sessionStorage.getItem('be-anchor')); sessionStorage.removeItem('be-anchor'); } catch (e) {}
+    if (!anchor) return;
+    anchorUntil = performance.now() + 2500;
+    ['wheel', 'touchstart', 'keydown'].forEach(function(t){ window.addEventListener(t, function(){ anchor = null; }, {once:true, passive:true}); });
+    applyAnchor();
+  }
+  /* Position de lecture, notée au fil du défilement (avant qu'un redimensionnement ne déplace le contenu) */
+  var lastSpot = null, spotQueued = false;
+  function noteSpot(){ spotQueued = false; if (window.innerWidth !== loadW) return; var s = sectionAt(); lastSpot = s ? {id:s.el.id, f:-s.r.top / Math.max(1, s.r.height)} : {end:1}; }
+  window.addEventListener('scroll', function(){ if (!spotQueued) { spotQueued = true; requestAnimationFrame(noteSpot); } }, {passive:true});
+  window.addEventListener('load', noteSpot);
+  window.__layoutCheck = function(){
+    if (window.innerWidth === loadW || document.body.classList.contains('sheet-open')) return;
+    if (baseSig === null || layoutSig() === baseSig) return;
+    try { sessionStorage.setItem('be-anchor', JSON.stringify(lastSpot || {end:1})); } catch (e) {}
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    location.reload();
+  };
+  ScrollTrigger.addEventListener('refresh', function(){
+    if (baseSig === null) { if (document.readyState === 'complete') baseSig = layoutSig(); return; }
+    if (anchor) { applyAnchor(); return; }
+    window.__layoutCheck();
+  });
 
   /* Chiffres qui comptent */
   gsap.utils.toArray('.count').forEach(function(el){
