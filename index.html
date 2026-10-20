@@ -1242,6 +1242,69 @@ body.sheet-open{overflow:hidden}
 .hero-tags span:nth-child(3){animation-delay:5s}
 @keyframes tagglow{0%,30%,100%{border-color:var(--glass-line);box-shadow:none}10%{border-color:rgba(3,218,159,.7);box-shadow:0 0 24px -6px rgba(3,218,159,.6)}}
 
+/* Agenda : salons, journées portes ouvertes */
+.ev-list{margin-top:clamp(40px,5vw,64px);display:grid;gap:28px}
+.ev-feat{display:grid;grid-template-columns:210px 1.1fr 1fr;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,var(--forest-3),var(--forest-2));border:1px solid var(--glass-line);box-shadow:0 50px 100px -60px rgba(0,0,0,.9)}
+.ev-date{display:grid;align-content:center;justify-items:center;gap:4px;padding:30px 18px;background:linear-gradient(170deg,var(--lime),#02B386);color:var(--on-lime);text-align:center}
+.ev-date .d{font:700 clamp(40px,4.4vw,58px)/1 var(--display);letter-spacing:-.02em}
+.ev-date .m{font:700 18px/1.1 var(--display);text-transform:uppercase;letter-spacing:.08em}
+.ev-date .y{font-weight:600;font-size:15px}
+.ev-date .cd{margin-top:12px;padding:7px 12px;border-radius:999px;background:rgba(2,37,57,.14);font-size:13px;font-weight:600}
+.ev-body{padding:clamp(26px,3vw,40px);display:grid;gap:14px;align-content:center}
+.ev-type{font:600 12px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}
+.ev-body h3{font:700 clamp(26px,2.8vw,36px)/1.1 var(--display);color:var(--f-ink)}
+.ev-body p{color:var(--f-ink-2)}
+.ev-meta{display:grid;gap:8px;font-size:15px;color:var(--f-ink)}
+.ev-meta span{display:flex;gap:10px;align-items:flex-start}
+.ev-meta svg{width:18px;height:18px;flex:none;margin-top:2px;color:var(--lime)}
+.ev-acts{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin-top:6px}
+.ev-more{font-weight:600;color:var(--lime)}
+.ev-more:hover{text-decoration:underline;text-underline-offset:4px}
+.ev-art{position:relative;min-height:320px;background:rgba(1,26,41,.55);border-left:1px solid var(--f-rule);overflow:hidden}
+.ev-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ev-hall{position:absolute;inset:0;width:100%;height:100%}
+.ev-hall .evg{stroke:rgba(234,238,241,.06);stroke-width:1}
+.ev-hall .evw{fill:none;stroke:rgba(234,238,241,.22);stroke-width:2}
+.ev-hall .evb{fill:rgba(234,238,241,.07);stroke:rgba(234,238,241,.16)}
+.ev-hall .evme{fill:var(--lime);filter:drop-shadow(0 0 18px rgba(3,218,159,.55))}
+.ev-hall .evme-t{font:700 15px var(--display);fill:var(--on-lime)}
+.ev-hall .evr{fill:none;stroke:var(--lime);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:evring 2.6s var(--ease) infinite}
+.ev-hall .evr.r2{animation-delay:1.3s}
+.ev-hall .evd{font:600 10px var(--text);letter-spacing:.18em;fill:rgba(234,238,241,.5)}
+.ev-hall .evv{fill:#EAEEF1;offset-rotate:0deg;animation:evwalk var(--t) linear infinite;animation-delay:var(--d)}
+.ev-hall .evv.g{fill:var(--lime)}
+@keyframes evring{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.14);opacity:0}}
+@keyframes evwalk{0%{offset-distance:0%;opacity:0}6%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.ev-card{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:18px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-line);transition:border-color .3s,transform .4s var(--ease)}
+.ev-card:hover{border-color:rgba(3,218,159,.55);transform:translateY(-4px)}
+.ev-card .mini{display:grid;justify-items:center;align-content:center;width:68px;height:68px;border-radius:16px;background:rgba(3,218,159,.14);color:var(--lime);text-align:center}
+.ev-card .mini b{font:700 22px/1 var(--display)}
+.ev-card .mini small{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.ev-card h4{font:600 17px/1.25 var(--display);color:var(--f-ink)}
+.ev-card p{font-size:13.5px;color:var(--f-ink-2);margin-top:4px}
+.ev-past summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:12px 18px;border-radius:999px;border:1px solid var(--glass-line);font-weight:600;color:var(--f-ink)}
+.ev-past summary::-webkit-details-marker{display:none}
+.ev-past summary::after{content:"+";color:var(--lime);font-weight:700}
+.ev-past[open] summary::after{content:"−"}
+.ev-past .ev-grid{margin-top:16px}
+.ev-past .ev-card{opacity:.8}
+@media (max-width:1068px){.ev-feat{grid-template-columns:180px 1fr}.ev-art{grid-column:1/-1;min-height:250px;border-left:0;border-top:1px solid var(--f-rule)}}
+@media (max-width:734px){.ev-feat{grid-template-columns:1fr}.ev-date{grid-auto-flow:column;justify-content:start;align-items:baseline;gap:10px;padding:18px 22px;text-align:left}.ev-date .cd{margin:0 0 0 auto}}
+/* Fiche d'un événement */
+.sh-label{font:600 14px/1 var(--text);color:var(--f-ink-2);margin-right:auto}
+.ev-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 clamp(40px,5vw,56px)}
+.ev-facts div{padding:18px 20px;border-radius:18px;background:var(--glass);border:1px solid var(--glass-line)}
+.ev-facts dt{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:8px}
+.ev-facts dd{margin:0;font-weight:600;color:var(--f-ink)}
+.sh-art .ev-hall-wrap{position:relative;width:100%;aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:rgba(1,26,41,.55);border:1px solid var(--f-rule)}
+.sh-art .ev-hall-wrap img{width:100%;height:100%;object-fit:cover}
+@media (max-width:1068px){.ev-facts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.ev-facts{grid-template-columns:1fr}}
+/* Formulaire : rendez-vous demandé depuis l'agenda */
+.rdv-tag{display:flex;align-items:center;gap:10px;margin:0;padding:10px 12px 10px 14px;border-radius:12px;background:rgba(3,218,159,.12);border:1px solid rgba(3,218,159,.35);color:var(--f-ink);font-size:14px}
+.rdv-tag b{color:var(--lime)}
+.rdv-tag button{margin-left:auto;width:28px;height:28px;border-radius:50%;border:0;background:rgba(234,238,241,.1);color:var(--f-ink);cursor:pointer;font-size:16px;line-height:1}
 /* Fiches des prestations ajoutées depuis l'administration */
 .card-grid.c3{grid-template-columns:repeat(3,1fr)}
 @media (max-width:1068px){.card-grid.c3{grid-template-columns:repeat(2,1fr)}}
@@ -1286,6 +1349,7 @@ body.sheet-open{overflow:hidden}
         <div class="menu" id="svcMenu"><a href="#logiciel"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span>Logiciel VISION</a><a href="#acces-distant"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span>Accès à distance</a><a href="#infrastructure"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span>Serveur et réseau</a><a href="#securite"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span>Sécurité et sauvegarde</a><a href="#formation"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span>Formation et performance</a></div></li>
       <li><a href="#confiance">Références</a></li>
       <li><a href="#pourquoi">BitEye</a></li>
+      <li id="navEv"><a href="#evenements">Agenda</a></li>
     </ul>
     <a class="btn" href="#contact">Demander une démo</a>
   </div>
@@ -1994,6 +2058,20 @@ body.sheet-open{overflow:hidden}
   </div>
 </section>
 
+<!-- ================= AGENDA ================= -->
+<section class="band forest" id="evenements" data-chapter="3">
+  <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Agenda</span>
+      <h2 class="h2" data-reveal>Venez nous <em>rencontrer.</em></h2>
+      <p class="lead" data-reveal>Salons, journées portes ouvertes, rencontres : voyez VISION en vrai et parlez directement à notre équipe.</p>
+    </div>
+    <div class="ev-list" id="evList"></div>
+  </div>
+  <script type="application/json" id="evData">[{"slug": "elogia-2026", "titre": "BitEye au salon Elogia 2026", "type": "salon", "lieu": "Centre des conventions Mohamed-Benahmed", "ville": "Oran", "date_debut": "2026-12-01", "date_fin": null, "dates_confirmees": false, "periode": "Décembre 2026", "stand": "Numéro de stand communiqué prochainement", "organisateur": "AB Concept Design", "accroche": "Venez voir VISION en action sur notre stand, et repartez avec une démonstration préparée pour votre propre projet.", "description": "Elogia, le Salon international des promoteurs immobiliers, de l’habitat intelligent et de la décoration, réunit chaque année à Oran les promoteurs, les constructeurs et leurs partenaires (plus de 190 exposants lors de l’édition de décembre 2025). BitEye y présente VISION Workspace : la promotion, la réalisation et la copropriété dans un seul logiciel.", "programme": [{"titre": "Démonstrations en continu", "texte": "Commercialisation, échéanciers des acquéreurs et suivi de chantier sur un projet type, en quinze minutes."}, {"titre": "Diagnostic de votre promotion", "texte": "Un conseiller fait le point avec vous sur vos outils actuels et sur ce que VISION peut simplifier."}, {"titre": "VISION Mobile et CRM", "texte": "L’application smartphone, l’appel en un clic depuis la fiche client et le résumé des appels par l’IA."}, {"titre": "Rendez-vous réservés", "texte": "Réservez un créneau : nous préparons la démonstration sur un projet proche du vôtre."}], "image_url": null, "lien_externe": null, "rendez_vous": true}]</script>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section class="band forest" id="contact" data-chapter="3" style="overflow:hidden">
   <div class="deco" aria-hidden="true"><i class="sh ring"></i><i class="sh dots"></i><i class="sh plus"></i><i class="sh half"></i><i class="sh zig"></i></div>
@@ -2020,6 +2098,7 @@ body.sheet-open{overflow:hidden}
         <span class="f-eye"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg></span>
         <div><b>Réservez votre démonstration</b><small><i class="live"></i>Nous vous rappelons pour fixer un créneau.</small></div>
       </div>
+      <p class="rdv-tag" id="rdvTag" hidden><span>Rendez-vous : <b></b></span><button type="button" aria-label="Retirer le rendez-vous">×</button></p>
       <label for="f-nom">Nom et prénom<input id="f-nom" name="nom" autocomplete="name" required minlength="2" placeholder="Votre nom"></label>
       <label for="f-soc">Société<input id="f-soc" name="societe" autocomplete="organization" required placeholder="Nom de votre entreprise"></label>
       <label for="f-tel">Téléphone<input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required pattern="(\+213|0)[ .]?[2-7]([ .]?[0-9]){8}" title="Un numéro algérien, par exemple 0560 06 36 41" placeholder="05 XX XX XX XX"></label>
@@ -2204,10 +2283,11 @@ body.sheet-open{overflow:hidden}
     var f = e.currentTarget;
     if (!f.checkValidity()) { f.reportValidity(); return; }
     var msg = document.getElementById('form-msg'), met = f.querySelector('input[name="metier"]:checked');
-    var body = 'Bonjour,\n\nJe souhaite une démonstration de VISION Workspace.\n\nNom : ' + f.nom.value.trim() + '\nSociété : ' + f.societe.value.trim() +
+    var rdv = f.getAttribute('data-rdv');
+    var body = 'Bonjour,\n\n' + (rdv ? 'Je souhaite un rendez-vous avec BitEye : ' + rdv + '.' : 'Je souhaite une démonstration de VISION Workspace.') + '\n\nNom : ' + f.nom.value.trim() + '\nSociété : ' + f.societe.value.trim() +
       '\nTéléphone : ' + f.tel.value.trim() + '\nMétier : ' + (met ? met.value : '') + '\n';
     f.classList.add('sent'); msg.hidden = false; msg.focus({preventScroll:true});
-    setTimeout(function(){ location.href = 'mailto:contact@biteye-group.com?subject=' + encodeURIComponent('Demande de démonstration VISION — ' + f.societe.value.trim()) + '&body=' + encodeURIComponent(body); }, 600);
+    setTimeout(function(){ location.href = 'mailto:contact@biteye-group.com?subject=' + encodeURIComponent((rdv ? 'Rendez-vous ' + rdv : 'Demande de démonstration VISION') + ' — ' + f.societe.value.trim()) + '&body=' + encodeURIComponent(body); }, 600);
     if (reduce || !window.gsap) return;
     for (var c = 0; c < 28; c++) {
       var bit = document.createElement('i'); bit.className = 'cf'; f.appendChild(bit);
@@ -2596,8 +2676,136 @@ body.sheet-open{overflow:hidden}
     var h = location.hash.slice(1);
     if (ids.indexOf(h) > -1 && !openSheet) showSheet(h);
   }
+
+  /* ═══ Agenda : salons, journées portes ouvertes… ═══
+     Les événements viennent de la base (administration) ; à défaut, de la liste intégrée à la page (#evData). */
+  var MOIS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+  var MOIS_L = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+  var EV_TYPES = {'salon':'Salon', 'portes-ouvertes':'Journée portes ouvertes', 'conference':'Conférence', 'formation':'Formation', 'autre':'Événement'};
+  var PIN = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11.5a7 7 0 10-14 0C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+  var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+  var STAND = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg>';
+  function jour(t){ var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+  function evDates(e){
+    var a = jour(e.date_debut), b = jour(e.date_fin) || a;
+    var fin = e.dates_confirmees ? b : new Date(a.getFullYear(), a.getMonth() + 1, 0);
+    return {a:a, b:b, fin:fin};
+  }
+  function evPeriode(e){
+    var t = evDates(e), a = t.a, b = t.b;
+    if (!e.dates_confirmees) return e.periode || (MOIS_L[a.getMonth()] + ' ' + a.getFullYear());
+    if (+a === +b) return a.getDate() + ' ' + MOIS[a.getMonth()] + ' ' + a.getFullYear();
+    if (a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear()) return a.getDate() + '–' + b.getDate() + ' ' + MOIS[a.getMonth()] + ' ' + a.getFullYear();
+    return a.getDate() + ' ' + MOIS[a.getMonth()] + ' – ' + b.getDate() + ' ' + MOIS[b.getMonth()] + ' ' + b.getFullYear();
+  }
+  function evDecompte(e){
+    if (!e.dates_confirmees) return 'Dates à confirmer';
+    var t = evDates(e), now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var n = Math.round((t.a - today) / 864e5);
+    if (n > 1) return 'Dans ' + n + ' jours';
+    if (n === 1) return 'Demain';
+    if (n === 0) return 'Aujourd’hui';
+    return today <= t.b ? 'En cours' : 'Terminé';
+  }
+  /* Plan de salon animé : notre stand s'allume, les visiteurs y convergent */
+  function hallSVG(){
+    var booths = '', x, y;
+    [[40, 50], [110, 50], [180, 50], [250, 50], [320, 50], [40, 130], [110, 130], [320, 130], [40, 210], [110, 210], [180, 210], [250, 210], [320, 210]].forEach(function(p){
+      booths += '<rect class="evb" x="' + p[0] + '" y="' + p[1] + '" width="52" height="42" rx="6"/>';
+    });
+    var paths = [
+      ['M20 112 H 200 V 128', '7s', '0s', ''], ['M380 112 H 260 V 128', '8s', '-2s', 'g'], ['M20 192 H 236 V 176', '9s', '-4s', ''],
+      ['M380 192 H 280 V 176', '7.5s', '-1s', 'g'], ['M200 20 V 112 H 214 V 128', '8.5s', '-5s', ''], ['M100 280 V 192 H 196 V 176', '9.5s', '-3s', '']
+    ];
+    var vis = paths.map(function(v){ return '<circle class="evv ' + v[3] + '" r="4" style="offset-path:path(\'' + v[0] + '\');--t:' + v[1] + ';--d:' + v[2] + '"/>'; }).join('');
+    var grid = ''; for (x = 40; x < 400; x += 40) grid += '<path class="evg" d="M' + x + ' 20V280"/>'; for (y = 60; y < 300; y += 40) grid += '<path class="evg" d="M20 ' + y + 'H380"/>';
+    return '<svg class="ev-hall" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + grid
+      + '<rect class="evw" x="20" y="20" width="360" height="260" rx="14"/>' + booths
+      + '<rect class="evr" x="180" y="128" width="122" height="54" rx="10"/><rect class="evr r2" x="180" y="128" width="122" height="54" rx="10"/>'
+      + '<rect class="evme" x="180" y="128" width="122" height="54" rx="10"/><text class="evme-t" x="241" y="161" text-anchor="middle">BitEye</text>'
+      + vis + '<text class="evd" x="200" y="296" text-anchor="middle">ENTRÉE</text></svg>';
+  }
+  function evArt(e){ return /^(https:\/\/|data:|assets\/)/.test(e.image_url || '') || (e.image_url && String(DB.url) && e.image_url.indexOf(String(DB.url).replace(/\/+$/, '') + '/') === 0) ? '<img src="' + esc(e.image_url) + '" alt="' + esc(e.titre) + '" loading="lazy">' : hallSVG(); }
+  function evMeta(e){
+    return '<div class="ev-meta"><span>' + CAL + esc(evPeriode(e)) + '</span>'
+      + ((e.lieu || e.ville) ? '<span>' + PIN + esc([e.lieu, e.ville].filter(Boolean).join(', ')) + '</span>' : '')
+      + (e.stand ? '<span>' + STAND + esc(e.stand) + '</span>' : '') + '</div>';
+  }
+  function evCard(e){
+    var t = evDates(e), mini = e.dates_confirmees ? '<b>' + t.a.getDate() + '</b><small>' + MOIS[t.a.getMonth()] + '</small>' : '<b>' + MOIS[t.a.getMonth()].replace('.', '') + '</b><small>' + t.a.getFullYear() + '</small>';
+    return '<a class="ev-card" href="#e-' + e.slug + '"><span class="mini">' + mini + '</span><span><span class="ev-type">' + esc(EV_TYPES[e.type] || 'Événement') + '</span><h4>' + esc(e.titre) + '</h4><p>' + esc(evPeriode(e)) + (e.ville ? ' · ' + esc(e.ville) : '') + '</p></span></a>';
+  }
+  function evSheet(e, avenir){
+    var id = 'e-' + e.slug, prog = (Array.isArray(e.programme) ? e.programme : []).filter(function(x){ return x && (x.titre || x.texte); }).slice(0, 10);
+    var facts = [['Dates', evPeriode(e)], ['Lieu', [e.lieu, e.ville].filter(Boolean).join(', ')], ['Stand', e.stand], ['Organisateur', e.organisateur]].filter(function(f){ return f[1]; });
+    var sh = document.createElement('section');
+    sh.className = 'sheet'; sh.id = id; sh.hidden = true; sh.tabIndex = -1;
+    sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true'); sh.setAttribute('aria-labelledby', id + '-t'); sh.setAttribute('data-lenis-prevent', '');
+    sh.innerHTML = '<div class="sh-top"><div class="wrap"><span class="sh-label">Agenda BitEye</span>' + CROSS + '</div></div>'
+      + '<div class="sh-hero"><div class="wrap sh-hero-in"><div class="sh-copy"><span class="eyebrow">' + esc(EV_TYPES[e.type] || 'Événement') + ' · ' + esc(evDecompte(e)) + '</span>'
+      + '<h2 class="h2 no-split" id="' + id + '-t">' + esc(e.titre) + '</h2>' + (e.accroche ? '<p class="s-lead">' + esc(e.accroche) + '</p>' : '') + '</div>'
+      + '<div class="sh-art" aria-hidden="true"><div class="ev-hall-wrap">' + evArt(e) + '</div></div></div></div>'
+      + '<div class="s-block"><div class="wrap">'
+      + (facts.length ? '<dl class="ev-facts">' + facts.map(function(f){ return '<div><dt>' + f[0] + '</dt><dd>' + esc(f[1]) + '</dd></div>'; }).join('') + '</dl>' : '')
+      + (e.description ? '<p class="s-lead" style="max-width:820px;margin-bottom:clamp(40px,5vw,56px)">' + esc(e.description) + '</p>' : '')
+      + (prog.length ? '<h3 class="s-h3">' + (e.type === 'salon' ? 'Sur notre stand' : 'Au programme') + '</h3><ol class="rhythm">' + prog.map(function(x, k){ return '<li style="--i:' + k + '"><b>' + esc(x.titre) + '</b><span>' + esc(x.texte) + '</span></li>'; }).join('') + '</ol>' : '')
+      + '</div></div>'
+      + '<div class="sh-end"><div class="wrap">'
+      + (avenir && e.rendez_vous ? '<a class="btn" href="#contact" data-close data-rdv="' + esc(e.titre) + '">Réserver un rendez-vous ' + ARROW + '</a>' : '<a class="btn" href="#contact" data-close>Demander une démo ' + ARROW + '</a>')
+      + (/^https:\/\//.test(e.lien_externe || '') ? '<a class="sh-next" href="' + esc(e.lien_externe) + '" target="_blank" rel="noopener">Site de l’événement ↗</a>' : '')
+      + '</div></div>';
+    return sh;
+  }
+  var evSection = document.getElementById('evenements'), evList = document.getElementById('evList');
+  function renderEvents(rows){
+    if (!Array.isArray(rows)) return;
+    rows = rows.filter(function(e){ return e && /^[a-z0-9]+(-[a-z0-9]+)*$/.test(e.slug) && e.titre && jour(e.date_debut); })
+      .sort(function(x, y){ return jour(x.date_debut) - jour(y.date_debut); });
+    document.querySelectorAll('section.sheet[id^="e-"]').forEach(function(sh){ if (sh !== openSheet) { delete sheets[sh.id]; sh.remove(); } });
+    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var next = rows.filter(function(e){ return evDates(e).fin >= today; }), past = rows.filter(function(e){ return evDates(e).fin < today; }).reverse();
+    evSection.hidden = !rows.length; document.getElementById('navEv').hidden = !rows.length;
+    if (!rows.length) { evList.innerHTML = ''; return; }
+    var f = next[0], html = '';
+    if (f) {
+      var t = evDates(f), d = f.dates_confirmees ? (+t.a === +t.b ? t.a.getDate() : t.a.getMonth() === t.b.getMonth() ? t.a.getDate() + '–' + t.b.getDate() : t.a.getDate()) : '';
+      var mo = MOIS[t.a.getMonth()];
+      html += '<article class="ev-feat"><div class="ev-date">' + (f.dates_confirmees ? '<span class="d">' + d + '</span><span class="m">' + mo + '</span>' : '<span class="d">' + mo.charAt(0).toUpperCase() + mo.slice(1) + '</span>')
+        + '<span class="y">' + t.a.getFullYear() + '</span><span class="cd">' + esc(evDecompte(f)) + '</span></div>'
+        + '<div class="ev-body"><span class="ev-type">' + esc(EV_TYPES[f.type] || 'Événement') + (next.length > 1 ? ' · prochain rendez-vous' : '') + '</span><h3>' + esc(f.titre) + '</h3>'
+        + (f.accroche ? '<p>' + esc(f.accroche) + '</p>' : '') + evMeta(f)
+        + '<div class="ev-acts">' + (f.rendez_vous ? '<a class="btn" href="#contact" data-rdv="' + esc(f.titre) + '">Réserver un rendez-vous ' + ARROW + '</a>' : '')
+        + '<a class="ev-more" href="#e-' + f.slug + '">Voir le programme ›</a></div></div>'
+        + '<div class="ev-art">' + evArt(f) + '</div></article>';
+    }
+    if (next.length > 1) html += '<div class="ev-grid">' + next.slice(1).map(evCard).join('') + '</div>';
+    if (past.length) html += next.length ? '<details class="ev-past"><summary>Nous y étions (' + past.length + ')</summary><div class="ev-grid">' + past.map(evCard).join('') + '</div></details>'
+                                          : '<div class="ev-grid">' + past.map(evCard).join('') + '</div>';
+    evList.innerHTML = html;
+    var after = Array.prototype.slice.call(document.querySelectorAll('section.sheet')).pop();
+    rows.forEach(function(e){
+      if (document.getElementById('e-' + e.slug)) return;
+      var sh = evSheet(e, evDates(e).fin >= today); after.after(sh); after = sh; sheets[sh.id] = sh;
+    });
+    var h = location.hash.slice(1);
+    if (sheets[h] && h.indexOf('e-') === 0 && !openSheet) showSheet(h);
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }
+  try { renderEvents(JSON.parse(document.getElementById('evData').textContent)); } catch (x) {}
+
+  /* Rendez-vous demandé depuis l'agenda : le formulaire de démo le reprend */
+  var demoForm = document.getElementById('demo'), rdvTag = document.getElementById('rdvTag');
+  function setRdv(name){
+    if (name) demoForm.setAttribute('data-rdv', name); else demoForm.removeAttribute('data-rdv');
+    rdvTag.hidden = !name; rdvTag.querySelector('b').textContent = name || '';
+    demoForm.querySelector('.f-head b').textContent = name ? 'Réservez votre rendez-vous' : 'Réservez votre démonstration';
+    demoForm.querySelector('.actions .btn').firstChild.nodeValue = name ? 'Demander un rendez-vous ' : 'Demander une démo ';
+  }
+  document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('[data-rdv]'); if (a) setRdv(a.getAttribute('data-rdv')); }, true);
+  rdvTag.querySelector('button').addEventListener('click', function(){ setRdv(null); document.getElementById('f-nom').focus(); });
   if (DB.url && DB.cle && window.fetch) {
     dbGet('references_clients?select=nom,ville,groupes,logo_url&publie=is.true&order=ordre.asc,nom.asc').then(renderRefs).catch(function(){});
+    dbGet('evenements?select=slug,titre,type,lieu,ville,date_debut,date_fin,dates_confirmees,periode,stand,organisateur,accroche,description,programme,image_url,lien_externe,rendez_vous&publie=is.true&order=date_debut.asc').then(renderEvents).catch(function(){});
     dbGet('prestations?select=slug,titre,accroche,accroche_couleur,description,icone,blocs,besoins&publie=is.true&order=ordre.asc,titre.asc').then(renderPrestations).catch(function(){});
   }
 

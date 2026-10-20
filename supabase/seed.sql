@@ -1,4 +1,4 @@
--- BitEye — import des 171 références présentes sur le site
+-- BitEye — import des 171 références présentes sur le site et de l'exemple d'agenda (Elogia 2026)
 --
 -- À exécuter une seule fois, après schema.sql : Supabase > SQL Editor > New query > coller > Run.
 -- Les logos restent servis par le site (dossier assets/partners) ; les nouveaux logos ajoutés
@@ -180,3 +180,10 @@ select * from (values
   ('Alco', 'Alger', array['alger'], 'assets/partners/170.webp', 1710, true)
 ) as v(nom, ville, groupes, logo_url, ordre, publie)
 where not exists (select 1 from public.references_clients);
+
+-- Exemple d'événement : participation au salon Elogia de décembre 2026 (dates à confirmer par l'organisateur).
+-- Il est publié ; modifiez-le depuis l'administration dès que les dates et le numéro de stand sont connus.
+insert into public.evenements (slug, titre, type, lieu, ville, date_debut, date_fin, dates_confirmees, periode, stand,
+  organisateur, accroche, description, programme, image_url, lien_externe, rendez_vous, publie)
+select 'elogia-2026', 'BitEye au salon Elogia 2026', 'salon', 'Centre des conventions Mohamed-Benahmed', 'Oran', '2026-12-01', null, false, 'Décembre 2026', 'Numéro de stand communiqué prochainement', 'AB Concept Design', 'Venez voir VISION en action sur notre stand, et repartez avec une démonstration préparée pour votre propre projet.', 'Elogia, le Salon international des promoteurs immobiliers, de l’habitat intelligent et de la décoration, réunit chaque année à Oran les promoteurs, les constructeurs et leurs partenaires (plus de 190 exposants lors de l’édition de décembre 2025). BitEye y présente VISION Workspace : la promotion, la réalisation et la copropriété dans un seul logiciel.', '[{"titre": "Démonstrations en continu", "texte": "Commercialisation, échéanciers des acquéreurs et suivi de chantier sur un projet type, en quinze minutes."}, {"titre": "Diagnostic de votre promotion", "texte": "Un conseiller fait le point avec vous sur vos outils actuels et sur ce que VISION peut simplifier."}, {"titre": "VISION Mobile et CRM", "texte": "L’application smartphone, l’appel en un clic depuis la fiche client et le résumé des appels par l’IA."}, {"titre": "Rendez-vous réservés", "texte": "Réservez un créneau : nous préparons la démonstration sur un projet proche du vôtre."}]'::jsonb, null, null, true, true
+where not exists (select 1 from public.evenements where slug = 'elogia-2026');

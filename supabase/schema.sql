@@ -110,6 +110,37 @@ create table if not exists public.prestations (
   modifie_par      uuid references auth.users (id) on delete set null
 );
 
+
+-- Agenda : salons, journées portes ouvertes, conférences… Chaque événement publié apparaît dans la section
+-- « Agenda » du site (le prochain en grand) et a sa fiche plein écran (#e-<slug>).
+create table if not exists public.evenements (
+  id               bigint generated always as identity primary key,
+  slug             text not null unique check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$' and char_length(slug) <= 50),
+  titre            text not null check (char_length(trim(titre)) between 2 and 80),
+  type             text not null default 'salon'
+                   check (type in ('salon', 'portes-ouvertes', 'conference', 'formation', 'autre')),
+  lieu             text not null default '' check (char_length(lieu) <= 120),
+  ville            text not null default '' check (char_length(ville) <= 60),
+  date_debut       date not null,
+  date_fin         date,
+  -- dates pas encore annoncées : le site affiche « periode » (ex. « Décembre 2026 ») et « Dates à confirmer »
+  dates_confirmees boolean not null default true,
+  periode          text not null default '' check (char_length(periode) <= 60),
+  stand            text not null default '' check (char_length(stand) <= 80),
+  organisateur     text not null default '' check (char_length(organisateur) <= 120),
+  accroche         text not null default '' check (char_length(accroche) <= 200),
+  description      text not null default '' check (char_length(description) <= 1200),
+  -- programme : [{"titre": "…", "texte": "…"}]
+  programme        jsonb not null default '[]' check (jsonb_typeof(programme) = 'array' and jsonb_array_length(programme) <= 10),
+  image_url        text check (image_url is null or image_url ~ '^(https://|assets/|http://(localhost|127\.0\.0\.1)(:[0-9]+)?/)'),
+  lien_externe     text check (lien_externe is null or lien_externe ~ '^https://'),
+  rendez_vous      boolean not null default true,   -- bouton « Réserver un rendez-vous »
+  publie           boolean not null default false,
+  modifie_le       timestamptz not null default now(),
+  modifie_par      uuid references auth.users (id) on delete set null,
+  check (date_fin is null or date_fin >= date_debut)
+);
+
 create or replace function public.horodater() returns trigger
 language plpgsql as $$
 begin
@@ -123,6 +154,9 @@ create trigger horodater before insert or update on public.references_clients
   for each row execute function public.horodater();
 drop trigger if exists horodater on public.prestations;
 create trigger horodater before insert or update on public.prestations
+  for each row execute function public.horodater();
+drop trigger if exists horodater on public.evenements;
+create trigger horodater before insert or update on public.evenements
   for each row execute function public.horodater();
 
 -- ═══════════════════════════════ Journal ═══════════════════════════════
@@ -160,6 +194,9 @@ create trigger journaliser after insert or update or delete on public.references
 drop trigger if exists journaliser on public.prestations;
 create trigger journaliser after insert or update or delete on public.prestations
   for each row execute function public.journaliser();
+drop trigger if exists journaliser on public.evenements;
+create trigger journaliser after insert or update or delete on public.evenements
+  for each row execute function public.journaliser();
 drop trigger if exists journaliser on public.profils;
 create trigger journaliser after update of role on public.profils
   for each row execute function public.journaliser();
@@ -170,6 +207,7 @@ alter table public.profils            enable row level security;
 alter table public.references_clients enable row level security;
 alter table public.prestations        enable row level security;
 alter table public.journal            enable row level security;
+alter table public.evenements         enable row level security;
 
 -- Seuls le rôle et le nom d'un profil peuvent être modifiés (jamais l'identifiant ni l'e-mail)
 revoke all on public.profils from anon;
@@ -213,26 +251,45 @@ drop policy if exists "prestations : suppression" on public.prestations;
 create policy "prestations : suppression" on public.prestations
   for delete to authenticated using (public.est_admin());
 
+drop policy if exists "événements : lecture" on public.evenements;
+create policy "événements : lecture" on public.evenements
+  for select to anon, authenticated using (publie or public.est_equipe());
+drop policy if exists "événements : ajout" on public.evenements;
+create policy "événements : ajout" on public.evenements
+  for insert to authenticated with check (public.est_equipe());
+drop policy if exists "événements : modification" on public.evenements;
+create policy "événements : modification" on public.evenements
+  for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
+drop policy if exists "événements : suppression" on public.evenements;
+create policy "événements : suppression" on public.evenements
+  for delete to authenticated using (public.est_admin());
+
 drop policy if exists "journal : admin" on public.journal;
 create policy "journal : admin" on public.journal
   for select to authenticated using (public.est_admin());
 
--- ═══════════════════════════════ Logos (stockage) ═══════════════════════════════
+-- ═══════════════════════════════ Images (stockage) ═══════════════════════════════
+-- logos : logos des références ; medias : photos des événements
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('logos', 'logos', true, 1048576, array['image/webp', 'image/png', 'image/jpeg'])
+values ('logos', 'logos', true, 1048576, array['image/webp', 'image/png', 'image/jpeg']),
+       ('medias', 'medias', true, 5242880, array['image/webp', 'image/png', 'image/jpeg'])
 on conflict (id) do update set public = true, file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 
 drop policy if exists "logos : lecture publique" on storage.objects;
-create policy "logos : lecture publique" on storage.objects
-  for select using (bucket_id = 'logos');
 drop policy if exists "logos : ajout par l'équipe" on storage.objects;
-create policy "logos : ajout par l'équipe" on storage.objects
-  for insert to authenticated with check (bucket_id = 'logos' and public.est_equipe());
 drop policy if exists "logos : remplacement par l'équipe" on storage.objects;
-create policy "logos : remplacement par l'équipe" on storage.objects
-  for update to authenticated using (bucket_id = 'logos' and public.est_equipe());
 drop policy if exists "logos : suppression par l'équipe" on storage.objects;
-create policy "logos : suppression par l'équipe" on storage.objects
-  for delete to authenticated using (bucket_id = 'logos' and public.est_equipe());
+drop policy if exists "images : lecture publique" on storage.objects;
+create policy "images : lecture publique" on storage.objects
+  for select using (bucket_id in ('logos', 'medias'));
+drop policy if exists "images : ajout par l'équipe" on storage.objects;
+create policy "images : ajout par l'équipe" on storage.objects
+  for insert to authenticated with check (bucket_id in ('logos', 'medias') and public.est_equipe());
+drop policy if exists "images : remplacement par l'équipe" on storage.objects;
+create policy "images : remplacement par l'équipe" on storage.objects
+  for update to authenticated using (bucket_id in ('logos', 'medias') and public.est_equipe());
+drop policy if exists "images : suppression par l'équipe" on storage.objects;
+create policy "images : suppression par l'équipe" on storage.objects
+  for delete to authenticated using (bucket_id in ('logos', 'medias') and public.est_equipe());

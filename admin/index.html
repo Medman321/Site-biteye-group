@@ -224,6 +224,7 @@ input[type=file]{max-width:100%;font-size:14px}
   <nav class="tabs" aria-label="Sections"><div class="tabs-in" role="tablist">
     <button type="button" role="tab" aria-selected="true" aria-controls="pRefs" id="tRefs">Références</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pPrest" id="tPrest">Prestations</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pEv" id="tEv">Agenda</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pUsers" id="tUsers" data-admin hidden>Comptes<span class="count" id="pendingCount" hidden></span></button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pLog" id="tLog" data-admin hidden>Journal</button>
   </div></nav>
@@ -248,6 +249,13 @@ input[type=file]{max-width:100%;font-size:14px}
       <div class="head"><div><h1>Prestations</h1><p class="lead">Chaque prestation publiée a sa fiche sur le site, sa tuile dans « Quel est votre besoin ? » et sa place dans le menu Services. Les cinq fiches d’origine restent intégrées au site.</p></div>
         <button type="button" class="btn" id="bAddPrest">+ Ajouter une prestation</button></div>
       <div class="list" id="prestList"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Agenda -->
+    <section id="pEv" role="tabpanel" aria-labelledby="tEv" hidden>
+      <div class="head"><div><h1>Agenda</h1><p class="lead">Salons, journées portes ouvertes, conférences… Le prochain événement publié s’affiche en grand dans la section « Agenda » du site, avec sa fiche détaillée. Les événements passés passent d’eux-mêmes dans « Nous y étions ».</p></div>
+        <button type="button" class="btn" id="bAddEv">+ Ajouter un événement</button></div>
+      <div id="evAdm"><p class="loading">Chargement…</p></div>
     </section>
 
     <!-- Comptes -->
@@ -325,6 +333,53 @@ input[type=file]{max-width:100%;font-size:14px}
       </div>
     </div>
     <footer><p class="err" id="pErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="pSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<!-- Édition d'un événement -->
+<dialog id="dEv" aria-labelledby="dEvT">
+  <form class="dlg" id="fEv" novalidate method="dialog">
+    <header><h2 id="dEvT">Événement</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Titre<input type="text" id="eTitre" required minlength="2" maxlength="80" placeholder="ex. BitEye au salon Elogia 2026"></label>
+        <label class="f">Adresse de la fiche<input type="text" id="eSlug" required maxlength="50"><small id="eSlugHint"></small></label>
+      </div>
+      <div class="row c3">
+        <label class="f">Type<select id="eType"><option value="salon">Salon</option><option value="portes-ouvertes">Journée portes ouvertes</option><option value="conference">Conférence</option><option value="formation">Formation</option><option value="autre">Autre événement</option></select></label>
+        <label class="f">Ville<input type="text" id="eVille" maxlength="60" placeholder="ex. Oran"></label>
+        <label class="f">Stand<input type="text" id="eStand" maxlength="80" placeholder="ex. Stand B12"></label>
+      </div>
+      <div class="row c2">
+        <label class="f">Lieu<input type="text" id="eLieu" maxlength="120" placeholder="ex. Centre des conventions Mohamed-Benahmed"></label>
+        <label class="f">Organisateur<input type="text" id="eOrga" maxlength="120"></label>
+      </div>
+      <fieldset style="display:grid;gap:12px"><legend>Dates</legend>
+        <label class="check"><input type="checkbox" id="eConf" checked> Dates confirmées</label>
+        <div class="row c2">
+          <label class="f"><span id="eDebL">Premier jour</span><input type="date" id="eDeb" required></label>
+          <label class="f" id="eFinL">Dernier jour <small>(vide si un seul jour)</small><input type="date" id="eFin"></label>
+          <label class="f" id="ePerL" hidden>Période affichée<input type="text" id="ePer" maxlength="60" placeholder="ex. Décembre 2026"><small>Le site ajoute « Dates à confirmer ».</small></label>
+        </div>
+      </fieldset>
+      <label class="f">Accroche <span class="counter" id="eAccN"></span><textarea id="eAcc" maxlength="200" style="min-height:64px" placeholder="Une phrase qui donne envie de venir."></textarea></label>
+      <label class="f">Présentation <span class="counter" id="eDescN"></span><textarea id="eDesc" maxlength="1200" placeholder="L’événement, ce que BitEye y présente, pour qui."></textarea></label>
+      <div class="logo-edit">
+        <span class="thumb" id="eThumb" style="width:160px;height:100px"></span>
+        <div class="row">
+          <label class="f">Photo (facultative)<input type="file" id="ePhoto" accept="image/png,image/jpeg,image/webp"><small>Sans photo, le site affiche un plan de salon animé.</small></label>
+          <button type="button" class="link danger" id="eNoPhoto" hidden>Retirer la photo</button>
+        </div>
+      </div>
+      <div class="row"><b style="font-size:14px">Programme</b><p class="hint" style="margin:-8px 0 0">Jusqu’à 10 temps forts (démonstrations, conférence, offre…).</p><div class="row" id="eProg"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="eAddProg" style="justify-self:start">+ Ajouter un temps fort</button></div>
+      <label class="f">Lien vers le site de l’événement <small>(facultatif, https)</small><input type="text" id="eLien" maxlength="300" placeholder="https://…"></label>
+      <div class="row c2">
+        <label class="check"><input type="checkbox" id="eRdv" checked> Bouton « Réserver un rendez-vous »</label>
+        <label class="check"><input type="checkbox" id="ePub"> Publié sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="eErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="eSave">Enregistrer</button></footer>
   </form>
 </dialog>
 
@@ -464,13 +519,13 @@ input[type=file]{max-width:100%;font-size:14px}
     $('meName').textContent = me.nom || me.email; $('meRole').textContent = ROLES[me.role];
     document.querySelectorAll('[data-admin]').forEach(function(el){ el.hidden = me.role !== 'admin'; });
     show('vApp'); selectTab('tRefs');
-    loadRefs(); loadPrests();
+    loadRefs(); loadPrests(); loadEvs();
     if (me.role === 'admin') { loadUsers(); }
   }
   var isAdmin = function(){ return me && me.role === 'admin'; };
 
   /* ═══ Onglets ═══ */
-  var tabs = ['tRefs', 'tPrest', 'tUsers', 'tLog'];
+  var tabs = ['tRefs', 'tPrest', 'tEv', 'tUsers', 'tLog'];
   tabs.forEach(function(id){
     $(id).addEventListener('click', function(){ selectTab(id); });
   });
@@ -571,32 +626,32 @@ input[type=file]{max-width:100%;font-size:14px}
   });
   $('rNoLogo').onclick = function(){ newLogo = null; dropLogo = true; $('rLogo').value = ''; drawThumb('', $('rNom').value); };
 
-  /* Logo : réduit à 240 px au plus grand côté, en WebP (PNG si le navigateur ne sait pas encoder le WebP) */
-  function prepLogo(file){
+  /* Image réduite (240 px pour un logo, 1600 px pour une photo) au plus grand côté, en WebP (PNG si le navigateur ne sait pas encoder le WebP) */
+  function prepLogo(file, max, q){
     return new Promise(function(ok, ko){
       if (!/^image\/(png|jpeg|webp)$/.test(file.type)) return ko(new Error('mime type'));
       if (file.size > 15e6) return ko(new Error('too large'));
       var img = new Image(), url = URL.createObjectURL(file);
       img.onload = function(){
-        var k = Math.min(1, 240 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas');
+        var k = Math.min(1, (max || 240) / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas');
         c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
-        c.toBlob(function(b){ b ? ok(b) : ko(new Error('Image illisible.')); }, 'image/webp', .9);
+        c.toBlob(function(b){ b ? ok(b) : ko(new Error('Image illisible.')); }, 'image/webp', q || .9);
       };
       img.onerror = function(){ ko(new Error('Image illisible.')); };
       img.src = url;
     });
   }
-  async function uploadLogo(blob){
+  async function uploadLogo(blob, bucket, dir){
     var ext = blob.type === 'image/webp' ? 'webp' : blob.type === 'image/png' ? 'png' : 'jpg';
-    var path = 'refs/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
-    var r = await sb.storage.from('logos').upload(path, blob, {contentType:blob.type, upsert:false, cacheControl:'31536000'});
+    var path = (dir || 'refs') + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    var r = await sb.storage.from(bucket || 'logos').upload(path, blob, {contentType:blob.type, upsert:false, cacheControl:'31536000'});
     if (r.error) throw r.error;
-    return sb.storage.from('logos').getPublicUrl(path).data.publicUrl;
+    return sb.storage.from(bucket || 'logos').getPublicUrl(path).data.publicUrl;
   }
   async function removeLogo(u){
-    var m = u && u.match(/\/storage\/v1\/object\/public\/logos\/(.+)$/);
-    if (m) await sb.storage.from('logos').remove([decodeURIComponent(m[1])]);
+    var m = u && u.match(/\/storage\/v1\/object\/public\/(logos|medias)\/(.+)$/);
+    if (m) await sb.storage.from(m[1]).remove([decodeURIComponent(m[2])]);
   }
   $('fRef').addEventListener('submit', async function(e){
     e.preventDefault();
@@ -717,6 +772,134 @@ input[type=file]{max-width:100%;font-size:14px}
     b.disabled = false;
   });
 
+  /* ═══ Agenda ═══ */
+  var evs = [], eEditing = null, eSlugTouched = false, ePhoto = null, eDrop = false;
+  var EV_TYPES = {'salon':'Salon', 'portes-ouvertes':'Journée portes ouvertes', 'conference':'Conférence', 'formation':'Formation', 'autre':'Événement'};
+  var MOIS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+  function jour(t){ var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+  function evFin(e){ var a = jour(e.date_debut), b = jour(e.date_fin) || a; return e.dates_confirmees ? b : new Date(a.getFullYear(), a.getMonth() + 1, 0); }
+  function evQuand(e){
+    var a = jour(e.date_debut), b = jour(e.date_fin) || a;
+    if (!e.dates_confirmees) return (e.periode || MOIS[a.getMonth()] + ' ' + a.getFullYear()) + ' · dates à confirmer';
+    if (+a === +b) return a.getDate() + ' ' + MOIS[a.getMonth()] + ' ' + a.getFullYear();
+    return a.getDate() + ' ' + MOIS[a.getMonth()] + ' – ' + b.getDate() + ' ' + MOIS[b.getMonth()] + ' ' + b.getFullYear();
+  }
+  var CAL = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+  async function loadEvs(){
+    var r = await sb.from('evenements').select('*').order('date_debut');
+    if (r.error) { $('evAdm').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    evs = r.data; drawEvs();
+  }
+  function drawEvs(){
+    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var avenir = evs.filter(function(e){ return evFin(e) >= today; }), passes = evs.filter(function(e){ return evFin(e) < today; }).reverse();
+    function item(e, past){
+      var th = e.image_url ? '<span class="thumb"><img src="' + esc(logoSrc(e.image_url)) + '" alt="" loading="lazy" style="max-width:64px;max-height:48px;object-fit:cover"></span>' : '<span class="thumb ic">' + CAL + '</span>';
+      return '<div class="item">' + th + '<div><b>' + esc(e.titre) + '</b><div class="meta"><span>' + esc(evQuand(e)) + '</span>' + (e.ville ? '<span>' + esc(e.ville) + '</span>' : '')
+        + '<span class="tag">' + esc(EV_TYPES[e.type] || 'Événement') + '</span>' + (past ? '<span class="tag">Passé</span>' : '')
+        + '<span class="tag ' + (e.publie ? 'on' : 'off') + '">' + (e.publie ? 'Publié' : 'Brouillon') + '</span></div></div>'
+        + '<div class="acts">' + (e.publie ? '<a class="link" href="../#e-' + esc(e.slug) + '" target="_blank" rel="noopener">Voir</a>' : '')
+        + '<button type="button" class="btn btn-ghost btn-sm" data-edit-e="' + e.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-e="' + e.id + '">' + (e.publie ? 'Dépublier' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-e="' + e.id + '">Supprimer</button>' : '') + '</div></div>';
+    }
+    $('evAdm').innerHTML = !evs.length ? '<div class="list"><p class="empty">Aucun événement pour l’instant.</p></div>'
+      : '<h2 class="stats" style="font-weight:600;color:var(--ink)">À venir (' + avenir.length + ')</h2><div class="list">' + (avenir.length ? avenir.map(function(e){ return item(e, false); }).join('') : '<p class="empty">Aucun événement à venir.</p>') + '</div>'
+      + (passes.length ? '<h2 class="stats" style="font-weight:600;color:var(--ink);margin-top:24px">Passés (' + passes.length + ')</h2><div class="list">' + passes.map(function(e){ return item(e, true); }).join('') + '</div>' : '');
+  }
+  $('evAdm').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editE || b.dataset.pubE || b.dataset.delE), ev = evs.find(function(x){ return x.id === id; });
+    if (!ev) return;
+    if (b.dataset.editE) openEv(ev);
+    if (b.dataset.pubE) {
+      var r = await sb.from('evenements').update({publie:!ev.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(ev, r.data); drawEvs(); toast(ev.publie ? 'Événement publié.' : 'Événement retiré du site.');
+    }
+    if (b.dataset.delE && await confirmer('Supprimer définitivement « ' + ev.titre + ' » ? Pour le retirer du site sans le perdre, utilisez plutôt « Dépublier ». Un événement passé reste visible dans « Nous y étions ».')) {
+      var d = await sb.from('evenements').delete().eq('id', id).select();
+      if (d.error || !d.data.length) return toast(d.error ? msg(d.error) : 'Action non autorisée pour votre rôle.', true);
+      await removeLogo(ev.image_url);
+      evs = evs.filter(function(x){ return x.id !== id; }); drawEvs(); toast('Événement supprimé.');
+    }
+  });
+  function eDates(){
+    var c = $('eConf').checked;
+    $('eFinL').hidden = !c; $('ePerL').hidden = c;
+    $('eDebL').textContent = c ? 'Premier jour' : 'Date approximative (sert au classement)';
+  }
+  $('eConf').addEventListener('change', eDates);
+  function eCount(){ $('eAccN').textContent = $('eAcc').value.length + ' / 200'; $('eDescN').textContent = $('eDesc').value.length + ' / 1200'; }
+  $('eAcc').addEventListener('input', eCount); $('eDesc').addEventListener('input', eCount);
+  function eSlugHint(){ $('eSlugHint').textContent = 'biteye-group.com/#e-' + ($('eSlug').value || '…'); }
+  $('eTitre').addEventListener('input', function(){ if (!eSlugTouched) { $('eSlug').value = slugify(this.value); eSlugHint(); } });
+  $('eSlug').addEventListener('input', function(){ eSlugTouched = true; this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''); eSlugHint(); });
+  function eThumb(src){ $('eThumb').className = 'thumb' + (src ? '' : ' ic'); $('eThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu de la photo" style="max-width:150px;max-height:92px;object-fit:cover">' : CAL; $('eNoPhoto').hidden = !src; }
+  $('ePhoto').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return; $('eErr').textContent = '';
+    try { ePhoto = await prepLogo(f, 1600, .85); eDrop = false; eThumb(URL.createObjectURL(ePhoto)); }
+    catch (x) { $('eErr').textContent = msg(x); this.value = ''; }
+  });
+  $('eNoPhoto').onclick = function(){ ePhoto = null; eDrop = true; $('ePhoto').value = ''; eThumb(''); };
+  function addProg(x){
+    var n = $('eProg').children.length; if (n >= 10) return;
+    var d = document.createElement('div'); d.className = 'bloc';
+    d.innerHTML = '<div class="bloc-head"><label class="sr" for="et' + n + '">Temps fort</label><input type="text" id="et' + n + '" maxlength="80" placeholder="ex. Démonstrations en continu"><button type="button" class="link danger" data-rm>Retirer</button></div>'
+      + '<label class="sr" for="ex' + n + '">Détail</label><textarea id="ex' + n + '" rows="2" style="min-height:56px" maxlength="300" placeholder="Une ou deux phrases"></textarea>';
+    d.querySelector('input').value = x ? x.titre || '' : ''; d.querySelector('textarea').value = x ? x.texte || '' : '';
+    d.querySelector('[data-rm]').onclick = function(){ d.remove(); $('eAddProg').hidden = false; };
+    $('eProg').appendChild(d); $('eAddProg').hidden = $('eProg').children.length >= 10;
+  }
+  $('eAddProg').onclick = function(){ addProg(); var l = $('eProg').lastElementChild; if (l) l.querySelector('input').focus(); };
+  function openEv(ev){
+    eEditing = ev || null; eSlugTouched = !!ev; ePhoto = null; eDrop = false;
+    $('dEvT').textContent = ev ? 'Modifier l’événement' : 'Nouvel événement';
+    $('eTitre').value = ev ? ev.titre : ''; $('eSlug').value = ev ? ev.slug : ''; $('eType').value = ev ? ev.type : 'salon';
+    $('eVille').value = ev ? ev.ville : ''; $('eStand').value = ev ? ev.stand : ''; $('eLieu').value = ev ? ev.lieu : ''; $('eOrga').value = ev ? ev.organisateur : '';
+    $('eConf').checked = ev ? ev.dates_confirmees : true; $('eDeb').value = ev ? ev.date_debut : ''; $('eFin').value = ev && ev.date_fin ? ev.date_fin : ''; $('ePer').value = ev ? ev.periode : '';
+    $('eAcc').value = ev ? ev.accroche : ''; $('eDesc').value = ev ? ev.description : ''; $('eLien').value = ev && ev.lien_externe ? ev.lien_externe : '';
+    $('eRdv').checked = ev ? ev.rendez_vous : true; $('ePub').checked = ev ? ev.publie : false;
+    $('ePhoto').value = ''; eThumb(ev && ev.image_url ? logoSrc(ev.image_url) : '');
+    $('eProg').innerHTML = ''; (ev && ev.programme.length ? ev.programme : [null]).forEach(addProg);
+    $('eErr').textContent = ''; eDates(); eCount(); eSlugHint();
+    $('dEv').showModal(); $('eTitre').focus();
+  }
+  $('bAddEv').onclick = function(){ openEv(null); };
+  $('fEv').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('eErr'); err.textContent = '';
+    var conf = $('eConf').checked, lien = $('eLien').value.trim();
+    var data = {
+      titre:$('eTitre').value.trim(), slug:$('eSlug').value.trim(), type:$('eType').value, ville:$('eVille').value.trim(), stand:$('eStand').value.trim(),
+      lieu:$('eLieu').value.trim(), organisateur:$('eOrga').value.trim(), dates_confirmees:conf, date_debut:$('eDeb').value,
+      date_fin:conf && $('eFin').value ? $('eFin').value : null, periode:conf ? '' : $('ePer').value.trim(),
+      accroche:$('eAcc').value.trim(), description:$('eDesc').value.trim(), lien_externe:lien || null,
+      rendez_vous:$('eRdv').checked, publie:$('ePub').checked,
+      programme:Array.prototype.map.call($('eProg').children, function(d){ return {titre:d.querySelector('input').value.trim(), texte:d.querySelector('textarea').value.trim()}; })
+        .filter(function(x){ return x.titre || x.texte; })
+    };
+    if (data.titre.length < 2) { err.textContent = 'Indiquez le titre de l’événement.'; return $('eTitre').focus(); }
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(data.slug)) { err.textContent = 'Adresse invalide : lettres minuscules, chiffres et tirets.'; return $('eSlug').focus(); }
+    if (!data.date_debut) { err.textContent = 'Indiquez la date (approximative si elle n’est pas confirmée).'; return $('eDeb').focus(); }
+    if (data.date_fin && data.date_fin < data.date_debut) { err.textContent = 'Le dernier jour est avant le premier.'; return $('eFin').focus(); }
+    if (lien && !/^https:\/\/\S+$/.test(lien)) { err.textContent = 'Le lien doit commencer par https://'; return $('eLien').focus(); }
+    var b = $('eSave'); b.disabled = true;
+    try {
+      var old = eEditing && eEditing.image_url;
+      if (ePhoto) data.image_url = await uploadLogo(ePhoto, 'medias', 'evenements');
+      else if (eDrop) data.image_url = null;
+      var r = eEditing ? await sb.from('evenements').update(data).eq('id', eEditing.id).select().single()
+                       : await sb.from('evenements').insert(data).select().single();
+      if (r.error) throw r.error;
+      if ((ePhoto || eDrop) && old) removeLogo(old);
+      if (eEditing) Object.assign(eEditing, r.data); else evs.push(r.data);
+      evs.sort(function(a, c){ return a.date_debut < c.date_debut ? -1 : a.date_debut > c.date_debut ? 1 : 0; });
+      $('dEv').close(); drawEvs(); toast(eEditing ? 'Événement enregistré.' : 'Événement ajouté.' + (data.publie ? '' : ' Il reste en brouillon tant qu’il n’est pas publié.'));
+    } catch (x) { err.textContent = /duplicate key|23505/.test((x && (x.message || x.code)) || '') ? 'Cette adresse est déjà utilisée par un autre événement.' : msg(x); }
+    b.disabled = false;
+  });
+
   /* ═══ Comptes (administrateurs) ═══ */
   async function loadUsers(){
     if (!isAdmin()) return;
@@ -744,7 +927,7 @@ input[type=file]{max-width:100%;font-size:14px}
   });
 
   /* ═══ Journal (administrateurs) ═══ */
-  var OBJETS = {references_clients:'Référence', prestations:'Prestation', profils:'Rôle'};
+  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', profils:'Rôle'};
   async function loadLog(){
     var r = await sb.from('journal').select('*').order('id', {ascending:false}).limit(200);
     if (r.error) { $('logRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
