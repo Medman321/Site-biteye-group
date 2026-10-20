@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>BitEye — Administration du site</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Administration du site BitEye : mêmes couleurs que le site (marine, menthe), mise en page d'outil de travail */
+:root{
+  --forest:#022539; --forest-2:#05304A; --lime:#03DA9F; --lime-deep:#006F52; --on-lime:#022539;
+  --paper:#F4F6F8; --card:#FFFFFF; --ink:#0B1E2B; --ink-2:#4D6070; --rule:#D3DCE3; --rule-2:#E6ECF0;
+  --danger:#B42318; --danger-bg:#FEF3F2; --warn:#8A5A00; --warn-bg:#FFF7E0; --ok-bg:#E3F8F1;
+  --r:14px; --shadow:0 1px 2px rgba(11,30,43,.06),0 8px 24px -12px rgba(11,30,43,.18);
+  --display:"Poppins","Inter",system-ui,sans-serif; --text:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--text)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--lime-deep)}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--lime-deep);outline-offset:2px}
+
+/* Barre du haut */
+.top{position:sticky;top:0;z-index:20;background:var(--forest);color:#EAEEF1}
+.top-in{max-width:1200px;margin:auto;padding:0 20px;height:64px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:700 18px/1 var(--display);color:#fff;text-decoration:none;margin-right:auto}
+.brand img{width:30px;height:30px}
+.brand small{font:500 13px/1 var(--text);color:#93A9B8;padding-left:10px;border-left:1px solid rgba(234,238,241,.2)}
+.who{display:flex;align-items:center;gap:10px;font-size:14px;color:#C8D4DC}
+.who b{color:#fff;font-weight:600}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;background:rgba(3,218,159,.16);color:var(--lime)}
+.top .btn-ghost{color:#EAEEF1;border-color:rgba(234,238,241,.25)}
+.top .btn-ghost:hover{border-color:var(--lime)}
+
+@media (max-width:600px){
+  .top-in{padding:0 14px;gap:10px}
+  .brand small,.who b{display:none}
+  .top .btn-sm{padding:7px 10px}
+}
+/* Onglets */
+.tabs{background:var(--forest-2)}
+.tabs-in{max-width:1200px;margin:auto;padding:0 12px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs button{border:0;background:none;color:#93A9B8;padding:14px 14px 12px;font-weight:600;font-size:14.5px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:#fff}
+.tabs button[aria-selected="true"]{color:#fff;border-bottom-color:var(--lime)}
+.tabs .count{margin-left:6px;padding:1px 7px;border-radius:999px;background:#F5B700;color:var(--forest);font-size:12px}
+
+main{max-width:1200px;margin:auto;padding:28px 20px 80px}
+@media (max-width:600px){main{padding:22px 16px 80px}.dlg header,.dlg .body,.dlg footer{padding-left:16px;padding-right:16px}.dlg footer{flex-wrap:wrap}}
+h1{font:700 26px/1.2 var(--display);margin:0}
+.lead{color:var(--ink-2);margin:6px 0 0}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;margin-bottom:20px}
+.head > div{margin-right:auto}
+
+/* Boutons et champs */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 18px;background:var(--lime);color:var(--on-lime);font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.05)}
+.btn:disabled{opacity:.55;cursor:wait}
+.btn-ghost{background:none;border:1px solid var(--rule);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--lime-deep)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{padding:7px 12px;font-size:13.5px}
+.link{border:0;background:none;padding:0;color:var(--lime-deep);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.link.danger{color:var(--danger)}
+label.f{display:grid;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink)}
+label.f small,.hint{font-weight:400;color:var(--ink-2);font-size:12.5px}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--rule);background:#fff;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--lime-deep);box-shadow:0 0 0 3px rgba(3,218,159,.2)}
+textarea{min-height:96px;resize:vertical}
+.check{display:inline-flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--lime-deep)}
+.row{display:grid;gap:14px}
+.row.c2{grid-template-columns:1fr 1fr}
+.row.c3{grid-template-columns:2fr 1fr 1fr}
+@media (max-width:640px){.row.c2,.row.c3{grid-template-columns:1fr}}
+
+/* Barre d'outils */
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.tools input[type=search]{flex:1 1 260px;width:auto}
+.tools select{width:auto}
+.stats{color:var(--ink-2);font-size:14px;margin:0 0 12px}
+
+/* Listes */
+.list{background:var(--card);border:1px solid var(--rule-2);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule-2)}
+.item:first-child{border-top:0}
+.item:hover{background:#FAFBFC}
+.thumb{width:64px;height:48px;border-radius:10px;border:1px solid var(--rule-2);background:#fff;display:grid;place-items:center;overflow:hidden}
+.thumb img{max-width:56px;max-height:40px;object-fit:contain}
+.thumb.mono{background:var(--forest);color:var(--lime);font:italic 700 16px/1 var(--display)}
+.thumb.ic{background:var(--lime);color:var(--on-lime);border:0}
+.thumb.ic svg{width:26px;height:26px}
+.item b{font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;background:var(--rule-2);color:var(--ink-2)}
+.tag.on{background:var(--ok-bg);color:var(--lime-deep)}
+.tag.off{background:var(--warn-bg);color:var(--warn)}
+.acts{display:flex;gap:8px;align-items:center}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-2)}
+.more{display:block;margin:14px auto 0}
+@media (max-width:640px){.item{grid-template-columns:48px 1fr}.thumb{width:48px;height:40px}.acts{grid-column:1/-1;justify-content:flex-end}}
+
+/* Comptes et journal */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--rule)}
+td{padding:12px 16px;border-top:1px solid var(--rule-2);vertical-align:middle}
+td select{width:auto;min-width:180px}
+tr.pending td{background:#FFFCF0}
+@media (max-width:720px){
+  table,thead,tbody,tr,td{display:block}thead{display:none}
+  tr{padding:10px 0;border-top:1px solid var(--rule-2)}td{border:0;padding:4px 16px}
+}
+
+/* Fenêtres d'édition */
+dialog{border:0;border-radius:20px;padding:0;width:min(720px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:0 30px 80px -20px rgba(2,37,57,.45)}
+dialog::backdrop{background:rgba(2,37,57,.55);backdrop-filter:blur(3px)}
+.dlg{display:flex;flex-direction:column;max-height:calc(100vh - 32px)}
+.dlg header{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--rule-2)}
+.dlg header h2{font:700 19px/1.2 var(--display);margin:0;margin-right:auto}
+.dlg .body{padding:20px 22px;overflow:auto;display:grid;gap:16px}
+.dlg footer{display:flex;gap:10px;justify-content:flex-end;align-items:center;padding:14px 22px;border-top:1px solid var(--rule-2);background:#FAFBFC}
+.dlg footer .err{margin-right:auto}
+.x{border:0;background:var(--rule-2);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1}
+fieldset{border:1px solid var(--rule-2);border-radius:12px;padding:12px 14px;margin:0;display:flex;flex-wrap:wrap;gap:10px 18px}
+legend{font-size:13.5px;font-weight:600;padding:0 6px}
+.logo-edit{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.logo-edit .row{flex:1 1 200px;min-width:0}
+input[type=file]{max-width:100%;font-size:14px}
+.logo-edit .thumb{width:110px;height:84px}
+.logo-edit .thumb img{max-width:96px;max-height:68px}
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;border:0;padding:0}
+.icons label{display:grid;place-items:center;height:54px;border-radius:12px;border:1px solid var(--rule);cursor:pointer;color:var(--ink-2)}
+.icons input{position:absolute;opacity:0}
+.icons svg{width:24px;height:24px}
+.icons input:checked + svg{color:var(--lime-deep)}
+.icons label:has(input:checked){border-color:var(--lime-deep);background:var(--ok-bg)}
+.icons label:has(input:focus-visible){outline:2px solid var(--lime-deep);outline-offset:2px}
+.preview{border-radius:14px;padding:18px 20px;background:var(--forest);color:#EAEEF1;font:700 24px/1.15 var(--display)}
+.preview em{color:var(--lime)}
+.bloc{border:1px solid var(--rule-2);border-radius:12px;padding:12px;display:grid;gap:10px;background:#FAFBFC}
+.bloc-head{display:flex;gap:10px;align-items:center}
+.bloc-head input{flex:1}
+.counter{float:right;font-weight:400;color:var(--ink-2)}
+
+/* Écrans d'accueil (connexion, attente) */
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(1000px 500px at 50% -10%,#0A3D5C,var(--forest))}
+.gate .card{width:min(420px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 40px 90px -30px rgba(0,0,0,.6);display:grid;gap:16px}
+.gate .brand{color:var(--ink);margin:0 0 4px}
+.gate h1{font-size:22px}
+.gate p{margin:0;color:var(--ink-2)}
+.gate .alt{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+
+/* Messages */
+.err{color:var(--danger);font-size:14px}
+.note{padding:12px 14px;border-radius:12px;background:var(--ok-bg);color:var(--lime-deep);font-size:14px}
+.note.warn{background:var(--warn-bg);color:var(--warn)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:100;padding:12px 18px;border-radius:12px;background:var(--forest);color:#fff;font-weight:500;box-shadow:var(--shadow);transition:opacity .25s,transform .25s;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--danger)}
+.loading{padding:40px;text-align:center;color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<!-- Configuration manquante -->
+<div class="gate" id="vNoConfig" hidden>
+  <div class="card">
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <h1>Base de données non configurée</h1>
+    <p>Renseignez l’adresse et la clé publique de votre projet Supabase dans le fichier <code>config.js</code> à la racine du site, puis rechargez cette page. Le guide se trouve dans <code>supabase/README.md</code>.</p>
+  </div>
+</div>
+
+<!-- Connexion -->
+<div class="gate" id="vLogin" hidden>
+  <form class="card" id="fLogin" novalidate>
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <div><h1 id="loginTitle">Administration du site</h1><p id="loginLead">Connectez-vous pour gérer les références et les prestations.</p></div>
+    <label class="f" id="lNom" hidden>Nom et prénom<input type="text" id="iNom" autocomplete="name" maxlength="80"></label>
+    <label class="f">E-mail<input type="email" id="iEmail" autocomplete="username" required></label>
+    <label class="f" id="lPass">Mot de passe<input type="password" id="iPass" autocomplete="current-password" required minlength="8"></label>
+    <p class="err" id="loginErr" role="alert" hidden></p>
+    <p class="note" id="loginNote" role="status" hidden></p>
+    <button class="btn" type="submit" id="bLogin">Se connecter</button>
+    <div class="alt"><button type="button" class="link" id="bModeSignup">Créer un compte</button><button type="button" class="link" id="bModeReset">Mot de passe oublié ?</button></div>
+  </form>
+</div>
+
+<!-- Nouveau mot de passe (lien reçu par e-mail) -->
+<div class="gate" id="vRecovery" hidden>
+  <form class="card" id="fRecovery" novalidate>
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <div><h1>Nouveau mot de passe</h1><p>Choisissez un mot de passe d’au moins 8 caractères.</p></div>
+    <label class="f">Nouveau mot de passe<input type="password" id="iNewPass" autocomplete="new-password" required minlength="8"></label>
+    <p class="err" id="recErr" role="alert" hidden></p>
+    <button class="btn" type="submit">Enregistrer</button>
+  </form>
+</div>
+
+<!-- Compte sans rôle -->
+<div class="gate" id="vPending" hidden>
+  <div class="card">
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <h1>Compte en attente</h1>
+    <p>Votre compte <b id="pendingEmail"></b> est créé. Un administrateur doit maintenant vous attribuer un rôle ; vous pourrez ensuite gérer le contenu du site.</p>
+    <div class="alt"><button type="button" class="link" id="bRecheck">Vérifier à nouveau</button><button type="button" class="link" data-logout>Se déconnecter</button></div>
+  </div>
+</div>
+
+<!-- Application -->
+<div id="vApp" hidden>
+  <header class="top"><div class="top-in">
+    <a class="brand" href="../" title="Voir le site"><img src="../favicon.svg" alt="" width="30" height="30">biteye<small>Administration</small></a>
+    <span class="who"><b id="meName"></b><span class="badge" id="meRole"></span></span>
+    <button type="button" class="btn btn-ghost btn-sm" data-logout>Se déconnecter</button>
+  </div></header>
+  <nav class="tabs" aria-label="Sections"><div class="tabs-in" role="tablist">
+    <button type="button" role="tab" aria-selected="true" aria-controls="pRefs" id="tRefs">Références</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pPrest" id="tPrest">Prestations</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pUsers" id="tUsers" data-admin hidden>Comptes<span class="count" id="pendingCount" hidden></span></button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pLog" id="tLog" data-admin hidden>Journal</button>
+  </div></nav>
+
+  <main>
+    <!-- Références -->
+    <section id="pRefs" role="tabpanel" aria-labelledby="tRefs">
+      <div class="head"><div><h1>Références</h1><p class="lead">Les entreprises affichées dans la section « Ils construisent avec VISION ».</p></div>
+        <button type="button" class="btn" id="bAddRef">+ Ajouter une référence</button></div>
+      <div class="tools">
+        <label class="sr" for="qRef">Rechercher</label><input type="search" id="qRef" placeholder="Rechercher un nom ou une ville">
+        <label class="sr" for="gRef">Filtrer</label>
+        <select id="gRef"><option value="">Toutes</option><option value="oran">Oran</option><option value="alger">Alger</option><option value="autres">Autres wilayas</option><option value="masquees">Masquées</option></select>
+      </div>
+      <p class="stats" id="refStats"></p>
+      <div class="list" id="refList"><p class="loading">Chargement…</p></div>
+      <button type="button" class="btn btn-ghost more" id="refMore" hidden>Afficher plus</button>
+    </section>
+
+    <!-- Prestations -->
+    <section id="pPrest" role="tabpanel" aria-labelledby="tPrest" hidden>
+      <div class="head"><div><h1>Prestations</h1><p class="lead">Chaque prestation publiée a sa fiche sur le site, sa tuile dans « Quel est votre besoin ? » et sa place dans le menu Services. Les cinq fiches d’origine restent intégrées au site.</p></div>
+        <button type="button" class="btn" id="bAddPrest">+ Ajouter une prestation</button></div>
+      <div class="list" id="prestList"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Comptes -->
+    <section id="pUsers" role="tabpanel" aria-labelledby="tUsers" hidden>
+      <div class="head"><div><h1>Comptes et rôles</h1><p class="lead">Pour ajouter une personne : elle crée son compte depuis la page de connexion (« Créer un compte »), puis vous lui attribuez un rôle ici.</p></div></div>
+      <div class="note" style="margin-bottom:16px"><b>Administrateur</b> : tout, y compris les comptes, le journal et la suppression définitive. <b>Éditeur</b> : ajoute, modifie et masque les références et les prestations.</div>
+      <div class="list"><table><thead><tr><th>Nom</th><th>E-mail</th><th>Rôle</th><th>Créé le</th></tr></thead><tbody id="userRows"></tbody></table></div>
+    </section>
+
+    <!-- Journal -->
+    <section id="pLog" role="tabpanel" aria-labelledby="tLog" hidden>
+      <div class="head"><div><h1>Journal</h1><p class="lead">Les 200 dernières modifications, avec leur auteur.</p></div></div>
+      <div class="list"><table><thead><tr><th>Date</th><th>Par</th><th>Action</th><th>Élément</th></tr></thead><tbody id="logRows"></tbody></table></div>
+    </section>
+  </main>
+</div>
+
+<!-- Édition d'une référence -->
+<dialog id="dRef" aria-labelledby="dRefT">
+  <form class="dlg" id="fRef" novalidate method="dialog">
+    <header><h2 id="dRefT">Référence</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom de l’entreprise<input type="text" id="rNom" required minlength="2" maxlength="120"></label>
+        <label class="f">Ville(s)<input type="text" id="rVille" required minlength="2" maxlength="80" placeholder="ex. Oran ou Constantine, Alger"><small>Plusieurs villes : séparées par une virgule.</small></label>
+      </div>
+      <fieldset><legend>Filtres du site</legend>
+        <label class="check"><input type="checkbox" name="grp" value="oran"> Oran</label>
+        <label class="check"><input type="checkbox" name="grp" value="alger"> Alger</label>
+        <label class="check"><input type="checkbox" name="grp" value="autres"> Autres wilayas</label>
+      </fieldset>
+      <div class="logo-edit">
+        <span class="thumb" id="rThumb"></span>
+        <div class="row">
+          <label class="f">Logo<input type="file" id="rLogo" accept="image/png,image/jpeg,image/webp"><small>PNG, JPEG ou WebP. Il est redimensionné automatiquement.</small></label>
+          <button type="button" class="link danger" id="rNoLogo" hidden>Retirer le logo</button>
+        </div>
+      </div>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="rOrdre" min="0" max="100000" step="1"><small>Les plus petits nombres apparaissent en premier.</small></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="rPub"> Publiée sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="rErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="rSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<!-- Édition d'une prestation -->
+<dialog id="dPrest" aria-labelledby="dPrestT">
+  <form class="dlg" id="fPrest" novalidate method="dialog">
+    <header><h2 id="dPrestT">Prestation</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom de la prestation<input type="text" id="pTitre" required minlength="2" maxlength="60" placeholder="ex. Maintenance du parc"><small>Affiché dans le menu, la tuile et l’onglet de la fiche.</small></label>
+        <label class="f">Adresse de la fiche<input type="text" id="pSlug" required maxlength="50" pattern="[a-z0-9]+(-[a-z0-9]+)*"><small id="pSlugHint"></small></label>
+      </div>
+      <fieldset class="icons" id="pIcons"><legend class="sr">Icône</legend></fieldset>
+      <div class="row c2">
+        <label class="f">Titre de la fiche<input type="text" id="pAcc" required minlength="2" maxlength="80" placeholder="ex. Vos postes."></label>
+        <label class="f">Suite du titre, en couleur<input type="text" id="pAccC" maxlength="60" placeholder="ex. Toujours prêts."></label>
+      </div>
+      <div class="preview" id="pPreview" aria-hidden="true"></div>
+      <label class="f">Présentation <span class="counter" id="pDescN"></span><textarea id="pDesc" maxlength="600" placeholder="Deux ou trois phrases qui expliquent la prestation."></textarea></label>
+      <div class="row"><b style="font-size:14px">Blocs de la fiche</b><p class="hint" style="margin:-8px 0 0">Jusqu’à 6 blocs ; chaque ligne devient un point coché.</p><div class="row" id="pBlocs"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="pAddBloc" style="justify-self:start">+ Ajouter un bloc</button></div>
+      <fieldset><legend>Besoins qui l’allument dans « Quel est votre besoin ? »</legend>
+        <label class="check"><input type="checkbox" name="need" value="equiper"> Équiper mon entreprise</label>
+        <label class="check"><input type="checkbox" name="need" value="distance"> Travailler à distance</label>
+        <label class="check"><input type="checkbox" name="need" value="vendre"> Vendre plus</label>
+        <span class="hint">« Tout mettre en place » les allume toutes.</span>
+      </fieldset>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="pOrdre" min="0" max="100000" step="1"></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="pPub"> Publiée sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="pErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="pSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<!-- Confirmation -->
+<dialog id="dConfirm" aria-labelledby="dConfirmT">
+  <form class="dlg" method="dialog">
+    <header><h2 id="dConfirmT">Confirmer</h2></header>
+    <div class="body"><p id="dConfirmMsg" style="margin:0"></p></div>
+    <footer><button value="non" class="btn btn-ghost">Annuler</button><button value="oui" class="btn btn-danger" id="dConfirmOk">Supprimer</button></footer>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../config.js"></script>
+<script src="../vendor/supabase.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var cfg = window.BITEYE_DB || {}, sb = null, me = null, refs = [], prests = [], users = [], refShown = 60;
+  var GROUPES = {oran:'Oran', alger:'Alger', autres:'Autres wilayas'};
+  var ROLES = {admin:'Administrateur', editeur:'Éditeur'};
+  var NEEDS = {equiper:'Équiper', distance:'À distance', vendre:'Vendre plus'};
+  var ICONS = {
+    logiciel:['Logiciel','<rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/>'],
+    distance:['Accès à distance','<path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/>'],
+    serveur:['Serveur','<rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M7 21h10M12 17v4"/>'],
+    securite:['Sécurité','<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/>'],
+    equipe:['Équipe','<circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/>'],
+    outils:['Outils','<path d="M14.5 6.5a4 4 0 005 5l-8.8 8.8a2.1 2.1 0 01-3-3z"/><path d="M14.5 6.5L17 4l3 3-2.5 2.5"/>'],
+    graphique:['Graphique','<path d="M4 20V4M4 20h16"/><path d="M8 16l4-5 3 3 5-7"/>'],
+    document:['Document','<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>'],
+    telephone:['Téléphone','<path d="M6.5 3h3l1.5 4-2 1.3a10 10 0 005.7 5.7L16 12l4 1.5v3A2.5 2.5 0 0117.5 19 14.5 14.5 0 015 6.5 2.5 2.5 0 016.5 3z"/>'],
+    camera:['Photo et vidéo','<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7l1.5-3h4l1.5 3"/><circle cx="12" cy="13.5" r="3.5"/>'],
+    formation:['Formation','<path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v5c3 2.3 8 2.3 11 0v-5M21.5 9v5"/>'],
+    support:['Support','<path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/>']
+  };
+  function svg(k){ return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[k] || ICONS.outils)[1] + '</svg>'; }
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]; }); }
+  function initiales(nom){ return String(nom).replace(/\b(promotion|immobili[eè]re?|immo|ets|sarl|eurl|spa|et|de|du|des|la|le|les)\b/gi, ' ').trim().split(/\s+/).slice(0, 2).map(function(w){ return w.charAt(0).toUpperCase(); }).join('') || '•'; }
+  function slugify(t){ return String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50).replace(/-+$/, ''); }
+  function siteBase(){ return new URL('../', location.href).href; }
+  function logoSrc(u){ return !u ? '' : /^(https?:)?\/\//.test(u) ? u : siteBase() + u; }
+  function date(d){ return new Date(d).toLocaleString('fr-FR', {dateStyle:'short', timeStyle:'short'}); }
+  var tt;
+  function toast(msg, bad){ var t = $('toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('show'); }, 3200); }
+
+  /* Messages d'erreur compréhensibles */
+  function msg(e){
+    var m = (e && (e.message || e.error_description || e.msg)) || String(e || '');
+    var code = e && e.code;
+    if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'Connexion impossible. Vérifiez votre accès à internet.';
+    if (/Invalid login credentials/i.test(m)) return 'E-mail ou mot de passe incorrect.';
+    if (/Email not confirmed/i.test(m)) return 'Confirmez d’abord votre adresse e-mail grâce au lien reçu.';
+    if (/User already registered|already been registered/i.test(m)) return 'Un compte existe déjà avec cet e-mail.';
+    if (/Password should be at least|weak/i.test(m)) return 'Mot de passe trop court ou trop simple (8 caractères minimum).';
+    if (/rate limit|too many/i.test(m)) return 'Trop de tentatives. Patientez quelques minutes.';
+    if (/au moins un administrateur/.test(m)) return 'Il doit rester au moins un administrateur.';
+    if (code === '23505' || /duplicate key/.test(m)) return 'Cette adresse de fiche est déjà utilisée par une autre prestation.';
+    if (code === '23514' || /violates check constraint/.test(m)) return 'Une valeur n’est pas acceptée. Vérifiez les champs.';
+    if (code === '42501' || /row-level security|permission denied/i.test(m)) return 'Action non autorisée pour votre rôle.';
+    if (/mime type|invalid_mime/i.test(m)) return 'Format d’image non accepté (PNG, JPEG ou WebP).';
+    if (/exceeded the maximum allowed size|too large/i.test(m)) return 'Image trop lourde (1 Mo maximum après redimensionnement).';
+    return m || 'Une erreur est survenue.';
+  }
+
+  /* ═══ Écrans ═══ */
+  function show(v){ ['vNoConfig', 'vLogin', 'vRecovery', 'vPending', 'vApp'].forEach(function(k){ $(k).hidden = k !== v; }); }
+  if (!cfg.url || !cfg.cle) { show('vNoConfig'); return; }
+  if (!window.supabase) { show('vNoConfig'); return; }
+  sb = window.supabase.createClient(cfg.url, cfg.cle, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}});
+
+  var mode = 'login';
+  function setMode(m){
+    mode = m;
+    $('lNom').hidden = m !== 'signup'; $('lPass').hidden = m === 'reset';
+    $('loginTitle').textContent = m === 'signup' ? 'Créer un compte' : m === 'reset' ? 'Mot de passe oublié' : 'Administration du site';
+    $('loginLead').textContent = m === 'signup' ? 'Un administrateur devra ensuite vous attribuer un rôle.' : m === 'reset' ? 'Recevez un lien pour choisir un nouveau mot de passe.' : 'Connectez-vous pour gérer les références et les prestations.';
+    $('bLogin').textContent = m === 'signup' ? 'Créer le compte' : m === 'reset' ? 'Envoyer le lien' : 'Se connecter';
+    $('bModeSignup').textContent = m === 'login' ? 'Créer un compte' : 'J’ai déjà un compte';
+    $('bModeReset').hidden = m !== 'login';
+    $('iPass').autocomplete = m === 'signup' ? 'new-password' : 'current-password';
+    $('loginErr').hidden = true; $('loginNote').hidden = true;
+  }
+  $('bModeSignup').onclick = function(){ setMode(mode === 'login' ? 'signup' : 'login'); };
+  $('bModeReset').onclick = function(){ setMode('reset'); };
+  $('fLogin').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var email = $('iEmail').value.trim(), pass = $('iPass').value, err = $('loginErr'), note = $('loginNote'), b = $('bLogin');
+    err.hidden = true; note.hidden = true;
+    if (!/^\S+@\S+\.\S+$/.test(email)) { err.textContent = 'Saisissez une adresse e-mail valide.'; err.hidden = false; $('iEmail').focus(); return; }
+    if (mode !== 'reset' && pass.length < 8) { err.textContent = 'Le mot de passe doit faire au moins 8 caractères.'; err.hidden = false; $('iPass').focus(); return; }
+    b.disabled = true;
+    try {
+      if (mode === 'login') {
+        var r = await sb.auth.signInWithPassword({email:email, password:pass}); if (r.error) throw r.error;
+      } else if (mode === 'signup') {
+        var s = await sb.auth.signUp({email:email, password:pass, options:{data:{nom:$('iNom').value.trim()}, emailRedirectTo:location.href.split('#')[0]}});
+        if (s.error) throw s.error;
+        if (!s.data.session) { note.textContent = 'Compte créé. Confirmez votre adresse grâce au lien envoyé par e-mail, puis connectez-vous.'; note.hidden = false; setTimeout(function(){ setMode('login'); note.textContent = 'Compte créé. Confirmez votre adresse grâce au lien envoyé par e-mail, puis connectez-vous.'; note.hidden = false; }, 0); }
+      } else {
+        var p = await sb.auth.resetPasswordForEmail(email, {redirectTo:location.href.split('#')[0]}); if (p.error) throw p.error;
+        note.textContent = 'Si un compte existe pour cette adresse, un lien vient d’y être envoyé.'; note.hidden = false;
+      }
+    } catch (x) { err.textContent = msg(x); err.hidden = false; }
+    b.disabled = false;
+  });
+  $('fRecovery').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var p = $('iNewPass').value, err = $('recErr'); err.hidden = true;
+    if (p.length < 8) { err.textContent = 'Au moins 8 caractères.'; err.hidden = false; return; }
+    var r = await sb.auth.updateUser({password:p});
+    if (r.error) { err.textContent = msg(r.error); err.hidden = false; return; }
+    toast('Mot de passe enregistré.'); recovering = false; enter();
+  });
+  document.querySelectorAll('[data-logout]').forEach(function(b){ b.onclick = async function(){ await sb.auth.signOut(); me = null; setMode('login'); show('vLogin'); }; });
+  $('bRecheck').onclick = function(){ enter(); };
+
+  var recovering = false, entered = null;
+  sb.auth.onAuthStateChange(function(ev, session){
+    if (ev === 'PASSWORD_RECOVERY') { recovering = true; show('vRecovery'); return; }
+    if (recovering) return;
+    var uid = session && session.user && session.user.id;
+    if (!uid) { entered = null; setMode(mode); show('vLogin'); return; }
+    if (entered === uid) return;
+    entered = uid; setTimeout(enter, 0);
+  });
+
+  async function enter(){
+    var u = (await sb.auth.getUser()).data.user;
+    if (!u) { show('vLogin'); return; }
+    var r = await sb.from('profils').select('id,email,nom,role').eq('id', u.id).maybeSingle();
+    if (r.error) { toast(msg(r.error), true); show('vLogin'); return; }
+    me = r.data || {id:u.id, email:u.email, nom:'', role:null};
+    if (!me.role) { $('pendingEmail').textContent = me.email; show('vPending'); return; }
+    $('meName').textContent = me.nom || me.email; $('meRole').textContent = ROLES[me.role];
+    document.querySelectorAll('[data-admin]').forEach(function(el){ el.hidden = me.role !== 'admin'; });
+    show('vApp'); selectTab('tRefs');
+    loadRefs(); loadPrests();
+    if (me.role === 'admin') { loadUsers(); }
+  }
+  var isAdmin = function(){ return me && me.role === 'admin'; };
+
+  /* ═══ Onglets ═══ */
+  var tabs = ['tRefs', 'tPrest', 'tUsers', 'tLog'];
+  tabs.forEach(function(id){
+    $(id).addEventListener('click', function(){ selectTab(id); });
+  });
+  function selectTab(id){
+    tabs.forEach(function(t){ var on = t === id; $(t).setAttribute('aria-selected', on); $($(t).getAttribute('aria-controls')).hidden = !on; });
+    if (id === 'tLog') loadLog();
+    if (id === 'tUsers') loadUsers();
+  }
+  document.querySelector('[role=tablist]').addEventListener('keydown', function(e){
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var vis = tabs.filter(function(t){ return !$(t).hidden; }), i = vis.indexOf(document.activeElement.id);
+    if (i < 0) return;
+    var n = vis[(i + (e.key === 'ArrowRight' ? 1 : vis.length - 1)) % vis.length]; $(n).focus(); selectTab(n);
+  });
+
+  /* ═══ Références ═══ */
+  async function loadRefs(){
+    var r = await sb.from('references_clients').select('id,nom,ville,groupes,logo_url,ordre,publie,modifie_le').order('ordre').order('nom');
+    if (r.error) { $('refList').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    refs = r.data; drawRefs();
+  }
+  function drawRefs(){
+    var q = $('qRef').value.trim().toLowerCase(), g = $('gRef').value;
+    var list = refs.filter(function(x){
+      if (g === 'masquees' ? x.publie : g && x.groupes.indexOf(g) < 0) return false;
+      return !q || (x.nom + ' ' + x.ville).toLowerCase().indexOf(q) > -1;
+    });
+    var pub = refs.filter(function(x){ return x.publie; }).length;
+    $('refStats').textContent = refs.length + ' références · ' + pub + ' publiées' + (refs.length - pub ? ' · ' + (refs.length - pub) + ' masquées' : '') + (q || g ? ' — ' + list.length + ' affichées' : '');
+    $('refList').innerHTML = list.length ? list.slice(0, refShown).map(function(x){
+      var th = x.logo_url ? '<span class="thumb"><img src="' + esc(logoSrc(x.logo_url)) + '" alt="" loading="lazy"></span>' : '<span class="thumb mono">' + esc(initiales(x.nom)) + '</span>';
+      return '<div class="item">' + th + '<div><b>' + esc(x.nom) + '</b><div class="meta"><span>' + esc(x.ville) + '</span>'
+        + x.groupes.map(function(k){ return '<span class="tag">' + GROUPES[k] + '</span>'; }).join('')
+        + '<span class="tag ' + (x.publie ? 'on' : 'off') + '">' + (x.publie ? 'Publiée' : 'Masquée') + '</span></div></div>'
+        + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-ref="' + x.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-ref="' + x.id + '">' + (x.publie ? 'Masquer' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-ref="' + x.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('') : '<p class="empty">Aucune référence ne correspond.</p>';
+    $('refMore').hidden = list.length <= refShown;
+  }
+  $('qRef').addEventListener('input', function(){ refShown = 60; drawRefs(); });
+  $('gRef').addEventListener('change', function(){ refShown = 60; drawRefs(); });
+  $('refMore').onclick = function(){ refShown += 120; drawRefs(); };
+  $('refList').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editRef || b.dataset.pubRef || b.dataset.delRef), x = refs.find(function(r){ return r.id === id; });
+    if (!x) return;
+    if (b.dataset.editRef) openRef(x);
+    if (b.dataset.pubRef) {
+      var r = await sb.from('references_clients').update({publie:!x.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(x, r.data); drawRefs(); toast(x.publie ? 'Référence publiée.' : 'Référence masquée du site.');
+    }
+    if (b.dataset.delRef && await confirmer('Supprimer définitivement « ' + x.nom + ' » ? Pour la retirer du site sans la perdre, utilisez plutôt « Masquer ».')) {
+      var d = await sb.from('references_clients').delete().eq('id', id).select();
+      if (d.error || !d.data.length) return toast(d.error ? msg(d.error) : 'Action non autorisée pour votre rôle.', true);
+      await removeLogo(x.logo_url);
+      refs = refs.filter(function(r){ return r.id !== id; }); drawRefs(); toast('Référence supprimée.');
+    }
+  });
+
+  var editing = null, newLogo = null, dropLogo = false;
+  function guessGroups(ville){
+    var v = ville.toLowerCase(), g = [];
+    v.split(/[,;/]| et /).map(function(s){ return s.trim(); }).filter(Boolean).forEach(function(c){
+      var k = /^oran\b/.test(c) ? 'oran' : /^alger\b/.test(c) ? 'alger' : 'autres';
+      if (g.indexOf(k) < 0) g.push(k);
+    });
+    return g;
+  }
+  function setGroups(g){ document.querySelectorAll('[name=grp]').forEach(function(c){ c.checked = g.indexOf(c.value) > -1; }); }
+  var groupsTouched = false;
+  document.querySelectorAll('[name=grp]').forEach(function(c){ c.addEventListener('change', function(){ groupsTouched = true; }); });
+  $('rVille').addEventListener('input', function(){ if (!groupsTouched) setGroups(guessGroups(this.value)); });
+  function drawThumb(src, nom){
+    $('rThumb').className = 'thumb' + (src ? '' : ' mono');
+    $('rThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu du logo">' : esc(initiales(nom || '?'));
+    $('rNoLogo').hidden = !src;
+  }
+  function openRef(x){
+    editing = x || null; newLogo = null; dropLogo = false; groupsTouched = !!x;
+    $('dRefT').textContent = x ? 'Modifier la référence' : 'Nouvelle référence';
+    $('rNom').value = x ? x.nom : ''; $('rVille').value = x ? x.ville : '';
+    setGroups(x ? x.groupes : []);
+    $('rOrdre').value = x ? x.ordre : (refs.reduce(function(m, r){ return Math.max(m, r.ordre); }, 0) + 10);
+    $('rPub').checked = x ? x.publie : true;
+    $('rLogo').value = ''; drawThumb(x && x.logo_url ? logoSrc(x.logo_url) : '', x && x.nom);
+    $('rErr').textContent = '';
+    $('dRef').showModal(); $('rNom').focus();
+  }
+  $('bAddRef').onclick = function(){ openRef(null); };
+  $('rNom').addEventListener('input', function(){ if (!$('rThumb').querySelector('img')) drawThumb('', this.value); });
+  $('rLogo').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    $('rErr').textContent = '';
+    try { newLogo = await prepLogo(f); dropLogo = false; drawThumb(URL.createObjectURL(newLogo)); }
+    catch (x) { $('rErr').textContent = msg(x); this.value = ''; }
+  });
+  $('rNoLogo').onclick = function(){ newLogo = null; dropLogo = true; $('rLogo').value = ''; drawThumb('', $('rNom').value); };
+
+  /* Logo : réduit à 240 px au plus grand côté, en WebP (PNG si le navigateur ne sait pas encoder le WebP) */
+  function prepLogo(file){
+    return new Promise(function(ok, ko){
+      if (!/^image\/(png|jpeg|webp)$/.test(file.type)) return ko(new Error('mime type'));
+      if (file.size > 15e6) return ko(new Error('too large'));
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function(){
+        var k = Math.min(1, 240 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        c.toBlob(function(b){ b ? ok(b) : ko(new Error('Image illisible.')); }, 'image/webp', .9);
+      };
+      img.onerror = function(){ ko(new Error('Image illisible.')); };
+      img.src = url;
+    });
+  }
+  async function uploadLogo(blob){
+    var ext = blob.type === 'image/webp' ? 'webp' : blob.type === 'image/png' ? 'png' : 'jpg';
+    var path = 'refs/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    var r = await sb.storage.from('logos').upload(path, blob, {contentType:blob.type, upsert:false, cacheControl:'31536000'});
+    if (r.error) throw r.error;
+    return sb.storage.from('logos').getPublicUrl(path).data.publicUrl;
+  }
+  async function removeLogo(u){
+    var m = u && u.match(/\/storage\/v1\/object\/public\/logos\/(.+)$/);
+    if (m) await sb.storage.from('logos').remove([decodeURIComponent(m[1])]);
+  }
+  $('fRef').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('rErr'), nom = $('rNom').value.trim(), ville = $('rVille').value.trim();
+    var groupes = Array.prototype.map.call(document.querySelectorAll('[name=grp]:checked'), function(c){ return c.value; });
+    err.textContent = '';
+    if (nom.length < 2) { err.textContent = 'Indiquez le nom de l’entreprise.'; return $('rNom').focus(); }
+    if (ville.length < 2) { err.textContent = 'Indiquez la ville.'; return $('rVille').focus(); }
+    if (!groupes.length) { err.textContent = 'Cochez au moins un filtre.'; return; }
+    var b = $('rSave'); b.disabled = true;
+    try {
+      var data = {nom:nom, ville:ville, groupes:groupes, ordre:Math.max(0, parseInt($('rOrdre').value, 10) || 0), publie:$('rPub').checked};
+      var old = editing && editing.logo_url;
+      if (newLogo) data.logo_url = await uploadLogo(newLogo);
+      else if (dropLogo) data.logo_url = null;
+      var r = editing ? await sb.from('references_clients').update(data).eq('id', editing.id).select().single()
+                      : await sb.from('references_clients').insert(data).select().single();
+      if (r.error) throw r.error;
+      if ((newLogo || dropLogo) && old) removeLogo(old);
+      if (editing) Object.assign(editing, r.data); else refs.push(r.data);
+      refs.sort(function(a, c){ return a.ordre - c.ordre || a.nom.localeCompare(c.nom, 'fr'); });
+      $('dRef').close(); drawRefs(); toast(editing ? 'Référence enregistrée.' : 'Référence ajoutée.');
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+
+  /* ═══ Prestations ═══ */
+  async function loadPrests(){
+    var r = await sb.from('prestations').select('*').order('ordre').order('titre');
+    if (r.error) { $('prestList').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    prests = r.data; drawPrests();
+  }
+  function drawPrests(){
+    $('prestList').innerHTML = prests.length ? prests.map(function(p){
+      return '<div class="item"><span class="thumb ic">' + svg(p.icone) + '</span><div><b>' + esc(p.titre) + '</b><div class="meta">'
+        + '<span>#p-' + esc(p.slug) + '</span>' + p.besoins.map(function(k){ return '<span class="tag">' + NEEDS[k] + '</span>'; }).join('')
+        + '<span class="tag ' + (p.publie ? 'on' : 'off') + '">' + (p.publie ? 'Publiée' : 'Brouillon') + '</span></div></div>'
+        + '<div class="acts">' + (p.publie ? '<a class="link" href="../#p-' + esc(p.slug) + '" target="_blank" rel="noopener">Voir</a>' : '')
+        + '<button type="button" class="btn btn-ghost btn-sm" data-edit-p="' + p.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-p="' + p.id + '">' + (p.publie ? 'Dépublier' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-p="' + p.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('') : '<p class="empty">Aucune prestation ajoutée pour l’instant. Les cinq fiches d’origine (Logiciel, Accès à distance, Serveur et réseau, Sécurité, Formation) sont intégrées au site.</p>';
+  }
+  $('prestList').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editP || b.dataset.pubP || b.dataset.delP), p = prests.find(function(x){ return x.id === id; });
+    if (!p) return;
+    if (b.dataset.editP) openPrest(p);
+    if (b.dataset.pubP) {
+      var r = await sb.from('prestations').update({publie:!p.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(p, r.data); drawPrests(); toast(p.publie ? 'Prestation publiée.' : 'Prestation retirée du site.');
+    }
+    if (b.dataset.delP && await confirmer('Supprimer définitivement la prestation « ' + p.titre + ' » ? Pour la retirer du site sans la perdre, utilisez plutôt « Dépublier ».')) {
+      var d = await sb.from('prestations').delete().eq('id', id).select();
+      if (d.error || !d.data.length) return toast(d.error ? msg(d.error) : 'Action non autorisée pour votre rôle.', true);
+      prests = prests.filter(function(x){ return x.id !== id; }); drawPrests(); toast('Prestation supprimée.');
+    }
+  });
+  $('pIcons').insertAdjacentHTML('beforeend', Object.keys(ICONS).map(function(k){
+    return '<label title="' + ICONS[k][0] + '"><input type="radio" name="icone" value="' + k + '" aria-label="' + ICONS[k][0] + '">' + svg(k) + '</label>';
+  }).join(''));
+  var pEditing = null, slugTouched = false;
+  function slugHint(){ $('pSlugHint').textContent = 'biteye-group.com/#p-' + ($('pSlug').value || '…'); }
+  function preview(){ $('pPreview').innerHTML = esc($('pAcc').value || 'Titre de la fiche') + ($('pAccC').value ? ' <em>' + esc($('pAccC').value) + '</em>' : ''); }
+  function descCount(){ $('pDescN').textContent = $('pDesc').value.length + ' / 600'; }
+  $('pTitre').addEventListener('input', function(){ if (!slugTouched) { $('pSlug').value = slugify(this.value); slugHint(); } });
+  $('pSlug').addEventListener('input', function(){ slugTouched = true; this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''); slugHint(); });
+  $('pAcc').addEventListener('input', preview); $('pAccC').addEventListener('input', preview); $('pDesc').addEventListener('input', descCount);
+  function addBloc(b){
+    var n = $('pBlocs').children.length; if (n >= 6) return;
+    var d = document.createElement('div'); d.className = 'bloc';
+    d.innerHTML = '<div class="bloc-head"><label class="sr" for="bt' + n + '">Titre du bloc</label><input type="text" id="bt' + n + '" maxlength="60" placeholder="Titre du bloc (ex. Préventif)"><button type="button" class="link danger" data-rm>Retirer</button></div>'
+      + '<label class="sr" for="bp' + n + '">Points</label><textarea id="bp' + n + '" rows="4" placeholder="Un point par ligne"></textarea>';
+    d.querySelector('input').value = b ? b.titre || '' : ''; d.querySelector('textarea').value = b ? (b.points || []).join('\n') : '';
+    d.querySelector('[data-rm]').onclick = function(){ d.remove(); $('pAddBloc').hidden = false; };
+    $('pBlocs').appendChild(d); $('pAddBloc').hidden = $('pBlocs').children.length >= 6;
+  }
+  $('pAddBloc').onclick = function(){ addBloc(); var l = $('pBlocs').lastElementChild; if (l) l.querySelector('input').focus(); };
+  function openPrest(p){
+    pEditing = p || null; slugTouched = !!p;
+    $('dPrestT').textContent = p ? 'Modifier la prestation' : 'Nouvelle prestation';
+    $('pTitre').value = p ? p.titre : ''; $('pSlug').value = p ? p.slug : '';
+    $('pAcc').value = p ? p.accroche : ''; $('pAccC').value = p ? p.accroche_couleur : ''; $('pDesc').value = p ? p.description : '';
+    (document.querySelector('[name=icone][value="' + (p ? p.icone : 'outils') + '"]') || {}).checked = true;
+    document.querySelectorAll('[name=need]').forEach(function(c){ c.checked = !!p && p.besoins.indexOf(c.value) > -1; });
+    $('pOrdre').value = p ? p.ordre : (prests.reduce(function(m, x){ return Math.max(m, x.ordre); }, 0) + 10);
+    $('pPub').checked = p ? p.publie : false;
+    $('pBlocs').innerHTML = ''; (p && p.blocs.length ? p.blocs : [null]).forEach(addBloc);
+    $('pErr').textContent = ''; slugHint(); preview(); descCount();
+    $('dPrest').showModal(); $('pTitre').focus();
+  }
+  $('bAddPrest').onclick = function(){ openPrest(null); };
+  $('fPrest').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('pErr'); err.textContent = '';
+    var data = {
+      titre:$('pTitre').value.trim(), slug:$('pSlug').value.trim(), accroche:$('pAcc').value.trim(), accroche_couleur:$('pAccC').value.trim(),
+      description:$('pDesc').value.trim(), icone:(document.querySelector('[name=icone]:checked') || {}).value || 'outils',
+      besoins:Array.prototype.map.call(document.querySelectorAll('[name=need]:checked'), function(c){ return c.value; }),
+      ordre:Math.max(0, parseInt($('pOrdre').value, 10) || 0), publie:$('pPub').checked,
+      blocs:Array.prototype.map.call($('pBlocs').children, function(d){
+        return {titre:d.querySelector('input').value.trim(), points:d.querySelector('textarea').value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 12)};
+      }).filter(function(b){ return b.titre || b.points.length; })
+    };
+    if (data.titre.length < 2) { err.textContent = 'Indiquez le nom de la prestation.'; return $('pTitre').focus(); }
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(data.slug)) { err.textContent = 'Adresse invalide : lettres minuscules, chiffres et tirets.'; return $('pSlug').focus(); }
+    if (data.accroche.length < 2) { err.textContent = 'Indiquez le titre de la fiche.'; return $('pAcc').focus(); }
+    var b = $('pSave'); b.disabled = true;
+    try {
+      var r = pEditing ? await sb.from('prestations').update(data).eq('id', pEditing.id).select().single()
+                       : await sb.from('prestations').insert(data).select().single();
+      if (r.error) throw r.error;
+      if (pEditing) Object.assign(pEditing, r.data); else prests.push(r.data);
+      prests.sort(function(a, c){ return a.ordre - c.ordre || a.titre.localeCompare(c.titre, 'fr'); });
+      $('dPrest').close(); drawPrests(); toast(pEditing ? 'Prestation enregistrée.' : 'Prestation ajoutée.' + (data.publie ? '' : ' Elle reste en brouillon tant qu’elle n’est pas publiée.'));
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+
+  /* ═══ Comptes (administrateurs) ═══ */
+  async function loadUsers(){
+    if (!isAdmin()) return;
+    var r = await sb.from('profils').select('id,email,nom,role,cree_le').order('cree_le');
+    if (r.error) { $('userRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
+    users = r.data;
+    var pending = users.filter(function(u){ return !u.role; }).length;
+    $('pendingCount').textContent = pending; $('pendingCount').hidden = !pending;
+    $('userRows').innerHTML = users.map(function(u){
+      return '<tr' + (u.role ? '' : ' class="pending"') + '><td>' + esc(u.nom || '—') + (u.id === me.id ? ' <span class="tag">vous</span>' : '') + '</td><td>' + esc(u.email) + '</td>'
+        + '<td><label class="sr" for="role-' + u.id + '">Rôle de ' + esc(u.email) + '</label><select id="role-' + u.id + '" data-user="' + u.id + '">'
+        + '<option value=""' + (u.role ? '' : ' selected') + '>Aucun (en attente)</option><option value="editeur"' + (u.role === 'editeur' ? ' selected' : '') + '>Éditeur</option><option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Administrateur</option></select></td>'
+        + '<td>' + date(u.cree_le) + '</td></tr>';
+    }).join('');
+  }
+  $('userRows').addEventListener('change', async function(e){
+    var s = e.target.closest('select[data-user]'); if (!s) return;
+    var u = users.find(function(x){ return x.id === s.dataset.user; }), role = s.value || null;
+    if (u.id === me.id && role !== 'admin' && !(await confirmer('Vous allez retirer vos propres droits d’administrateur. Continuer ?', 'Retirer mes droits'))) { s.value = u.role || ''; return; }
+    var r = await sb.from('profils').update({role:role}).eq('id', u.id).select().single();
+    if (r.error) { s.value = u.role || ''; return toast(msg(r.error), true); }
+    u.role = r.data.role; toast('Rôle de ' + (u.nom || u.email) + ' : ' + (role ? ROLES[role] : 'aucun') + '.');
+    if (u.id === me.id) return enter();
+    loadUsers();
+  });
+
+  /* ═══ Journal (administrateurs) ═══ */
+  var OBJETS = {references_clients:'Référence', prestations:'Prestation', profils:'Rôle'};
+  async function loadLog(){
+    var r = await sb.from('journal').select('*').order('id', {ascending:false}).limit(200);
+    if (r.error) { $('logRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
+    $('logRows').innerHTML = r.data.length ? r.data.map(function(j){
+      var lib = String(j.libelle || '').replace(/→ (admin|editeur)$/, function(m, r){ return '→ ' + ROLES[r]; });
+      return '<tr><td>' + date(j.quand) + '</td><td>' + esc(j.qui_email || 'Supabase (hors interface)') + '</td><td>' + esc(j.action) + '</td><td>' + esc(OBJETS[j.objet] || j.objet) + ' · ' + esc(lib) + '</td></tr>';
+    }).join('') : '<tr><td colspan="4">Aucune modification pour l’instant.</td></tr>';
+  }
+
+  /* ═══ Fenêtres ═══ */
+  document.querySelectorAll('[data-cancel]').forEach(function(b){ b.onclick = function(){ b.closest('dialog').close(); }; });
+  function confirmer(text, ok){
+    return new Promise(function(done){
+      var d = $('dConfirm'); $('dConfirmMsg').textContent = text; $('dConfirmOk').textContent = ok || 'Supprimer';
+      d.returnValue = ''; d.showModal();
+      d.addEventListener('close', function h(){ d.removeEventListener('close', h); done(d.returnValue === 'oui'); });
+    });
+  }
+})();
+</script>
+</body>
+</html>

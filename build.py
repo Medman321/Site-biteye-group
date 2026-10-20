@@ -15,7 +15,7 @@ def inline_script(match):
     return f"<script>/* {match.group(1)} */\n{js}\n</script>"
 
 
-html = re.sub(r'<script src="(vendor/[^"]+)"></script>', inline_script, html)
+html = re.sub(r'<script src="(vendor/[^"]+|config\.js)"></script>', inline_script, html)
 def inline_image(match):
     data = base64.b64encode((ROOT / match.group(1)).read_bytes()).decode()
     return f'src="data:image/webp;base64,{data}"'
