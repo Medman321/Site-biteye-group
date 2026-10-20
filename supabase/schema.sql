@@ -141,6 +141,14 @@ create table if not exists public.evenements (
   check (date_fin is null or date_fin >= date_debut)
 );
 
+-- Réglages du site : une ligne par réglage. video_accueil = {"url", "poster", "titre", "publie"}
+create table if not exists public.reglages (
+  cle         text primary key check (cle in ('video_accueil')),
+  valeur      jsonb not null default '{}' check (jsonb_typeof(valeur) = 'object'),
+  modifie_le  timestamptz not null default now(),
+  modifie_par uuid references auth.users (id) on delete set null
+);
+
 create or replace function public.horodater() returns trigger
 language plpgsql as $$
 begin
@@ -157,6 +165,9 @@ create trigger horodater before insert or update on public.prestations
   for each row execute function public.horodater();
 drop trigger if exists horodater on public.evenements;
 create trigger horodater before insert or update on public.evenements
+  for each row execute function public.horodater();
+drop trigger if exists horodater on public.reglages;
+create trigger horodater before insert or update on public.reglages
   for each row execute function public.horodater();
 
 -- ═══════════════════════════════ Journal ═══════════════════════════════
@@ -177,7 +188,7 @@ declare
   ligne jsonb := to_jsonb(coalesce(new, old));
   quoi  text;
 begin
-  quoi := coalesce(nullif(ligne ->> 'nom', ''), ligne ->> 'titre', ligne ->> 'email');
+  quoi := coalesce(nullif(ligne ->> 'nom', ''), ligne ->> 'titre', ligne ->> 'email', ligne ->> 'cle');
   if tg_table_name = 'profils' then
     quoi := quoi || ' → ' || coalesce(new.role::text, 'sans rôle');
   end if;
@@ -197,6 +208,9 @@ create trigger journaliser after insert or update or delete on public.prestation
 drop trigger if exists journaliser on public.evenements;
 create trigger journaliser after insert or update or delete on public.evenements
   for each row execute function public.journaliser();
+drop trigger if exists journaliser on public.reglages;
+create trigger journaliser after insert or update or delete on public.reglages
+  for each row execute function public.journaliser();
 drop trigger if exists journaliser on public.profils;
 create trigger journaliser after update of role on public.profils
   for each row execute function public.journaliser();
@@ -208,6 +222,7 @@ alter table public.references_clients enable row level security;
 alter table public.prestations        enable row level security;
 alter table public.journal            enable row level security;
 alter table public.evenements         enable row level security;
+alter table public.reglages           enable row level security;
 
 -- Seuls le rôle et le nom d'un profil peuvent être modifiés (jamais l'identifiant ni l'e-mail)
 revoke all on public.profils from anon;
@@ -264,16 +279,31 @@ drop policy if exists "événements : suppression" on public.evenements;
 create policy "événements : suppression" on public.evenements
   for delete to authenticated using (public.est_admin());
 
+-- Réglages : le site ne lit que ce qui est publié ; l'équipe modifie
+drop policy if exists "réglages : lecture" on public.reglages;
+create policy "réglages : lecture" on public.reglages
+  for select to anon, authenticated using (coalesce((valeur ->> 'publie')::boolean, false) or public.est_equipe());
+drop policy if exists "réglages : ajout" on public.reglages;
+create policy "réglages : ajout" on public.reglages
+  for insert to authenticated with check (public.est_equipe());
+drop policy if exists "réglages : modification" on public.reglages;
+create policy "réglages : modification" on public.reglages
+  for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
+drop policy if exists "réglages : suppression" on public.reglages;
+create policy "réglages : suppression" on public.reglages
+  for delete to authenticated using (public.est_admin());
+
 drop policy if exists "journal : admin" on public.journal;
 create policy "journal : admin" on public.journal
   for select to authenticated using (public.est_admin());
 
 -- ═══════════════════════════════ Images (stockage) ═══════════════════════════════
--- logos : logos des références ; medias : photos des événements
+-- logos : logos des références ; medias : photos des événements et aperçu de la vidéo ; videos : vidéo de présentation
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('logos', 'logos', true, 1048576, array['image/webp', 'image/png', 'image/jpeg']),
-       ('medias', 'medias', true, 5242880, array['image/webp', 'image/png', 'image/jpeg'])
+       ('medias', 'medias', true, 5242880, array['image/webp', 'image/png', 'image/jpeg']),
+       ('videos', 'videos', true, 52428800, array['video/mp4', 'video/webm'])
 on conflict (id) do update set public = true, file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 
@@ -283,13 +313,13 @@ drop policy if exists "logos : remplacement par l'équipe" on storage.objects;
 drop policy if exists "logos : suppression par l'équipe" on storage.objects;
 drop policy if exists "images : lecture publique" on storage.objects;
 create policy "images : lecture publique" on storage.objects
-  for select using (bucket_id in ('logos', 'medias'));
+  for select using (bucket_id in ('logos', 'medias', 'videos'));
 drop policy if exists "images : ajout par l'équipe" on storage.objects;
 create policy "images : ajout par l'équipe" on storage.objects
-  for insert to authenticated with check (bucket_id in ('logos', 'medias') and public.est_equipe());
+  for insert to authenticated with check (bucket_id in ('logos', 'medias', 'videos') and public.est_equipe());
 drop policy if exists "images : remplacement par l'équipe" on storage.objects;
 create policy "images : remplacement par l'équipe" on storage.objects
-  for update to authenticated using (bucket_id in ('logos', 'medias') and public.est_equipe());
+  for update to authenticated using (bucket_id in ('logos', 'medias', 'videos') and public.est_equipe());
 drop policy if exists "images : suppression par l'équipe" on storage.objects;
 create policy "images : suppression par l'équipe" on storage.objects
-  for delete to authenticated using (bucket_id in ('logos', 'medias') and public.est_equipe());
+  for delete to authenticated using (bucket_id in ('logos', 'medias', 'videos') and public.est_equipe());

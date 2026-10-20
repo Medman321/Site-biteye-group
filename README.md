@@ -5,7 +5,7 @@ Site vitrine de BitEye et de VISION Workspace (promotion immobilière, réalisat
 Site statique en une page :
 
 - `index.html` — page d'accueil (HTML, CSS et JS intégrés) ; charge les bibliothèques depuis `vendor/`
-- `admin/` — administration du site : références et prestations, avec droits d'accès (administrateur, éditeur)
+- `admin/` — administration du site : références, prestations, agenda et vidéo de présentation, avec droits d'accès (administrateur, éditeur)
 - `i18n.js` — traductions anglaise et arabe des textes de la page (clé : le texte français)
 - `config.js` — adresse et clé publique de la base Supabase utilisée par l'administration (vide : le site affiche son contenu intégré)
 - `supabase/` — schéma de la base, import des références et **guide de mise en service** ([`supabase/README.md`](supabase/README.md))
@@ -29,9 +29,19 @@ python3 -m http.server 8000
 # puis ouvrir http://localhost:8000 (site) et http://localhost:8000/admin/ (administration)
 ```
 
+## Vidéo de présentation
+
+L'emplacement est juste après l'en-tête (`#video`). Deux façons d'y mettre la vidéo :
+
+- depuis l'administration, onglet **Vidéo** (une fois Supabase en service) ;
+- ou en déposant le fichier dans `assets/video/` et en renseignant `data-src` (et `data-poster` pour l'image d'aperçu) sur `<div class="vid" id="vid">` dans `index.html`.
+
+Format conseillé : MP4 H.264 + AAC, 1920×1080, 50 Mo maximum. Rien n'est téléchargé avant le clic sur « Lire », hormis la durée.
+
 ## Reste à faire avant la mise en ligne
 
 - Mettre en service l'administration : suivre [`supabase/README.md`](supabase/README.md).
 - Remplacer les maquettes d'écran (données fictives) par de vraies captures de VISION.
 - Brancher le formulaire de démonstration sur un service d'envoi (aujourd'hui il ouvre la messagerie du visiteur avec la demande pré-remplie).
 - Faire relire les versions anglaise et arabe par un locuteur natif.
+- Déposer la vidéo de présentation.

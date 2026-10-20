@@ -128,7 +128,8 @@ a{color:inherit;text-decoration:none}
 .logo .eye{animation:blink 7s infinite}
 @keyframes blink{0%,91%,97%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
 .gnav ul{display:flex;gap:28px;list-style:none;margin:0;margin-inline-start:auto;padding:0;font-size:14px}
-.gnav ul a{color:var(--f-ink-2);transition:color .15s}
+.gnav ul a{color:var(--f-ink-2);transition:color .15s;white-space:nowrap}
+@media (min-width:1069px) and (max-width:1240px){.gnav .chap{display:none}}
 .gnav ul a:hover{color:var(--f-ink)}
 .gnav .btn{padding:11px 18px;font-size:14px;white-space:nowrap}
 .nav-cta .l-short{display:none}
@@ -786,22 +787,38 @@ input::placeholder{color:rgba(234,238,241,.35)}
 .nav-burger span:nth-child(1){top:15px}.nav-burger span:nth-child(2){top:21px}.nav-burger span:nth-child(3){top:27px}
 .nav-scrim{position:fixed;inset:0;z-index:180;background:rgba(1,18,29,.55);opacity:0;transition:opacity .3s}
 .nav-scrim.open{opacity:1}
-.nav-panel{position:fixed;top:0;bottom:0;inset-inline-end:0;z-index:190;width:min(360px,88vw);display:flex;flex-direction:column;gap:20px;overflow-y:auto;overscroll-behavior:contain;
-  padding:max(14px,env(safe-area-inset-top,0px)) 22px max(22px,env(safe-area-inset-bottom,0px));background:var(--forest);color:var(--f-ink);border-inline-start:1px solid var(--f-rule);
-  transform:translateX(100%);transition:transform .35s var(--ease);outline:0}
+.nav-panel{position:fixed;top:0;bottom:0;inset-inline-end:0;z-index:190;width:min(380px,92vw);display:flex;flex-direction:column;overflow:hidden;
+  background:var(--forest);color:var(--f-ink);border-inline-start:1px solid var(--f-rule);box-shadow:-24px 0 60px -20px rgba(0,0,0,.5);transform:translateX(100%);transition:transform .35s var(--ease)}
 [dir="rtl"] .nav-panel{transform:translateX(-100%)}
 .nav-panel.open{transform:none}
-.np-head{display:flex;align-items:center;justify-content:space-between;min-height:44px}
-.np-title{font:600 13px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--f-ink-2)}
+.np-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:max(12px,env(safe-area-inset-top,0px)) 16px 12px 20px;border-bottom:1px solid var(--f-rule)}
+.np-logo{font-size:22px}
 .np-close{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;border:1px solid var(--glass-line);background:transparent;color:var(--f-ink);cursor:pointer}
+.np-close:hover{background:var(--glass)}
 .np-close svg{width:16px;height:16px}
-.np-links{display:grid;gap:2px}
-.np-links > a{padding:14px 4px;font:600 20px/1.2 var(--display);border-bottom:1px solid var(--f-rule)}
-.np-group{margin:18px 4px 6px;font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--f-ink-2)}
-.np-sub{display:grid;gap:2px;padding-bottom:10px;border-bottom:1px solid var(--f-rule)}
-.np-sub a{display:flex;align-items:center;gap:12px;padding:9px 4px;font-size:16px;color:var(--f-ink)}
-.np-sub .mi{width:32px;height:32px}
-.np-cta{justify-content:center;margin-top:auto}
+.np-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:18px 20px 24px;display:grid;align-content:start;gap:22px}
+.np-lang{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 6px 6px 14px;border-radius:14px;background:var(--glass);border:1px solid var(--glass-line)}
+.np-lbl{font:600 12px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--f-ink-2)}
+.np-links{display:grid}
+.np-main{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 4px;border-bottom:1px solid var(--f-rule);transition:color .15s}
+.np-main:first-child{border-top:1px solid var(--f-rule)}
+.np-txt{flex:1;display:grid;gap:3px}
+.np-txt b{font:600 17px/1.2 var(--display);letter-spacing:-.01em}
+.np-txt small{font-size:13px;color:var(--f-ink-2)}
+.np-chev{flex:none;width:16px;height:16px;color:var(--f-ink-2);transition:transform .2s var(--ease),color .2s}
+.np-main:hover .np-chev,.np-main:focus-visible .np-chev{color:var(--lime);transform:translateX(3px)}
+[dir="rtl"] .np-chev{transform:scaleX(-1)}
+[dir="rtl"] .np-main:hover .np-chev,[dir="rtl"] .np-main:focus-visible .np-chev{transform:scaleX(-1) translateX(3px)}
+.np-group{margin:20px 4px 8px}
+.np-sub{display:grid;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--f-rule)}
+.np-sub a{display:flex;align-items:center;gap:12px;min-height:44px;padding:4px;border-radius:10px;font-size:15px;color:var(--f-ink)}
+.np-sub a:hover{background:var(--glass)}
+.np-sub .mi{width:30px;height:30px}
+.np-foot{flex:none;display:grid;gap:10px;padding:14px 20px max(16px,env(safe-area-inset-bottom,0px));border-top:1px solid var(--f-rule);background:var(--forest-2)}
+.np-cta{justify-content:center}
+.np-tel{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;font-size:14px;color:var(--f-ink-2)}
+.np-tel svg{width:15px;height:15px}
+.np-tel:hover{color:var(--f-ink)}
 body.nav-open{overflow:hidden}
 @media (max-width:1068px){.nav-burger{display:block}.gnav .wrap{gap:12px}.gnav .nav-cta{margin-inline-start:auto}.chap{margin-left:0}}
 
@@ -1177,6 +1194,33 @@ body.sheet-open{overflow:hidden}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .tilt-inner,.card3d{transform:none!important}
 }
+/* Vidéo de présentation */
+.vid-band{padding-block:clamp(56px,min(8vw,11svh),112px)}
+.vid-band .head{margin-bottom:clamp(24px,4svh,44px)}
+.vid{position:relative;max-width:1040px;margin-inline:auto;aspect-ratio:16/9;max-height:76svh;border-radius:clamp(16px,2vw,26px);overflow:hidden;background:#011A29;border:1px solid var(--glass-line);box-shadow:0 40px 80px -40px rgba(0,0,0,.7)}
+.vid video{position:absolute;inset:0;width:100%;height:100%;background:#000;object-fit:contain}
+.vid-cover{position:absolute;inset:0;display:grid;place-items:center;width:100%;padding:0;border:0;color:var(--f-ink);cursor:pointer;font:inherit;
+  background:radial-gradient(120% 90% at 50% 110%,rgba(3,218,159,.10),transparent 60%),linear-gradient(180deg,#05304A,#011A29)}
+.vid-cover:disabled{cursor:default}
+.vid-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vid-poster:not([hidden]) ~ .vid-art{display:none}
+.vid-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(1,18,29,.75));pointer-events:none}
+.vid-art{position:absolute;inset:0;background-image:linear-gradient(var(--f-rule) 1px,transparent 1px),linear-gradient(90deg,var(--f-rule) 1px,transparent 1px);background-size:56px 56px;background-position:center;
+  -webkit-mask-image:radial-gradient(70% 70% at 50% 50%,#000,transparent);mask-image:radial-gradient(70% 70% at 50% 50%,#000,transparent);opacity:.6}
+.vid-eye{position:absolute;left:50%;top:50%;width:min(46%,420px);transform:translate(-50%,-50%);color:var(--f-ink);opacity:.05}
+.vid-play{position:relative;z-index:1;display:grid;place-items:center;width:clamp(64px,8vw,92px);aspect-ratio:1;border-radius:50%;background:var(--lime);color:var(--on-lime);transition:transform .3s var(--ease),background-color .2s}
+.vid-play svg{width:38%;height:38%;margin-inline-start:6%}
+.vid-cover:hover .vid-play{transform:scale(1.06);background:#2EE5B2}
+.vid-cover:focus-visible{outline:3px solid var(--lime);outline-offset:-3px}
+.vid-soon{display:none;position:relative;z-index:1;padding:10px 16px;border-radius:999px;background:rgba(1,26,41,.7);border:1px solid var(--glass-line);font-size:14px;color:var(--f-ink-2)}
+.vid.empty .vid-play{display:none}
+.vid.empty .vid-soon{display:block}
+.vid-meta{position:absolute;z-index:1;inset-inline:clamp(16px,3vw,32px);bottom:clamp(14px,2.6vw,28px);display:flex;align-items:baseline;justify-content:space-between;gap:12px;text-align:start}
+.vid-meta b{font:600 clamp(14px,1.6vw,18px)/1.3 var(--display)}
+.vid-meta small{font-size:13px;color:var(--f-ink-2);font-variant-numeric:tabular-nums}
+.vid.playing .vid-cover{display:none}
+[dir="rtl"] .vid-play svg{transform:none}
+@media (max-width:734px){.vid{border-radius:16px}.vid-meta b{font-size:13px}}
 /* Langues : sélecteur, arabe (police, sens de lecture) */
 html.i18n-wait body{visibility:hidden}
 .langs{display:flex;gap:2px;font:600 12.5px/1 var(--text);letter-spacing:.02em}
@@ -1185,13 +1229,12 @@ html.i18n-wait body{visibility:hidden}
 .langs a[aria-current]{color:var(--f-ink);background:rgba(234,238,241,.1)}
 .langs a[lang="ar"]{font:600 15px/1 "IBM Plex Sans Arabic",sans-serif}
 .gnav .langs{margin-inline-start:-12px}
-.np-langs{padding-top:4px}
-.np-langs a{height:40px;min-width:44px;font-size:14px}
+.np-langs a{height:36px;min-width:44px;font-size:14px}
 @media (max-width:1068px){.gnav .langs{display:none}}
 :root[lang="ar"]{--display:"IBM Plex Sans Arabic","Poppins",system-ui,sans-serif;--text:"IBM Plex Sans Arabic","Inter",system-ui,sans-serif}
 [lang="ar"] body *{letter-spacing:0!important}
 [lang="ar"] h1,[lang="ar"] h2,[lang="ar"] h3,[lang="ar"] h4{line-height:1.25}
-[lang="ar"] .eyebrow,[lang="ar"] .ev-type,[lang="ar"] .np-title,[lang="ar"] .np-group{text-transform:none}
+[lang="ar"] .eyebrow,[lang="ar"] .ev-type,[lang="ar"] .np-lbl{text-transform:none}
 [lang="ar"] .logo,[lang="ar"] .logo *,[lang="ar"] .foot-wm{font-family:"Poppins",sans-serif}
 [dir="rtl"] .logo-marq,[dir="rtl"] .mod-marq{direction:ltr}
 [dir="rtl"] .logo-marq .row > *,[dir="rtl"] .mod-marq .row > *{direction:rtl}
@@ -1220,7 +1263,7 @@ html.i18n-wait body{visibility:hidden}
     <a class="logo" href="#top" aria-label="BitEye, accueil"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="wm"><b>bit</b>eye</span></a>
     <span class="chap" id="chap" aria-hidden="true"><b>01</b><span>Le logiciel</span></span>
     <ul>
-      <li><a href="#vision">Logiciel</a></li>
+      <li><a href="#vision">VISION Workspace</a></li>
       <li class="has-menu"><button type="button" class="menu-btn" aria-expanded="false" aria-controls="svcMenu">Services <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
         <div class="menu" id="svcMenu"><a href="#logiciel"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/></svg></span>Logiciel VISION</a><a href="#acces-distant"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/></svg></span>Accès à distance</a><a href="#infrastructure"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M12 21h0M7 21h10M12 17v4"/></svg></span>Serveur et réseau</a><a href="#securite"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg></span>Sécurité et sauvegarde</a><a href="#formation"><span class="mi"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/></svg></span>Formation et performance</a></div></li>
       <li><a href="#confiance">Références</a></li>
@@ -1234,18 +1277,27 @@ html.i18n-wait body{visibility:hidden}
 </nav>
 <!-- Petits écrans : la navigation s'ouvre dans un panneau latéral -->
 <div class="nav-scrim" id="navScrim" hidden></div>
-<div class="nav-panel" id="navPanel" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" hidden>
-  <div class="np-head"><span class="np-title">Menu</span><button type="button" class="np-close" id="navClose" aria-label="Fermer le menu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
-  <nav class="np-links" aria-label="Navigation">
-    <a href="#vision">Logiciel</a>
-    <p class="np-group">Services</p>
-    <div class="np-sub" id="navSvc"></div>
-    <a href="#confiance">Références</a>
-    <a href="#pourquoi">BitEye</a>
-    <a href="#evenements" id="navEvP">Agenda</a>
-  </nav>
-  <a class="btn np-cta" href="#contact">Demander une démo</a>
-  <div class="langs np-langs" role="group" aria-label="Langue"><a href="?lang=fr" hreflang="fr" lang="fr" aria-label="Français">FR</a><a href="?lang=en" hreflang="en" lang="en" aria-label="English">EN</a><a href="?lang=ar" hreflang="ar" lang="ar" aria-label="العربية">ع</a></div>
+<div class="nav-panel" id="navPanel" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" data-lenis-prevent hidden>
+  <div class="np-head">
+    <a class="logo np-logo" href="#top" aria-label="BitEye, accueil"><svg class="eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="wm"><b>bit</b>eye</span></a>
+    <button type="button" class="np-close" id="navClose" aria-label="Fermer le menu"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="np-body">
+    <div class="np-lang"><span class="np-lbl" id="npLangLbl">Langue</span><div class="langs np-langs" role="group" aria-labelledby="npLangLbl"><a href="?lang=fr" hreflang="fr" lang="fr" aria-label="Français">FR</a><a href="?lang=en" hreflang="en" lang="en" aria-label="English">EN</a><a href="?lang=ar" hreflang="ar" lang="ar" aria-label="العربية">ع</a></div></div>
+    <nav class="np-links" aria-label="Navigation">
+      <a class="np-main" href="#vision"><span class="np-txt"><b>VISION Workspace</b><small>Le logiciel, écran par écran</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="np-main" href="#video"><span class="np-txt"><b>Vidéo de présentation</b><small>BitEye et VISION en images</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <p class="np-lbl np-group">Services</p>
+      <div class="np-sub" id="navSvc"></div>
+      <a class="np-main" href="#confiance"><span class="np-txt"><b>Références</b><small>Plus de 250 clients depuis 2014</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="np-main" href="#pourquoi"><span class="np-txt"><b>Pourquoi BitEye</b><small>Éditeur algérien, support à Alger</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="np-main" href="#evenements" id="navEvP"><span class="np-txt"><b>Agenda</b><small>Salons et rendez-vous</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </nav>
+  </div>
+  <div class="np-foot">
+    <a class="btn np-cta" href="#contact">Demander une démo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="np-tel" href="tel:+213560063641"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a>
+  </div>
 </div>
 
 <main id="top">
@@ -1271,6 +1323,28 @@ html.i18n-wait body{visibility:hidden}
     <div class="co"><i class="co-dot"></i><span class="co-card"><small>Copropriété · VISION Co-Owner</small><b>Charges du trimestre réglées</b></span></div>
   </div>
   <div class="scroll-cue" aria-hidden="true"><span>Défiler</span><i></i></div>
+</section>
+
+<!-- ================= VIDÉO DE PRÉSENTATION =================
+     Mettre la vidéo : data-src (MP4 H.264, 1920×1080 conseillé) et data-poster (image d'aperçu), ou depuis l'administration.
+     Sans vidéo, l'emplacement affiche « Vidéo bientôt disponible ». -->
+<section class="band forest vid-band" id="video" data-chapter="1" aria-labelledby="vidT">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow">Présentation</span>
+      <h2 class="h2" id="vidT">BitEye et VISION, <em>en vidéo.</em></h2>
+    </div>
+    <div class="vid" id="vid" data-src="" data-poster="" data-reveal>
+      <video id="vidEl" playsinline controls preload="none" hidden></video>
+      <button type="button" class="vid-cover" id="vidCover" aria-label="Lire la vidéo de présentation">
+        <img class="vid-poster" id="vidPoster" alt="" hidden>
+        <span class="vid-art" aria-hidden="true"><svg class="vid-eye" viewBox="0 0 440 276"><use href="#eye-mark"/></svg></span>
+        <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+        <span class="vid-soon" id="vidSoon">Vidéo bientôt disponible</span>
+        <span class="vid-meta" aria-hidden="true"><b>Présentation de VISION Workspace</b><small id="vidDur"></small></span>
+      </button>
+    </div>
+  </div>
 </section>
 
 <!-- ================= APERÇU ================= -->
@@ -2370,7 +2444,7 @@ html.i18n-wait body{visibility:hidden}
     burger.setAttribute('aria-expanded', 'true');
     panelBehind.forEach(function(el){ if (el) el.inert = true; });
     document.body.classList.add('nav-open'); if (window.__lenis) window.__lenis.stop();
-    panel.querySelector('a').focus();
+    panel.querySelector('.np-links a').focus();
   }
   function closePanel(keepFocus){
     if (panel.hidden) return;
@@ -2785,7 +2859,34 @@ html.i18n-wait body{visibility:hidden}
   }
   document.addEventListener('click', function(e){ var a = e.target.closest && e.target.closest('[data-rdv]'); if (a) setRdv(a.getAttribute('data-rdv')); }, true);
   rdvTag.querySelector('button').addEventListener('click', function(){ setRdv(null); document.getElementById('f-nom').focus(); });
+  /* Vidéo de présentation : la source vient de data-src (ou de l'administration) ; rien n'est téléchargé avant le clic */
+  var vid = document.getElementById('vid'), vidEl = document.getElementById('vidEl'), vidCover = document.getElementById('vidCover');
+  function setVideo(src, poster, titre){
+    var ok = /^(https:\/\/|assets\/|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/)/;
+    src = ok.test(src || '') ? src : ''; poster = ok.test(poster || '') ? poster : '';
+    vid.classList.toggle('empty', !src); vidCover.disabled = !src;
+    vidCover.setAttribute('aria-label', src ? T('Lire la vidéo de présentation') : T('Vidéo bientôt disponible'));
+    var img = document.getElementById('vidPoster'); img.hidden = !poster; if (poster) img.src = poster; else img.removeAttribute('src');
+    if (titre) vid.querySelector('.vid-meta b').textContent = titre;
+    vid.classList.remove('playing'); vidEl.hidden = true; vidEl.removeAttribute('src');
+    vidEl.dataset.src = src; if (poster) vidEl.poster = poster;
+    document.getElementById('vidDur').textContent = '';
+    if (src) { vidEl.preload = 'metadata'; vidEl.src = src; }
+  }
+  vidEl.addEventListener('loadedmetadata', function(){
+    var d = Math.round(vidEl.duration); if (!isFinite(d) || !d) return;
+    document.getElementById('vidDur').textContent = Math.floor(d / 60) + ':' + String(d % 60).padStart(2, '0');
+  });
+  vidCover.addEventListener('click', function(){
+    if (!vidEl.dataset.src) return;
+    vid.classList.add('playing'); vidEl.hidden = false; vidEl.focus({preventScroll:true});
+    var p = vidEl.play(); if (p && p.catch) p.catch(function(){});
+  });
+  /* La vidéo se met en pause quand elle sort de l'écran */
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting && !vidEl.paused) vidEl.pause(); }); }, {threshold:.15}).observe(vid);
+  setVideo(vid.getAttribute('data-src'), vid.getAttribute('data-poster'));
   if (DB.url && DB.cle && window.fetch) {
+    dbGet('reglages?select=valeur&cle=eq.video_accueil').then(function(r){ var v = r && r[0] && r[0].valeur; if (v && v.publie && v.url) setVideo(v.url, v.poster, v.titre); }).catch(function(){});
     dbGet('references_clients?select=nom,ville,groupes,logo_url&publie=is.true&order=ordre.asc,nom.asc').then(renderRefs).catch(function(){});
     dbGet('evenements?select=slug,titre,type,lieu,ville,date_debut,date_fin,dates_confirmees,periode,stand,organisateur,accroche,description,programme,image_url,lien_externe,rendez_vous&publie=is.true&order=date_debut.asc').then(renderEvents).catch(function(){});
     dbGet('prestations?select=slug,titre,accroche,accroche_couleur,description,icone,blocs,besoins&publie=is.true&order=ordre.asc,titre.asc').then(renderPrestations).catch(function(){});

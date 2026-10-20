@@ -31,6 +31,8 @@ un éditeur ne peut ni supprimer ni changer un rôle. Il reste toujours au moins
 2. Collez le contenu de [`schema.sql`](schema.sql) et cliquez **Run**.
 3. Nouvelle requête : collez [`seed.sql`](seed.sql) et cliquez **Run** (importe les 171 références actuelles du site).
 
+`schema.sql` peut être relancé sans risque après une mise à jour du site : il ajoute ce qui manque (par exemple la table `reglages` et l’espace de stockage `videos` de la vidéo de présentation) sans effacer le contenu.
+
 ### 3. Régler la connexion
 Dans **Authentication** › **URL Configuration** :
 - **Site URL** : `https://biteye-group.com/admin/`
@@ -80,6 +82,8 @@ to sign up** et invitez les personnes depuis **Authentication › Users › Invi
 - **Prestations** : chaque prestation publiée obtient sa **fiche plein écran** au style du site
   (`biteye-group.com/#p-adresse`), sa **tuile** dans « Quel est votre besoin ? », son entrée dans le **menu Services**
   et un **onglet** dans toutes les fiches. Les cinq fiches d’origine restent intégrées au site.
+- **Vidéo** : la vidéo de présentation affichée après l’en-tête (MP4 ou WebM, 50 Mo maximum, image d’aperçu
+  et titre facultatifs), affichée ou masquée d’un clic. Sans vidéo publiée, le site affiche « Vidéo bientôt disponible ».
 - **Journal** : qui a ajouté, modifié, masqué ou supprimé quoi, et quand.
 
 ## Essais en local

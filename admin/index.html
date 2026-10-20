@@ -107,6 +107,15 @@ textarea{min-height:96px;resize:vertical}
 .more{display:block;margin:14px auto 0}
 @media (max-width:640px){.item{grid-template-columns:48px 1fr}.thumb{width:48px;height:40px}.acts{grid-column:1/-1;justify-content:flex-end}}
 
+/* Vidéo d'accueil */
+.vid-adm{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start;padding:20px;border:1px solid var(--rule-2);border-radius:16px;background:#fff}
+.vid-prev{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:var(--forest);display:grid;place-items:center;color:#93A9B8;font-size:14px}
+.vid-prev video{width:100%;height:100%;background:#000}
+.vid-poster-row{display:flex;align-items:center;gap:12px}
+.vid-poster-row .thumb{width:120px;height:68px}
+.vid-poster-row .thumb img{max-width:none;width:100%;height:100%;object-fit:cover}
+.vid-acts{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+@media (max-width:820px){.vid-adm{grid-template-columns:1fr}}
 /* Comptes et journal */
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--rule)}
@@ -225,6 +234,7 @@ input[type=file]{max-width:100%;font-size:14px}
     <button type="button" role="tab" aria-selected="true" aria-controls="pRefs" id="tRefs">Références</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pPrest" id="tPrest">Prestations</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pEv" id="tEv">Agenda</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pVid" id="tVid">Vidéo</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pUsers" id="tUsers" data-admin hidden>Comptes<span class="count" id="pendingCount" hidden></span></button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pLog" id="tLog" data-admin hidden>Journal</button>
   </div></nav>
@@ -256,6 +266,24 @@ input[type=file]{max-width:100%;font-size:14px}
       <div class="head"><div><h1>Agenda</h1><p class="lead">Salons, journées portes ouvertes, conférences… Le prochain événement publié s’affiche en grand dans la section « Agenda » du site, avec sa fiche détaillée. Les événements passés passent d’eux-mêmes dans « Nous y étions ».</p></div>
         <button type="button" class="btn" id="bAddEv">+ Ajouter un événement</button></div>
       <div id="evAdm"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Vidéo d'accueil -->
+    <section id="pVid" role="tabpanel" aria-labelledby="tVid" hidden>
+      <div class="head"><div><h1>Vidéo de présentation</h1><p class="lead">Affichée juste après l’en-tête du site. Tant qu’aucune vidéo n’est publiée, le site affiche « Vidéo bientôt disponible ».</p></div></div>
+      <form class="vid-adm" id="fVid" novalidate>
+        <div class="vid-prev"><video id="vPrev" controls playsinline preload="metadata" hidden></video><p id="vNone">Aucune vidéo pour l’instant.</p></div>
+        <div class="row">
+          <p class="hint" id="vState"></p>
+          <label class="f">Fichier vidéo<input type="file" id="vFile" accept="video/mp4,video/webm"><small>MP4 (H.264) conseillé, en 1920×1080 ; 50 Mo maximum.</small></label>
+          <label class="f">Image d’aperçu (facultative)<input type="file" id="vPoster" accept="image/png,image/jpeg,image/webp"><small>Montrée avant la lecture. Sans image, un fond aux couleurs de BitEye.</small></label>
+          <div class="vid-poster-row"><span class="thumb" id="vThumb" hidden></span><button type="button" class="link danger" id="vNoPoster" hidden>Retirer l’image</button></div>
+          <label class="f">Titre affiché sur la vidéo<input type="text" id="vTitre" maxlength="80" placeholder="Présentation de VISION Workspace"></label>
+          <label class="check"><input type="checkbox" id="vPub"> Afficher la vidéo sur le site</label>
+          <p class="err" id="vErr" role="alert"></p>
+          <div class="vid-acts"><button type="submit" class="btn" id="vSave">Enregistrer</button><button type="button" class="link danger" id="vDel" hidden>Retirer la vidéo</button></div>
+        </div>
+      </form>
     </section>
 
     <!-- Comptes -->
@@ -442,7 +470,7 @@ input[type=file]{max-width:100%;font-size:14px}
     if (code === '23505' || /duplicate key/.test(m)) return 'Cette adresse de fiche est déjà utilisée par une autre prestation.';
     if (code === '23514' || /violates check constraint/.test(m)) return 'Une valeur n’est pas acceptée. Vérifiez les champs.';
     if (code === '42501' || /row-level security|permission denied/i.test(m)) return 'Action non autorisée pour votre rôle.';
-    if (/mime type|invalid_mime/i.test(m)) return 'Format d’image non accepté (PNG, JPEG ou WebP).';
+    if (/mime type|invalid_mime/i.test(m)) return /video/i.test(m) ? 'Format de vidéo non accepté (MP4 ou WebM).' : 'Format d’image non accepté (PNG, JPEG ou WebP).';
     if (/exceeded the maximum allowed size|too large/i.test(m)) return 'Image trop lourde (1 Mo maximum après redimensionnement).';
     return m || 'Une erreur est survenue.';
   }
@@ -519,13 +547,13 @@ input[type=file]{max-width:100%;font-size:14px}
     $('meName').textContent = me.nom || me.email; $('meRole').textContent = ROLES[me.role];
     document.querySelectorAll('[data-admin]').forEach(function(el){ el.hidden = me.role !== 'admin'; });
     show('vApp'); selectTab('tRefs');
-    loadRefs(); loadPrests(); loadEvs();
+    loadRefs(); loadPrests(); loadEvs(); loadVid();
     if (me.role === 'admin') { loadUsers(); }
   }
   var isAdmin = function(){ return me && me.role === 'admin'; };
 
   /* ═══ Onglets ═══ */
-  var tabs = ['tRefs', 'tPrest', 'tEv', 'tUsers', 'tLog'];
+  var tabs = ['tRefs', 'tPrest', 'tEv', 'tVid', 'tUsers', 'tLog'];
   tabs.forEach(function(id){
     $(id).addEventListener('click', function(){ selectTab(id); });
   });
@@ -650,7 +678,7 @@ input[type=file]{max-width:100%;font-size:14px}
     return sb.storage.from(bucket || 'logos').getPublicUrl(path).data.publicUrl;
   }
   async function removeLogo(u){
-    var m = u && u.match(/\/storage\/v1\/object\/public\/(logos|medias)\/(.+)$/);
+    var m = u && u.match(/\/storage\/v1\/object\/public\/(logos|medias|videos)\/(.+)$/);
     if (m) await sb.storage.from(m[1]).remove([decodeURIComponent(m[2])]);
   }
   $('fRef').addEventListener('submit', async function(e){
@@ -900,6 +928,69 @@ input[type=file]{max-width:100%;font-size:14px}
     b.disabled = false;
   });
 
+  /* ═══ Vidéo de présentation ═══ */
+  var VMAX = 50 * 1024 * 1024, vCur = null, vPosterBlob = null, vPosterDrop = false;
+  async function loadVid(){
+    var r = await sb.from('reglages').select('valeur').eq('cle', 'video_accueil').maybeSingle();
+    if (r.error) { $('vState').textContent = msg(r.error); return; }
+    vCur = r.data ? r.data.valeur : null; drawVid();
+  }
+  function vThumb(src){ $('vThumb').hidden = !src; $('vThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu de l’image">' : ''; $('vNoPoster').hidden = !src; }
+  function drawVid(){
+    var v = vCur || {};
+    $('vPrev').hidden = !v.url; $('vNone').hidden = !!v.url;
+    if (v.url) { if ($('vPrev').getAttribute('src') !== v.url) $('vPrev').src = v.url; if (v.poster) $('vPrev').poster = v.poster; else $('vPrev').removeAttribute('poster'); }
+    else $('vPrev').removeAttribute('src');
+    $('vState').textContent = !v.url ? 'Aucune vidéo envoyée.' : v.publie ? 'Vidéo en ligne sur le site.' : 'Vidéo envoyée, mais masquée sur le site.';
+    $('vTitre').value = v.titre || ''; $('vPub').checked = !!v.publie; $('vDel').hidden = !v.url;
+    $('vFile').value = ''; $('vPoster').value = ''; vPosterBlob = null; vPosterDrop = false; vThumb(v.poster || ''); $('vErr').textContent = '';
+  }
+  $('vFile').addEventListener('change', function(){
+    var f = this.files[0]; $('vErr').textContent = ''; if (!f) return;
+    if (!/^video\/(mp4|webm)$/.test(f.type)) { $('vErr').textContent = 'Format non accepté : MP4 ou WebM.'; this.value = ''; return; }
+    if (f.size > VMAX) { $('vErr').textContent = 'Vidéo trop lourde (' + (f.size / 1048576).toFixed(0) + ' Mo) : 50 Mo maximum. Compressez-la (par exemple avec HandBrake, préréglage « Fast 1080p30 »).'; this.value = ''; return; }
+    $('vPrev').hidden = false; $('vNone').hidden = true; $('vPrev').src = URL.createObjectURL(f);
+    if (!vCur || !vCur.url) $('vPub').checked = true;
+  });
+  $('vPoster').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    try { vPosterBlob = await prepLogo(f, 1920, .85); vPosterDrop = false; vThumb(URL.createObjectURL(vPosterBlob)); } catch (x) { $('vErr').textContent = msg(x); this.value = ''; }
+  });
+  $('vNoPoster').onclick = function(){ vPosterBlob = null; vPosterDrop = true; $('vPoster').value = ''; vThumb(''); };
+  async function saveVid(val){
+    var r = await sb.from('reglages').upsert({cle:'video_accueil', valeur:val}).select('valeur').single();
+    if (r.error) throw r.error; return r.data.valeur;
+  }
+  $('fVid').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var f = $('vFile').files[0], old = vCur || {}, err = $('vErr'), b = $('vSave'), up = [];
+    err.textContent = '';
+    if (!f && !old.url) { err.textContent = 'Choisissez d’abord un fichier vidéo.'; return $('vFile').focus(); }
+    b.disabled = true; b.textContent = f ? 'Envoi de la vidéo… (' + (f.size / 1048576).toFixed(1) + ' Mo)' : 'Enregistrement…';
+    try {
+      var val = {url:old.url || '', poster:old.poster || '', titre:$('vTitre').value.trim(), publie:$('vPub').checked};
+      if (f) {
+        var path = 'accueil/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + (f.type === 'video/webm' ? '.webm' : '.mp4');
+        var u = await sb.storage.from('videos').upload(path, f, {contentType:f.type, upsert:false, cacheControl:'31536000'});
+        if (u.error) throw u.error;
+        val.url = sb.storage.from('videos').getPublicUrl(path).data.publicUrl; up.push(val.url);
+      }
+      if (vPosterBlob) { val.poster = await uploadLogo(vPosterBlob, 'medias', 'video'); up.push(val.poster); }
+      else if (vPosterDrop) val.poster = '';
+      vCur = await saveVid(val);
+      if (f && old.url) removeLogo(old.url);
+      if ((vPosterBlob || vPosterDrop) && old.poster) removeLogo(old.poster);
+      drawVid(); toast(val.publie ? 'Vidéo enregistrée : elle est en ligne.' : 'Vidéo enregistrée, masquée sur le site.');
+    } catch (x) { up.forEach(removeLogo); err.textContent = /exceeded the maximum allowed size|too large/i.test((x && x.message) || '') ? 'Vidéo trop lourde : 50 Mo maximum.' : msg(x); }
+    b.disabled = false; b.textContent = 'Enregistrer';
+  });
+  $('vDel').onclick = async function(){
+    if (!vCur || !vCur.url || !(await confirmer('Retirer la vidéo du site ? Le fichier sera supprimé.', 'Retirer la vidéo'))) return;
+    var old = vCur;
+    try { vCur = await saveVid({url:'', poster:'', titre:old.titre || '', publie:false}); removeLogo(old.url); if (old.poster) removeLogo(old.poster); drawVid(); toast('Vidéo retirée du site.'); }
+    catch (x) { toast(msg(x), true); }
+  };
+
   /* ═══ Comptes (administrateurs) ═══ */
   async function loadUsers(){
     if (!isAdmin()) return;
@@ -927,7 +1018,7 @@ input[type=file]{max-width:100%;font-size:14px}
   });
 
   /* ═══ Journal (administrateurs) ═══ */
-  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', profils:'Rôle'};
+  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', reglages:'Réglage', profils:'Rôle'};
   async function loadLog(){
     var r = await sb.from('journal').select('*').order('id', {ascending:false}).limit(200);
     if (r.error) { $('logRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
