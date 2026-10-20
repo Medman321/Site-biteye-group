@@ -86,7 +86,7 @@ to sign up** et invitez les personnes depuis **Authentication › Users › Invi
   accompagnement commercial), à rappeler puis marquer « traitées » ; export CSV pour Excel ou le CRM BitEye.
   Le site peut seulement déposer une demande : il ne peut ni les lire ni les modifier.
 - **Témoignages** : les vidéos de vos clients (nom, fonction, société, phrase clé, vidéo de 50 Mo maximum,
-  image d’aperçu), publiées ou masquées. La section du site reste cachée tant qu’aucun témoignage n’est publié.
+  image d’aperçu), publiées ou masquées. Tant qu’aucun témoignage n’est publié, le site affiche trois emplacements « bientôt disponible ».
 - **Vidéo** : la vidéo de présentation affichée après l’en-tête (MP4 ou WebM, 50 Mo maximum, image d’aperçu
   et titre facultatifs), affichée ou masquée d’un clic. Sans vidéo publiée, le site affiche « Vidéo bientôt disponible ».
 - **Journal** : qui a ajouté, modifié, masqué ou supprimé quoi, et quand.

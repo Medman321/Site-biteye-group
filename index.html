@@ -1278,6 +1278,7 @@ body.sheet-open{overflow:hidden}
 /* Témoignages */
 .tems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),370px));justify-content:center;gap:28px 24px}
 .tems > .tem{min-width:0}
+@media (max-width:620px){.tems{grid-template-columns:1fr}}
 .tem{display:grid;gap:14px;align-content:start}
 .tem-v{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:var(--forest);border:1px solid var(--rule)}
 .tem-v video,.tem-v img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -1290,6 +1291,12 @@ body.sheet-open{overflow:hidden}
 .tem blockquote{margin:0;font:500 17px/1.45 var(--display);color:var(--ink)}
 .tem figcaption{font-size:14px;color:var(--ink-2)}
 .tem figcaption b{display:block;color:var(--ink);font-size:15px}
+.tem-ph{display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 110%,rgba(3,218,159,.12),transparent 60%),linear-gradient(180deg,#05304A,#011A29);border-color:transparent}
+.tem-eye{position:absolute;left:50%;top:50%;width:46%;transform:translate(-50%,-50%);color:#EAEEF1;opacity:.06}
+.tem-play{position:relative;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(234,238,241,.35);color:rgba(234,238,241,.6)}
+.tem-play svg{width:20px;height:20px;margin-inline-start:3px}
+.tem-chip{position:absolute;bottom:14px;inset-inline:14px;width:fit-content;margin-inline:auto;padding:7px 12px;border-radius:999px;background:rgba(1,26,41,.7);border:1px solid rgba(234,238,241,.14);color:#93A9B8;font-size:12.5px;text-align:center}
+.tem-soon figcaption b{color:var(--ink-2)}
 /* FAQ */
 .faq-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
 .faq-wrap .head{margin:0;position:sticky;top:110px}
@@ -2129,14 +2136,15 @@ html.i18n-wait body{visibility:hidden}
 </section>
 
 <!-- ================= TÉMOIGNAGES =================
-     Rempli depuis l'administration (onglet Témoignages) ou par le JSON #temData ci-dessous ; masqué tant qu'il est vide. -->
-<section class="band paper" id="temoignages" data-chapter="3" hidden>
+     Rempli depuis l'administration (onglet Témoignages) ou par le JSON #temData ci-dessous ;
+     tant qu'aucun témoignage n'est publié, trois emplacements « bientôt disponible » réservent la place. -->
+<section class="band paper" id="temoignages" data-chapter="3">
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow">Témoignages</span>
       <h2 class="h2">Nos clients <em>en parlent.</em></h2>
     </div>
-    <div class="tems" id="temList"></div>
+    <div class="tems" id="temList"><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b>Vidéo à venir</figcaption></figure><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b>Vidéo à venir</figcaption></figure><figure class="tem tem-soon"><div class="tem-v tem-ph"><svg class="tem-eye" viewBox="0 0 440 276" aria-hidden="true"><use href="#eye-mark"/></svg><span class="tem-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="tem-chip">Témoignage vidéo bientôt disponible</span></div><figcaption><b>Témoignage client</b>Vidéo à venir</figcaption></figure></div>
   </div>
   <script type="application/json" id="temData">[]</script>
 </section>
@@ -3115,8 +3123,8 @@ html.i18n-wait body{visibility:hidden}
   function renderTems(rows){
     if (!Array.isArray(rows)) return;
     rows = rows.filter(function(t){ return t && t.nom && okUrl.test(t.video_url || ''); });
-    var sec = document.getElementById('temoignages'), list = document.getElementById('temList');
-    sec.hidden = !rows.length;
+    var list = document.getElementById('temList');
+    if (!rows.length) return;   /* sans témoignage publié, les emplacements « bientôt disponible » restent */
     list.innerHTML = rows.map(function(t, i){
       var who = [t.fonction, t.societe].filter(Boolean).map(function(x){ return esc(T(x)); }).join(' · ');
       return '<figure class="tem" data-reveal><div class="tem-v" data-src="' + esc(t.video_url) + '">'
