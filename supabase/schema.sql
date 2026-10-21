@@ -168,6 +168,20 @@ create table if not exists public.temoignages (
 alter table public.temoignages add column if not exists metier text not null default ''
   check (metier in ('', 'Promotion immobilière', 'Réalisation', 'Gestion de copropriété', 'Plusieurs métiers'));
 
+-- Membres de l'équipe (section « Les personnes derrière le produit »)
+create table if not exists public.equipe (
+  id          bigint generated always as identity primary key,
+  nom         text not null check (char_length(trim(nom)) between 2 and 80),
+  poste       text not null default '' check (char_length(poste) <= 80),
+  pole        text not null default 'technique' check (pole in ('direction', 'technique', 'marketing')),
+  photo_url   text check (photo_url is null or photo_url ~ '^(https://|assets/|http://(localhost|127\.0\.0\.1)(:[0-9]+)?/)'),
+  linkedin    text check (linkedin is null or linkedin ~ '^https://([a-z]+\.)?linkedin\.com/'),
+  ordre       integer not null default 100,
+  publie      boolean not null default true,
+  modifie_le  timestamptz not null default now(),
+  modifie_par uuid references auth.users (id) on delete set null
+);
+
 -- Demandes envoyées par le formulaire du site (démonstration, rendez-vous, accompagnement)
 create table if not exists public.demandes (
   id          bigint generated always as identity primary key,
@@ -215,6 +229,9 @@ create trigger horodater before insert or update on public.prestations
   for each row execute function public.horodater();
 drop trigger if exists horodater on public.evenements;
 create trigger horodater before insert or update on public.evenements
+  for each row execute function public.horodater();
+drop trigger if exists horodater on public.equipe;
+create trigger horodater before insert or update on public.equipe
   for each row execute function public.horodater();
 drop trigger if exists horodater on public.temoignages;
 create trigger horodater before insert or update on public.temoignages
@@ -264,6 +281,9 @@ create trigger journaliser after insert or update or delete on public.prestation
 drop trigger if exists journaliser on public.evenements;
 create trigger journaliser after insert or update or delete on public.evenements
   for each row execute function public.journaliser();
+drop trigger if exists journaliser on public.equipe;
+create trigger journaliser after insert or update or delete on public.equipe
+  for each row execute function public.journaliser();
 drop trigger if exists journaliser on public.temoignages;
 create trigger journaliser after insert or update or delete on public.temoignages
   for each row execute function public.journaliser();
@@ -286,6 +306,7 @@ alter table public.journal            enable row level security;
 alter table public.evenements         enable row level security;
 alter table public.reglages           enable row level security;
 alter table public.temoignages        enable row level security;
+alter table public.equipe             enable row level security;
 alter table public.demandes           enable row level security;
 
 -- Seuls le rôle et le nom d'un profil peuvent être modifiés (jamais l'identifiant ni l'e-mail)
@@ -355,6 +376,19 @@ create policy "réglages : modification" on public.reglages
   for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
 drop policy if exists "réglages : suppression" on public.reglages;
 create policy "réglages : suppression" on public.reglages
+  for delete to authenticated using (public.est_admin());
+
+drop policy if exists "équipe : lecture" on public.equipe;
+create policy "équipe : lecture" on public.equipe
+  for select to anon, authenticated using (publie or public.est_equipe());
+drop policy if exists "équipe : ajout" on public.equipe;
+create policy "équipe : ajout" on public.equipe
+  for insert to authenticated with check (public.est_equipe());
+drop policy if exists "équipe : modification" on public.equipe;
+create policy "équipe : modification" on public.equipe
+  for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
+drop policy if exists "équipe : suppression" on public.equipe;
+create policy "équipe : suppression" on public.equipe
   for delete to authenticated using (public.est_admin());
 
 drop policy if exists "témoignages : lecture" on public.temoignages;

@@ -45,6 +45,7 @@ Durée : environ 1 heure, en comptant la création de la base de données.
 - Le fichier `.htaccess` fourni (Apache/LiteSpeed) force le HTTPS, active la compression et règle le cache.
   Sur Nginx, reproduire les mêmes règles dans la configuration du site.
 - **Ressources externes** chargées par le site : polices Google (`fonts.googleapis.com`, `fonts.gstatic.com`),
+  carte Google Maps intégrée (`www.google.com/maps`, section « Nos bureaux »),
   Supabase (`*.supabase.co`) et liens WhatsApp (`wa.me`). Si l'hébergeur ajoute une politique de sécurité
   (Content-Security-Policy), elle doit les autoriser, ainsi que les scripts intégrés à la page (`'unsafe-inline'`).
 
@@ -87,7 +88,7 @@ Le guide détaillé est dans [`supabase/README.md`](supabase/README.md). En rés
    et inviter les collaborateurs depuis **Authentication › Users › Invite user**.
 
 À partir de là, le formulaire du site enregistre les demandes dans l'onglet **Demandes**, et l'équipe peut gérer
-références, prestations, agenda, vidéo de présentation et témoignages vidéo (50 Mo maximum par vidéo).
+références, prestations, agenda, vidéo de présentation, témoignages vidéo et membres de l'équipe (50 Mo maximum par vidéo).
 
 ## 5. Facultatif : relier le formulaire au CRM BitEye
 

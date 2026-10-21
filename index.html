@@ -1322,6 +1322,57 @@ body.sheet-open{overflow:hidden}
 .tem-dlg video{display:block;width:100%;max-height:80svh;background:#000}
 @media (max-width:1068px){.tem-head{grid-template-columns:1fr}.tems{grid-template-columns:repeat(2,minmax(0,1fr))}.tem-feat{grid-column:1/-1;grid-row:auto}}
 @media (max-width:640px){.tems{grid-template-columns:1fr}.tem-feat{padding:12px}.tem-proof li{min-width:0;flex:1}.tem-proof b{font-size:22px}}
+/* L'équipe */
+.team-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+.team-head .head{margin:0}
+.team-dir{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tm{display:flex;align-items:center;gap:16px;min-width:0}
+.tm-ph{flex:none;display:grid;place-items:center;width:64px;height:64px;border-radius:16px;overflow:hidden;background:var(--forest-3);border:1px solid var(--glass-line)}
+.tm-ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.tm:hover .tm-ph img{filter:none}
+.tm-ini{font:700 18px/1 var(--display);color:var(--lime)}
+.tm-txt{display:grid;gap:3px;min-width:0}
+.tm-txt small{font-size:13px;color:var(--f-ink-2)}
+.tm-txt b{font:600 17px/1.25 var(--display);color:var(--f-ink)}
+.tm-li{display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:13.5px;font-weight:600;color:var(--lime);width:fit-content}
+.tm-li svg{width:15px;height:15px}
+.tm-li:hover{text-decoration:underline;text-underline-offset:3px}
+.tm-dir{flex-direction:column;align-items:flex-start;gap:16px;padding:18px;border-radius:22px;background:linear-gradient(160deg,rgba(234,238,241,.06),rgba(234,238,241,.015));border:1px solid var(--glass-line)}
+.tm-dir .tm-ph{width:100%;height:auto;aspect-ratio:1;border-radius:16px}
+.tm-dir .tm-ini{font-size:40px}
+.tm-dir .tm-txt b{font-size:clamp(19px,1.8vw,23px)}
+.team-poles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.pole{display:grid;align-content:start;gap:12px;padding:clamp(22px,3vw,36px);border-radius:var(--r);border:1px solid var(--glass-line);background:rgba(1,26,41,.35)}
+.pole-k{font:600 12px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--lime)}
+.pole h3{font:700 clamp(24px,2.6vw,34px)/1.1 var(--display);letter-spacing:-.02em}
+.pole > p{margin:0;color:var(--f-ink-2);max-width:52ch}
+.team-list{list-style:none;margin:14px 0 0;padding:18px 0 0;border-top:1px solid var(--f-rule);display:grid;gap:16px}
+@media (max-width:1068px){.team-head,.team-poles{grid-template-columns:1fr}}
+@media (max-width:520px){.team-dir{gap:12px}.tm-dir{padding:12px}}
+/* Nos bureaux */
+.offices{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:stretch}
+.off-side{display:grid;align-content:start;gap:24px}
+.off-side .head{margin:0}
+.off-list{display:grid;gap:12px}
+.off{display:flex;align-items:center;gap:16px;width:100%;padding:18px 20px;border-radius:20px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink);font:inherit;text-align:start;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.off[aria-selected="true"]{border-color:var(--lime-deep);box-shadow:0 0 0 1px var(--lime-deep)}
+.off:disabled{cursor:default;opacity:.75}
+.off:focus-visible{outline:2px solid var(--lime-deep);outline-offset:2px}
+.off-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(3,218,159,.14);color:var(--lime-deep)}
+.off-ic svg{width:20px;height:20px}
+.off-txt{display:grid;gap:2px}
+.off-txt small{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lime-deep)}
+.off-txt b{font:700 20px/1.2 var(--display)}
+.off-txt span{font-size:14.5px;color:var(--ink-2)}
+.off.is-soon .off-txt small{color:var(--ink-2)}
+.off-acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.off-acts .c-chip{color:var(--ink);background:var(--paper-2);border-color:var(--rule)}
+.off-map{position:relative;min-height:clamp(320px,52svh,520px);border-radius:var(--r);overflow:hidden;background:var(--forest);border:1px solid var(--rule)}
+.off-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1}
+.off-load{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--lime);opacity:.5}
+.off-load svg{width:40px;height:40px}
+@media (max-width:900px){.offices{grid-template-columns:1fr}.off-map{min-height:320px}}
+[lang="ar"] .pole-k,[lang="ar"] .off-txt small{text-transform:none}
 /* FAQ */
 .faq-wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
 .faq-wrap .head{margin:0;position:sticky;top:110px}
@@ -1448,6 +1499,8 @@ html.i18n-wait body{visibility:hidden}
       <div class="np-sub" id="navSvc"></div>
       <a class="np-main" href="#temoignages"><span class="np-txt"><b>Témoignages</b><small>Nos clients en parlent, en vidéo</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="np-main" href="#confiance"><span class="np-txt"><b>Références</b><small>Plus de 250 clients depuis 2014</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="np-main" href="#equipe"><span class="np-txt"><b>L’équipe</b><small>Les personnes derrière VISION</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="np-main" href="#bureaux"><span class="np-txt"><b>Nos bureaux</b><small>Alger et Oran</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="np-main" href="#pourquoi"><span class="np-txt"><b>Pourquoi BitEye</b><small>Éditeur algérien, support à Alger</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="np-main" href="#evenements" id="navEvP"><span class="np-txt"><b>Agenda</b><small>Salons et rendez-vous</small></span><svg class="np-chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </nav>
@@ -2216,6 +2269,35 @@ html.i18n-wait body{visibility:hidden}
   </div>
 </section>
 
+<!-- ================= L'ÉQUIPE =================
+     Membres gérés depuis l'administration (onglet Équipe) ; à défaut, la liste ci-dessous. -->
+<section class="band forest" id="equipe" data-chapter="3" aria-labelledby="teamT">
+  <div class="wrap">
+    <div class="team-head">
+      <div class="head">
+        <span class="eyebrow">Groupe BitEye · L’équipe</span>
+        <h2 class="h2" id="teamT">Les personnes <em>derrière le produit.</em></h2>
+        <p class="lead">Deux pôles, une même énergie : faire avancer les projets immobiliers avec une équipe qui maîtrise chaque détail.</p>
+      </div>
+      <ul class="team-dir" id="teamDir"><li class="tm tm-dir"><span class="tm-ph"><img src="assets/equipe/mohammed-bouchenine.webp" alt="Mohammed Bouchenine" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>CEO · Direction générale</small><b>Mohammed Bouchenine</b></span></li><li class="tm tm-dir"><span class="tm-ph"><img src="assets/equipe/yakoub-bouchenine.webp" alt="Yakoub Bouchenine" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>CEO · Pôle technique</small><b>Yakoub Bouchenine</b></span></li></ul>
+    </div>
+    <div class="team-poles">
+      <article class="pole">
+        <span class="pole-k">01 / Technique</span>
+        <h3>Construire le moteur.</h3>
+        <p>Produit, architecture et expérience : le pôle qui transforme les idées en outils fiables.</p>
+        <ul class="team-list" id="teamTech"><li class="tm"><span class="tm-ph"><img src="assets/equipe/abdel-djalil-hadj-habib.webp" alt="Abdel Djalil Hadj Habib" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>Développeur full stack</small><b>Abdel Djalil Hadj Habib</b></span></li><li class="tm"><span class="tm-ph"><img src="assets/equipe/dib-saber.webp" alt="Dib Saber" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>Administrateur du réseau</small><b>Dib Saber</b></span></li></ul>
+      </article>
+      <article class="pole">
+        <span class="pole-k">02 / Marketing</span>
+        <h3>Faire circuler la valeur.</h3>
+        <p>Écoute client, développement commercial et présence de marque : le pôle qui donne de l’élan aux projets.</p>
+        <ul class="team-list" id="teamMkt"><li class="tm"><span class="tm-ph"><img src="assets/equipe/sarah-allaoui.webp" alt="Sarah Allaoui" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>Responsable commerciale</small><b>Sarah Allaoui</b></span></li><li class="tm"><span class="tm-ph"><img src="assets/equipe/hanane-talbi.webp" alt="Hanane Talbi" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>Responsable commerciale</small><b>Hanane Talbi</b></span></li><li class="tm"><span class="tm-ph"><img src="assets/equipe/salah-bouchenine.webp" alt="Salah Bouchenine" loading="lazy" width="160" height="160"></span><span class="tm-txt"><small>Responsable commerciale</small><b>Salah Bouchenine</b></span></li><li class="tm"><span class="tm-ph"><span class="tm-ini" aria-hidden="true">SF</span></span><span class="tm-txt"><small>Responsable commerciale</small><b>Selka Feriel</b></span></li><li class="tm"><span class="tm-ph"><span class="tm-ini" aria-hidden="true">IE</span></span><span class="tm-txt"><small>Responsable commerciale</small><b>Imed Eddine</b></span></li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ================= AGENDA ================= -->
 <section class="band forest" id="evenements" data-chapter="3">
   <div class="wrap">
@@ -2250,6 +2332,39 @@ html.i18n-wait body{visibility:hidden}
   </div>
 </section>
 
+<!-- ================= NOS BUREAUX =================
+     Chaque bureau : data-map (recherche ou « latitude,longitude » pour la carte) et lien d'itinéraire.
+     Oran : renseigner l'adresse, data-map et le lien, puis retirer « is-soon ». -->
+<section class="band paper" id="bureaux" data-chapter="3" aria-labelledby="offT">
+  <div class="wrap offices">
+    <div class="off-side">
+      <div class="head">
+        <span class="eyebrow">Nos bureaux</span>
+        <h2 class="h2" id="offT">Deux bureaux. <em>Alger et Oran.</em></h2>
+        <p class="lead">Une équipe près de vos chantiers, à l’est comme à l’ouest du pays.</p>
+      </div>
+      <div class="off-list" role="tablist" aria-label="Nos bureaux">
+        <button type="button" class="off" role="tab" id="off-alger" aria-selected="true" aria-controls="offMap" data-link="https://goo.gl/maps/zo745TNzqgsK1kXP9" data-map="Gué de Constantine, Alger, Algérie">
+          <span class="off-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg></span>
+          <span class="off-txt"><small>Siège</small><b>Alger</b><span>Gué de Constantine, Alger</span></span>
+        </button>
+        <button type="button" class="off is-soon" role="tab" id="off-oran" aria-selected="false" aria-controls="offMap" data-map="" disabled>
+          <span class="off-ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg></span>
+          <span class="off-txt"><small>Bureau</small><b>Oran</b><span>Adresse communiquée prochainement</span></span>
+        </button>
+      </div>
+      <div class="off-acts">
+        <a class="btn" id="offGo" href="https://goo.gl/maps/zo745TNzqgsK1kXP9" target="_blank" rel="noopener">Itinéraire · Alger ↗</a>
+        <a class="c-chip" href="tel:+213560063641">0560 06 36 41</a>
+      </div>
+    </div>
+    <div class="off-map" id="offMap" role="tabpanel" aria-labelledby="off-alger">
+      <iframe id="offFrame" title="Carte : bureau BitEye d’Alger" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-src="https://www.google.com/maps?q=Gué+de+Constantine,+Alger,+Algérie&amp;z=15&amp;output=embed"></iframe>
+      <span class="off-load" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg></span>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CONTACT ================= -->
 <section class="band forest" id="contact" data-chapter="3" style="overflow:hidden">
   <div class="wrap contact">
@@ -2266,7 +2381,7 @@ html.i18n-wait body{visibility:hidden}
         <a class="c-chip" href="tel:+213560063641" aria-label="Appeler BitEye au 0560 06 36 41"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2h3l1 3-2 1.2a8 8 0 004 4L11.2 8l3 1v3a2 2 0 01-2 2A10 10 0 012 4a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>0560 06 36 41</a>
         <a class="c-chip c-wa" href="https://wa.me/213560063641" target="_blank" rel="noopener" data-wa><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 00-8.4 14.6L2.2 21.8l5.1-1.3A9.7 9.7 0 1012 2.2zm0 17.7a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.4-.3z"/></svg>WhatsApp</a>
         <a class="c-chip" href="mailto:contact@biteye-group.com"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 4.5L8 9l5.5-4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>contact@biteye-group.com</a>
-        <span class="c-chip"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg>Gué de Constantine, Alger</span>
+        <a class="c-chip" href="#bureaux"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg>Gué de Constantine, Alger</a>
       </div>
     </div>
     <form class="glassform" id="demo" novalidate>
@@ -3149,6 +3264,38 @@ html.i18n-wait body{visibility:hidden}
   /* adresse directe : après la mise en page complète (sections épinglées, polices) */
   if (/^#offre-/.test(location.hash)) { offre(location.hash.slice(7)); window.addEventListener('load', function(){ setTimeout(offreHash, 400); }); }
 
+  /* L'équipe : remplacée par la liste de l'administration quand elle existe */
+  var LI_IC = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M3.6 5.6h2v6.8h-2zM4.6 2.6a1.15 1.15 0 110 2.3 1.15 1.15 0 010-2.3zM7 5.6h1.9v.93h.03c.27-.5.92-1.03 1.9-1.03 2.03 0 2.4 1.33 2.4 3.07v3.83h-2V9c0-.81-.02-1.86-1.13-1.86-1.14 0-1.31.88-1.31 1.8v3.46H7z"/></svg>';
+  function tmItem(m){
+    var ini = String(m.nom).split(/\s+/).slice(0, 2).map(function(w){ return w.charAt(0); }).join('').toUpperCase();
+    var ph = /^(https:\/\/|assets\/|http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/)/.test(m.photo_url || '') ? '<img src="' + esc(m.photo_url) + '" alt="' + esc(m.nom) + '" loading="lazy" width="160" height="160">' : '<span class="tm-ini" aria-hidden="true">' + esc(ini) + '</span>';
+    var li = /^https:\/\/([a-z]+\.)?linkedin\.com\//.test(m.linkedin || '') ? '<a class="tm-li" href="' + esc(m.linkedin) + '" target="_blank" rel="noopener">' + LI_IC + 'LinkedIn</a>' : '';
+    return '<li class="tm' + (m.pole === 'direction' ? ' tm-dir' : '') + '"><span class="tm-ph">' + ph + '</span><span class="tm-txt"><small>' + esc(T(m.poste)) + '</small><b>' + esc(m.nom) + '</b>' + li + '</span></li>';
+  }
+  function renderTeam(rows){
+    if (!Array.isArray(rows) || !rows.length) return;
+    [['direction', 'teamDir'], ['technique', 'teamTech'], ['marketing', 'teamMkt']].forEach(function(p){
+      var list = rows.filter(function(m){ return m && m.nom && m.pole === p[0]; });
+      document.getElementById(p[1]).innerHTML = list.map(tmItem).join('');
+    });
+  }
+  /* Nos bureaux : la carte (Google Maps) ne se charge qu'à l'approche de la section */
+  var offFrame = document.getElementById('offFrame'), offBtns = Array.prototype.slice.call(document.querySelectorAll('.off'));
+  function offMap(q){ offFrame.src = 'https://www.google.com/maps?q=' + encodeURIComponent(q) + '&z=15&output=embed'; }
+  if ('IntersectionObserver' in window) {
+    var offIO = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { offFrame.src = offFrame.getAttribute('data-src'); offIO.disconnect(); } }, {rootMargin:'600px 0px'});
+    offIO.observe(offFrame);
+  } else offFrame.src = offFrame.getAttribute('data-src');
+  offBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var q = b.getAttribute('data-map'); if (!q) return;
+      offBtns.forEach(function(o){ o.setAttribute('aria-selected', o === b); });
+      offMap(q); offFrame.title = T('Carte') + ' : ' + b.querySelector('b').textContent;
+      var go = document.getElementById('offGo'); if (b.dataset.link) go.href = b.dataset.link;
+      go.textContent = T('Itinéraire') + ' · ' + b.querySelector('b').textContent + ' ↗';
+    });
+  });
+
   /* CRM : chaque point de la liste éclaire sa zone du tableau de bord (survol, focus ou défilement) */
   var crmGrid = document.getElementById('crmGrid'), crmItems = document.querySelectorAll('#crmList li');
   function crmOn(z){ crmGrid.setAttribute('data-active', z); crmItems.forEach(function(li){ li.classList.toggle('on', li.getAttribute('data-z') === String(z)); }); }
@@ -3246,6 +3393,7 @@ html.i18n-wait body{visibility:hidden}
   if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting && !vidEl.paused) vidEl.pause(); }); }, {threshold:.15}).observe(vid);
   setVideo(vid.getAttribute('data-src'), vid.getAttribute('data-poster'));
   if (DB.url && DB.cle && window.fetch) {
+    dbGet('equipe?select=nom,poste,pole,photo_url,linkedin&publie=is.true&order=ordre.asc,id.asc').then(renderTeam).catch(function(){});
     dbGet('temoignages?select=nom,societe,fonction,metier,citation,video_url,poster&publie=is.true&order=ordre.asc,id.asc').then(renderTems).catch(function(){});
     dbGet('reglages?select=valeur&cle=eq.video_accueil').then(function(r){ var v = r && r[0] && r[0].valeur; if (v && v.publie && v.url) setVideo(v.url, v.poster, v.titre); }).catch(function(){});
     dbGet('references_clients?select=nom,ville,groupes,logo_url&publie=is.true&order=ordre.asc,nom.asc').then(renderRefs).catch(function(){});

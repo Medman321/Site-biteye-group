@@ -187,3 +187,19 @@ insert into public.evenements (slug, titre, type, lieu, ville, date_debut, date_
   organisateur, accroche, description, programme, image_url, lien_externe, rendez_vous, publie)
 select 'elogia-2026', 'BitEye au salon Elogia 2026', 'salon', 'Centre des conventions Mohamed-Benahmed', 'Oran', '2026-12-10', '2026-12-14', true, '', 'Numéro de stand communiqué prochainement', 'AB Concept Design', 'Pour la sixième année de suite, BitEye vous donne rendez-vous à Elogia : venez voir VISION en action sur notre stand, et repartez avec une démonstration préparée pour votre projet.', 'Elogia, le Salon international des promoteurs immobiliers, de l’habitat intelligent et de la décoration, réunit chaque année à Oran les promoteurs, les constructeurs et leurs partenaires (plus de 190 exposants lors de l’édition de décembre 2025). BitEye a participé à ses cinq dernières éditions : c’est là que beaucoup de nos clients ont découvert VISION. Cette année encore, nous y présentons VISION Workspace, la promotion, la réalisation et la copropriété dans un seul logiciel.', '[{"titre": "Démonstrations en continu", "texte": "Commercialisation, échéanciers des acquéreurs et suivi de chantier sur un projet type, en quinze minutes."}, {"titre": "Diagnostic de votre promotion", "texte": "Un conseiller fait le point avec vous sur vos outils actuels et sur ce que VISION peut simplifier."}, {"titre": "VISION Mobile et CRM", "texte": "L’application smartphone, l’appel en un clic depuis la fiche client et le résumé des appels par l’IA."}, {"titre": "Rendez-vous réservés", "texte": "Réservez un créneau : nous préparons la démonstration sur un projet proche du vôtre."}]'::jsonb, null, 'https://elogiaexpo.com/', true, true
 where not exists (select 1 from public.evenements where slug = 'elogia-2026');
+
+-- Équipe : les membres présentés sur le site (photos servies par le site, dossier assets/equipe).
+-- Ajoutez les liens LinkedIn et remplacez les photos depuis l'administration, onglet Équipe.
+insert into public.equipe (nom, poste, pole, photo_url, ordre)
+select * from (values
+  ('Mohammed Bouchenine', 'CEO · Direction générale', 'direction', 'assets/equipe/mohammed-bouchenine.webp', 10),
+  ('Yakoub Bouchenine', 'CEO · Pôle technique', 'direction', 'assets/equipe/yakoub-bouchenine.webp', 20),
+  ('Abdel Djalil Hadj Habib', 'Développeur full stack', 'technique', 'assets/equipe/abdel-djalil-hadj-habib.webp', 10),
+  ('Dib Saber', 'Administrateur du réseau', 'technique', 'assets/equipe/dib-saber.webp', 20),
+  ('Sarah Allaoui', 'Responsable commerciale', 'marketing', 'assets/equipe/sarah-allaoui.webp', 10),
+  ('Hanane Talbi', 'Responsable commerciale', 'marketing', 'assets/equipe/hanane-talbi.webp', 20),
+  ('Salah Bouchenine', 'Responsable commerciale', 'marketing', 'assets/equipe/salah-bouchenine.webp', 30),
+  ('Selka Feriel', 'Responsable commerciale', 'marketing', null, 40),
+  ('Imed Eddine', 'Responsable commerciale', 'marketing', null, 50)
+) as v(nom, poste, pole, photo_url, ordre)
+where not exists (select 1 from public.equipe);

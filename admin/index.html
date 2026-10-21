@@ -242,6 +242,7 @@ input[type=file]{max-width:100%;font-size:14px}
     <button type="button" role="tab" aria-selected="false" aria-controls="pEv" id="tEv">Agenda</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pVid" id="tVid">Vidéo</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pTem" id="tTem">Témoignages</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pTeam" id="tTeam">Équipe</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pUsers" id="tUsers" data-admin hidden>Comptes<span class="count" id="pendingCount" hidden></span></button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pLog" id="tLog" data-admin hidden>Journal</button>
   </div></nav>
@@ -310,6 +311,13 @@ input[type=file]{max-width:100%;font-size:14px}
       <div class="head"><div><h1>Témoignages</h1><p class="lead">Les vidéos de vos clients, affichées dans « Nos clients en parlent ». Le premier de la liste est mis en avant, en grand. Tant qu’aucun témoignage n’est publié, le site affiche trois emplacements « Témoignage vidéo bientôt disponible ».</p></div>
         <button type="button" class="btn" id="bAddTem">+ Ajouter un témoignage</button></div>
       <div class="list" id="temList"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Équipe -->
+    <section id="pTeam" role="tabpanel" aria-labelledby="tTeam" hidden>
+      <div class="head"><div><h1>Équipe</h1><p class="lead">Les membres affichés dans « Les personnes derrière le produit », par pôle. L’ordre d’affichage se règle avec le champ « Ordre ».</p></div>
+        <button type="button" class="btn" id="bAddTm">+ Ajouter un membre</button></div>
+      <div id="teamAdm"><p class="loading">Chargement…</p></div>
     </section>
 
     <!-- Comptes -->
@@ -391,6 +399,28 @@ input[type=file]{max-width:100%;font-size:14px}
 </dialog>
 
 <!-- Édition d'un événement -->
+<dialog id="dTm" aria-labelledby="dTmT">
+  <form class="dlg" id="fTm" novalidate method="dialog">
+    <header><h2 id="dTmT">Membre</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom et prénom<input type="text" id="mNom" required minlength="2" maxlength="80"></label>
+        <label class="f">Poste<input type="text" id="mPoste" maxlength="80" placeholder="ex. Responsable commerciale"></label>
+      </div>
+      <div class="row c2">
+        <label class="f">Pôle<select id="mPole"><option value="direction">Direction (en grand)</option><option value="technique">01 · Technique</option><option value="marketing">02 · Marketing</option></select></label>
+        <label class="f">Ordre d’affichage<input type="number" id="mOrdre" min="0" max="100000" step="1"></label>
+      </div>
+      <label class="f">Profil LinkedIn (facultatif)<input type="url" id="mLi" maxlength="200" placeholder="https://www.linkedin.com/in/…"></label>
+      <div class="vid-poster-row"><span class="thumb" id="mThumb" style="width:96px;height:96px"></span>
+        <div class="row" style="flex:1"><label class="f">Photo (facultative)<input type="file" id="mPhoto" accept="image/png,image/jpeg,image/webp"><small>Recadrée en carré automatiquement. Sans photo, les initiales s’affichent.</small></label>
+        <button type="button" class="link danger" id="mNoPhoto" hidden style="justify-self:start">Retirer la photo</button></div></div>
+      <label class="check"><input type="checkbox" id="mPub"> Affiché sur le site</label>
+    </div>
+    <footer><p class="err" id="mErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="mSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
 <dialog id="dTem" aria-labelledby="dTemT">
   <form class="dlg" id="fTem" novalidate method="dialog">
     <header><h2 id="dTemT">Témoignage</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
@@ -603,13 +633,13 @@ input[type=file]{max-width:100%;font-size:14px}
     $('meName').textContent = me.nom || me.email; $('meRole').textContent = ROLES[me.role];
     document.querySelectorAll('[data-admin]').forEach(function(el){ el.hidden = me.role !== 'admin'; });
     show('vApp'); selectTab('tDem');
-    loadDems(); loadRefs(); loadPrests(); loadEvs(); loadVid(); loadTems();
+    loadDems(); loadRefs(); loadPrests(); loadEvs(); loadVid(); loadTems(); loadTeam();
     if (me.role === 'admin') { loadUsers(); }
   }
   var isAdmin = function(){ return me && me.role === 'admin'; };
 
   /* ═══ Onglets ═══ */
-  var tabs = ['tDem', 'tRefs', 'tPrest', 'tEv', 'tVid', 'tTem', 'tUsers', 'tLog'];
+  var tabs = ['tDem', 'tRefs', 'tPrest', 'tEv', 'tVid', 'tTem', 'tTeam', 'tUsers', 'tLog'];
   tabs.forEach(function(id){
     $(id).addEventListener('click', function(){ selectTab(id); });
   });
@@ -1184,6 +1214,99 @@ input[type=file]{max-width:100%;font-size:14px}
     }
   });
 
+  /* ═══ Équipe ═══ */
+  var team = [], mEditing = null, mPhotoBlob = null, mDrop = false, POLES = {direction:'Direction', technique:'01 · Technique', marketing:'02 · Marketing'};
+  async function loadTeam(){
+    var r = await sb.from('equipe').select('*').order('ordre').order('id');
+    if (r.error) { $('teamAdm').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    team = r.data; drawTeam();
+  }
+  function photoSrc(u){ return /^assets\//.test(u || '') ? '../' + u : u; }
+  function initiales(n){ return String(n).split(/\s+/).slice(0, 2).map(function(w){ return w.charAt(0); }).join('').toUpperCase(); }
+  function drawTeam(){
+    $('teamAdm').innerHTML = Object.keys(POLES).map(function(p){
+      var list = team.filter(function(m){ return m.pole === p; });
+      return '<h2 class="stats" style="font-weight:600;color:var(--ink);margin-top:18px">' + POLES[p] + ' (' + list.length + ')</h2><div class="list">'
+        + (list.length ? list.map(function(m){
+          var th = m.photo_url ? '<span class="thumb"><img src="' + esc(photoSrc(m.photo_url)) + '" alt="" loading="lazy" style="max-width:48px;max-height:48px;object-fit:cover;border-radius:8px"></span>' : '<span class="thumb mono">' + esc(initiales(m.nom)) + '</span>';
+          return '<div class="item">' + th + '<div><b>' + esc(m.nom) + '</b><div class="meta"><span>' + esc(m.poste || '—') + '</span>' + (m.linkedin ? '<span>LinkedIn</span>' : '')
+            + '<span class="tag ' + (m.publie ? 'on' : 'off') + '">' + (m.publie ? 'Affiché' : 'Masqué') + '</span></div></div>'
+            + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-m="' + m.id + '">Modifier</button>'
+            + '<button type="button" class="link" data-pub-m="' + m.id + '">' + (m.publie ? 'Masquer' : 'Afficher') + '</button>'
+            + (isAdmin() ? '<button type="button" class="link danger" data-del-m="' + m.id + '">Supprimer</button>' : '') + '</div></div>';
+        }).join('') : '<p class="empty">Aucun membre dans ce pôle.</p>') + '</div>';
+    }).join('');
+  }
+  function mThumb(src, nom){ $('mThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="" style="max-width:none;width:100%;height:100%;object-fit:cover">' : '<span style="font:700 26px/1 var(--display);color:var(--lime-deep)">' + esc(initiales(nom || '?')) + '</span>'; $('mNoPhoto').hidden = !src; }
+  /* photo recadrée au centre, en carré de 480 px */
+  function prepCarre(file){
+    return new Promise(function(ok, ko){
+      if (!/^image\/(png|jpeg|webp)$/.test(file.type)) return ko(new Error('mime type'));
+      if (file.size > 15e6) return ko(new Error('too large'));
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function(){
+        var s = Math.min(img.naturalWidth, img.naturalHeight), n = Math.min(480, s), c = document.createElement('canvas');
+        c.width = c.height = n;
+        c.getContext('2d').drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, n, n); URL.revokeObjectURL(url);
+        c.toBlob(function(b){ b ? ok(b) : ko(new Error('Image illisible.')); }, 'image/webp', .88);
+      };
+      img.onerror = function(){ ko(new Error('Image illisible.')); };
+      img.src = url;
+    });
+  }
+  function openTm(m){
+    mEditing = m || null; mPhotoBlob = null; mDrop = false;
+    $('dTmT').textContent = m ? 'Modifier le membre' : 'Nouveau membre';
+    $('mNom').value = m ? m.nom : ''; $('mPoste').value = m ? m.poste : ''; $('mPole').value = m ? m.pole : 'marketing';
+    $('mOrdre').value = m ? m.ordre : (team.length ? Math.max.apply(null, team.map(function(x){ return x.ordre; })) + 10 : 100);
+    $('mLi').value = m && m.linkedin ? m.linkedin : ''; $('mPub').checked = m ? m.publie : true; $('mPhoto').value = '';
+    mThumb(m && m.photo_url ? photoSrc(m.photo_url) : '', m && m.nom); $('mErr').textContent = '';
+    $('dTm').showModal(); $('mNom').focus();
+  }
+  $('bAddTm').onclick = function(){ openTm(null); };
+  $('mNom').addEventListener('input', function(){ if (!mPhotoBlob && !(mEditing && mEditing.photo_url && !mDrop)) mThumb('', this.value); });
+  $('mPhoto').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    try { mPhotoBlob = await prepCarre(f); mDrop = false; mThumb(URL.createObjectURL(mPhotoBlob)); } catch (x) { $('mErr').textContent = msg(x); this.value = ''; }
+  });
+  $('mNoPhoto').onclick = function(){ mPhotoBlob = null; mDrop = true; $('mPhoto').value = ''; mThumb('', $('mNom').value); };
+  $('fTm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('mErr'), li = $('mLi').value.trim(); err.textContent = '';
+    var data = {nom:$('mNom').value.trim(), poste:$('mPoste').value.trim(), pole:$('mPole').value, ordre:parseInt($('mOrdre').value, 10) || 0, linkedin:li || null, publie:$('mPub').checked};
+    if (data.nom.length < 2) { err.textContent = 'Indiquez le nom et le prénom.'; return $('mNom').focus(); }
+    if (li && !/^https:\/\/([a-z]+\.)?linkedin\.com\/\S+$/.test(li)) { err.textContent = 'Le lien doit être une adresse LinkedIn (https://www.linkedin.com/in/…).'; return $('mLi').focus(); }
+    var b = $('mSave'); b.disabled = true;
+    try {
+      var old = mEditing && mEditing.photo_url;
+      if (mPhotoBlob) data.photo_url = await uploadLogo(mPhotoBlob, 'medias', 'equipe');
+      else if (mDrop) data.photo_url = null;
+      var r = mEditing ? await sb.from('equipe').update(data).eq('id', mEditing.id).select().single() : await sb.from('equipe').insert(data).select().single();
+      if (r.error) throw r.error;
+      if ((mPhotoBlob || mDrop) && old && !/^assets\//.test(old)) removeLogo(old);
+      if (mEditing) Object.assign(mEditing, r.data); else team.push(r.data);
+      team.sort(function(a, c){ return a.ordre - c.ordre || a.id - c.id; });
+      $('dTm').close(); drawTeam(); toast(mEditing ? 'Membre enregistré.' : 'Membre ajouté.');
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+  $('teamAdm').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editM || b.dataset.pubM || b.dataset.delM), m = team.find(function(x){ return x.id === id; }); if (!m) return;
+    if (b.dataset.editM) openTm(m);
+    if (b.dataset.pubM) {
+      var r = await sb.from('equipe').update({publie:!m.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(m, r.data); drawTeam(); toast(m.publie ? 'Membre affiché sur le site.' : 'Membre masqué sur le site.');
+    }
+    if (b.dataset.delM && await confirmer('Retirer ' + m.nom + ' de l’équipe ?')) {
+      var x = await sb.from('equipe').delete().eq('id', id);
+      if (x.error) return toast(msg(x.error), true);
+      if (m.photo_url && !/^assets\//.test(m.photo_url)) removeLogo(m.photo_url);
+      team = team.filter(function(o){ return o.id !== id; }); drawTeam(); toast('Membre retiré.');
+    }
+  });
+
   /* ═══ Comptes (administrateurs) ═══ */
   async function loadUsers(){
     if (!isAdmin()) return;
@@ -1211,7 +1334,7 @@ input[type=file]{max-width:100%;font-size:14px}
   });
 
   /* ═══ Journal (administrateurs) ═══ */
-  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', reglages:'Réglage', temoignages:'Témoignage', demandes:'Demande', profils:'Rôle'};
+  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', reglages:'Réglage', temoignages:'Témoignage', equipe:'Membre de l’équipe', demandes:'Demande', profils:'Rôle'};
   async function loadLog(){
     var r = await sb.from('journal').select('*').order('id', {ascending:false}).limit(200);
     if (r.error) { $('logRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
