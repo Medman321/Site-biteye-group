@@ -1,0 +1,1472 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>BitEye — Administration du site</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Administration du site BitEye : mêmes couleurs que le site (marine, menthe), mise en page d'outil de travail */
+:root{
+  --forest:#022539; --forest-2:#05304A; --lime:#03DA9F; --lime-deep:#006F52; --on-lime:#022539;
+  --paper:#F4F6F8; --card:#FFFFFF; --ink:#0B1E2B; --ink-2:#4D6070; --rule:#D3DCE3; --rule-2:#E6ECF0;
+  --danger:#B42318; --danger-bg:#FEF3F2; --warn:#8A5A00; --warn-bg:#FFF7E0; --ok-bg:#E3F8F1;
+  --r:14px; --shadow:0 1px 2px rgba(11,30,43,.06),0 8px 24px -12px rgba(11,30,43,.18);
+  --display:"Poppins","Inter",system-ui,sans-serif; --text:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--text)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--lime-deep)}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--lime-deep);outline-offset:2px}
+
+/* Barre du haut */
+.top{position:sticky;top:0;z-index:20;background:var(--forest);color:#EAEEF1}
+.top-in{max-width:1200px;margin:auto;padding:0 20px;height:64px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font:700 18px/1 var(--display);color:#fff;text-decoration:none;margin-right:auto}
+.brand img{width:30px;height:30px}
+.brand small{font:500 13px/1 var(--text);color:#93A9B8;padding-left:10px;border-left:1px solid rgba(234,238,241,.2)}
+.who{display:flex;align-items:center;gap:10px;font-size:14px;color:#C8D4DC}
+.who b{color:#fff;font-weight:600}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;background:rgba(3,218,159,.16);color:var(--lime)}
+.top .btn-ghost{color:#EAEEF1;border-color:rgba(234,238,241,.25)}
+.top .btn-ghost:hover{border-color:var(--lime)}
+
+@media (max-width:600px){
+  .top-in{padding:0 14px;gap:10px}
+  .brand small,.who b{display:none}
+  .top .btn-sm{padding:7px 10px}
+}
+/* Onglets */
+.tabs{background:var(--forest-2)}
+.tabs-in{max-width:1200px;margin:auto;padding:0 12px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs button{border:0;background:none;color:#93A9B8;padding:14px 14px 12px;font-weight:600;font-size:14.5px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:#fff}
+.tabs button[aria-selected="true"]{color:#fff;border-bottom-color:var(--lime)}
+.tabs .count{margin-left:6px;padding:1px 7px;border-radius:999px;background:#F5B700;color:var(--forest);font-size:12px}
+
+main{max-width:1200px;margin:auto;padding:28px 20px 80px}
+@media (max-width:600px){main{padding:22px 16px 80px}.dlg header,.dlg .body,.dlg footer{padding-left:16px;padding-right:16px}.dlg footer{flex-wrap:wrap}}
+h1{font:700 26px/1.2 var(--display);margin:0}
+.lead{color:var(--ink-2);margin:6px 0 0}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;margin-bottom:20px}
+.head > div{margin-right:auto}
+
+/* Boutons et champs */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 18px;background:var(--lime);color:var(--on-lime);font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.05)}
+.btn:disabled{opacity:.55;cursor:wait}
+.btn-ghost{background:none;border:1px solid var(--rule);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--lime-deep)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{padding:7px 12px;font-size:13.5px}
+.link{border:0;background:none;padding:0;color:var(--lime-deep);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.link.danger{color:var(--danger)}
+label.f{display:grid;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink)}
+label.f small,.hint{font-weight:400;color:var(--ink-2);font-size:12.5px}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],input[type=url],select,textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--rule);background:#fff;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--lime-deep);box-shadow:0 0 0 3px rgba(3,218,159,.2)}
+textarea{min-height:96px;resize:vertical}
+.check{display:inline-flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--lime-deep)}
+.row{display:grid;gap:14px}
+.row.c2{grid-template-columns:1fr 1fr}
+.row.c3{grid-template-columns:2fr 1fr 1fr}
+@media (max-width:640px){.row.c2,.row.c3{grid-template-columns:1fr}}
+
+/* Barre d'outils */
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.tools input[type=search]{flex:1 1 260px;width:auto}
+.tools select{width:auto}
+.stats{color:var(--ink-2);font-size:14px;margin:0 0 12px}
+
+/* Listes */
+.list{background:var(--card);border:1px solid var(--rule-2);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule-2)}
+.item:first-child{border-top:0}
+.item:hover{background:#FAFBFC}
+.thumb{width:64px;height:48px;border-radius:10px;border:1px solid var(--rule-2);background:#fff;display:grid;place-items:center;overflow:hidden}
+.thumb img{max-width:56px;max-height:40px;object-fit:contain}
+.thumb.mono{background:var(--forest);color:var(--lime);font:italic 700 16px/1 var(--display)}
+.thumb.ic{background:var(--lime);color:var(--on-lime);border:0}
+.thumb.ic svg{width:26px;height:26px}
+.item b{font-weight:600}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;background:var(--rule-2);color:var(--ink-2)}
+.tag.on{background:var(--ok-bg);color:var(--lime-deep)}
+.tag.off{background:var(--warn-bg);color:var(--warn)}
+.acts{display:flex;gap:8px;align-items:center}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-2)}
+.more{display:block;margin:14px auto 0}
+@media (max-width:640px){.item{grid-template-columns:48px 1fr}.thumb{width:48px;height:40px}.acts{grid-column:1/-1;justify-content:flex-end}}
+
+/* Vidéo d'accueil */
+.vid-adm{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start;padding:20px;border:1px solid var(--rule-2);border-radius:16px;background:#fff}
+.vid-prev{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:var(--forest);display:grid;place-items:center;color:#93A9B8;font-size:14px}
+.vid-prev video{width:100%;height:100%;background:#000}
+.vid-poster-row{display:flex;align-items:center;gap:12px}
+.vid-poster-row .thumb{width:120px;height:68px}
+.vid-poster-row .thumb img{max-width:none;width:100%;height:100%;object-fit:cover}
+.vid-acts{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+@media (max-width:820px){.vid-adm{grid-template-columns:1fr}}
+.vid-adm-sm{padding:0;border:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.dem-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:4px;font-size:13.5px;color:var(--ink-2)}
+.dem-meta a{color:var(--lime-deep);font-weight:600}
+.item.dem{grid-template-columns:1fr auto}
+.off-prev{position:relative;aspect-ratio:16/7;border-radius:12px;overflow:hidden;background:var(--rule-2);display:grid;place-items:center;color:var(--ink-2);font-size:13px;text-align:center;padding:0 16px}
+.off-prev iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.off-prev iframe[hidden]{display:none}
+.item.dem.done b{color:var(--ink-2)}
+/* Comptes et journal */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--rule)}
+td{padding:12px 16px;border-top:1px solid var(--rule-2);vertical-align:middle}
+td select{width:auto;min-width:180px}
+tr.pending td{background:#FFFCF0}
+@media (max-width:720px){
+  table,thead,tbody,tr,td{display:block}thead{display:none}
+  tr{padding:10px 0;border-top:1px solid var(--rule-2)}td{border:0;padding:4px 16px}
+}
+
+/* Fenêtres d'édition */
+dialog{border:0;border-radius:20px;padding:0;width:min(720px,calc(100vw - 24px));max-height:calc(100vh - 32px);box-shadow:0 30px 80px -20px rgba(2,37,57,.45)}
+dialog::backdrop{background:rgba(2,37,57,.55);backdrop-filter:blur(3px)}
+.dlg{display:flex;flex-direction:column;max-height:calc(100vh - 32px)}
+.dlg header{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--rule-2)}
+.dlg header h2{font:700 19px/1.2 var(--display);margin:0;margin-right:auto}
+.dlg .body{padding:20px 22px;overflow:auto;display:grid;gap:16px}
+.dlg footer{display:flex;gap:10px;justify-content:flex-end;align-items:center;padding:14px 22px;border-top:1px solid var(--rule-2);background:#FAFBFC}
+.dlg footer .err{margin-right:auto}
+.x{border:0;background:var(--rule-2);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1}
+fieldset{border:1px solid var(--rule-2);border-radius:12px;padding:12px 14px;margin:0;display:flex;flex-wrap:wrap;gap:10px 18px}
+legend{font-size:13.5px;font-weight:600;padding:0 6px}
+.logo-edit{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.logo-edit .row{flex:1 1 200px;min-width:0}
+input[type=file]{max-width:100%;font-size:14px}
+.logo-edit .thumb{width:110px;height:84px}
+.logo-edit .thumb img{max-width:96px;max-height:68px}
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px;border:0;padding:0}
+.icons label{display:grid;place-items:center;height:54px;border-radius:12px;border:1px solid var(--rule);cursor:pointer;color:var(--ink-2)}
+.icons input{position:absolute;opacity:0}
+.icons svg{width:24px;height:24px}
+.icons input:checked + svg{color:var(--lime-deep)}
+.icons label:has(input:checked){border-color:var(--lime-deep);background:var(--ok-bg)}
+.icons label:has(input:focus-visible){outline:2px solid var(--lime-deep);outline-offset:2px}
+.preview{border-radius:14px;padding:18px 20px;background:var(--forest);color:#EAEEF1;font:700 24px/1.15 var(--display)}
+.preview em{color:var(--lime)}
+.bloc{border:1px solid var(--rule-2);border-radius:12px;padding:12px;display:grid;gap:10px;background:#FAFBFC}
+.bloc-head{display:flex;gap:10px;align-items:center}
+.bloc-head input{flex:1}
+.counter{float:right;font-weight:400;color:var(--ink-2)}
+
+/* Écrans d'accueil (connexion, attente) */
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(1000px 500px at 50% -10%,#0A3D5C,var(--forest))}
+.gate .card{width:min(420px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 40px 90px -30px rgba(0,0,0,.6);display:grid;gap:16px}
+.gate .brand{color:var(--ink);margin:0 0 4px}
+.gate h1{font-size:22px}
+.gate p{margin:0;color:var(--ink-2)}
+.gate .alt{display:flex;justify-content:space-between;gap:10px;font-size:14px}
+
+/* Messages */
+.err{color:var(--danger);font-size:14px}
+.note{padding:12px 14px;border-radius:12px;background:var(--ok-bg);color:var(--lime-deep);font-size:14px}
+.note.warn{background:var(--warn-bg);color:var(--warn)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:100;padding:12px 18px;border-radius:12px;background:var(--forest);color:#fff;font-weight:500;box-shadow:var(--shadow);transition:opacity .25s,transform .25s;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--danger)}
+.loading{padding:40px;text-align:center;color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<!-- Configuration manquante -->
+<div class="gate" id="vNoConfig" hidden>
+  <div class="card">
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <h1>Base de données non configurée</h1>
+    <p>Renseignez l’adresse et la clé publique de votre projet Supabase dans le fichier <code>config.js</code> à la racine du site, puis rechargez cette page. Le guide se trouve dans <code>supabase/README.md</code>.</p>
+  </div>
+</div>
+
+<!-- Connexion -->
+<div class="gate" id="vLogin" hidden>
+  <form class="card" id="fLogin" novalidate>
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <div><h1 id="loginTitle">Administration du site</h1><p id="loginLead">Connectez-vous pour gérer les références et les prestations.</p></div>
+    <label class="f" id="lNom" hidden>Nom et prénom<input type="text" id="iNom" autocomplete="name" maxlength="80"></label>
+    <label class="f">E-mail<input type="email" id="iEmail" autocomplete="username" required></label>
+    <label class="f" id="lPass">Mot de passe<input type="password" id="iPass" autocomplete="current-password" required minlength="8"></label>
+    <p class="err" id="loginErr" role="alert" hidden></p>
+    <p class="note" id="loginNote" role="status" hidden></p>
+    <button class="btn" type="submit" id="bLogin">Se connecter</button>
+    <div class="alt"><button type="button" class="link" id="bModeSignup">Créer un compte</button><button type="button" class="link" id="bModeReset">Mot de passe oublié ?</button></div>
+  </form>
+</div>
+
+<!-- Nouveau mot de passe (lien reçu par e-mail) -->
+<div class="gate" id="vRecovery" hidden>
+  <form class="card" id="fRecovery" novalidate>
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <div><h1>Nouveau mot de passe</h1><p>Choisissez un mot de passe d’au moins 8 caractères.</p></div>
+    <label class="f">Nouveau mot de passe<input type="password" id="iNewPass" autocomplete="new-password" required minlength="8"></label>
+    <p class="err" id="recErr" role="alert" hidden></p>
+    <button class="btn" type="submit">Enregistrer</button>
+  </form>
+</div>
+
+<!-- Compte sans rôle -->
+<div class="gate" id="vPending" hidden>
+  <div class="card">
+    <span class="brand"><img src="../favicon.svg" alt="" width="30" height="30">biteye</span>
+    <h1>Compte en attente</h1>
+    <p>Votre compte <b id="pendingEmail"></b> est créé. Un administrateur doit maintenant vous attribuer un rôle ; vous pourrez ensuite gérer le contenu du site.</p>
+    <div class="alt"><button type="button" class="link" id="bRecheck">Vérifier à nouveau</button><button type="button" class="link" data-logout>Se déconnecter</button></div>
+  </div>
+</div>
+
+<!-- Application -->
+<div id="vApp" hidden>
+  <header class="top"><div class="top-in">
+    <a class="brand" href="../" title="Voir le site"><img src="../favicon.svg" alt="" width="30" height="30">biteye<small>Administration</small></a>
+    <span class="who"><b id="meName"></b><span class="badge" id="meRole"></span></span>
+    <button type="button" class="btn btn-ghost btn-sm" data-logout>Se déconnecter</button>
+  </div></header>
+  <nav class="tabs" aria-label="Sections"><div class="tabs-in" role="tablist">
+    <button type="button" role="tab" aria-selected="true" aria-controls="pDem" id="tDem">Demandes<span class="count" id="demCount" hidden></span></button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pRefs" id="tRefs">Références</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pPrest" id="tPrest">Prestations</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pEv" id="tEv">Agenda</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pVid" id="tVid">Vidéo</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pTem" id="tTem">Témoignages</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pTeam" id="tTeam">Équipe</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pOff" id="tOff">Bureaux</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pUsers" id="tUsers" data-admin hidden>Comptes<span class="count" id="pendingCount" hidden></span></button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pLog" id="tLog" data-admin hidden>Journal</button>
+  </div></nav>
+
+  <main>
+    <!-- Demandes -->
+    <section id="pDem" role="tabpanel" aria-labelledby="tDem">
+      <div class="head"><div><h1>Demandes</h1><p class="lead">Les demandes envoyées par le formulaire du site (démonstration, rendez-vous, accompagnement). Rappelez le contact, puis marquez la demande comme traitée.</p></div>
+        <button type="button" class="btn btn-ghost" id="bDemCsv">Exporter (CSV)</button></div>
+      <div class="tools">
+        <label class="sr" for="fDem">Afficher</label>
+        <select id="fDem"><option value="nouvelle">À traiter</option><option value="traitee">Traitées</option><option value="">Toutes</option></select>
+      </div>
+      <div class="list" id="demList"><p class="loading">Chargement…</p></div>
+      <p class="hint" style="margin-top:12px">L’export CSV s’ouvre dans Excel et s’importe dans le CRM BitEye.</p>
+    </section>
+
+    <!-- Références -->
+    <section id="pRefs" role="tabpanel" aria-labelledby="tRefs" hidden>
+      <div class="head"><div><h1>Références</h1><p class="lead">Les entreprises affichées dans la section « Ils construisent avec VISION ».</p></div>
+        <button type="button" class="btn" id="bAddRef">+ Ajouter une référence</button></div>
+      <div class="tools">
+        <label class="sr" for="qRef">Rechercher</label><input type="search" id="qRef" placeholder="Rechercher un nom ou une ville">
+        <label class="sr" for="gRef">Filtrer</label>
+        <select id="gRef"><option value="">Toutes</option><option value="oran">Oran</option><option value="alger">Alger</option><option value="autres">Autres wilayas</option><option value="masquees">Masquées</option></select>
+      </div>
+      <p class="stats" id="refStats"></p>
+      <div class="list" id="refList"><p class="loading">Chargement…</p></div>
+      <button type="button" class="btn btn-ghost more" id="refMore" hidden>Afficher plus</button>
+    </section>
+
+    <!-- Prestations -->
+    <section id="pPrest" role="tabpanel" aria-labelledby="tPrest" hidden>
+      <div class="head"><div><h1>Prestations</h1><p class="lead">Chaque prestation publiée a sa fiche sur le site, sa tuile dans « Quel est votre besoin ? » et sa place dans le menu Services. Les cinq fiches d’origine restent intégrées au site.</p></div>
+        <button type="button" class="btn" id="bAddPrest">+ Ajouter une prestation</button></div>
+      <div class="list" id="prestList"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Agenda -->
+    <section id="pEv" role="tabpanel" aria-labelledby="tEv" hidden>
+      <div class="head"><div><h1>Agenda</h1><p class="lead">Salons, journées portes ouvertes, conférences… Le prochain événement publié s’affiche en grand dans la section « Agenda » du site, avec sa fiche détaillée. Les événements passés passent d’eux-mêmes dans « Nous y étions ».</p></div>
+        <button type="button" class="btn" id="bAddEv">+ Ajouter un événement</button></div>
+      <div id="evAdm"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Vidéo d'accueil -->
+    <section id="pVid" role="tabpanel" aria-labelledby="tVid" hidden>
+      <div class="head"><div><h1>Vidéo de présentation</h1><p class="lead">Affichée juste après l’en-tête du site. Tant qu’aucune vidéo n’est publiée, le site affiche « Vidéo bientôt disponible ».</p></div></div>
+      <form class="vid-adm" id="fVid" novalidate>
+        <div class="vid-prev"><video id="vPrev" controls playsinline preload="metadata" hidden></video><p id="vNone">Aucune vidéo pour l’instant.</p></div>
+        <div class="row">
+          <p class="hint" id="vState"></p>
+          <label class="f">Fichier vidéo<input type="file" id="vFile" accept="video/mp4,video/webm"><small>MP4 (H.264) conseillé, en 1920×1080 ; 50 Mo maximum.</small></label>
+          <label class="f">Image d’aperçu (facultative)<input type="file" id="vPoster" accept="image/png,image/jpeg,image/webp"><small>Montrée avant la lecture. Sans image, un fond aux couleurs de BitEye.</small></label>
+          <div class="vid-poster-row"><span class="thumb" id="vThumb" hidden></span><button type="button" class="link danger" id="vNoPoster" hidden>Retirer l’image</button></div>
+          <label class="f">Titre affiché sur la vidéo<input type="text" id="vTitre" maxlength="80" placeholder="Présentation de VISION Workspace"></label>
+          <label class="check"><input type="checkbox" id="vPub"> Afficher la vidéo sur le site</label>
+          <p class="err" id="vErr" role="alert"></p>
+          <div class="vid-acts"><button type="submit" class="btn" id="vSave">Enregistrer</button><button type="button" class="link danger" id="vDel" hidden>Retirer la vidéo</button></div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Témoignages -->
+    <section id="pTem" role="tabpanel" aria-labelledby="tTem" hidden>
+      <div class="head"><div><h1>Témoignages</h1><p class="lead">Les vidéos de vos clients, affichées dans « Nos clients en parlent ». Le premier de la liste est mis en avant, en grand. Tant qu’aucun témoignage n’est publié, le site affiche trois emplacements « Témoignage vidéo bientôt disponible ».</p></div>
+        <button type="button" class="btn" id="bAddTem">+ Ajouter un témoignage</button></div>
+      <div class="list" id="temList"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Équipe -->
+    <section id="pTeam" role="tabpanel" aria-labelledby="tTeam" hidden>
+      <div class="head"><div><h1>Équipe</h1><p class="lead">Les membres affichés dans « Les personnes derrière le produit », par pôle. L’ordre d’affichage se règle avec le champ « Ordre ».</p></div>
+        <button type="button" class="btn" id="bAddTm">+ Ajouter un membre</button></div>
+      <div id="teamAdm"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Bureaux -->
+    <section id="pOff" role="tabpanel" aria-labelledby="tOff" hidden>
+      <div class="head"><div><h1>Bureaux</h1><p class="lead">Les bureaux de la section « Nos bureaux » et leur position sur la carte. Avec la latitude et la longitude, le repère est exact ; sinon la carte se centre sur l’adresse.</p></div>
+        <button type="button" class="btn" id="bAddOff">+ Ajouter un bureau</button></div>
+      <div class="list" id="offAdm"><p class="loading">Chargement…</p></div>
+      <p class="hint" style="margin-top:12px">Pour obtenir les coordonnées : dans Google Maps, appui long (ou clic droit) sur l’emplacement exact, puis copiez les deux nombres affichés (ex. 36.7213, 3.0866) et collez-les dans le champ Latitude.</p>
+    </section>
+
+    <!-- Comptes -->
+    <section id="pUsers" role="tabpanel" aria-labelledby="tUsers" hidden>
+      <div class="head"><div><h1>Comptes et rôles</h1><p class="lead">Pour ajouter une personne : elle crée son compte depuis la page de connexion (« Créer un compte »), puis vous lui attribuez un rôle ici.</p></div></div>
+      <div class="note" style="margin-bottom:16px"><b>Administrateur</b> : tout, y compris les comptes, le journal et la suppression définitive. <b>Éditeur</b> : ajoute, modifie et masque les références et les prestations.</div>
+      <div class="list"><table><thead><tr><th>Nom</th><th>E-mail</th><th>Rôle</th><th>Créé le</th></tr></thead><tbody id="userRows"></tbody></table></div>
+    </section>
+
+    <!-- Journal -->
+    <section id="pLog" role="tabpanel" aria-labelledby="tLog" hidden>
+      <div class="head"><div><h1>Journal</h1><p class="lead">Les 200 dernières modifications, avec leur auteur.</p></div></div>
+      <div class="list"><table><thead><tr><th>Date</th><th>Par</th><th>Action</th><th>Élément</th></tr></thead><tbody id="logRows"></tbody></table></div>
+    </section>
+  </main>
+</div>
+
+<!-- Édition d'une référence -->
+<dialog id="dRef" aria-labelledby="dRefT">
+  <form class="dlg" id="fRef" novalidate method="dialog">
+    <header><h2 id="dRefT">Référence</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom de l’entreprise<input type="text" id="rNom" required minlength="2" maxlength="120"></label>
+        <label class="f">Ville(s)<input type="text" id="rVille" required minlength="2" maxlength="80" placeholder="ex. Oran ou Constantine, Alger"><small>Plusieurs villes : séparées par une virgule.</small></label>
+      </div>
+      <fieldset><legend>Filtres du site</legend>
+        <label class="check"><input type="checkbox" name="grp" value="oran"> Oran</label>
+        <label class="check"><input type="checkbox" name="grp" value="alger"> Alger</label>
+        <label class="check"><input type="checkbox" name="grp" value="autres"> Autres wilayas</label>
+      </fieldset>
+      <div class="logo-edit">
+        <span class="thumb" id="rThumb"></span>
+        <div class="row">
+          <label class="f">Logo<input type="file" id="rLogo" accept="image/png,image/jpeg,image/webp"><small>PNG, JPEG ou WebP. Il est redimensionné automatiquement.</small></label>
+          <button type="button" class="link danger" id="rNoLogo" hidden>Retirer le logo</button>
+        </div>
+      </div>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="rOrdre" min="0" max="100000" step="1"><small>Les plus petits nombres apparaissent en premier.</small></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="rPub"> Publiée sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="rErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="rSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<!-- Édition d'une prestation -->
+<dialog id="dPrest" aria-labelledby="dPrestT">
+  <form class="dlg" id="fPrest" novalidate method="dialog">
+    <header><h2 id="dPrestT">Prestation</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom de la prestation<input type="text" id="pTitre" required minlength="2" maxlength="60" placeholder="ex. Maintenance du parc"><small>Affiché dans le menu, la tuile et l’onglet de la fiche.</small></label>
+        <label class="f">Adresse de la fiche<input type="text" id="pSlug" required maxlength="50" pattern="[a-z0-9]+(-[a-z0-9]+)*"><small id="pSlugHint"></small></label>
+      </div>
+      <fieldset class="icons" id="pIcons"><legend class="sr">Icône</legend></fieldset>
+      <div class="row c2">
+        <label class="f">Titre de la fiche<input type="text" id="pAcc" required minlength="2" maxlength="80" placeholder="ex. Vos postes."></label>
+        <label class="f">Suite du titre, en couleur<input type="text" id="pAccC" maxlength="60" placeholder="ex. Toujours prêts."></label>
+      </div>
+      <div class="preview" id="pPreview" aria-hidden="true"></div>
+      <label class="f">Présentation <span class="counter" id="pDescN"></span><textarea id="pDesc" maxlength="600" placeholder="Deux ou trois phrases qui expliquent la prestation."></textarea></label>
+      <div class="row"><b style="font-size:14px">Blocs de la fiche</b><p class="hint" style="margin:-8px 0 0">Jusqu’à 6 blocs ; chaque ligne devient un point coché.</p><div class="row" id="pBlocs"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="pAddBloc" style="justify-self:start">+ Ajouter un bloc</button></div>
+      <fieldset><legend>Besoins qui l’allument dans « Quel est votre besoin ? »</legend>
+        <label class="check"><input type="checkbox" name="need" value="equiper"> Équiper mon entreprise</label>
+        <label class="check"><input type="checkbox" name="need" value="distance"> Travailler à distance</label>
+        <label class="check"><input type="checkbox" name="need" value="vendre"> Vendre plus</label>
+        <span class="hint">« Tout mettre en place » les allume toutes.</span>
+      </fieldset>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="pOrdre" min="0" max="100000" step="1"></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="pPub"> Publiée sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="pErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="pSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<!-- Édition d'un événement -->
+<dialog id="dOff" aria-labelledby="dOffT">
+  <form class="dlg" id="fOff" novalidate method="dialog">
+    <header><h2 id="dOffT">Bureau</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Ville<input type="text" id="oVille" required minlength="2" maxlength="60" placeholder="ex. Oran"></label>
+        <label class="f">Libellé<input type="text" id="oLib" maxlength="40" placeholder="Siège, Bureau, Agence…"></label>
+      </div>
+      <label class="f">Adresse<input type="text" id="oAdr" maxlength="160" placeholder="ex. Kouba, Alger"><small>Vide : le site affiche « Adresse communiquée prochainement ».</small></label>
+      <label class="f">Lien Google Maps (facultatif)<input type="url" id="oLien" maxlength="300" placeholder="https://maps.app.goo.gl/…"><small>Ouvert par le bouton « Itinéraire ».</small></label>
+      <div class="row c2">
+        <label class="f">Latitude<input type="text" id="oLat" inputmode="decimal" maxlength="40" placeholder="ex. 36.7213"><small>Vous pouvez coller ici « latitude, longitude ».</small></label>
+        <label class="f">Longitude<input type="text" id="oLng" inputmode="decimal" maxlength="20" placeholder="ex. 3.0866"></label>
+      </div>
+      <div class="off-prev"><iframe id="oMap" title="Aperçu de la carte" loading="lazy"></iframe><p id="oMapNone">L’aperçu de la carte s’affiche avec une adresse ou des coordonnées.</p></div>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="oOrdre" min="0" max="100000" step="1"></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="oPub"> Affiché sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="oErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="oSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<dialog id="dTm" aria-labelledby="dTmT">
+  <form class="dlg" id="fTm" novalidate method="dialog">
+    <header><h2 id="dTmT">Membre</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom et prénom<input type="text" id="mNom" required minlength="2" maxlength="80"></label>
+        <label class="f">Poste<input type="text" id="mPoste" maxlength="80" placeholder="ex. Responsable commerciale"></label>
+      </div>
+      <div class="row c2">
+        <label class="f">Pôle<select id="mPole"><option value="direction">Direction (en grand)</option><option value="technique">01 · Technique</option><option value="marketing">02 · Marketing</option></select></label>
+        <label class="f">Ordre d’affichage<input type="number" id="mOrdre" min="0" max="100000" step="1"></label>
+      </div>
+      <label class="f">Profil LinkedIn (facultatif)<input type="url" id="mLi" maxlength="200" placeholder="https://www.linkedin.com/in/…"></label>
+      <div class="vid-poster-row"><span class="thumb" id="mThumb" style="width:96px;height:96px"></span>
+        <div class="row" style="flex:1"><label class="f">Photo (facultative)<input type="file" id="mPhoto" accept="image/png,image/jpeg,image/webp"><small>Recadrée en carré automatiquement. Sans photo, les initiales s’affichent.</small></label>
+        <button type="button" class="link danger" id="mNoPhoto" hidden style="justify-self:start">Retirer la photo</button></div></div>
+      <label class="check"><input type="checkbox" id="mPub"> Affiché sur le site</label>
+    </div>
+    <footer><p class="err" id="mErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="mSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<dialog id="dTem" aria-labelledby="dTemT">
+  <form class="dlg" id="fTem" novalidate method="dialog">
+    <header><h2 id="dTemT">Témoignage</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Nom de la personne<input type="text" id="tNom" required minlength="2" maxlength="80" placeholder="ex. Karim Benali"></label>
+        <label class="f">Fonction<input type="text" id="tFonc" maxlength="80" placeholder="ex. Gérant"></label>
+      </div>
+      <div class="row c2">
+        <label class="f">Société<input type="text" id="tSoc" maxlength="120" placeholder="ex. Sopimem Promotion immobilière"></label>
+        <label class="f">Métier<select id="tMet"><option value="">—</option><option>Promotion immobilière</option><option>Réalisation</option><option>Gestion de copropriété</option><option>Plusieurs métiers</option></select></label>
+      </div>
+      <label class="f">Phrase clé (facultative) <span class="counter" id="tCitN"></span><textarea id="tCit" maxlength="220" placeholder="Une phrase extraite de la vidéo, affichée sous la vignette."></textarea></label>
+      <div class="vid-adm vid-adm-sm">
+        <div class="vid-prev"><video id="tPrev" controls playsinline preload="metadata" hidden></video><p id="tNone">Aucune vidéo.</p></div>
+        <div class="row">
+          <label class="f">Vidéo<input type="file" id="tFile" accept="video/mp4,video/webm"><small>MP4 (H.264) conseillé ; 50 Mo maximum.</small></label>
+          <label class="f">Image d’aperçu (facultative)<input type="file" id="tPoster" accept="image/png,image/jpeg,image/webp"></label>
+          <div class="vid-poster-row"><span class="thumb" id="tThumb" hidden></span><button type="button" class="link danger" id="tNoPoster" hidden>Retirer l’image</button></div>
+        </div>
+      </div>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="tOrdre" min="0" max="100000" step="1"><small>Les plus petits nombres apparaissent en premier.</small></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="tPub"> Publié sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="tErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="tSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<dialog id="dEv" aria-labelledby="dEvT">
+  <form class="dlg" id="fEv" novalidate method="dialog">
+    <header><h2 id="dEvT">Événement</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Titre<input type="text" id="eTitre" required minlength="2" maxlength="80" placeholder="ex. BitEye au salon Elogia 2026"></label>
+        <label class="f">Adresse de la fiche<input type="text" id="eSlug" required maxlength="50"><small id="eSlugHint"></small></label>
+      </div>
+      <div class="row c3">
+        <label class="f">Type<select id="eType"><option value="salon">Salon</option><option value="portes-ouvertes">Journée portes ouvertes</option><option value="conference">Conférence</option><option value="formation">Formation</option><option value="autre">Autre événement</option></select></label>
+        <label class="f">Ville<input type="text" id="eVille" maxlength="60" placeholder="ex. Oran"></label>
+        <label class="f">Stand<input type="text" id="eStand" maxlength="80" placeholder="ex. Stand B12"></label>
+      </div>
+      <div class="row c2">
+        <label class="f">Lieu<input type="text" id="eLieu" maxlength="120" placeholder="ex. Centre des conventions Mohamed-Benahmed"></label>
+        <label class="f">Organisateur<input type="text" id="eOrga" maxlength="120"></label>
+      </div>
+      <fieldset style="display:grid;gap:12px"><legend>Dates</legend>
+        <label class="check"><input type="checkbox" id="eConf" checked> Dates confirmées</label>
+        <div class="row c2">
+          <label class="f"><span id="eDebL">Premier jour</span><input type="date" id="eDeb" required></label>
+          <label class="f" id="eFinL">Dernier jour <small>(vide si un seul jour)</small><input type="date" id="eFin"></label>
+          <label class="f" id="ePerL" hidden>Période affichée<input type="text" id="ePer" maxlength="60" placeholder="ex. Décembre 2026"><small>Le site ajoute « Dates à confirmer ».</small></label>
+        </div>
+      </fieldset>
+      <label class="f">Accroche <span class="counter" id="eAccN"></span><textarea id="eAcc" maxlength="200" style="min-height:64px" placeholder="Une phrase qui donne envie de venir."></textarea></label>
+      <label class="f">Présentation <span class="counter" id="eDescN"></span><textarea id="eDesc" maxlength="1200" placeholder="L’événement, ce que BitEye y présente, pour qui."></textarea></label>
+      <div class="logo-edit">
+        <span class="thumb" id="eThumb" style="width:160px;height:100px"></span>
+        <div class="row">
+          <label class="f">Photo (facultative)<input type="file" id="ePhoto" accept="image/png,image/jpeg,image/webp"><small>Sans photo, le site affiche un plan de salon animé.</small></label>
+          <button type="button" class="link danger" id="eNoPhoto" hidden>Retirer la photo</button>
+        </div>
+      </div>
+      <div class="row"><b style="font-size:14px">Programme</b><p class="hint" style="margin:-8px 0 0">Jusqu’à 10 temps forts (démonstrations, conférence, offre…).</p><div class="row" id="eProg"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="eAddProg" style="justify-self:start">+ Ajouter un temps fort</button></div>
+      <label class="f">Lien vers le site de l’événement <small>(facultatif, https)</small><input type="text" id="eLien" maxlength="300" placeholder="https://…"></label>
+      <div class="row c2">
+        <label class="check"><input type="checkbox" id="eRdv" checked> Bouton « Réserver un rendez-vous »</label>
+        <label class="check"><input type="checkbox" id="ePub"> Publié sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="eErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="eSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
+<!-- Confirmation -->
+<dialog id="dConfirm" aria-labelledby="dConfirmT">
+  <form class="dlg" method="dialog">
+    <header><h2 id="dConfirmT">Confirmer</h2></header>
+    <div class="body"><p id="dConfirmMsg" style="margin:0"></p></div>
+    <footer><button value="non" class="btn btn-ghost">Annuler</button><button value="oui" class="btn btn-danger" id="dConfirmOk">Supprimer</button></footer>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../config.js"></script>
+<script src="../vendor/supabase.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var cfg = window.BITEYE_DB || {}, sb = null, me = null, refs = [], prests = [], users = [], refShown = 60;
+  var GROUPES = {oran:'Oran', alger:'Alger', autres:'Autres wilayas'};
+  var ROLES = {admin:'Administrateur', editeur:'Éditeur'};
+  var NEEDS = {equiper:'Équiper', distance:'À distance', vendre:'Vendre plus'};
+  var ICONS = {
+    logiciel:['Logiciel','<rect x="3" y="4" width="18" height="13" rx="2.5"/><path d="M8 21h8M12 17v4M7 13V10M11 13V8M15 13v-2"/>'],
+    distance:['Accès à distance','<path d="M7 18a4.5 4.5 0 01-.6-9A6 6 0 0118 9.5a4.2 4.2 0 01-.5 8.5z"/><rect x="10" y="12" width="5" height="4" rx="1"/><path d="M11 12v-1.2a1.5 1.5 0 013 0V12"/>'],
+    serveur:['Serveur','<rect x="4" y="3" width="16" height="6" rx="1.5"/><rect x="4" y="11" width="16" height="6" rx="1.5"/><path d="M8 6h.01M8 14h.01M7 21h10M12 17v4"/>'],
+    securite:['Sécurité','<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/>'],
+    equipe:['Équipe','<circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.5"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M14.5 14.2c2.8-.3 5 1.2 5.8 4.3"/>'],
+    outils:['Outils','<path d="M14.5 6.5a4 4 0 005 5l-8.8 8.8a2.1 2.1 0 01-3-3z"/><path d="M14.5 6.5L17 4l3 3-2.5 2.5"/>'],
+    graphique:['Graphique','<path d="M4 20V4M4 20h16"/><path d="M8 16l4-5 3 3 5-7"/>'],
+    document:['Document','<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>'],
+    telephone:['Téléphone','<path d="M6.5 3h3l1.5 4-2 1.3a10 10 0 005.7 5.7L16 12l4 1.5v3A2.5 2.5 0 0117.5 19 14.5 14.5 0 015 6.5 2.5 2.5 0 016.5 3z"/>'],
+    camera:['Photo et vidéo','<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7l1.5-3h4l1.5 3"/><circle cx="12" cy="13.5" r="3.5"/>'],
+    formation:['Formation','<path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v5c3 2.3 8 2.3 11 0v-5M21.5 9v5"/>'],
+    support:['Support','<path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/>']
+  };
+  function svg(k){ return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[k] || ICONS.outils)[1] + '</svg>'; }
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]; }); }
+  function initiales(nom){ return String(nom).replace(/\b(promotion|immobili[eè]re?|immo|ets|sarl|eurl|spa|et|de|du|des|la|le|les)\b/gi, ' ').trim().split(/\s+/).slice(0, 2).map(function(w){ return w.charAt(0).toUpperCase(); }).join('') || '•'; }
+  function slugify(t){ return String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50).replace(/-+$/, ''); }
+  function siteBase(){ return new URL('../', location.href).href; }
+  function logoSrc(u){ return !u ? '' : /^(https?:)?\/\//.test(u) ? u : siteBase() + u; }
+  function date(d){ return new Date(d).toLocaleString('fr-FR', {dateStyle:'short', timeStyle:'short'}); }
+  var tt;
+  function toast(msg, bad){ var t = $('toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove('show'); }, 3200); }
+
+  /* Messages d'erreur compréhensibles */
+  function msg(e){
+    var m = (e && (e.message || e.error_description || e.msg)) || String(e || '');
+    var code = e && e.code;
+    if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'Connexion impossible. Vérifiez votre accès à internet.';
+    if (/Invalid login credentials/i.test(m)) return 'E-mail ou mot de passe incorrect.';
+    if (/Email not confirmed/i.test(m)) return 'Confirmez d’abord votre adresse e-mail grâce au lien reçu.';
+    if (/User already registered|already been registered/i.test(m)) return 'Un compte existe déjà avec cet e-mail.';
+    if (/Password should be at least|weak/i.test(m)) return 'Mot de passe trop court ou trop simple (8 caractères minimum).';
+    if (/rate limit|too many/i.test(m)) return 'Trop de tentatives. Patientez quelques minutes.';
+    if (/au moins un administrateur/.test(m)) return 'Il doit rester au moins un administrateur.';
+    if (code === '23505' || /duplicate key/.test(m)) return 'Cette adresse de fiche est déjà utilisée par une autre prestation.';
+    if (code === '23514' || /violates check constraint/.test(m)) return 'Une valeur n’est pas acceptée. Vérifiez les champs.';
+    if (code === '42501' || /row-level security|permission denied/i.test(m)) return 'Action non autorisée pour votre rôle.';
+    if (/mime type|invalid_mime/i.test(m)) return /video/i.test(m) ? 'Format de vidéo non accepté (MP4 ou WebM).' : 'Format d’image non accepté (PNG, JPEG ou WebP).';
+    if (/exceeded the maximum allowed size|too large/i.test(m)) return 'Image trop lourde (1 Mo maximum après redimensionnement).';
+    return m || 'Une erreur est survenue.';
+  }
+
+  /* ═══ Écrans ═══ */
+  function show(v){ ['vNoConfig', 'vLogin', 'vRecovery', 'vPending', 'vApp'].forEach(function(k){ $(k).hidden = k !== v; }); }
+  if (!cfg.url || !cfg.cle) { show('vNoConfig'); return; }
+  if (!window.supabase) { show('vNoConfig'); return; }
+  sb = window.supabase.createClient(cfg.url, cfg.cle, {auth:{persistSession:true, autoRefreshToken:true, detectSessionInUrl:true}});
+
+  var mode = 'login';
+  function setMode(m){
+    mode = m;
+    $('lNom').hidden = m !== 'signup'; $('lPass').hidden = m === 'reset';
+    $('loginTitle').textContent = m === 'signup' ? 'Créer un compte' : m === 'reset' ? 'Mot de passe oublié' : 'Administration du site';
+    $('loginLead').textContent = m === 'signup' ? 'Un administrateur devra ensuite vous attribuer un rôle.' : m === 'reset' ? 'Recevez un lien pour choisir un nouveau mot de passe.' : 'Connectez-vous pour gérer les références et les prestations.';
+    $('bLogin').textContent = m === 'signup' ? 'Créer le compte' : m === 'reset' ? 'Envoyer le lien' : 'Se connecter';
+    $('bModeSignup').textContent = m === 'login' ? 'Créer un compte' : 'J’ai déjà un compte';
+    $('bModeReset').hidden = m !== 'login';
+    $('iPass').autocomplete = m === 'signup' ? 'new-password' : 'current-password';
+    $('loginErr').hidden = true; $('loginNote').hidden = true;
+  }
+  $('bModeSignup').onclick = function(){ setMode(mode === 'login' ? 'signup' : 'login'); };
+  $('bModeReset').onclick = function(){ setMode('reset'); };
+  $('fLogin').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var email = $('iEmail').value.trim(), pass = $('iPass').value, err = $('loginErr'), note = $('loginNote'), b = $('bLogin');
+    err.hidden = true; note.hidden = true;
+    if (!/^\S+@\S+\.\S+$/.test(email)) { err.textContent = 'Saisissez une adresse e-mail valide.'; err.hidden = false; $('iEmail').focus(); return; }
+    if (mode !== 'reset' && pass.length < 8) { err.textContent = 'Le mot de passe doit faire au moins 8 caractères.'; err.hidden = false; $('iPass').focus(); return; }
+    b.disabled = true;
+    try {
+      if (mode === 'login') {
+        var r = await sb.auth.signInWithPassword({email:email, password:pass}); if (r.error) throw r.error;
+      } else if (mode === 'signup') {
+        var s = await sb.auth.signUp({email:email, password:pass, options:{data:{nom:$('iNom').value.trim()}, emailRedirectTo:location.href.split('#')[0]}});
+        if (s.error) throw s.error;
+        if (!s.data.session) { note.textContent = 'Compte créé. Confirmez votre adresse grâce au lien envoyé par e-mail, puis connectez-vous.'; note.hidden = false; setTimeout(function(){ setMode('login'); note.textContent = 'Compte créé. Confirmez votre adresse grâce au lien envoyé par e-mail, puis connectez-vous.'; note.hidden = false; }, 0); }
+      } else {
+        var p = await sb.auth.resetPasswordForEmail(email, {redirectTo:location.href.split('#')[0]}); if (p.error) throw p.error;
+        note.textContent = 'Si un compte existe pour cette adresse, un lien vient d’y être envoyé.'; note.hidden = false;
+      }
+    } catch (x) { err.textContent = msg(x); err.hidden = false; }
+    b.disabled = false;
+  });
+  $('fRecovery').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var p = $('iNewPass').value, err = $('recErr'); err.hidden = true;
+    if (p.length < 8) { err.textContent = 'Au moins 8 caractères.'; err.hidden = false; return; }
+    var r = await sb.auth.updateUser({password:p});
+    if (r.error) { err.textContent = msg(r.error); err.hidden = false; return; }
+    toast('Mot de passe enregistré.'); recovering = false; enter();
+  });
+  document.querySelectorAll('[data-logout]').forEach(function(b){ b.onclick = async function(){ await sb.auth.signOut(); me = null; setMode('login'); show('vLogin'); }; });
+  $('bRecheck').onclick = function(){ enter(); };
+
+  var recovering = false, entered = null;
+  sb.auth.onAuthStateChange(function(ev, session){
+    if (ev === 'PASSWORD_RECOVERY') { recovering = true; show('vRecovery'); return; }
+    if (recovering) return;
+    var uid = session && session.user && session.user.id;
+    if (!uid) { entered = null; setMode(mode); show('vLogin'); return; }
+    if (entered === uid) return;
+    entered = uid; setTimeout(enter, 0);
+  });
+
+  async function enter(){
+    var u = (await sb.auth.getUser()).data.user;
+    if (!u) { show('vLogin'); return; }
+    var r = await sb.from('profils').select('id,email,nom,role').eq('id', u.id).maybeSingle();
+    if (r.error) { toast(msg(r.error), true); show('vLogin'); return; }
+    me = r.data || {id:u.id, email:u.email, nom:'', role:null};
+    if (!me.role) { $('pendingEmail').textContent = me.email; show('vPending'); return; }
+    $('meName').textContent = me.nom || me.email; $('meRole').textContent = ROLES[me.role];
+    document.querySelectorAll('[data-admin]').forEach(function(el){ el.hidden = me.role !== 'admin'; });
+    show('vApp'); selectTab('tDem');
+    loadDems(); loadRefs(); loadPrests(); loadEvs(); loadVid(); loadTems(); loadTeam(); loadOffs();
+    if (me.role === 'admin') { loadUsers(); }
+  }
+  var isAdmin = function(){ return me && me.role === 'admin'; };
+
+  /* ═══ Onglets ═══ */
+  var tabs = ['tDem', 'tRefs', 'tPrest', 'tEv', 'tVid', 'tTem', 'tTeam', 'tOff', 'tUsers', 'tLog'];
+  tabs.forEach(function(id){
+    $(id).addEventListener('click', function(){ selectTab(id); });
+  });
+  function selectTab(id){
+    tabs.forEach(function(t){ var on = t === id; $(t).setAttribute('aria-selected', on); $($(t).getAttribute('aria-controls')).hidden = !on; });
+    if (id === 'tLog') loadLog();
+    if (id === 'tDem') loadDems();
+    if (id === 'tUsers') loadUsers();
+  }
+  document.querySelector('[role=tablist]').addEventListener('keydown', function(e){
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var vis = tabs.filter(function(t){ return !$(t).hidden; }), i = vis.indexOf(document.activeElement.id);
+    if (i < 0) return;
+    var n = vis[(i + (e.key === 'ArrowRight' ? 1 : vis.length - 1)) % vis.length]; $(n).focus(); selectTab(n);
+  });
+
+  /* ═══ Références ═══ */
+  async function loadRefs(){
+    var r = await sb.from('references_clients').select('id,nom,ville,groupes,logo_url,ordre,publie,modifie_le').order('ordre').order('nom');
+    if (r.error) { $('refList').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    refs = r.data; drawRefs();
+  }
+  function drawRefs(){
+    var q = $('qRef').value.trim().toLowerCase(), g = $('gRef').value;
+    var list = refs.filter(function(x){
+      if (g === 'masquees' ? x.publie : g && x.groupes.indexOf(g) < 0) return false;
+      return !q || (x.nom + ' ' + x.ville).toLowerCase().indexOf(q) > -1;
+    });
+    var pub = refs.filter(function(x){ return x.publie; }).length;
+    $('refStats').textContent = refs.length + ' références · ' + pub + ' publiées' + (refs.length - pub ? ' · ' + (refs.length - pub) + ' masquées' : '') + (q || g ? ' — ' + list.length + ' affichées' : '');
+    $('refList').innerHTML = list.length ? list.slice(0, refShown).map(function(x){
+      var th = x.logo_url ? '<span class="thumb"><img src="' + esc(logoSrc(x.logo_url)) + '" alt="" loading="lazy"></span>' : '<span class="thumb mono">' + esc(initiales(x.nom)) + '</span>';
+      return '<div class="item">' + th + '<div><b>' + esc(x.nom) + '</b><div class="meta"><span>' + esc(x.ville) + '</span>'
+        + x.groupes.map(function(k){ return '<span class="tag">' + GROUPES[k] + '</span>'; }).join('')
+        + '<span class="tag ' + (x.publie ? 'on' : 'off') + '">' + (x.publie ? 'Publiée' : 'Masquée') + '</span></div></div>'
+        + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-ref="' + x.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-ref="' + x.id + '">' + (x.publie ? 'Masquer' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-ref="' + x.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('') : '<p class="empty">Aucune référence ne correspond.</p>';
+    $('refMore').hidden = list.length <= refShown;
+  }
+  $('qRef').addEventListener('input', function(){ refShown = 60; drawRefs(); });
+  $('gRef').addEventListener('change', function(){ refShown = 60; drawRefs(); });
+  $('refMore').onclick = function(){ refShown += 120; drawRefs(); };
+  $('refList').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editRef || b.dataset.pubRef || b.dataset.delRef), x = refs.find(function(r){ return r.id === id; });
+    if (!x) return;
+    if (b.dataset.editRef) openRef(x);
+    if (b.dataset.pubRef) {
+      var r = await sb.from('references_clients').update({publie:!x.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(x, r.data); drawRefs(); toast(x.publie ? 'Référence publiée.' : 'Référence masquée du site.');
+    }
+    if (b.dataset.delRef && await confirmer('Supprimer définitivement « ' + x.nom + ' » ? Pour la retirer du site sans la perdre, utilisez plutôt « Masquer ».')) {
+      var d = await sb.from('references_clients').delete().eq('id', id).select();
+      if (d.error || !d.data.length) return toast(d.error ? msg(d.error) : 'Action non autorisée pour votre rôle.', true);
+      await removeLogo(x.logo_url);
+      refs = refs.filter(function(r){ return r.id !== id; }); drawRefs(); toast('Référence supprimée.');
+    }
+  });
+
+  var editing = null, newLogo = null, dropLogo = false;
+  function guessGroups(ville){
+    var v = ville.toLowerCase(), g = [];
+    v.split(/[,;/]| et /).map(function(s){ return s.trim(); }).filter(Boolean).forEach(function(c){
+      var k = /^oran\b/.test(c) ? 'oran' : /^alger\b/.test(c) ? 'alger' : 'autres';
+      if (g.indexOf(k) < 0) g.push(k);
+    });
+    return g;
+  }
+  function setGroups(g){ document.querySelectorAll('[name=grp]').forEach(function(c){ c.checked = g.indexOf(c.value) > -1; }); }
+  var groupsTouched = false;
+  document.querySelectorAll('[name=grp]').forEach(function(c){ c.addEventListener('change', function(){ groupsTouched = true; }); });
+  $('rVille').addEventListener('input', function(){ if (!groupsTouched) setGroups(guessGroups(this.value)); });
+  function drawThumb(src, nom){
+    $('rThumb').className = 'thumb' + (src ? '' : ' mono');
+    $('rThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu du logo">' : esc(initiales(nom || '?'));
+    $('rNoLogo').hidden = !src;
+  }
+  function openRef(x){
+    editing = x || null; newLogo = null; dropLogo = false; groupsTouched = !!x;
+    $('dRefT').textContent = x ? 'Modifier la référence' : 'Nouvelle référence';
+    $('rNom').value = x ? x.nom : ''; $('rVille').value = x ? x.ville : '';
+    setGroups(x ? x.groupes : []);
+    $('rOrdre').value = x ? x.ordre : (refs.reduce(function(m, r){ return Math.max(m, r.ordre); }, 0) + 10);
+    $('rPub').checked = x ? x.publie : true;
+    $('rLogo').value = ''; drawThumb(x && x.logo_url ? logoSrc(x.logo_url) : '', x && x.nom);
+    $('rErr').textContent = '';
+    $('dRef').showModal(); $('rNom').focus();
+  }
+  $('bAddRef').onclick = function(){ openRef(null); };
+  $('rNom').addEventListener('input', function(){ if (!$('rThumb').querySelector('img')) drawThumb('', this.value); });
+  $('rLogo').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    $('rErr').textContent = '';
+    try { newLogo = await prepLogo(f); dropLogo = false; drawThumb(URL.createObjectURL(newLogo)); }
+    catch (x) { $('rErr').textContent = msg(x); this.value = ''; }
+  });
+  $('rNoLogo').onclick = function(){ newLogo = null; dropLogo = true; $('rLogo').value = ''; drawThumb('', $('rNom').value); };
+
+  /* Image réduite (240 px pour un logo, 1600 px pour une photo) au plus grand côté, en WebP (PNG si le navigateur ne sait pas encoder le WebP) */
+  function prepLogo(file, max, q){
+    return new Promise(function(ok, ko){
+      if (!/^image\/(png|jpeg|webp)$/.test(file.type)) return ko(new Error('mime type'));
+      if (file.size > 15e6) return ko(new Error('too large'));
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function(){
+        var k = Math.min(1, (max || 240) / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        c.toBlob(function(b){ b ? ok(b) : ko(new Error('Image illisible.')); }, 'image/webp', q || .9);
+      };
+      img.onerror = function(){ ko(new Error('Image illisible.')); };
+      img.src = url;
+    });
+  }
+  async function uploadLogo(blob, bucket, dir){
+    var ext = blob.type === 'image/webp' ? 'webp' : blob.type === 'image/png' ? 'png' : 'jpg';
+    var path = (dir || 'refs') + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    var r = await sb.storage.from(bucket || 'logos').upload(path, blob, {contentType:blob.type, upsert:false, cacheControl:'31536000'});
+    if (r.error) throw r.error;
+    return sb.storage.from(bucket || 'logos').getPublicUrl(path).data.publicUrl;
+  }
+  async function removeLogo(u){
+    var m = u && u.match(/\/storage\/v1\/object\/public\/(logos|medias|videos)\/(.+)$/);
+    if (m) await sb.storage.from(m[1]).remove([decodeURIComponent(m[2])]);
+  }
+  $('fRef').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('rErr'), nom = $('rNom').value.trim(), ville = $('rVille').value.trim();
+    var groupes = Array.prototype.map.call(document.querySelectorAll('[name=grp]:checked'), function(c){ return c.value; });
+    err.textContent = '';
+    if (nom.length < 2) { err.textContent = 'Indiquez le nom de l’entreprise.'; return $('rNom').focus(); }
+    if (ville.length < 2) { err.textContent = 'Indiquez la ville.'; return $('rVille').focus(); }
+    if (!groupes.length) { err.textContent = 'Cochez au moins un filtre.'; return; }
+    var b = $('rSave'); b.disabled = true;
+    try {
+      var data = {nom:nom, ville:ville, groupes:groupes, ordre:Math.max(0, parseInt($('rOrdre').value, 10) || 0), publie:$('rPub').checked};
+      var old = editing && editing.logo_url;
+      if (newLogo) data.logo_url = await uploadLogo(newLogo);
+      else if (dropLogo) data.logo_url = null;
+      var r = editing ? await sb.from('references_clients').update(data).eq('id', editing.id).select().single()
+                      : await sb.from('references_clients').insert(data).select().single();
+      if (r.error) throw r.error;
+      if ((newLogo || dropLogo) && old) removeLogo(old);
+      if (editing) Object.assign(editing, r.data); else refs.push(r.data);
+      refs.sort(function(a, c){ return a.ordre - c.ordre || a.nom.localeCompare(c.nom, 'fr'); });
+      $('dRef').close(); drawRefs(); toast(editing ? 'Référence enregistrée.' : 'Référence ajoutée.');
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+
+  /* ═══ Prestations ═══ */
+  async function loadPrests(){
+    var r = await sb.from('prestations').select('*').order('ordre').order('titre');
+    if (r.error) { $('prestList').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    prests = r.data; drawPrests();
+  }
+  function drawPrests(){
+    $('prestList').innerHTML = prests.length ? prests.map(function(p){
+      return '<div class="item"><span class="thumb ic">' + svg(p.icone) + '</span><div><b>' + esc(p.titre) + '</b><div class="meta">'
+        + '<span>#p-' + esc(p.slug) + '</span>' + p.besoins.map(function(k){ return '<span class="tag">' + NEEDS[k] + '</span>'; }).join('')
+        + '<span class="tag ' + (p.publie ? 'on' : 'off') + '">' + (p.publie ? 'Publiée' : 'Brouillon') + '</span></div></div>'
+        + '<div class="acts">' + (p.publie ? '<a class="link" href="../#p-' + esc(p.slug) + '" target="_blank" rel="noopener">Voir</a>' : '')
+        + '<button type="button" class="btn btn-ghost btn-sm" data-edit-p="' + p.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-p="' + p.id + '">' + (p.publie ? 'Dépublier' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-p="' + p.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('') : '<p class="empty">Aucune prestation ajoutée pour l’instant. Les cinq fiches d’origine (Logiciel, Accès à distance, Serveur et réseau, Sécurité, Formation) sont intégrées au site.</p>';
+  }
+  $('prestList').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editP || b.dataset.pubP || b.dataset.delP), p = prests.find(function(x){ return x.id === id; });
+    if (!p) return;
+    if (b.dataset.editP) openPrest(p);
+    if (b.dataset.pubP) {
+      var r = await sb.from('prestations').update({publie:!p.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(p, r.data); drawPrests(); toast(p.publie ? 'Prestation publiée.' : 'Prestation retirée du site.');
+    }
+    if (b.dataset.delP && await confirmer('Supprimer définitivement la prestation « ' + p.titre + ' » ? Pour la retirer du site sans la perdre, utilisez plutôt « Dépublier ».')) {
+      var d = await sb.from('prestations').delete().eq('id', id).select();
+      if (d.error || !d.data.length) return toast(d.error ? msg(d.error) : 'Action non autorisée pour votre rôle.', true);
+      prests = prests.filter(function(x){ return x.id !== id; }); drawPrests(); toast('Prestation supprimée.');
+    }
+  });
+  $('pIcons').insertAdjacentHTML('beforeend', Object.keys(ICONS).map(function(k){
+    return '<label title="' + ICONS[k][0] + '"><input type="radio" name="icone" value="' + k + '" aria-label="' + ICONS[k][0] + '">' + svg(k) + '</label>';
+  }).join(''));
+  var pEditing = null, slugTouched = false;
+  function slugHint(){ $('pSlugHint').textContent = 'biteye-group.com/#p-' + ($('pSlug').value || '…'); }
+  function preview(){ $('pPreview').innerHTML = esc($('pAcc').value || 'Titre de la fiche') + ($('pAccC').value ? ' <em>' + esc($('pAccC').value) + '</em>' : ''); }
+  function descCount(){ $('pDescN').textContent = $('pDesc').value.length + ' / 600'; }
+  $('pTitre').addEventListener('input', function(){ if (!slugTouched) { $('pSlug').value = slugify(this.value); slugHint(); } });
+  $('pSlug').addEventListener('input', function(){ slugTouched = true; this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''); slugHint(); });
+  $('pAcc').addEventListener('input', preview); $('pAccC').addEventListener('input', preview); $('pDesc').addEventListener('input', descCount);
+  function addBloc(b){
+    var n = $('pBlocs').children.length; if (n >= 6) return;
+    var d = document.createElement('div'); d.className = 'bloc';
+    d.innerHTML = '<div class="bloc-head"><label class="sr" for="bt' + n + '">Titre du bloc</label><input type="text" id="bt' + n + '" maxlength="60" placeholder="Titre du bloc (ex. Préventif)"><button type="button" class="link danger" data-rm>Retirer</button></div>'
+      + '<label class="sr" for="bp' + n + '">Points</label><textarea id="bp' + n + '" rows="4" placeholder="Un point par ligne"></textarea>';
+    d.querySelector('input').value = b ? b.titre || '' : ''; d.querySelector('textarea').value = b ? (b.points || []).join('\n') : '';
+    d.querySelector('[data-rm]').onclick = function(){ d.remove(); $('pAddBloc').hidden = false; };
+    $('pBlocs').appendChild(d); $('pAddBloc').hidden = $('pBlocs').children.length >= 6;
+  }
+  $('pAddBloc').onclick = function(){ addBloc(); var l = $('pBlocs').lastElementChild; if (l) l.querySelector('input').focus(); };
+  function openPrest(p){
+    pEditing = p || null; slugTouched = !!p;
+    $('dPrestT').textContent = p ? 'Modifier la prestation' : 'Nouvelle prestation';
+    $('pTitre').value = p ? p.titre : ''; $('pSlug').value = p ? p.slug : '';
+    $('pAcc').value = p ? p.accroche : ''; $('pAccC').value = p ? p.accroche_couleur : ''; $('pDesc').value = p ? p.description : '';
+    (document.querySelector('[name=icone][value="' + (p ? p.icone : 'outils') + '"]') || {}).checked = true;
+    document.querySelectorAll('[name=need]').forEach(function(c){ c.checked = !!p && p.besoins.indexOf(c.value) > -1; });
+    $('pOrdre').value = p ? p.ordre : (prests.reduce(function(m, x){ return Math.max(m, x.ordre); }, 0) + 10);
+    $('pPub').checked = p ? p.publie : false;
+    $('pBlocs').innerHTML = ''; (p && p.blocs.length ? p.blocs : [null]).forEach(addBloc);
+    $('pErr').textContent = ''; slugHint(); preview(); descCount();
+    $('dPrest').showModal(); $('pTitre').focus();
+  }
+  $('bAddPrest').onclick = function(){ openPrest(null); };
+  $('fPrest').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('pErr'); err.textContent = '';
+    var data = {
+      titre:$('pTitre').value.trim(), slug:$('pSlug').value.trim(), accroche:$('pAcc').value.trim(), accroche_couleur:$('pAccC').value.trim(),
+      description:$('pDesc').value.trim(), icone:(document.querySelector('[name=icone]:checked') || {}).value || 'outils',
+      besoins:Array.prototype.map.call(document.querySelectorAll('[name=need]:checked'), function(c){ return c.value; }),
+      ordre:Math.max(0, parseInt($('pOrdre').value, 10) || 0), publie:$('pPub').checked,
+      blocs:Array.prototype.map.call($('pBlocs').children, function(d){
+        return {titre:d.querySelector('input').value.trim(), points:d.querySelector('textarea').value.split('\n').map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 12)};
+      }).filter(function(b){ return b.titre || b.points.length; })
+    };
+    if (data.titre.length < 2) { err.textContent = 'Indiquez le nom de la prestation.'; return $('pTitre').focus(); }
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(data.slug)) { err.textContent = 'Adresse invalide : lettres minuscules, chiffres et tirets.'; return $('pSlug').focus(); }
+    if (data.accroche.length < 2) { err.textContent = 'Indiquez le titre de la fiche.'; return $('pAcc').focus(); }
+    var b = $('pSave'); b.disabled = true;
+    try {
+      var r = pEditing ? await sb.from('prestations').update(data).eq('id', pEditing.id).select().single()
+                       : await sb.from('prestations').insert(data).select().single();
+      if (r.error) throw r.error;
+      if (pEditing) Object.assign(pEditing, r.data); else prests.push(r.data);
+      prests.sort(function(a, c){ return a.ordre - c.ordre || a.titre.localeCompare(c.titre, 'fr'); });
+      $('dPrest').close(); drawPrests(); toast(pEditing ? 'Prestation enregistrée.' : 'Prestation ajoutée.' + (data.publie ? '' : ' Elle reste en brouillon tant qu’elle n’est pas publiée.'));
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+
+  /* ═══ Agenda ═══ */
+  var evs = [], eEditing = null, eSlugTouched = false, ePhoto = null, eDrop = false;
+  var EV_TYPES = {'salon':'Salon', 'portes-ouvertes':'Journée portes ouvertes', 'conference':'Conférence', 'formation':'Formation', 'autre':'Événement'};
+  var MOIS = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+  function jour(t){ var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+  function evFin(e){ var a = jour(e.date_debut), b = jour(e.date_fin) || a; return e.dates_confirmees ? b : new Date(a.getFullYear(), a.getMonth() + 1, 0); }
+  function evQuand(e){
+    var a = jour(e.date_debut), b = jour(e.date_fin) || a;
+    if (!e.dates_confirmees) return (e.periode || MOIS[a.getMonth()] + ' ' + a.getFullYear()) + ' · dates à confirmer';
+    if (+a === +b) return a.getDate() + ' ' + MOIS[a.getMonth()] + ' ' + a.getFullYear();
+    return a.getDate() + ' ' + MOIS[a.getMonth()] + ' – ' + b.getDate() + ' ' + MOIS[b.getMonth()] + ' ' + b.getFullYear();
+  }
+  var CAL = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+  async function loadEvs(){
+    var r = await sb.from('evenements').select('*').order('date_debut');
+    if (r.error) { $('evAdm').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    evs = r.data; drawEvs();
+  }
+  function drawEvs(){
+    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var avenir = evs.filter(function(e){ return evFin(e) >= today; }), passes = evs.filter(function(e){ return evFin(e) < today; }).reverse();
+    function item(e, past){
+      var th = e.image_url ? '<span class="thumb"><img src="' + esc(logoSrc(e.image_url)) + '" alt="" loading="lazy" style="max-width:64px;max-height:48px;object-fit:cover"></span>' : '<span class="thumb ic">' + CAL + '</span>';
+      return '<div class="item">' + th + '<div><b>' + esc(e.titre) + '</b><div class="meta"><span>' + esc(evQuand(e)) + '</span>' + (e.ville ? '<span>' + esc(e.ville) + '</span>' : '')
+        + '<span class="tag">' + esc(EV_TYPES[e.type] || 'Événement') + '</span>' + (past ? '<span class="tag">Passé</span>' : '')
+        + '<span class="tag ' + (e.publie ? 'on' : 'off') + '">' + (e.publie ? 'Publié' : 'Brouillon') + '</span></div></div>'
+        + '<div class="acts">' + (e.publie ? '<a class="link" href="../#e-' + esc(e.slug) + '" target="_blank" rel="noopener">Voir</a>' : '')
+        + '<button type="button" class="btn btn-ghost btn-sm" data-edit-e="' + e.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-e="' + e.id + '">' + (e.publie ? 'Dépublier' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-e="' + e.id + '">Supprimer</button>' : '') + '</div></div>';
+    }
+    $('evAdm').innerHTML = !evs.length ? '<div class="list"><p class="empty">Aucun événement pour l’instant.</p></div>'
+      : '<h2 class="stats" style="font-weight:600;color:var(--ink)">À venir (' + avenir.length + ')</h2><div class="list">' + (avenir.length ? avenir.map(function(e){ return item(e, false); }).join('') : '<p class="empty">Aucun événement à venir.</p>') + '</div>'
+      + (passes.length ? '<h2 class="stats" style="font-weight:600;color:var(--ink);margin-top:24px">Passés (' + passes.length + ')</h2><div class="list">' + passes.map(function(e){ return item(e, true); }).join('') + '</div>' : '');
+  }
+  $('evAdm').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editE || b.dataset.pubE || b.dataset.delE), ev = evs.find(function(x){ return x.id === id; });
+    if (!ev) return;
+    if (b.dataset.editE) openEv(ev);
+    if (b.dataset.pubE) {
+      var r = await sb.from('evenements').update({publie:!ev.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(ev, r.data); drawEvs(); toast(ev.publie ? 'Événement publié.' : 'Événement retiré du site.');
+    }
+    if (b.dataset.delE && await confirmer('Supprimer définitivement « ' + ev.titre + ' » ? Pour le retirer du site sans le perdre, utilisez plutôt « Dépublier ». Un événement passé reste visible dans « Nous y étions ».')) {
+      var d = await sb.from('evenements').delete().eq('id', id).select();
+      if (d.error || !d.data.length) return toast(d.error ? msg(d.error) : 'Action non autorisée pour votre rôle.', true);
+      await removeLogo(ev.image_url);
+      evs = evs.filter(function(x){ return x.id !== id; }); drawEvs(); toast('Événement supprimé.');
+    }
+  });
+  function eDates(){
+    var c = $('eConf').checked;
+    $('eFinL').hidden = !c; $('ePerL').hidden = c;
+    $('eDebL').textContent = c ? 'Premier jour' : 'Date approximative (sert au classement)';
+  }
+  $('eConf').addEventListener('change', eDates);
+  function eCount(){ $('eAccN').textContent = $('eAcc').value.length + ' / 200'; $('eDescN').textContent = $('eDesc').value.length + ' / 1200'; }
+  $('eAcc').addEventListener('input', eCount); $('eDesc').addEventListener('input', eCount);
+  function eSlugHint(){ $('eSlugHint').textContent = 'biteye-group.com/#e-' + ($('eSlug').value || '…'); }
+  $('eTitre').addEventListener('input', function(){ if (!eSlugTouched) { $('eSlug').value = slugify(this.value); eSlugHint(); } });
+  $('eSlug').addEventListener('input', function(){ eSlugTouched = true; this.value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''); eSlugHint(); });
+  function eThumb(src){ $('eThumb').className = 'thumb' + (src ? '' : ' ic'); $('eThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu de la photo" style="max-width:150px;max-height:92px;object-fit:cover">' : CAL; $('eNoPhoto').hidden = !src; }
+  $('ePhoto').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return; $('eErr').textContent = '';
+    try { ePhoto = await prepLogo(f, 1600, .85); eDrop = false; eThumb(URL.createObjectURL(ePhoto)); }
+    catch (x) { $('eErr').textContent = msg(x); this.value = ''; }
+  });
+  $('eNoPhoto').onclick = function(){ ePhoto = null; eDrop = true; $('ePhoto').value = ''; eThumb(''); };
+  function addProg(x){
+    var n = $('eProg').children.length; if (n >= 10) return;
+    var d = document.createElement('div'); d.className = 'bloc';
+    d.innerHTML = '<div class="bloc-head"><label class="sr" for="et' + n + '">Temps fort</label><input type="text" id="et' + n + '" maxlength="80" placeholder="ex. Démonstrations en continu"><button type="button" class="link danger" data-rm>Retirer</button></div>'
+      + '<label class="sr" for="ex' + n + '">Détail</label><textarea id="ex' + n + '" rows="2" style="min-height:56px" maxlength="300" placeholder="Une ou deux phrases"></textarea>';
+    d.querySelector('input').value = x ? x.titre || '' : ''; d.querySelector('textarea').value = x ? x.texte || '' : '';
+    d.querySelector('[data-rm]').onclick = function(){ d.remove(); $('eAddProg').hidden = false; };
+    $('eProg').appendChild(d); $('eAddProg').hidden = $('eProg').children.length >= 10;
+  }
+  $('eAddProg').onclick = function(){ addProg(); var l = $('eProg').lastElementChild; if (l) l.querySelector('input').focus(); };
+  function openEv(ev){
+    eEditing = ev || null; eSlugTouched = !!ev; ePhoto = null; eDrop = false;
+    $('dEvT').textContent = ev ? 'Modifier l’événement' : 'Nouvel événement';
+    $('eTitre').value = ev ? ev.titre : ''; $('eSlug').value = ev ? ev.slug : ''; $('eType').value = ev ? ev.type : 'salon';
+    $('eVille').value = ev ? ev.ville : ''; $('eStand').value = ev ? ev.stand : ''; $('eLieu').value = ev ? ev.lieu : ''; $('eOrga').value = ev ? ev.organisateur : '';
+    $('eConf').checked = ev ? ev.dates_confirmees : true; $('eDeb').value = ev ? ev.date_debut : ''; $('eFin').value = ev && ev.date_fin ? ev.date_fin : ''; $('ePer').value = ev ? ev.periode : '';
+    $('eAcc').value = ev ? ev.accroche : ''; $('eDesc').value = ev ? ev.description : ''; $('eLien').value = ev && ev.lien_externe ? ev.lien_externe : '';
+    $('eRdv').checked = ev ? ev.rendez_vous : true; $('ePub').checked = ev ? ev.publie : false;
+    $('ePhoto').value = ''; eThumb(ev && ev.image_url ? logoSrc(ev.image_url) : '');
+    $('eProg').innerHTML = ''; (ev && ev.programme.length ? ev.programme : [null]).forEach(addProg);
+    $('eErr').textContent = ''; eDates(); eCount(); eSlugHint();
+    $('dEv').showModal(); $('eTitre').focus();
+  }
+  $('bAddEv').onclick = function(){ openEv(null); };
+  $('fEv').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('eErr'); err.textContent = '';
+    var conf = $('eConf').checked, lien = $('eLien').value.trim();
+    var data = {
+      titre:$('eTitre').value.trim(), slug:$('eSlug').value.trim(), type:$('eType').value, ville:$('eVille').value.trim(), stand:$('eStand').value.trim(),
+      lieu:$('eLieu').value.trim(), organisateur:$('eOrga').value.trim(), dates_confirmees:conf, date_debut:$('eDeb').value,
+      date_fin:conf && $('eFin').value ? $('eFin').value : null, periode:conf ? '' : $('ePer').value.trim(),
+      accroche:$('eAcc').value.trim(), description:$('eDesc').value.trim(), lien_externe:lien || null,
+      rendez_vous:$('eRdv').checked, publie:$('ePub').checked,
+      programme:Array.prototype.map.call($('eProg').children, function(d){ return {titre:d.querySelector('input').value.trim(), texte:d.querySelector('textarea').value.trim()}; })
+        .filter(function(x){ return x.titre || x.texte; })
+    };
+    if (data.titre.length < 2) { err.textContent = 'Indiquez le titre de l’événement.'; return $('eTitre').focus(); }
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(data.slug)) { err.textContent = 'Adresse invalide : lettres minuscules, chiffres et tirets.'; return $('eSlug').focus(); }
+    if (!data.date_debut) { err.textContent = 'Indiquez la date (approximative si elle n’est pas confirmée).'; return $('eDeb').focus(); }
+    if (data.date_fin && data.date_fin < data.date_debut) { err.textContent = 'Le dernier jour est avant le premier.'; return $('eFin').focus(); }
+    if (lien && !/^https:\/\/\S+$/.test(lien)) { err.textContent = 'Le lien doit commencer par https://'; return $('eLien').focus(); }
+    var b = $('eSave'); b.disabled = true;
+    try {
+      var old = eEditing && eEditing.image_url;
+      if (ePhoto) data.image_url = await uploadLogo(ePhoto, 'medias', 'evenements');
+      else if (eDrop) data.image_url = null;
+      var r = eEditing ? await sb.from('evenements').update(data).eq('id', eEditing.id).select().single()
+                       : await sb.from('evenements').insert(data).select().single();
+      if (r.error) throw r.error;
+      if ((ePhoto || eDrop) && old) removeLogo(old);
+      if (eEditing) Object.assign(eEditing, r.data); else evs.push(r.data);
+      evs.sort(function(a, c){ return a.date_debut < c.date_debut ? -1 : a.date_debut > c.date_debut ? 1 : 0; });
+      $('dEv').close(); drawEvs(); toast(eEditing ? 'Événement enregistré.' : 'Événement ajouté.' + (data.publie ? '' : ' Il reste en brouillon tant qu’il n’est pas publié.'));
+    } catch (x) { err.textContent = /duplicate key|23505/.test((x && (x.message || x.code)) || '') ? 'Cette adresse est déjà utilisée par un autre événement.' : msg(x); }
+    b.disabled = false;
+  });
+
+  /* ═══ Vidéo de présentation ═══ */
+  var VMAX = 50 * 1024 * 1024, vCur = null, vPosterBlob = null, vPosterDrop = false;
+  async function loadVid(){
+    var r = await sb.from('reglages').select('valeur').eq('cle', 'video_accueil').maybeSingle();
+    if (r.error) { $('vState').textContent = msg(r.error); return; }
+    vCur = r.data ? r.data.valeur : null; drawVid();
+  }
+  function vThumb(src){ $('vThumb').hidden = !src; $('vThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu de l’image">' : ''; $('vNoPoster').hidden = !src; }
+  function drawVid(){
+    var v = vCur || {};
+    $('vPrev').hidden = !v.url; $('vNone').hidden = !!v.url;
+    if (v.url) { if ($('vPrev').getAttribute('src') !== v.url) $('vPrev').src = v.url; if (v.poster) $('vPrev').poster = v.poster; else $('vPrev').removeAttribute('poster'); }
+    else $('vPrev').removeAttribute('src');
+    $('vState').textContent = !v.url ? 'Aucune vidéo envoyée.' : v.publie ? 'Vidéo en ligne sur le site.' : 'Vidéo envoyée, mais masquée sur le site.';
+    $('vTitre').value = v.titre || ''; $('vPub').checked = !!v.publie; $('vDel').hidden = !v.url;
+    $('vFile').value = ''; $('vPoster').value = ''; vPosterBlob = null; vPosterDrop = false; vThumb(v.poster || ''); $('vErr').textContent = '';
+  }
+  $('vFile').addEventListener('change', function(){
+    var f = this.files[0]; $('vErr').textContent = ''; if (!f) return;
+    if (!/^video\/(mp4|webm)$/.test(f.type)) { $('vErr').textContent = 'Format non accepté : MP4 ou WebM.'; this.value = ''; return; }
+    if (f.size > VMAX) { $('vErr').textContent = 'Vidéo trop lourde (' + (f.size / 1048576).toFixed(0) + ' Mo) : 50 Mo maximum. Compressez-la (par exemple avec HandBrake, préréglage « Fast 1080p30 »).'; this.value = ''; return; }
+    $('vPrev').hidden = false; $('vNone').hidden = true; $('vPrev').src = URL.createObjectURL(f);
+    if (!vCur || !vCur.url) $('vPub').checked = true;
+  });
+  $('vPoster').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    try { vPosterBlob = await prepLogo(f, 1920, .85); vPosterDrop = false; vThumb(URL.createObjectURL(vPosterBlob)); } catch (x) { $('vErr').textContent = msg(x); this.value = ''; }
+  });
+  $('vNoPoster').onclick = function(){ vPosterBlob = null; vPosterDrop = true; $('vPoster').value = ''; vThumb(''); };
+  async function saveVid(val){
+    var r = await sb.from('reglages').upsert({cle:'video_accueil', valeur:val}).select('valeur').single();
+    if (r.error) throw r.error; return r.data.valeur;
+  }
+  $('fVid').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var f = $('vFile').files[0], old = vCur || {}, err = $('vErr'), b = $('vSave'), up = [];
+    err.textContent = '';
+    if (!f && !old.url) { err.textContent = 'Choisissez d’abord un fichier vidéo.'; return $('vFile').focus(); }
+    b.disabled = true; b.textContent = f ? 'Envoi de la vidéo… (' + (f.size / 1048576).toFixed(1) + ' Mo)' : 'Enregistrement…';
+    try {
+      var val = {url:old.url || '', poster:old.poster || '', titre:$('vTitre').value.trim(), publie:$('vPub').checked};
+      if (f) {
+        var path = 'accueil/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + (f.type === 'video/webm' ? '.webm' : '.mp4');
+        var u = await sb.storage.from('videos').upload(path, f, {contentType:f.type, upsert:false, cacheControl:'31536000'});
+        if (u.error) throw u.error;
+        val.url = sb.storage.from('videos').getPublicUrl(path).data.publicUrl; up.push(val.url);
+      }
+      if (vPosterBlob) { val.poster = await uploadLogo(vPosterBlob, 'medias', 'video'); up.push(val.poster); }
+      else if (vPosterDrop) val.poster = '';
+      vCur = await saveVid(val);
+      if (f && old.url) removeLogo(old.url);
+      if ((vPosterBlob || vPosterDrop) && old.poster) removeLogo(old.poster);
+      drawVid(); toast(val.publie ? 'Vidéo enregistrée : elle est en ligne.' : 'Vidéo enregistrée, masquée sur le site.');
+    } catch (x) { up.forEach(removeLogo); err.textContent = /exceeded the maximum allowed size|too large/i.test((x && x.message) || '') ? 'Vidéo trop lourde : 50 Mo maximum.' : msg(x); }
+    b.disabled = false; b.textContent = 'Enregistrer';
+  });
+  $('vDel').onclick = async function(){
+    if (!vCur || !vCur.url || !(await confirmer('Retirer la vidéo du site ? Le fichier sera supprimé.', 'Retirer la vidéo'))) return;
+    var old = vCur;
+    try { vCur = await saveVid({url:'', poster:'', titre:old.titre || '', publie:false}); removeLogo(old.url); if (old.poster) removeLogo(old.poster); drawVid(); toast('Vidéo retirée du site.'); }
+    catch (x) { toast(msg(x), true); }
+  };
+
+  /* ═══ Demandes du formulaire ═══ */
+  var dems = [], LANGUES = {fr:'Français', en:'Anglais', ar:'Arabe'};
+  async function loadDems(){
+    var r = await sb.from('demandes').select('*').order('cree_le', {ascending:false}).limit(1000);
+    if (r.error) { $('demList').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    dems = r.data; drawDems();
+  }
+  function quand(t){ var d = new Date(t); return d.toLocaleDateString('fr-FR', {day:'numeric', month:'short', year:'numeric'}) + ' à ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}); }
+  function demVue(){ var f = $('fDem').value; return dems.filter(function(d){ return !f || d.statut === f; }); }
+  function drawDems(){
+    var n = dems.filter(function(d){ return d.statut === 'nouvelle'; }).length;
+    $('demCount').textContent = n; $('demCount').hidden = !n;
+    var v = demVue();
+    $('demList').innerHTML = !v.length ? '<p class="empty">' + ($('fDem').value === 'nouvelle' ? 'Aucune demande à traiter.' : 'Aucune demande.') + '</p>'
+      : v.map(function(d){
+        var done = d.statut === 'traitee';
+        return '<div class="item dem' + (done ? ' done' : '') + '"><div><b>' + esc(d.nom) + ' · ' + esc(d.societe) + '</b>'
+          + '<div class="dem-meta"><a href="tel:' + esc(d.tel.replace(/[^0-9+]/g, '')) + '">' + esc(d.tel) + '</a><span>' + esc(d.sujet || 'Démonstration') + '</span>'
+          + (d.metier ? '<span>' + esc(d.metier) + '</span>' : '') + '<span>' + quand(d.cree_le) + '</span>' + (d.langue !== 'fr' ? '<span class="tag">' + esc(LANGUES[d.langue] || d.langue) + '</span>' : '')
+          + '<span class="tag ' + (done ? 'on' : 'off') + '">' + (done ? 'Traitée' : 'À traiter') + '</span></div></div>'
+          + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-st="' + d.id + '">' + (done ? 'Rouvrir' : 'Marquer traitée') + '</button>'
+          + (isAdmin() ? '<button type="button" class="link danger" data-del-d="' + d.id + '">Supprimer</button>' : '') + '</div></div>';
+      }).join('');
+  }
+  $('fDem').onchange = drawDems;
+  $('demList').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.st || b.dataset.delD), d = dems.find(function(x){ return x.id === id; }); if (!d) return;
+    if (b.dataset.st) {
+      var r = await sb.from('demandes').update({statut:d.statut === 'traitee' ? 'nouvelle' : 'traitee'}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(d, r.data); drawDems(); toast(d.statut === 'traitee' ? 'Demande marquée comme traitée.' : 'Demande rouverte.');
+    }
+    if (b.dataset.delD && await confirmer('Supprimer définitivement la demande de ' + d.nom + ' ?')) {
+      var x = await sb.from('demandes').delete().eq('id', id);
+      if (x.error) return toast(msg(x.error), true);
+      dems = dems.filter(function(o){ return o.id !== id; }); drawDems(); toast('Demande supprimée.');
+    }
+  });
+  $('bDemCsv').onclick = function(){
+    var v = demVue(); if (!v.length) return toast('Aucune demande à exporter.', true);
+    var cols = [['cree_le', 'Date'], ['nom', 'Nom'], ['societe', 'Société'], ['tel', 'Téléphone'], ['metier', 'Métier'], ['sujet', 'Sujet'], ['langue', 'Langue'], ['statut', 'Statut']];
+    var cell = function(x){ x = String(x == null ? '' : x); if (/^[=+\-@]/.test(x)) x = "'" + x; return '"' + x.replace(/"/g, '""') + '"'; };
+    var csv = '﻿' + cols.map(function(c){ return cell(c[1]); }).join(';') + '\r\n'
+      + v.map(function(d){ return cols.map(function(c){ return cell(c[0] === 'cree_le' ? new Date(d.cree_le).toLocaleString('fr-FR') : d[c[0]]); }).join(';'); }).join('\r\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+    a.download = 'demandes-biteye-' + new Date().toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  /* ═══ Témoignages vidéo ═══ */
+  var tems = [], tEditing = null, tFileOk = null, tPosterBlob = null, tPosterDrop = false;
+  async function loadTems(){
+    var r = await sb.from('temoignages').select('*').order('ordre').order('id');
+    if (r.error) { $('temList').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    tems = r.data; drawTems();
+  }
+  var PLAYIC = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
+  function drawTems(){
+    $('temList').innerHTML = !tems.length ? '<p class="empty">Aucun témoignage pour l’instant.</p>' : tems.map(function(t){
+      var th = t.poster ? '<span class="thumb"><img src="' + esc(t.poster) + '" alt="" loading="lazy" style="max-width:64px;max-height:48px;object-fit:cover"></span>' : '<span class="thumb ic">' + PLAYIC + '</span>';
+      return '<div class="item">' + th + '<div><b>' + esc(t.nom) + '</b><div class="meta">' + [t.fonction, t.societe, t.metier].filter(Boolean).map(function(x){ return '<span>' + esc(x) + '</span>'; }).join('')
+        + '<span class="tag ' + (t.publie ? 'on' : 'off') + '">' + (t.publie ? 'Publié' : 'Brouillon') + '</span></div></div>'
+        + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-t="' + t.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-t="' + t.id + '">' + (t.publie ? 'Dépublier' : 'Publier') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-t="' + t.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('');
+  }
+  function tThumb(src){ $('tThumb').hidden = !src; $('tThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="Aperçu de l’image">' : ''; $('tNoPoster').hidden = !src; }
+  function tPrev(src){ $('tPrev').hidden = !src; $('tNone').hidden = !!src; if (src) $('tPrev').src = src; else $('tPrev').removeAttribute('src'); }
+  function tCount(){ $('tCitN').textContent = $('tCit').value.length + ' / 220'; }
+  $('tCit').addEventListener('input', tCount);
+  function openTem(t){
+    tEditing = t || null; tFileOk = null; tPosterBlob = null; tPosterDrop = false;
+    $('dTemT').textContent = t ? 'Modifier le témoignage' : 'Nouveau témoignage';
+    $('tNom').value = t ? t.nom : ''; $('tFonc').value = t ? t.fonction : ''; $('tSoc').value = t ? t.societe : ''; $('tMet').value = t ? (t.metier || '') : ''; $('tCit').value = t ? t.citation : '';
+    $('tOrdre').value = t ? t.ordre : (tems.length ? Math.max.apply(null, tems.map(function(x){ return x.ordre; })) + 10 : 100); $('tPub').checked = t ? t.publie : true;
+    $('tFile').value = ''; $('tPoster').value = ''; tPrev(t ? t.video_url : ''); tThumb(t && t.poster ? t.poster : ''); $('tErr').textContent = ''; tCount();
+    $('dTem').showModal(); $('tNom').focus();
+  }
+  $('bAddTem').onclick = function(){ openTem(null); };
+  $('tFile').addEventListener('change', function(){
+    var f = this.files[0]; $('tErr').textContent = ''; tFileOk = null; if (!f) return;
+    if (!/^video\/(mp4|webm)$/.test(f.type)) { $('tErr').textContent = 'Format non accepté : MP4 ou WebM.'; this.value = ''; return; }
+    if (f.size > VMAX) { $('tErr').textContent = 'Vidéo trop lourde (' + (f.size / 1048576).toFixed(0) + ' Mo) : 50 Mo maximum.'; this.value = ''; return; }
+    tFileOk = f; tPrev(URL.createObjectURL(f));
+  });
+  $('tPoster').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    try { tPosterBlob = await prepLogo(f, 1600, .85); tPosterDrop = false; tThumb(URL.createObjectURL(tPosterBlob)); } catch (x) { $('tErr').textContent = msg(x); this.value = ''; }
+  });
+  $('tNoPoster').onclick = function(){ tPosterBlob = null; tPosterDrop = true; $('tPoster').value = ''; tThumb(''); };
+  $('fTem').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('tErr'), b = $('tSave'), up = []; err.textContent = '';
+    var data = {nom:$('tNom').value.trim(), fonction:$('tFonc').value.trim(), societe:$('tSoc').value.trim(), metier:$('tMet').value, citation:$('tCit').value.trim(),
+      ordre:parseInt($('tOrdre').value, 10) || 0, publie:$('tPub').checked};
+    if (data.nom.length < 2) { err.textContent = 'Indiquez le nom de la personne.'; return $('tNom').focus(); }
+    if (!tFileOk && !(tEditing && tEditing.video_url)) { err.textContent = 'Choisissez la vidéo du témoignage.'; return $('tFile').focus(); }
+    b.disabled = true; b.textContent = tFileOk ? 'Envoi de la vidéo… (' + (tFileOk.size / 1048576).toFixed(1) + ' Mo)' : 'Enregistrement…';
+    try {
+      var old = tEditing || {};
+      if (tFileOk) {
+        var path = 'temoignages/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + (tFileOk.type === 'video/webm' ? '.webm' : '.mp4');
+        var u = await sb.storage.from('videos').upload(path, tFileOk, {contentType:tFileOk.type, upsert:false, cacheControl:'31536000'});
+        if (u.error) throw u.error;
+        data.video_url = sb.storage.from('videos').getPublicUrl(path).data.publicUrl; up.push(data.video_url);
+      }
+      if (tPosterBlob) { data.poster = await uploadLogo(tPosterBlob, 'medias', 'temoignages'); up.push(data.poster); }
+      else if (tPosterDrop) data.poster = null;
+      var r = tEditing ? await sb.from('temoignages').update(data).eq('id', tEditing.id).select().single() : await sb.from('temoignages').insert(data).select().single();
+      if (r.error) throw r.error;
+      if (tFileOk && old.video_url) removeLogo(old.video_url);
+      if ((tPosterBlob || tPosterDrop) && old.poster) removeLogo(old.poster);
+      if (tEditing) Object.assign(tEditing, r.data); else tems.push(r.data);
+      tems.sort(function(a, c){ return a.ordre - c.ordre || a.id - c.id; });
+      $('dTem').close(); drawTems(); toast(tEditing ? 'Témoignage enregistré.' : 'Témoignage ajouté.' + (data.publie ? '' : ' Il reste en brouillon tant qu’il n’est pas publié.'));
+    } catch (x) { up.forEach(removeLogo); err.textContent = /exceeded the maximum allowed size|too large/i.test((x && x.message) || '') ? 'Vidéo trop lourde : 50 Mo maximum.' : msg(x); }
+    b.disabled = false; b.textContent = 'Enregistrer';
+  });
+  $('temList').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editT || b.dataset.pubT || b.dataset.delT), t = tems.find(function(x){ return x.id === id; }); if (!t) return;
+    if (b.dataset.editT) openTem(t);
+    if (b.dataset.pubT) {
+      var r = await sb.from('temoignages').update({publie:!t.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(t, r.data); drawTems(); toast(t.publie ? 'Témoignage publié.' : 'Témoignage masqué sur le site.');
+    }
+    if (b.dataset.delT && await confirmer('Supprimer le témoignage de ' + t.nom + ' ? La vidéo sera supprimée.')) {
+      var x = await sb.from('temoignages').delete().eq('id', id);
+      if (x.error) return toast(msg(x.error), true);
+      removeLogo(t.video_url); if (t.poster) removeLogo(t.poster);
+      tems = tems.filter(function(o){ return o.id !== id; }); drawTems(); toast('Témoignage supprimé.');
+    }
+  });
+
+  /* ═══ Équipe ═══ */
+  var team = [], mEditing = null, mPhotoBlob = null, mDrop = false, POLES = {direction:'Direction', technique:'01 · Technique', marketing:'02 · Marketing'};
+  async function loadTeam(){
+    var r = await sb.from('equipe').select('*').order('ordre').order('id');
+    if (r.error) { $('teamAdm').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    team = r.data; drawTeam();
+  }
+  function photoSrc(u){ return /^assets\//.test(u || '') ? '../' + u : u; }
+  function initiales(n){ return String(n).split(/\s+/).slice(0, 2).map(function(w){ return w.charAt(0); }).join('').toUpperCase(); }
+  function drawTeam(){
+    $('teamAdm').innerHTML = Object.keys(POLES).map(function(p){
+      var list = team.filter(function(m){ return m.pole === p; });
+      return '<h2 class="stats" style="font-weight:600;color:var(--ink);margin-top:18px">' + POLES[p] + ' (' + list.length + ')</h2><div class="list">'
+        + (list.length ? list.map(function(m){
+          var th = m.photo_url ? '<span class="thumb"><img src="' + esc(photoSrc(m.photo_url)) + '" alt="" loading="lazy" style="max-width:48px;max-height:48px;object-fit:cover;border-radius:8px"></span>' : '<span class="thumb mono">' + esc(initiales(m.nom)) + '</span>';
+          return '<div class="item">' + th + '<div><b>' + esc(m.nom) + '</b><div class="meta"><span>' + esc(m.poste || '—') + '</span>' + (m.linkedin ? '<span>LinkedIn</span>' : '')
+            + '<span class="tag ' + (m.publie ? 'on' : 'off') + '">' + (m.publie ? 'Affiché' : 'Masqué') + '</span></div></div>'
+            + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-m="' + m.id + '">Modifier</button>'
+            + '<button type="button" class="link" data-pub-m="' + m.id + '">' + (m.publie ? 'Masquer' : 'Afficher') + '</button>'
+            + (isAdmin() ? '<button type="button" class="link danger" data-del-m="' + m.id + '">Supprimer</button>' : '') + '</div></div>';
+        }).join('') : '<p class="empty">Aucun membre dans ce pôle.</p>') + '</div>';
+    }).join('');
+  }
+  function mThumb(src, nom){ $('mThumb').innerHTML = src ? '<img src="' + esc(src) + '" alt="" style="max-width:none;width:100%;height:100%;object-fit:cover">' : '<span style="font:700 26px/1 var(--display);color:var(--lime-deep)">' + esc(initiales(nom || '?')) + '</span>'; $('mNoPhoto').hidden = !src; }
+  /* photo recadrée au centre, en carré de 480 px */
+  function prepCarre(file){
+    return new Promise(function(ok, ko){
+      if (!/^image\/(png|jpeg|webp)$/.test(file.type)) return ko(new Error('mime type'));
+      if (file.size > 15e6) return ko(new Error('too large'));
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function(){
+        var s = Math.min(img.naturalWidth, img.naturalHeight), n = Math.min(480, s), c = document.createElement('canvas');
+        c.width = c.height = n;
+        c.getContext('2d').drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, n, n); URL.revokeObjectURL(url);
+        c.toBlob(function(b){ b ? ok(b) : ko(new Error('Image illisible.')); }, 'image/webp', .88);
+      };
+      img.onerror = function(){ ko(new Error('Image illisible.')); };
+      img.src = url;
+    });
+  }
+  function openTm(m){
+    mEditing = m || null; mPhotoBlob = null; mDrop = false;
+    $('dTmT').textContent = m ? 'Modifier le membre' : 'Nouveau membre';
+    $('mNom').value = m ? m.nom : ''; $('mPoste').value = m ? m.poste : ''; $('mPole').value = m ? m.pole : 'marketing';
+    $('mOrdre').value = m ? m.ordre : (team.length ? Math.max.apply(null, team.map(function(x){ return x.ordre; })) + 10 : 100);
+    $('mLi').value = m && m.linkedin ? m.linkedin : ''; $('mPub').checked = m ? m.publie : true; $('mPhoto').value = '';
+    mThumb(m && m.photo_url ? photoSrc(m.photo_url) : '', m && m.nom); $('mErr').textContent = '';
+    $('dTm').showModal(); $('mNom').focus();
+  }
+  $('bAddTm').onclick = function(){ openTm(null); };
+  $('mNom').addEventListener('input', function(){ if (!mPhotoBlob && !(mEditing && mEditing.photo_url && !mDrop)) mThumb('', this.value); });
+  $('mPhoto').addEventListener('change', async function(){
+    var f = this.files[0]; if (!f) return;
+    try { mPhotoBlob = await prepCarre(f); mDrop = false; mThumb(URL.createObjectURL(mPhotoBlob)); } catch (x) { $('mErr').textContent = msg(x); this.value = ''; }
+  });
+  $('mNoPhoto').onclick = function(){ mPhotoBlob = null; mDrop = true; $('mPhoto').value = ''; mThumb('', $('mNom').value); };
+  $('fTm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('mErr'), li = $('mLi').value.trim(); err.textContent = '';
+    var data = {nom:$('mNom').value.trim(), poste:$('mPoste').value.trim(), pole:$('mPole').value, ordre:parseInt($('mOrdre').value, 10) || 0, linkedin:li || null, publie:$('mPub').checked};
+    if (data.nom.length < 2) { err.textContent = 'Indiquez le nom et le prénom.'; return $('mNom').focus(); }
+    if (li && !/^https:\/\/([a-z]+\.)?linkedin\.com\/\S+$/.test(li)) { err.textContent = 'Le lien doit être une adresse LinkedIn (https://www.linkedin.com/in/…).'; return $('mLi').focus(); }
+    var b = $('mSave'); b.disabled = true;
+    try {
+      var old = mEditing && mEditing.photo_url;
+      if (mPhotoBlob) data.photo_url = await uploadLogo(mPhotoBlob, 'medias', 'equipe');
+      else if (mDrop) data.photo_url = null;
+      var r = mEditing ? await sb.from('equipe').update(data).eq('id', mEditing.id).select().single() : await sb.from('equipe').insert(data).select().single();
+      if (r.error) throw r.error;
+      if ((mPhotoBlob || mDrop) && old && !/^assets\//.test(old)) removeLogo(old);
+      if (mEditing) Object.assign(mEditing, r.data); else team.push(r.data);
+      team.sort(function(a, c){ return a.ordre - c.ordre || a.id - c.id; });
+      $('dTm').close(); drawTeam(); toast(mEditing ? 'Membre enregistré.' : 'Membre ajouté.');
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+  $('teamAdm').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editM || b.dataset.pubM || b.dataset.delM), m = team.find(function(x){ return x.id === id; }); if (!m) return;
+    if (b.dataset.editM) openTm(m);
+    if (b.dataset.pubM) {
+      var r = await sb.from('equipe').update({publie:!m.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(m, r.data); drawTeam(); toast(m.publie ? 'Membre affiché sur le site.' : 'Membre masqué sur le site.');
+    }
+    if (b.dataset.delM && await confirmer('Retirer ' + m.nom + ' de l’équipe ?')) {
+      var x = await sb.from('equipe').delete().eq('id', id);
+      if (x.error) return toast(msg(x.error), true);
+      if (m.photo_url && !/^assets\//.test(m.photo_url)) removeLogo(m.photo_url);
+      team = team.filter(function(o){ return o.id !== id; }); drawTeam(); toast('Membre retiré.');
+    }
+  });
+
+  /* ═══ Bureaux ═══ */
+  var offs = [], oEditing = null, PINIC = '<svg aria-hidden="true" viewBox="0 0 16 16"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg>';
+  async function loadOffs(){
+    var r = await sb.from('bureaux').select('*').order('ordre').order('id');
+    if (r.error) { $('offAdm').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    offs = r.data; drawOffs();
+  }
+  function drawOffs(){
+    $('offAdm').innerHTML = !offs.length ? '<p class="empty">Aucun bureau.</p>' : offs.map(function(o){
+      var gps = o.latitude != null;
+      return '<div class="item"><span class="thumb ic">' + PINIC + '</span><div><b>' + esc(o.ville) + ' · ' + esc(o.libelle) + '</b><div class="meta"><span>' + esc(o.adresse || 'Adresse à compléter') + '</span>'
+        + '<span class="tag ' + (gps ? 'on' : 'off') + '">' + (gps ? 'GPS ' + Number(o.latitude).toFixed(4) + ', ' + Number(o.longitude).toFixed(4) : 'Sans GPS') + '</span>'
+        + (o.lien_maps ? '<span>Lien Maps</span>' : '') + '<span class="tag ' + (o.publie ? 'on' : 'off') + '">' + (o.publie ? 'Affiché' : 'Masqué') + '</span></div></div>'
+        + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-o="' + o.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-o="' + o.id + '">' + (o.publie ? 'Masquer' : 'Afficher') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-o="' + o.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('');
+  }
+  function num(v){ v = String(v || '').trim().replace(',', '.'); return v === '' ? null : Number(v); }
+  /* « 36.7213, 3.0866 » collé dans Latitude (copié depuis Google Maps) : réparti dans les deux champs */
+  $('oLat').addEventListener('paste', function(e){
+    var t = (e.clipboardData || window.clipboardData).getData('text');
+    var m = /^\s*\(?\s*(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)\s*\)?\s*$/.exec(t || '');
+    if (!m) return;
+    e.preventDefault(); this.value = m[1]; $('oLng').value = m[2]; oPreview();
+  });
+  $('oLat').addEventListener('change', oPreview);
+  ['oLng', 'oAdr'].forEach(function(id){ $(id).addEventListener('change', oPreview); });
+  function oPreview(){
+    var lat = num($('oLat').value), lng = num($('oLng').value), q = (lat != null && lng != null && isFinite(lat) && isFinite(lng)) ? lat + ',' + lng : ($('oAdr').value.trim() ? $('oAdr').value.trim() + ', Algérie' : '');
+    $('oMap').hidden = !q; $('oMapNone').hidden = !!q;
+    if (q) $('oMap').src = 'https://www.google.com/maps?q=' + encodeURIComponent(q) + '&z=16&output=embed'; else $('oMap').removeAttribute('src');
+  }
+  function openOff(o){
+    oEditing = o || null;
+    $('dOffT').textContent = o ? 'Modifier le bureau' : 'Nouveau bureau';
+    $('oVille').value = o ? o.ville : ''; $('oLib').value = o ? o.libelle : 'Bureau'; $('oAdr').value = o ? o.adresse : '';
+    $('oLien').value = o && o.lien_maps ? o.lien_maps : ''; $('oLat').value = o && o.latitude != null ? o.latitude : ''; $('oLng').value = o && o.longitude != null ? o.longitude : '';
+    $('oOrdre').value = o ? o.ordre : (offs.length ? Math.max.apply(null, offs.map(function(x){ return x.ordre; })) + 10 : 100); $('oPub').checked = o ? o.publie : true;
+    $('oErr').textContent = ''; oPreview(); $('dOff').showModal(); $('oVille').focus();
+  }
+  $('bAddOff').onclick = function(){ openOff(null); };
+  $('fOff').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('oErr'), lien = $('oLien').value.trim(), lat = num($('oLat').value), lng = num($('oLng').value); err.textContent = '';
+    var data = {ville:$('oVille').value.trim(), libelle:$('oLib').value.trim() || 'Bureau', adresse:$('oAdr').value.trim(), lien_maps:lien || null,
+      latitude:lat, longitude:lng, ordre:parseInt($('oOrdre').value, 10) || 0, publie:$('oPub').checked};
+    if (data.ville.length < 2) { err.textContent = 'Indiquez la ville.'; return $('oVille').focus(); }
+    if (lien && !/^https:\/\/\S+$/.test(lien)) { err.textContent = 'Le lien doit commencer par https://'; return $('oLien').focus(); }
+    if ((lat == null) !== (lng == null)) { err.textContent = 'Renseignez la latitude et la longitude, ou aucune des deux.'; return $(lat == null ? 'oLat' : 'oLng').focus(); }
+    if (lat != null && !(isFinite(lat) && Math.abs(lat) <= 90 && isFinite(lng) && Math.abs(lng) <= 180)) { err.textContent = 'Coordonnées invalides (ex. 36.7213 et 3.0866).'; return $('oLat').focus(); }
+    var b = $('oSave'); b.disabled = true;
+    try {
+      var r = oEditing ? await sb.from('bureaux').update(data).eq('id', oEditing.id).select().single() : await sb.from('bureaux').insert(data).select().single();
+      if (r.error) throw r.error;
+      if (oEditing) Object.assign(oEditing, r.data); else offs.push(r.data);
+      offs.sort(function(x, y){ return x.ordre - y.ordre || x.id - y.id; });
+      $('dOff').close(); drawOffs(); toast(oEditing ? 'Bureau enregistré.' : 'Bureau ajouté.');
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+  $('offAdm').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editO || b.dataset.pubO || b.dataset.delO), o = offs.find(function(x){ return x.id === id; }); if (!o) return;
+    if (b.dataset.editO) openOff(o);
+    if (b.dataset.pubO) {
+      var r = await sb.from('bureaux').update({publie:!o.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(o, r.data); drawOffs(); toast(o.publie ? 'Bureau affiché sur le site.' : 'Bureau masqué sur le site.');
+    }
+    if (b.dataset.delO && await confirmer('Supprimer le bureau de ' + o.ville + ' ?')) {
+      var x = await sb.from('bureaux').delete().eq('id', id);
+      if (x.error) return toast(msg(x.error), true);
+      offs = offs.filter(function(q){ return q.id !== id; }); drawOffs(); toast('Bureau supprimé.');
+    }
+  });
+
+  /* ═══ Comptes (administrateurs) ═══ */
+  async function loadUsers(){
+    if (!isAdmin()) return;
+    var r = await sb.from('profils').select('id,email,nom,role,cree_le').order('cree_le');
+    if (r.error) { $('userRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
+    users = r.data;
+    var pending = users.filter(function(u){ return !u.role; }).length;
+    $('pendingCount').textContent = pending; $('pendingCount').hidden = !pending;
+    $('userRows').innerHTML = users.map(function(u){
+      return '<tr' + (u.role ? '' : ' class="pending"') + '><td>' + esc(u.nom || '—') + (u.id === me.id ? ' <span class="tag">vous</span>' : '') + '</td><td>' + esc(u.email) + '</td>'
+        + '<td><label class="sr" for="role-' + u.id + '">Rôle de ' + esc(u.email) + '</label><select id="role-' + u.id + '" data-user="' + u.id + '">'
+        + '<option value=""' + (u.role ? '' : ' selected') + '>Aucun (en attente)</option><option value="editeur"' + (u.role === 'editeur' ? ' selected' : '') + '>Éditeur</option><option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Administrateur</option></select></td>'
+        + '<td>' + date(u.cree_le) + '</td></tr>';
+    }).join('');
+  }
+  $('userRows').addEventListener('change', async function(e){
+    var s = e.target.closest('select[data-user]'); if (!s) return;
+    var u = users.find(function(x){ return x.id === s.dataset.user; }), role = s.value || null;
+    if (u.id === me.id && role !== 'admin' && !(await confirmer('Vous allez retirer vos propres droits d’administrateur. Continuer ?', 'Retirer mes droits'))) { s.value = u.role || ''; return; }
+    var r = await sb.from('profils').update({role:role}).eq('id', u.id).select().single();
+    if (r.error) { s.value = u.role || ''; return toast(msg(r.error), true); }
+    u.role = r.data.role; toast('Rôle de ' + (u.nom || u.email) + ' : ' + (role ? ROLES[role] : 'aucun') + '.');
+    if (u.id === me.id) return enter();
+    loadUsers();
+  });
+
+  /* ═══ Journal (administrateurs) ═══ */
+  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', reglages:'Réglage', temoignages:'Témoignage', equipe:'Membre de l’équipe', bureaux:'Bureau', demandes:'Demande', profils:'Rôle'};
+  async function loadLog(){
+    var r = await sb.from('journal').select('*').order('id', {ascending:false}).limit(200);
+    if (r.error) { $('logRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }
+    $('logRows').innerHTML = r.data.length ? r.data.map(function(j){
+      var lib = String(j.libelle || '').replace(/→ (admin|editeur)$/, function(m, r){ return '→ ' + ROLES[r]; });
+      return '<tr><td>' + date(j.quand) + '</td><td>' + esc(j.qui_email || 'Supabase (hors interface)') + '</td><td>' + esc(j.action) + '</td><td>' + esc(OBJETS[j.objet] || j.objet) + ' · ' + esc(lib) + '</td></tr>';
+    }).join('') : '<tr><td colspan="4">Aucune modification pour l’instant.</td></tr>';
+  }
+
+  /* ═══ Fenêtres ═══ */
+  document.querySelectorAll('[data-cancel]').forEach(function(b){ b.onclick = function(){ b.closest('dialog').close(); }; });
+  function confirmer(text, ok){
+    return new Promise(function(done){
+      var d = $('dConfirm'); $('dConfirmMsg').textContent = text; $('dConfirmOk').textContent = ok || 'Supprimer';
+      d.returnValue = ''; d.showModal();
+      d.addEventListener('close', function h(){ d.removeEventListener('close', h); done(d.returnValue === 'oui'); });
+    });
+  }
+})();
+</script>
+</body>
+</html>
