@@ -71,7 +71,7 @@ h1{font:700 26px/1.2 var(--display);margin:0}
 .link.danger{color:var(--danger)}
 label.f{display:grid;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink)}
 label.f small,.hint{font-weight:400;color:var(--ink-2);font-size:12.5px}
-input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],select,textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--rule);background:#fff;transition:border-color .15s,box-shadow .15s}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=search],input[type=url],select,textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--rule);background:#fff;transition:border-color .15s,box-shadow .15s}
 input:focus,select:focus,textarea:focus{outline:0;border-color:var(--lime-deep);box-shadow:0 0 0 3px rgba(3,218,159,.2)}
 textarea{min-height:96px;resize:vertical}
 .check{display:inline-flex;align-items:center;gap:8px;font-size:14px;cursor:pointer}
@@ -120,6 +120,9 @@ textarea{min-height:96px;resize:vertical}
 .dem-meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:4px;font-size:13.5px;color:var(--ink-2)}
 .dem-meta a{color:var(--lime-deep);font-weight:600}
 .item.dem{grid-template-columns:1fr auto}
+.off-prev{position:relative;aspect-ratio:16/7;border-radius:12px;overflow:hidden;background:var(--rule-2);display:grid;place-items:center;color:var(--ink-2);font-size:13px;text-align:center;padding:0 16px}
+.off-prev iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.off-prev iframe[hidden]{display:none}
 .item.dem.done b{color:var(--ink-2)}
 /* Comptes et journal */
 table{width:100%;border-collapse:collapse;font-size:14px}
@@ -243,6 +246,7 @@ input[type=file]{max-width:100%;font-size:14px}
     <button type="button" role="tab" aria-selected="false" aria-controls="pVid" id="tVid">Vidéo</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pTem" id="tTem">Témoignages</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pTeam" id="tTeam">Équipe</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="pOff" id="tOff">Bureaux</button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pUsers" id="tUsers" data-admin hidden>Comptes<span class="count" id="pendingCount" hidden></span></button>
     <button type="button" role="tab" aria-selected="false" aria-controls="pLog" id="tLog" data-admin hidden>Journal</button>
   </div></nav>
@@ -318,6 +322,14 @@ input[type=file]{max-width:100%;font-size:14px}
       <div class="head"><div><h1>Équipe</h1><p class="lead">Les membres affichés dans « Les personnes derrière le produit », par pôle. L’ordre d’affichage se règle avec le champ « Ordre ».</p></div>
         <button type="button" class="btn" id="bAddTm">+ Ajouter un membre</button></div>
       <div id="teamAdm"><p class="loading">Chargement…</p></div>
+    </section>
+
+    <!-- Bureaux -->
+    <section id="pOff" role="tabpanel" aria-labelledby="tOff" hidden>
+      <div class="head"><div><h1>Bureaux</h1><p class="lead">Les bureaux de la section « Nos bureaux » et leur position sur la carte. Avec la latitude et la longitude, le repère est exact ; sinon la carte se centre sur l’adresse.</p></div>
+        <button type="button" class="btn" id="bAddOff">+ Ajouter un bureau</button></div>
+      <div class="list" id="offAdm"><p class="loading">Chargement…</p></div>
+      <p class="hint" style="margin-top:12px">Pour obtenir les coordonnées : dans Google Maps, appui long (ou clic droit) sur l’emplacement exact, puis copiez les deux nombres affichés (ex. 36.7213, 3.0866) et collez-les dans le champ Latitude.</p>
     </section>
 
     <!-- Comptes -->
@@ -399,6 +411,30 @@ input[type=file]{max-width:100%;font-size:14px}
 </dialog>
 
 <!-- Édition d'un événement -->
+<dialog id="dOff" aria-labelledby="dOffT">
+  <form class="dlg" id="fOff" novalidate method="dialog">
+    <header><h2 id="dOffT">Bureau</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
+    <div class="body">
+      <div class="row c2">
+        <label class="f">Ville<input type="text" id="oVille" required minlength="2" maxlength="60" placeholder="ex. Oran"></label>
+        <label class="f">Libellé<input type="text" id="oLib" maxlength="40" placeholder="Siège, Bureau, Agence…"></label>
+      </div>
+      <label class="f">Adresse<input type="text" id="oAdr" maxlength="160" placeholder="ex. Kouba, Alger"><small>Vide : le site affiche « Adresse communiquée prochainement ».</small></label>
+      <label class="f">Lien Google Maps (facultatif)<input type="url" id="oLien" maxlength="300" placeholder="https://maps.app.goo.gl/…"><small>Ouvert par le bouton « Itinéraire ».</small></label>
+      <div class="row c2">
+        <label class="f">Latitude<input type="text" id="oLat" inputmode="decimal" maxlength="40" placeholder="ex. 36.7213"><small>Vous pouvez coller ici « latitude, longitude ».</small></label>
+        <label class="f">Longitude<input type="text" id="oLng" inputmode="decimal" maxlength="20" placeholder="ex. 3.0866"></label>
+      </div>
+      <div class="off-prev"><iframe id="oMap" title="Aperçu de la carte" loading="lazy"></iframe><p id="oMapNone">L’aperçu de la carte s’affiche avec une adresse ou des coordonnées.</p></div>
+      <div class="row c2">
+        <label class="f">Ordre d’affichage<input type="number" id="oOrdre" min="0" max="100000" step="1"></label>
+        <label class="check" style="align-self:center"><input type="checkbox" id="oPub"> Affiché sur le site</label>
+      </div>
+    </div>
+    <footer><p class="err" id="oErr" role="alert"></p><button type="button" class="btn btn-ghost" data-cancel>Annuler</button><button type="submit" class="btn" id="oSave">Enregistrer</button></footer>
+  </form>
+</dialog>
+
 <dialog id="dTm" aria-labelledby="dTmT">
   <form class="dlg" id="fTm" novalidate method="dialog">
     <header><h2 id="dTmT">Membre</h2><button type="button" class="x" data-cancel aria-label="Fermer">×</button></header>
@@ -633,13 +669,13 @@ input[type=file]{max-width:100%;font-size:14px}
     $('meName').textContent = me.nom || me.email; $('meRole').textContent = ROLES[me.role];
     document.querySelectorAll('[data-admin]').forEach(function(el){ el.hidden = me.role !== 'admin'; });
     show('vApp'); selectTab('tDem');
-    loadDems(); loadRefs(); loadPrests(); loadEvs(); loadVid(); loadTems(); loadTeam();
+    loadDems(); loadRefs(); loadPrests(); loadEvs(); loadVid(); loadTems(); loadTeam(); loadOffs();
     if (me.role === 'admin') { loadUsers(); }
   }
   var isAdmin = function(){ return me && me.role === 'admin'; };
 
   /* ═══ Onglets ═══ */
-  var tabs = ['tDem', 'tRefs', 'tPrest', 'tEv', 'tVid', 'tTem', 'tTeam', 'tUsers', 'tLog'];
+  var tabs = ['tDem', 'tRefs', 'tPrest', 'tEv', 'tVid', 'tTem', 'tTeam', 'tOff', 'tUsers', 'tLog'];
   tabs.forEach(function(id){
     $(id).addEventListener('click', function(){ selectTab(id); });
   });
@@ -1307,6 +1343,83 @@ input[type=file]{max-width:100%;font-size:14px}
     }
   });
 
+  /* ═══ Bureaux ═══ */
+  var offs = [], oEditing = null, PINIC = '<svg aria-hidden="true" viewBox="0 0 16 16"><path d="M8 15s5-4.4 5-8.5a5 5 0 00-10 0C3 10.6 8 15 8 15z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="6.5" r="1.8" fill="currentColor"/></svg>';
+  async function loadOffs(){
+    var r = await sb.from('bureaux').select('*').order('ordre').order('id');
+    if (r.error) { $('offAdm').innerHTML = '<p class="empty">' + esc(msg(r.error)) + '</p>'; return; }
+    offs = r.data; drawOffs();
+  }
+  function drawOffs(){
+    $('offAdm').innerHTML = !offs.length ? '<p class="empty">Aucun bureau.</p>' : offs.map(function(o){
+      var gps = o.latitude != null;
+      return '<div class="item"><span class="thumb ic">' + PINIC + '</span><div><b>' + esc(o.ville) + ' · ' + esc(o.libelle) + '</b><div class="meta"><span>' + esc(o.adresse || 'Adresse à compléter') + '</span>'
+        + '<span class="tag ' + (gps ? 'on' : 'off') + '">' + (gps ? 'GPS ' + Number(o.latitude).toFixed(4) + ', ' + Number(o.longitude).toFixed(4) : 'Sans GPS') + '</span>'
+        + (o.lien_maps ? '<span>Lien Maps</span>' : '') + '<span class="tag ' + (o.publie ? 'on' : 'off') + '">' + (o.publie ? 'Affiché' : 'Masqué') + '</span></div></div>'
+        + '<div class="acts"><button type="button" class="btn btn-ghost btn-sm" data-edit-o="' + o.id + '">Modifier</button>'
+        + '<button type="button" class="link" data-pub-o="' + o.id + '">' + (o.publie ? 'Masquer' : 'Afficher') + '</button>'
+        + (isAdmin() ? '<button type="button" class="link danger" data-del-o="' + o.id + '">Supprimer</button>' : '') + '</div></div>';
+    }).join('');
+  }
+  function num(v){ v = String(v || '').trim().replace(',', '.'); return v === '' ? null : Number(v); }
+  /* « 36.7213, 3.0866 » collé dans Latitude (copié depuis Google Maps) : réparti dans les deux champs */
+  $('oLat').addEventListener('paste', function(e){
+    var t = (e.clipboardData || window.clipboardData).getData('text');
+    var m = /^\s*\(?\s*(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)\s*\)?\s*$/.exec(t || '');
+    if (!m) return;
+    e.preventDefault(); this.value = m[1]; $('oLng').value = m[2]; oPreview();
+  });
+  $('oLat').addEventListener('change', oPreview);
+  ['oLng', 'oAdr'].forEach(function(id){ $(id).addEventListener('change', oPreview); });
+  function oPreview(){
+    var lat = num($('oLat').value), lng = num($('oLng').value), q = (lat != null && lng != null && isFinite(lat) && isFinite(lng)) ? lat + ',' + lng : ($('oAdr').value.trim() ? $('oAdr').value.trim() + ', Algérie' : '');
+    $('oMap').hidden = !q; $('oMapNone').hidden = !!q;
+    if (q) $('oMap').src = 'https://www.google.com/maps?q=' + encodeURIComponent(q) + '&z=16&output=embed'; else $('oMap').removeAttribute('src');
+  }
+  function openOff(o){
+    oEditing = o || null;
+    $('dOffT').textContent = o ? 'Modifier le bureau' : 'Nouveau bureau';
+    $('oVille').value = o ? o.ville : ''; $('oLib').value = o ? o.libelle : 'Bureau'; $('oAdr').value = o ? o.adresse : '';
+    $('oLien').value = o && o.lien_maps ? o.lien_maps : ''; $('oLat').value = o && o.latitude != null ? o.latitude : ''; $('oLng').value = o && o.longitude != null ? o.longitude : '';
+    $('oOrdre').value = o ? o.ordre : (offs.length ? Math.max.apply(null, offs.map(function(x){ return x.ordre; })) + 10 : 100); $('oPub').checked = o ? o.publie : true;
+    $('oErr').textContent = ''; oPreview(); $('dOff').showModal(); $('oVille').focus();
+  }
+  $('bAddOff').onclick = function(){ openOff(null); };
+  $('fOff').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var err = $('oErr'), lien = $('oLien').value.trim(), lat = num($('oLat').value), lng = num($('oLng').value); err.textContent = '';
+    var data = {ville:$('oVille').value.trim(), libelle:$('oLib').value.trim() || 'Bureau', adresse:$('oAdr').value.trim(), lien_maps:lien || null,
+      latitude:lat, longitude:lng, ordre:parseInt($('oOrdre').value, 10) || 0, publie:$('oPub').checked};
+    if (data.ville.length < 2) { err.textContent = 'Indiquez la ville.'; return $('oVille').focus(); }
+    if (lien && !/^https:\/\/\S+$/.test(lien)) { err.textContent = 'Le lien doit commencer par https://'; return $('oLien').focus(); }
+    if ((lat == null) !== (lng == null)) { err.textContent = 'Renseignez la latitude et la longitude, ou aucune des deux.'; return $(lat == null ? 'oLat' : 'oLng').focus(); }
+    if (lat != null && !(isFinite(lat) && Math.abs(lat) <= 90 && isFinite(lng) && Math.abs(lng) <= 180)) { err.textContent = 'Coordonnées invalides (ex. 36.7213 et 3.0866).'; return $('oLat').focus(); }
+    var b = $('oSave'); b.disabled = true;
+    try {
+      var r = oEditing ? await sb.from('bureaux').update(data).eq('id', oEditing.id).select().single() : await sb.from('bureaux').insert(data).select().single();
+      if (r.error) throw r.error;
+      if (oEditing) Object.assign(oEditing, r.data); else offs.push(r.data);
+      offs.sort(function(x, y){ return x.ordre - y.ordre || x.id - y.id; });
+      $('dOff').close(); drawOffs(); toast(oEditing ? 'Bureau enregistré.' : 'Bureau ajouté.');
+    } catch (x) { err.textContent = msg(x); }
+    b.disabled = false;
+  });
+  $('offAdm').addEventListener('click', async function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var id = +(b.dataset.editO || b.dataset.pubO || b.dataset.delO), o = offs.find(function(x){ return x.id === id; }); if (!o) return;
+    if (b.dataset.editO) openOff(o);
+    if (b.dataset.pubO) {
+      var r = await sb.from('bureaux').update({publie:!o.publie}).eq('id', id).select().single();
+      if (r.error) return toast(msg(r.error), true);
+      Object.assign(o, r.data); drawOffs(); toast(o.publie ? 'Bureau affiché sur le site.' : 'Bureau masqué sur le site.');
+    }
+    if (b.dataset.delO && await confirmer('Supprimer le bureau de ' + o.ville + ' ?')) {
+      var x = await sb.from('bureaux').delete().eq('id', id);
+      if (x.error) return toast(msg(x.error), true);
+      offs = offs.filter(function(q){ return q.id !== id; }); drawOffs(); toast('Bureau supprimé.');
+    }
+  });
+
   /* ═══ Comptes (administrateurs) ═══ */
   async function loadUsers(){
     if (!isAdmin()) return;
@@ -1334,7 +1447,7 @@ input[type=file]{max-width:100%;font-size:14px}
   });
 
   /* ═══ Journal (administrateurs) ═══ */
-  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', reglages:'Réglage', temoignages:'Témoignage', equipe:'Membre de l’équipe', demandes:'Demande', profils:'Rôle'};
+  var OBJETS = {references_clients:'Référence', prestations:'Prestation', evenements:'Événement', reglages:'Réglage', temoignages:'Témoignage', equipe:'Membre de l’équipe', bureaux:'Bureau', demandes:'Demande', profils:'Rôle'};
   async function loadLog(){
     var r = await sb.from('journal').select('*').order('id', {ascending:false}).limit(200);
     if (r.error) { $('logRows').innerHTML = '<tr><td colspan="4">' + esc(msg(r.error)) + '</td></tr>'; return; }

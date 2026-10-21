@@ -31,7 +31,7 @@ un éditeur ne peut ni supprimer ni changer un rôle. Il reste toujours au moins
 2. Collez le contenu de [`schema.sql`](schema.sql) et cliquez **Run**.
 3. Nouvelle requête : collez [`seed.sql`](seed.sql) et cliquez **Run** (importe les 171 références actuelles du site).
 
-`schema.sql` peut être relancé sans risque après une mise à jour du site : il ajoute ce qui manque (par exemple les tables `demandes`, `temoignages`, `equipe`, `reglages` et l’espace de stockage `videos`) sans effacer le contenu.
+`schema.sql` peut être relancé sans risque après une mise à jour du site : il ajoute ce qui manque (par exemple les tables `demandes`, `temoignages`, `equipe`, `bureaux`, `reglages` et l’espace de stockage `videos`) sans effacer le contenu.
 
 ### 3. Régler la connexion
 Dans **Authentication** › **URL Configuration** :
@@ -89,6 +89,8 @@ to sign up** et invitez les personnes depuis **Authentication › Users › Invi
   image d’aperçu), publiées ou masquées. Tant qu’aucun témoignage n’est publié, le site affiche trois emplacements « bientôt disponible ».
 - **Équipe** : les membres de « Les personnes derrière le produit » (nom, poste, pôle Direction / Technique /
   Marketing, photo recadrée automatiquement, lien LinkedIn, ordre, affiché ou masqué).
+- **Bureaux** : les bureaux de la section « Nos bureaux » (ville, libellé, adresse, lien Google Maps,
+  latitude et longitude pour un repère exact sur la carte, ordre, affiché ou masqué).
 - **Vidéo** : la vidéo de présentation affichée après l’en-tête (MP4 ou WebM, 50 Mo maximum, image d’aperçu
   et titre facultatifs), affichée ou masquée d’un clic. Sans vidéo publiée, le site affiche « Vidéo bientôt disponible ».
 - **Journal** : qui a ajouté, modifié, masqué ou supprimé quoi, et quand.

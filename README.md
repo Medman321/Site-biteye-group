@@ -5,7 +5,7 @@ Site vitrine de BitEye et de VISION Workspace (promotion immobilière, réalisat
 Site statique en une page :
 
 - `index.html` — page d'accueil (HTML, CSS et JS intégrés) ; charge les bibliothèques depuis `vendor/`
-- `admin/` — administration du site : demandes reçues, références, prestations, agenda, vidéo de présentation, témoignages et équipe, avec droits d'accès (administrateur, éditeur)
+- `admin/` — administration du site : demandes reçues, références, prestations, agenda, vidéo de présentation, témoignages, équipe et bureaux, avec droits d'accès (administrateur, éditeur)
 - `i18n.js` — traductions anglaise et arabe des textes de la page (clé : le texte français)
 - `config.js` — adresse et clé publique de la base Supabase utilisée par l'administration (vide : le site affiche son contenu intégré)
 - `supabase/` — schéma de la base, import des références et **guide de mise en service** ([`supabase/README.md`](supabase/README.md))
@@ -52,5 +52,5 @@ Une fois Supabase branché (`config.js`), le formulaire envoie directement chaqu
 - Remplacer les maquettes d'écran (données fictives) par de vraies captures de VISION.
 - Relier le formulaire au CRM BitEye (`window.BITEYE_CRM.url` dans `config.js`).
 - Faire relire les versions anglaise et arabe par un locuteur natif.
-- Compléter l'adresse et le lien Google Maps du bureau d'Oran (section `#bureaux` de `index.html`), ajouter les liens LinkedIn et des photos en meilleure qualité pour l'équipe (onglet Équipe).
+- Compléter l'adresse d'Oran et les positions GPS des bureaux (onglet Bureaux), ajouter les liens LinkedIn et des photos en meilleure qualité pour l'équipe (onglet Équipe).
 - Déposer la vidéo de présentation et les témoignages vidéo des clients (onglets Vidéo et Témoignages).

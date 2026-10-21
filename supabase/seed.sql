@@ -192,14 +192,23 @@ where not exists (select 1 from public.evenements where slug = 'elogia-2026');
 -- Ajoutez les liens LinkedIn et remplacez les photos depuis l'administration, onglet Équipe.
 insert into public.equipe (nom, poste, pole, photo_url, ordre)
 select * from (values
-  ('Mohammed Bouchenine', 'CEO · Direction générale', 'direction', 'assets/equipe/mohammed-bouchenine.webp', 10),
+  ('Mohamed Bouchenine', 'CEO · Direction générale', 'direction', 'assets/equipe/mohamed-bouchenine.webp', 10),
   ('Yakoub Bouchenine', 'CEO · Pôle technique', 'direction', 'assets/equipe/yakoub-bouchenine.webp', 20),
   ('Abdel Djalil Hadj Habib', 'Développeur full stack', 'technique', 'assets/equipe/abdel-djalil-hadj-habib.webp', 10),
   ('Dib Saber', 'Administrateur du réseau', 'technique', 'assets/equipe/dib-saber.webp', 20),
   ('Sarah Allaoui', 'Responsable commerciale', 'marketing', 'assets/equipe/sarah-allaoui.webp', 10),
   ('Hanane Talbi', 'Responsable commerciale', 'marketing', 'assets/equipe/hanane-talbi.webp', 20),
-  ('Salah Bouchenine', 'Responsable commerciale', 'marketing', 'assets/equipe/salah-bouchenine.webp', 30),
+  ('Salah Bouchenine', 'Responsable commercial', 'marketing', 'assets/equipe/salah-bouchenine.webp', 30),
   ('Selka Feriel', 'Responsable commerciale', 'marketing', null, 40),
-  ('Imed Eddine', 'Responsable commerciale', 'marketing', null, 50)
+  ('Imed Eddine', 'Responsable commercial', 'marketing', null, 50)
 ) as v(nom, poste, pole, photo_url, ordre)
 where not exists (select 1 from public.equipe);
+
+-- Bureaux : Alger (siège, Kouba) et Oran. Complétez l'adresse d'Oran, les liens Google Maps et les
+-- coordonnées GPS depuis l'administration, onglet Bureaux.
+insert into public.bureaux (ville, libelle, adresse, lien_maps, ordre)
+select * from (values
+  ('Alger', 'Siège', 'Kouba, Alger', 'https://goo.gl/maps/zo745TNzqgsK1kXP9', 10),
+  ('Oran', 'Bureau', '', null, 20)
+) as v(ville, libelle, adresse, lien_maps, ordre)
+where not exists (select 1 from public.bureaux);

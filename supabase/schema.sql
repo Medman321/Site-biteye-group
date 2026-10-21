@@ -182,6 +182,22 @@ create table if not exists public.equipe (
   modifie_par uuid references auth.users (id) on delete set null
 );
 
+-- Bureaux (section « Nos bureaux » et carte) ; latitude/longitude facultatives, sinon l'adresse sert à la carte
+create table if not exists public.bureaux (
+  id          bigint generated always as identity primary key,
+  ville       text not null check (char_length(trim(ville)) between 2 and 60),
+  libelle     text not null default 'Bureau' check (char_length(libelle) <= 40),
+  adresse     text not null default '' check (char_length(adresse) <= 160),
+  lien_maps   text check (lien_maps is null or lien_maps ~ '^https://'),
+  latitude    numeric(9, 6) check (latitude between -90 and 90),
+  longitude   numeric(9, 6) check (longitude between -180 and 180),
+  ordre       integer not null default 100,
+  publie      boolean not null default true,
+  modifie_le  timestamptz not null default now(),
+  modifie_par uuid references auth.users (id) on delete set null,
+  check ((latitude is null) = (longitude is null))
+);
+
 -- Demandes envoyées par le formulaire du site (démonstration, rendez-vous, accompagnement)
 create table if not exists public.demandes (
   id          bigint generated always as identity primary key,
@@ -230,6 +246,9 @@ create trigger horodater before insert or update on public.prestations
 drop trigger if exists horodater on public.evenements;
 create trigger horodater before insert or update on public.evenements
   for each row execute function public.horodater();
+drop trigger if exists horodater on public.bureaux;
+create trigger horodater before insert or update on public.bureaux
+  for each row execute function public.horodater();
 drop trigger if exists horodater on public.equipe;
 create trigger horodater before insert or update on public.equipe
   for each row execute function public.horodater();
@@ -261,7 +280,7 @@ declare
   ligne jsonb := to_jsonb(coalesce(new, old));
   quoi  text;
 begin
-  quoi := coalesce(nullif(ligne ->> 'nom', '') || coalesce(' · ' || nullif(ligne ->> 'societe', ''), ''), ligne ->> 'titre', ligne ->> 'email', ligne ->> 'cle');
+  quoi := coalesce(nullif(ligne ->> 'nom', '') || coalesce(' · ' || nullif(ligne ->> 'societe', ''), ''), ligne ->> 'titre', ligne ->> 'ville', ligne ->> 'email', ligne ->> 'cle');
   if tg_table_name = 'profils' then
     quoi := quoi || ' → ' || coalesce(new.role::text, 'sans rôle');
   end if;
@@ -280,6 +299,9 @@ create trigger journaliser after insert or update or delete on public.prestation
   for each row execute function public.journaliser();
 drop trigger if exists journaliser on public.evenements;
 create trigger journaliser after insert or update or delete on public.evenements
+  for each row execute function public.journaliser();
+drop trigger if exists journaliser on public.bureaux;
+create trigger journaliser after insert or update or delete on public.bureaux
   for each row execute function public.journaliser();
 drop trigger if exists journaliser on public.equipe;
 create trigger journaliser after insert or update or delete on public.equipe
@@ -307,6 +329,7 @@ alter table public.evenements         enable row level security;
 alter table public.reglages           enable row level security;
 alter table public.temoignages        enable row level security;
 alter table public.equipe             enable row level security;
+alter table public.bureaux            enable row level security;
 alter table public.demandes           enable row level security;
 
 -- Seuls le rôle et le nom d'un profil peuvent être modifiés (jamais l'identifiant ni l'e-mail)
@@ -376,6 +399,19 @@ create policy "réglages : modification" on public.reglages
   for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
 drop policy if exists "réglages : suppression" on public.reglages;
 create policy "réglages : suppression" on public.reglages
+  for delete to authenticated using (public.est_admin());
+
+drop policy if exists "bureaux : lecture" on public.bureaux;
+create policy "bureaux : lecture" on public.bureaux
+  for select to anon, authenticated using (publie or public.est_equipe());
+drop policy if exists "bureaux : ajout" on public.bureaux;
+create policy "bureaux : ajout" on public.bureaux
+  for insert to authenticated with check (public.est_equipe());
+drop policy if exists "bureaux : modification" on public.bureaux;
+create policy "bureaux : modification" on public.bureaux
+  for update to authenticated using (public.est_equipe()) with check (public.est_equipe());
+drop policy if exists "bureaux : suppression" on public.bureaux;
+create policy "bureaux : suppression" on public.bureaux
   for delete to authenticated using (public.est_admin());
 
 drop policy if exists "équipe : lecture" on public.equipe;
