@@ -1,6 +1,7 @@
 ---
 name: vfx-roto-compositing-engineer
 description: Ingénieur VFX de BitEye. À utiliser pour toute séquence vidéo ou photo fournie — analyse, découpe, recadrage, stabilisation, étalonnage ; détourage (matting) image par image du sujet pour une composition 2.5D (textes et animations insérés ENTRE l'intervenant et son arrière-plan), masquage des incrustations d'anciens montages, raccords couleur entre sources ; export optionnel d'un script After Effects (.jsx) pour un poste équipé. Outils gratuits et locaux.
+model: opus
 skills:
   - media-lab
   - media-analysis

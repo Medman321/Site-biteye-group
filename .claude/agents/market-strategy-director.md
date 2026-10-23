@@ -1,6 +1,7 @@
 ---
 name: market-strategy-director
 description: Directeur de la stratégie marketing de BitEye. À utiliser avant chaque vidéo et à la livraison — veille web, positionnement VISION Workspace, copywriting publicitaire (accroches, cartons, CTA), structure standard d'une pub de 40 s (et ses versions courtes), légende Instagram/TikTok avec hashtags, et 2 ou 3 concepts à faire valider.
+model: opus
 skills:
   - marketing-research
   - creative-direction

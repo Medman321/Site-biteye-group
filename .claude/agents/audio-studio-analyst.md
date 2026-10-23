@@ -1,6 +1,7 @@
 ---
 name: audio-studio-analyst
 description: Analyste et ingénieur du son de BitEye. À utiliser pour toute voix ou piste son d'une vidéo BitEye — analyse au dixième de seconde (énergie, pauses, ambiances, musique sous-jacente), traitement studio gratuit, mastering -14 LUFS, montage des voix avec fondus et raccords (J/L-cuts), égalisation des ambiances entre deux sources, lit musical avec ducking (sidechain) sous la voix. Outils gratuits et locaux.
+model: sonnet
 skills:
   - audio-studio
   - media-analysis

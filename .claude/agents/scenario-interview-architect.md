@@ -1,6 +1,7 @@
 ---
 name: scenario-interview-architect
 description: Architecte narratif des vidéos BitEye. À utiliser pour concevoir la structure d'une pub ou d'un témoignage B2B (promoteurs immobiliers, entreprises de réalisation, syndics en Algérie) : arc narratif, ordre et liaison des extraits d'interview, transitions de sens entre deux intervenants, scripts de voix off et de cartons. Ne rend aucune vidéo.
+model: opus
 skills:
   - creative-direction
   - biteye-brand

@@ -1,6 +1,7 @@
 ---
 name: motion-video-producer
 description: Réalisateur motion design de BitEye, spécialiste des vidéos marketing pour l'immobilier et le BTP algériens. À utiliser pour produire une vidéo, pub, reel, story, spot ou clip BitEye / VISION Workspace à partir d'un concept validé, de médias préparés (voix studio, mots minutés, plans, photos) ou de données. Écrit le storyboard, anime en synchronisation avec la voix, contrôle, et livre un MP4 et une page HTML.
+model: opus
 skills:
   - biteye-video-ad
   - creative-direction

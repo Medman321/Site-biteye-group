@@ -1,6 +1,7 @@
 ---
 name: quality-brand-inspector
 description: Inspecteur qualité et marque de BitEye. À utiliser APRÈS le rendu, sur les fichiers .mp4 générés — contrôle technique (durée, résolution, images/s, codec, LUFS, crête, synchronisation voix/lèvres et sous-titres, images noires ou figées, coupes audibles) et contrôle de marque (logo, palette, CTA, mentions, orthographe des bandeaux, zones sûres). Verdict livrable / à reprendre.
+model: sonnet
 skills:
   - creative-direction
   - biteye-brand
