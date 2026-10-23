@@ -101,7 +101,9 @@ Champs communs : `at` (entrée, s — **mets le `start` du mot prononcé**), `an
 | `checklist` | `items[]`, `at`, `every` ou `ats[]` | liste qui se coche |
 | `tiles` | `items[[titre,sous-titre]]`, `at`, `sortAt`, `columns` | désordre → rangé (sur « organiser ») |
 | `stats` | `items[{label,value,suffix,decimals,at}]` | gros chiffres qui défilent |
-| `app` | `window`, `title`, `subtitle`, `sidebar[]`, `active`, `kpis[{label,value,suffix,decimals}]`, `kpisAt`, `bars{title,items[{label,value}]}`, `barsAt` | maquette de VISION Workspace |
+| `app` | `window`, `title`, `subtitle`, `sidebar[]`, `active`, `kpis[{label,value,suffix,decimals}]`, `kpisAt`, `bars{title,items[{label,value}]}`, `barsAt` | maquette dessinée de VISION Workspace (« Données fictives » ajouté) |
+| `schedule` | `title`, `subtitle`, `rows[[nom, montant/date, statut, "ok"\|"wait"\|"late"]]`, `rowsAt`, `every` | échéancier acquéreurs dessiné |
+| `phone` | `title`, `items[{icon, text, sub, at}]` | écran d'application mobile dessiné |
 | `image` | `src`, `height` ou `aspect`, `position`, `kenburns` (ou `false`), `label` | photo |
 | `video` | `src`, `from`, `height` ou `aspect`, `label`, `audio` | clip (muet ; son via `audioMix`) |
 | `gallery` | `items[{src,label,at}]`, `columns` | plusieurs photos qui apparaissent |

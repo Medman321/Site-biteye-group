@@ -58,7 +58,13 @@ Un mémo trop long pour la plateforme (Reels : 15–35 s) se coupe sans refaire 
 python3 -I $AS/edit_voice.py "$OUT/audio/voix_studio.wav" --words "$OUT/words.json" --out "$OUT/audio/montage" \
         [--start 0.9] [--end 37.2] [--max-pause 0.6] [--remove-words 16-18] [--remove 14.5-15.9]
 ```
-`--max-pause` raccourcit toutes les pauses trop longues, `--remove-words` retire une phrase par indices de mots (ceux de `words.json`), `--start/--end` coupent le début et la fin. Sortie : `voix_montee.wav` et un `words.json` décalé (vérifié : moins de 0,08 s d'écart avec la voix réelle). Les coupes se proposent dans la proposition ; le demandeur les valide.
+**Règle BitEye : les silences servent la compréhension.** Ne coupe que les respirations ; garde les pauses qui séparent deux idées et celles qui créent une attente.
+- `--max-pause 0.45` : pauses de respiration (au milieu d'une phrase) ramenées à 0,45 s ;
+- `--idea-pause 0.9` : pauses qui ferment une idée (après . ? ! :) gardées jusqu'à 0,9 s ;
+- `--set-pause T:LEN` : une pause précise à la longueur voulue, pour un suspense avant un mot clé (« la solution… *idéale* » : `14.9:0.75`) ;
+- `--keep A-B` : silence voulu, jamais coupé (révélation du logo, effet).
+La sortie liste chaque pause (avant → après, type) : relis-la, ajuste les pauses de suspense, et montre la liste au demandeur avec la durée obtenue.
+Autres options : `--remove-words` retire une phrase par indices de mots (ceux de `words.json`), `--start/--end` coupent le début et la fin. Sortie : `voix_montee.wav` et un `words.json` décalé (vérifié : moins de 0,08 s d'écart avec la voix réelle). Les coupes se proposent dans la proposition ; le demandeur les valide.
 
 ## 4. Voix off gratuite
 

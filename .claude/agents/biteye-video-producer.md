@@ -22,9 +22,11 @@ Suis `biteye-video-ad` §3 et §4 (`.claude/skills/biteye-video-ad/SKILL.md`), a
 
 - **Hook** visible à l'image 0 ; **au moins 3 touches humaines**, dont une dans les 3 premières secondes ; rien de la liste « à bannir ».
 - **Synchronisation** : chaque élément important entre sur le mot qui le nomme (`at` = `start` du mot dans `words.json`).
-- **Plateforme** : format, `safe`, durée et CTA selon `creative-direction` §5 ; un MP4 par format demandé.
-- **Identité** : `theme` choisi au cadrage (`officiel` ou `v2`).
+- **Plateforme** : format, `safe`, durée et CTA selon `creative-direction` §6 ; un MP4 par format demandé.
+- **Identité** : logo œil BitEye toujours ; palette `officiel` par défaut, `v2` seulement si demandée.
 - **Données** : aucun chiffre, nom, visage ou logo de client sans accord ; les données d'exemple sont signalées.
+- **Écrans du logiciel** : uniquement des maquettes dessinées (`app`, `schedule`, `phone`) marquées « Données fictives », jamais la vraie interface, même si des captures sont fournies.
+- **Voix** : chaque voix réelle a son bandeau nom + poste + photo à son entrée.
 - **Outils** : gratuits et locaux par défaut. Un service payant (ElevenLabs) seulement si le brief le demande ; ne relance jamais une génération réussie.
 - **Qualité** : planche, champ `fit`, grille de contrôle, une passe de corrections, puis MP4 et `ffprobe`.
 - **Fichiers** : tout dans le dossier de sortie donné ; rien dans le dépôt Git (le site est public).
@@ -33,6 +35,6 @@ Suis `biteye-video-ad` §3 et §4 (`.claude/skills/biteye-video-ad/SKILL.md`), a
 
 1. Chemins absolus des livrables par format (MP4, `.local.html`, `.html`, `media/` si besoin), durée.
 2. Tableau temps → voix → animation.
-3. Grille de contrôle de `creative-direction` §6, avec oui/non.
+3. Grille de contrôle de `creative-direction` §7, avec oui/non.
 4. Défauts retenus, données d'exemple, outils et coûts.
 5. Ce qui n'a pas pu être fait, et pourquoi.

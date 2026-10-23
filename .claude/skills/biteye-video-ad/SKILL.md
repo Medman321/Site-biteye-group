@@ -23,11 +23,12 @@ Lis chaque SKILL.md au moment de l'étape (`.claude/skills/<nom>/SKILL.md`).
 Pose-les en une fois (AskUserQuestion, 4 questions maximum par appel ; deux appels si nécessaire). Saute celles dont la réponse est déjà dans la demande.
 
 1. **Diffusion** (choix multiple) : Reels Instagram / TikTok / YouTube Shorts · Story ou statut WhatsApp · fil Facebook / Instagram · LinkedIn · YouTube (vidéo ou pré-roll) · site officiel (en-tête, page produit) · salon / écran.
-   → déduit les formats (`creative-direction` §5). Plusieurs diffusions = plusieurs sorties.
+   → déduit les formats (`creative-direction` §6). Plusieurs diffusions = plusieurs sorties.
 2. **Objectif** : faire connaître VISION · obtenir des demandes de démo · lancer un module (Estate, Build, Co-Owner) · témoignage client · événement (salon, offre) · recrutement.
 3. **Cible et langue** : promoteurs · entreprises de réalisation · syndics · acquéreurs ; darija · français · arabe · mélange.
 4. **Style** : terrain et humain (chantier, équipe, WhatsApp) · pédagogique (écrans du logiciel) · témoignage · humour léger. Palette : officielle par défaut (bleu nuit + turquoise), V2 (vert + citron) seulement si le demandeur le demande ; le logo reste l'œil BitEye dans tous les cas (`biteye-brand`).
-5. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, durée maximale, musique fournie. Le CTA découle de la nature de la vidéo (tableau dans `biteye-brand`) : ne le demande que s'il n'est pas évident.
+5. **Les voix** : pour **chaque personne dont on entend la voix**, demande son nom, son poste et une photo (portrait au téléphone). Ils servent au bandeau `lowerthird`, affiché 2 à 3 s quand la personne commence à parler. Sans photo, le bandeau montre son initiale.
+6. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, durée maximale, musique fournie. Le CTA découle de la nature de la vidéo (tableau dans `biteye-brand`) : ne le demande que s'il n'est pas évident.
 
 Note les réponses dans `$OUT/brief.json`. Sans réponse à une question : défaut raisonnable, signalé dans le compte rendu.
 
@@ -56,7 +57,7 @@ Dossier de travail : `OUT=<scratchpad>/video-<slug>` (sinon `./.video-out/<slug>
    python3 -I $ENG/build.py "$OUT/storyboard.json" --out "$OUT/out"
    node $ENG/render.js "$OUT/out/<slug>.local.html" --stills "$OUT/out/stills"
    ```
-3. Regarde `sheet.jpg` (Read) et le champ `fit`, puis applique la grille de contrôle de `creative-direction` §6. Une passe de corrections.
+3. Regarde `sheet.jpg` (Read) et le champ `fit`, puis applique la grille de contrôle de `creative-direction` §7. Une passe de corrections.
 4. MP4 : `node $ENG/render.js "$OUT/out/<slug>.local.html" --mp4 "$OUT/out/<slug>.mp4"`, puis `ffprobe` (durée, piste audio) et une image extraite au milieu.
 5. Un MP4 par format demandé : copie le storyboard, change `format` / `safe`, revois la mise en page (`split` en 16:9), contrôle la planche.
 

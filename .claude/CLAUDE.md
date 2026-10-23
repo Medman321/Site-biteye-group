@@ -11,7 +11,7 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 | `biteye-marketing-strategist` | veille web, empreinte BitEye, 2 ou 3 concepts à valider |
 | `biteye-video-producer` | storyboard, animation synchronisée, contrôle, MP4 + HTML |
 
-1. **Cadrer d'abord** : dès que la demande et ses fichiers arrivent, pose au demandeur les questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style et identité, infos à afficher). Ne lance aucun agent avant les réponses, sauf l'étape 2 qui n'en dépend pas.
+1. **Cadrer d'abord** : dès que la demande et ses fichiers arrivent, pose au demandeur les questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, **nom + poste + photo de chaque voix**, infos à afficher). Ne lance aucun agent avant les réponses, sauf l'étape 2 qui n'en dépend pas.
 2. **Préparer en parallèle** (un seul message, agents en arrière-plan) : `biteye-audio-engineer` pour chaque voix, `biteye-media-editor` pour les vidéos et les photos. Donne-leur les chemins absolus des fichiers et le dossier `$OUT` (scratchpad de la session, sinon `./.video-out/<slug>/`).
 3. **Proposer** : `biteye-marketing-strategist` avec le brief, la transcription et `media.md`. Montre au demandeur le concept recommandé et les autres concepts (publie `proposition.md` en page si c'est utile), ainsi que les mots incertains de la transcription. **Attends son choix.**
 4. **Produire** : `biteye-video-producer` avec le brief, le concept choisi et les médias préparés.

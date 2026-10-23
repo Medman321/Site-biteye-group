@@ -35,4 +35,5 @@ Travaille toujours sur des copies dans `$OUT/` ; les originaux restent intacts d
 
 - Les images du client sont le cœur de la touche humaine : vrais chantiers, vraies équipes, vrais bureaux. Les retoucher pour les rendre lisibles, jamais pour les rendre « parfaites » ou artificielles.
 - Pas d'images générées par IA pour représenter des chantiers, des personnes ou des clients BitEye.
+- Captures d'écran de VISION : ne jamais les monter dans une vidéo (interface confidentielle). Elles servent de référence pour dessiner les maquettes (`creative-direction` §3).
 - Visages de tiers et plaques d'immatriculation : flouter si la personne n'a pas donné son accord (`ffmpeg -vf "boxblur=10:enable='between(t,a,b)'"` sur une zone `crop`/`overlay`), ou choisir un autre plan.

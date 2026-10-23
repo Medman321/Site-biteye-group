@@ -162,6 +162,23 @@ body{background:var(--deep);color:var(--ink);font-family:var(--text);margin:0;ov
 #grain{position:absolute;inset:-50%;pointer-events:none;opacity:.10;mix-blend-mode:overlay;z-index:8;background-size:256px 256px}
 #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
 
+/* designed product screens (never the real interface) */
+.mock-flag{position:absolute;right:16px;bottom:12px;font-family:var(--text);font-size:15px;font-weight:600;color:#8A9187;letter-spacing:.04em}
+.sched{width:960px;max-width:100%;border-radius:32px;background:var(--paper);color:var(--paper-ink);padding:30px 34px 40px;font-family:var(--text);text-align:left;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+.sched h4{margin:0 0 4px;font-family:var(--display);font-size:40px;font-weight:800;letter-spacing:-.02em}
+.sched .sub{font-size:22px;color:var(--paper-dim);margin-bottom:18px}
+.sched .row{display:grid;grid-template-columns:1.1fr 1.4fr .8fr;white-space:nowrap;align-items:center;gap:12px;padding:16px 0;border-top:1px solid var(--paper-line);font-size:26px;font-weight:600}
+.sched .row span:nth-child(2){font-variant-numeric:tabular-nums;color:#3B423A}
+.pill{justify-self:end;padding:8px 16px;border-radius:999px;font-size:20px;font-weight:700}
+.pill.ok{background:#DDF5E4;color:#1D6B3A}.pill.wait{background:#FFF1D6;color:#8A5A00}.pill.late{background:#FDE2E2;color:#A12626}
+.phone{width:520px;border-radius:64px;background:#0b0f0c;padding:18px;box-shadow:0 40px 100px rgba(0,0,0,.6);position:relative}
+.phone .scr{border-radius:48px;background:var(--paper);color:var(--paper-ink);min-height:900px;padding:70px 26px 30px;font-family:var(--text);text-align:left;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
+.phone .notch{position:absolute;left:50%;top:22px;width:130px;height:34px;margin-left:-65px;border-radius:20px;background:#0b0f0c}
+.phone .hd{font-family:var(--display);font-size:34px;font-weight:800;letter-spacing:-.02em}
+.phone .card2{background:#fff;border:1px solid var(--paper-line);border-radius:24px;padding:20px 22px;display:flex;align-items:center;gap:16px;font-size:24px;font-weight:600}
+.phone .card2 i{width:54px;height:54px;border-radius:16px;background:var(--lime);display:grid;place-items:center;flex:none}
+.phone .card2 small{display:block;font-size:19px;color:var(--paper-dim);font-weight:500}
+
 /* landscape tweaks */
 #stage.land .cards{gap:60px}
 #stage.land .pillars{flex-direction:row}
@@ -329,6 +346,21 @@ function addMark(e, b) {
   HOOKS.push(t => { path.style.strokeDashoffset = 100*(1-inOut(p(t, at, at + (b.markDur||.55)))); });
   return w;
 }
+/* Échéancier acquéreurs (maquette dessinée, données fictives) */
+B.schedule = (b, sc) => {
+  const e = el('div','sched', `<h4>${esc(b.title||'Échéancier acquéreurs')}</h4><div class="sub">${esc(b.subtitle||'')}</div>`);
+  (b.rows||[]).forEach((r,i) => { const d = el('div','row', `<span>${esc(r[0])}</span><span>${esc(r[1])}</span><span class="pill ${r[3]||'ok'}">${esc(r[2])}</span>`); e.appendChild(d); A(d, (b.rowsAt ?? b.at + .5) + i*(b.every ?? .3), sc.end, 'left', {dx:-40, dur:.4}); });
+  if (b.fictive !== false) e.appendChild(el('div','mock-flag','Données fictives'));
+  return e;
+};
+/* Écran de l'application mobile (maquette dessinée) */
+B.phone = (b, sc) => {
+  const e = el('div','phone'), scr = el('div','scr', `<div class="notch"></div><div class="hd">${mk(b.title||'VISION')}</div>`);
+  e.appendChild(scr);
+  (b.items||[]).forEach((it,i) => { const d = el('div','card2', `<i>${icon(it.icon||'check',30)}</i><div>${mk(it.text)}${it.sub?`<small>${esc(it.sub)}</small>`:''}</div>`); scr.appendChild(d); A(d, it.at ?? b.at + .5 + i*.4, sc.end, 'up', {dy:40, dur:.4}); });
+  if (b.fictive !== false) scr.appendChild(el('div','mock-flag','Données fictives'));
+  return e;
+};
 B.spacer = b => { const e = el('div'); e.style.height = (b.h||40)+'px'; e.dataset.self='1'; return e; };
 B.html = b => el('div', null, b.html);
 
@@ -404,6 +436,7 @@ B.app = (b, sc) => {
   const m = el('div','main', `<div><h3>${esc(b.title||'')}</h3>${b.subtitle?`<div class="sub">${esc(b.subtitle)}</div>`:''}</div>`); bd.appendChild(m);
   if (b.kpis) m.appendChild(kpisEl(b.kpis, b.kpisAt ?? b.at + .9));
   if (b.bars) m.appendChild(barsEl(b.bars, b.barsAt ?? b.at + 1.5));
+  e.style.position = 'relative'; if (b.fictive !== false) e.appendChild(el('div','mock-flag','Données fictives'));
   return e;
 };
 function mediaEl(b, sc, cls='media') {

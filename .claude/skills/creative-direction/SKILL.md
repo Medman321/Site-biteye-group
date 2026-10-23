@@ -25,14 +25,21 @@ Moteur : `"flashes": [0.0]`, animation `slam` ou `punch` sur le premier titre, `
 ## 2. La touche humaine (au moins 3 par vidéo)
 
 - **Une vraie voix** : celle du demandeur, d'un client, d'un chef de chantier. La voix de synthèse vient en dernier recours.
-- **De vrais visages et de vrais lieux** : photos et vidéos du client (chantier, bureau, équipe, remise des clés), avec un bandeau nom + rôle (`lowerthird`).
+- **De vrais visages et de vrais lieux** : photos et vidéos du client (chantier, bureau, équipe, remise des clés). Chaque voix réelle a son bandeau nom + poste + photo (`lowerthird`) quand elle commence à parler.
 - **Le geste de la main** : notes manuscrites (`note`), mots entourés ou soulignés à la main (`mark`), polaroïds avec du scotch (`polaroid`), autocollants (`sticker`). Avec parcimonie : 1 ou 2 par scène.
 - **Les canaux du quotidien** : conversations WhatsApp (`chat`), texte tapé en direct (`typewriter`).
 - **L'imperfection assumée** : léger tremblé de caméra (`"handheld": 0.6` à `1`), grain (`"grain": 0.08` à `0.14`), son d'ambiance réel (chantier, bureau) sous la voix.
 - **La langue et les références locales** : darija naturelle, wilayas, F3/F4, VSP, G50, café du matin, Ramadan, rentrée. Humour léger et respectueux.
 - **Un vrai témoignage** dès qu'il existe (`quote` + photo + nom), avec l'accord de la personne.
 
-## 3. À bannir (le « look IA générique »)
+## 3. Les écrans du logiciel : toujours dessinés
+
+On ne montre **jamais** la vraie interface de VISION, même si des captures sont fournies : elle ne doit pas être divulguée, et une maquette dessinée est plus lisible en vidéo. Les captures du client servent seulement de référence (quelles informations, quel vocabulaire).
+- Blocs : `app` (tableau de bord : indicateurs, avancement par lot), `schedule` (échéancier acquéreurs, statuts en pastilles), `phone` (application mobile), `chat`.
+- Une maquette = une seule idée lisible en 2 s : 3 indicateurs, 4 ou 5 lignes, gros caractères, statuts en couleur.
+- Données fictives et plausibles (« Résidence Les Oliviers », « Bloc C », « F3 »), avec la mention « Données fictives » en bas de l'écran (automatique ; `fictive: false` interdit sauf accord écrit du demandeur).
+
+## 4. À bannir (le « look IA générique »)
 
 - Particules lumineuses, néons violets ou bleus, dégradés « tech », robots, hologrammes, cerveaux, globes.
 - Images générées par IA de personnes, de chantiers ou de bureaux. Photos de banque d'images avec des gens « trop parfaits ».
@@ -42,12 +49,12 @@ Moteur : `"flashes": [0.0]`, animation `slam` ou `punch` sur le premier titre, `
 - Textes centrés qui disent la même chose que la voix, mot pour mot : l'écran **montre** (chiffre, écran, objet), la voix **raconte**.
 - Durée trop longue : chaque scène doit apporter une information nouvelle, sinon coupe.
 
-## 4. Structure narrative (30 à 45 s)
+## 5. Structure narrative (30 à 45 s)
 
 Hook (0–2 s) → problème vécu (2–8 s) → « et si… » / bascule (8–12 s) → la solution montrée dans le vrai métier (12–30 s : 2 ou 3 preuves concrètes, pas 7) → preuve sociale ou chiffre client (si fourni) → appel à l'action simple (dernières 3–4 s).
 Variante 15 s : hook → une preuve → CTA.
 
-## 5. Par plateforme
+## 6. Par plateforme
 
 | Plateforme | Format | Durée conseillée | Particularités |
 |---|---|---|---|
@@ -63,7 +70,7 @@ Vérifie les spécifications du moment par une recherche web si la demande vise 
 
 Voix plus longue que la durée conseillée : propose dans la proposition des coupes précises (pauses, phrase répétée) avec la durée obtenue ; le demandeur tranche. Ne coupe jamais une voix sans son accord.
 
-## 6. Grille de contrôle avant livraison
+## 7. Grille de contrôle avant livraison
 
 Note chaque point sur la planche (`sheet.jpg`) et dans le compte rendu :
 
@@ -74,5 +81,7 @@ Note chaque point sur la planche (`sheet.jpg`) et dans le compte rendu :
 5. Sous-titres lisibles et hors des zones de la plateforme ?
 6. Une seule promesse claire et un seul CTA, choisi selon la nature de la vidéo (`biteye-brand`) ?
 7. Chiffres et noms : fournis par le client, ou signalés comme exemples ?
+8. Chaque voix réelle a son bandeau nom + poste (+ photo) ? Les écrans du logiciel sont des maquettes marquées « Données fictives » ?
+9. Les pauses qui séparent les idées sont-elles gardées après une coupe de la voix ?
 
 Un « non » = corrige avant de rendre le MP4.
