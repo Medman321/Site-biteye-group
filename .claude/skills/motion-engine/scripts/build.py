@@ -18,6 +18,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(HERE, '..', 'engine', 'template.html')
 FORMATS = {'9:16': (1080, 1920), '16:9': (1920, 1080), '1:1': (1080, 1080), '4:5': (1080, 1350)}
 EMBED_LIMIT = 14 * 1024 * 1024
+# "v2" = forest + lime (site V2, default). "officiel" = navy + turquoise of the BitEye eye logo.
+THEMES = {'officiel': [('#0F1A14', '#022539'), ('#0A120D', '#011A29'), ('#C4EF4E', '#03DA9F'), ('#c4ef4e', '#03da9f'),
+                       ('rgba(196,239,78', 'rgba(3,218,159'), ('#2F6A1F', '#027A5B'), ('#F2EFE8', '#EAEEF1'),
+                       ('rgba(242,239,232', 'rgba(234,238,241'), ('rgba(10,18,13', 'rgba(1,26,41'), ('rgba(5,9,7', 'rgba(0,12,20')]}
 
 
 def run(cmd):
@@ -159,6 +163,12 @@ def main():
     cfg['duration'] = dur
     render['duration'] = dur
 
+    theme = sb.get('theme', 'v2')
+    if theme == 'officiel':
+        media_src['__logo'] = os.path.join(HERE, '..', '..', 'biteye-brand', 'assets', 'logo-officiel.png')
+    for k in ('grain', 'handheld', 'flashes', 'safe'):
+        if k in sb: cfg[k] = sb[k]
+
     prepared, total = {}, 0
     for key, p in media_src.items():
         dst, mime = prepare_media(key, rel(p), mdir)
@@ -176,6 +186,10 @@ def main():
     page = open(TEMPLATE, encoding='utf-8').read()
     page = page.replace('__TITLE__', sb.get('title', 'Vidéo BitEye').replace('<', '&lt;'))
     page = page.replace('/*__CONFIG__*/null', js(cfg)).replace('/*__MEDIA__*/{}', js(media))
+
+    if theme == 'officiel':
+        for old, new in THEMES['officiel']:
+            page = page.replace(old, new)
 
     html = os.path.join(out, slug + '.html')
     local = os.path.join(out, slug + '.local.html')

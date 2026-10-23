@@ -1,7 +1,7 @@
 <title>__TITLE__</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@600;700&family=Caveat:wght@600;700&family=Aref+Ruqaa:wght@700&display=swap">
 <style>
 /* BitEye motion engine. One stage (W×H from the storyboard) scaled to fit, player bar under it.
    Single dark brand look: forest + lime. Every animation is a pure function of time t (render(t)). */
@@ -12,6 +12,7 @@
   --display:"Inter Tight","Inter",system-ui,sans-serif;
   --text:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --arabic:"IBM Plex Sans Arabic","Noto Sans Arabic",Tahoma,sans-serif;
+  --hand:"Caveat","Segoe Print","Bradley Hand",cursive; --hand-ar:"Aref Ruqaa","IBM Plex Sans Arabic",serif;
   color-scheme:dark;
 }
 html,body{height:100%}
@@ -27,6 +28,7 @@ body{background:var(--deep);color:var(--ink);font-family:var(--text);margin:0;ov
 #glow{position:absolute;left:50%;top:43%;width:1500px;height:1500px;margin:-750px 0 0 -750px;border-radius:50%;
   background:radial-gradient(circle,rgba(196,239,78,.20) 0%,rgba(196,239,78,.06) 35%,transparent 65%)}
 #grid{position:absolute;inset:-60px;background-image:radial-gradient(rgba(242,239,232,.10) 1.6px,transparent 1.7px);background-size:60px 60px}
+#scenes{position:absolute;inset:0;transform-origin:50% 50%}
 #vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 50%,rgba(5,9,7,.75) 100%);pointer-events:none}
 
 /* scenes */
@@ -130,6 +132,36 @@ body{background:var(--deep);color:var(--ink);font-family:var(--text);margin:0;ov
 .ring{position:absolute;left:50%;top:45%;border-radius:50%;border:4px solid var(--lime);pointer-events:none}
 .flag{display:block}
 
+/* human touch */
+.note{font-family:var(--hand);font-weight:700;font-size:72px;line-height:1.05;color:var(--lime);transform-origin:50% 50%}
+.note.ar{font-family:var(--hand-ar);direction:rtl}
+.note.ink{color:var(--ink)}
+.markwrap{position:relative;display:inline-block}
+.markwrap>svg.mark{position:absolute;left:-6%;top:-18%;width:112%;height:136%;overflow:visible;pointer-events:none}
+.markwrap>svg.mark path{fill:none;stroke:var(--lime);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.polaroid{background:#F7F5F0;padding:22px 22px 0;border-radius:6px;box-shadow:0 30px 60px rgba(0,0,0,.45);width:100%}
+.polaroid .media{border-radius:2px;box-shadow:none}
+.polaroid .cap{font-family:var(--hand);font-weight:700;font-size:52px;color:#1b231d;text-align:center;padding:14px 0 18px}
+.tape{position:absolute;left:50%;top:-22px;width:170px;height:46px;margin-left:-85px;background:rgba(242,239,232,.55);transform:rotate(-4deg);box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.sticker{display:inline-block;background:var(--lime);color:var(--on-lime);font-weight:800;font-size:44px;padding:16px 30px;border-radius:14px;box-shadow:0 10px 0 rgba(0,0,0,.25);letter-spacing:-.01em}
+.chat{display:flex;flex-direction:column;gap:18px;width:100%;max-width:900px;font-family:var(--text)}
+.bub{max-width:82%;padding:22px 28px 14px;border-radius:30px;font-size:46px;line-height:1.3;text-align:left;position:relative;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.bub.in{align-self:flex-start;background:#F7F5F0;color:#101411;border-bottom-left-radius:8px}
+.bub.out{align-self:flex-end;background:#D9FDD3;color:#0b1b0f;border-bottom-right-radius:8px}
+.bub small{display:block;text-align:right;font-size:20px;opacity:.55;margin-top:6px}
+.bub .who{display:block;font-size:22px;font-weight:700;color:var(--lime-deep);margin-bottom:4px}
+.typing{display:inline-flex;gap:8px;padding:22px 28px;border-radius:30px;background:#F7F5F0;align-self:flex-start}
+.typing i{width:14px;height:14px;border-radius:50%;background:#7b827a;display:block}
+.typer{font-family:var(--text);font-weight:600;font-size:52px;text-align:left;white-space:pre-wrap}
+.typer .cur{display:inline-block;width:.08em;height:1em;background:var(--lime);vertical-align:-.12em;margin-left:.04em}
+.lower{display:flex;align-items:center;gap:22px;background:rgba(10,18,13,.82);border:1px solid var(--line);border-radius:22px;padding:18px 28px 18px 18px;text-align:left}
+.lower .av{width:84px;height:84px;border-radius:50%;background:var(--lime);display:grid;place-items:center;font-weight:800;font-size:36px;color:var(--on-lime);overflow:hidden;flex:none}
+.lower .av img{width:100%;height:100%;object-fit:cover}
+.lower b{display:block;font-size:40px;font-weight:800}
+.lower span{display:block;font-family:var(--text);font-size:26px;color:var(--soft)}
+#grain{position:absolute;inset:-50%;pointer-events:none;opacity:.10;mix-blend-mode:overlay;z-index:8;background-size:256px 256px}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
+
 /* landscape tweaks */
 #stage.land .cards{gap:60px}
 #stage.land .pillars{flex-direction:row}
@@ -206,18 +238,19 @@ const ICONS = {
   spark:'<path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l4 4M15 15l4 4M19 5l-4 4M9 15l-4 4"/>'
 };
 const icon = (n, size=64, color='#0F1A14') => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]||ICONS.spark}</svg>`;
-const LOGO = (size, id='') => `<svg class="logo" ${id?`id="${id}"`:''} width="${size}" height="${size}" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0A120D" stroke="rgba(242,239,232,.2)" stroke-width=".4"/><path d="M5 21C9 10 23 10 27 21" fill="none" stroke="#C4EF4E" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="19.5" r="4.5" fill="#C4EF4E"/></svg>`;
+const LOGO = (size, id='') => MEDIA.__logo ? `<img class="logo" src="${MEDIA.__logo}" width="${size}" height="${size}" alt="BitEye">` : `<svg class="logo" ${id?`id="${id}"`:''} width="${size}" height="${size}" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0A120D" stroke="rgba(242,239,232,.2)" stroke-width=".4"/><path d="M5 21C9 10 23 10 27 21" fill="none" stroke="#C4EF4E" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="19.5" r="4.5" fill="#C4EF4E"/></svg>`;
 const FLAG_DZ = '<svg class="flag" width="72" height="48" viewBox="0 0 3 2"><rect width="1.5" height="2" fill="#1E7A3C"/><rect x="1.5" width="1.5" height="2" fill="#fff"/><circle cx="1.5" cy="1" r=".5" fill="#D21034"/><circle cx="1.625" cy="1" r=".4" fill="#fff"/><polygon fill="#D21034" points="1.72,1 1.92,.86 1.84,1.08 1.84,.92 1.92,1.14"/></svg>';
 
 /* ---------- Animation registry ---------- */
 const ANIMS = [], HOOKS = [], VIDEOS = [];
 const KINDS = {
   up:{dy:60}, down:{dy:-60}, left:{dx:-160,dy:0}, right:{dx:160,dy:0}, fade:{dy:0},
-  pop:{dy:0,s:.6,ease:outBack,dur:.5}, zoom:{dy:0,s:1.35,dur:.5,ease:outBack}, rise:{dy:160,s:.9,dur:.75}
+  pop:{dy:0,s:.6,ease:outBack,dur:.5}, zoom:{dy:0,s:1.35,dur:.5,ease:outBack}, rise:{dy:160,s:.9,dur:.75},
+  punch:{dy:0,s:1.7,dur:.28,ease:outExpo}, drop:{dy:-220,ease:outBack,dur:.55}, slam:{dy:0,s:2.4,dur:.22,ease:outExpo}
 };
 function A(e, tin, tout, kind='up', o={}) {
   const k = Object.assign({dx:0,dy:60,s:1,ease:outExpo,dur:.6,ody:-50,odx:0,os:1,outDur:.4}, KINDS[kind]||{}, o);
-  ANIMS.push(Object.assign({el:e, tin, tout}, k));
+  ANIMS.push(Object.assign({el:e, tin, tout, rot:0}, k));
 }
 function runAnims(t) {
   for (const a of ANIMS) {
@@ -225,7 +258,7 @@ function runAnims(t) {
     const k = a.ease(p(t, a.tin, a.tin + a.dur)), b = inOut(p(t, a.tout, a.tout + a.outDur));
     const x = a.dx*(1-k) + a.odx*b, y = a.dy*(1-k) + a.ody*b, s = lerp(a.s, 1, k) * lerp(1, a.os, b);
     a.el.style.opacity = clamp(p(t, a.tin, a.tin + a.dur*.5)) * (1-b);
-    a.el.style.transform = `translate(${x}px,${y}px) scale(${s})`;
+    a.el.style.transform = `translate(${x}px,${y}px) scale(${s})` + (a.rot ? ` rotate(${a.rot}deg)` : '');
   }
 }
 
@@ -245,12 +278,57 @@ B.chip = b => el('div','chip', (b.flag==='dz'?FLAG_DZ:'') + (b.icon?icon(b.icon,
 B.chips = b => el('div','chips', b.items.map(x=>`<span>${esc(x)}</span>`).join(''));
 B.logo = (b, sc) => {
   const e = el('div', null, LOGO(b.size||260)); const path = e.querySelector('path'), dot = e.querySelector('circle');
+  if (!path) { HOOKS.push(t => { const k = outBack(p(t, b.at, b.at+.6)); e.firstChild.style.transform = `rotate(${(1-clamp(k))*-25}deg) scale(${1 + Math.sin(Math.max(0,t-b.at-.6)*2)*.015})`; }); return e; }  // official logo image
   if (b.draw !== false) HOOKS.push(t => { path.style.strokeDashoffset = 60*(1-inOut(p(t, b.at+.1, b.at+.8))); dot.setAttribute('r', 4.5*clamp(outBack(p(t, b.at+.7, b.at+1.1)),0,1.2) + envAt(t)*.6); });
   return e;
 };
 B.wordmark = b => { const e = el('div','wordmark', mk(b.text || 'VISION *Workspace*')); if (b.size) e.style.fontSize=b.size+'px'; return e; };
 B.cta = b => { const e = el('div','cta', mk(b.text)); HOOKS.push(t => { e.style.transform = `scale(${1 + Math.max(0,Math.sin((t-b.at-.6)*3.2))*.035})`; }); const w = el('div'); w.appendChild(e); return w; };
 B.url = b => el('div','url', mk(b.text || 'biteye-group.com'));
+/* ---- human-touch blocks ---- */
+B.note = b => { const e = el('div','note'+(b.ar?' ar':'')+(b.color==='ink'?' ink':''), mk(b.text)); if (b.size) e.style.fontSize=b.size+'px'; return e; };
+B.sticker = b => { const w = el('div'); w.appendChild(el('div','sticker', mk(b.text))); return w; };
+B.typewriter = (b, sc) => {
+  const e = el('div','typer'); if (b.size) e.style.fontSize=b.size+'px'; const txt = b.text, cps = b.cps || 18;
+  const span = el('span'), cur = el('i','cur'); e.appendChild(span); e.appendChild(cur);
+  HOOKS.push(t => { const n = Math.max(0, Math.min(txt.length, Math.floor((t - b.at) * cps))); span.textContent = txt.slice(0, n); cur.style.opacity = (n < txt.length || Math.floor(t*2.2)%2===0) ? 1 : 0; });
+  return e;
+};
+B.chat = (b, sc) => {
+  const e = el('div','chat'); e.dataset.self='1';
+  (b.items||[]).forEach((m,i) => {
+    const at = m.at ?? b.at + i*1.2;
+    if (m.typing !== false && m.from !== 'out') { const ty = el('div','typing','<i></i><i></i><i></i>'); e.appendChild(ty);
+      const dots = [...ty.children]; HOOKS.push(t => { const on = t >= at - .9 && t < at; ty.style.display = on ? 'inline-flex' : 'none'; dots.forEach((d,j) => d.style.transform = `translateY(${on ? Math.sin(t*10 - j)*5 : 0}px)`); }); }
+    const d = el('div','bub '+(m.from==='out'?'out':'in'), (m.who?`<span class="who">${esc(m.who)}</span>`:'') + mk(m.text) + `<small>${esc(m.time||'')}${m.from==='out'?' ✓✓':''}</small>`);
+    e.appendChild(d); A(d, at, sc.end, 'pop', {s:.85, dur:.35});
+    HOOKS.push(t => { d.style.display = t >= at ? '' : 'none'; });
+  });
+  return e;
+};
+B.lowerthird = b => el('div','lower', `<div class="av">${b.photo?`<img src="${src(b.photo)}" alt="">`:esc((b.name||'?').trim()[0])}</div><div><b>${esc(b.name)}</b>${b.role?`<span>${esc(b.role)}</span>`:''}</div>`);
+B.polaroid = (b, sc) => {
+  const w = el('div','polaroid'); w.style.maxWidth = (b.width||760)+'px'; w.style.position='relative';
+  w.appendChild(el('div','tape')); w.appendChild(mediaEl(Object.assign({aspect: b.aspect || '1/1'}, b, {label:null}), sc));
+  if (b.caption) w.appendChild(el('div','cap', mk(b.caption)));
+  return w;
+};
+/* Hand-drawn mark around any block: "mark": "circle" | "underline" | "arrow" | "cross" | "check" */
+const MARKS = {
+  circle:'M 52 8 C 20 6 3 22 5 50 C 7 80 35 95 60 93 C 88 91 99 70 96 45 C 93 20 70 6 40 12',
+  underline:'M 3 92 C 25 86 55 90 97 84',
+  arrow:'M 2 60 C 20 40 40 95 70 70 M 58 64 L 72 69 L 66 82',
+  cross:'M 10 15 L 90 85 M 88 12 L 12 88',
+  check:'M 8 55 L 38 85 L 94 10'
+};
+function addMark(e, b) {
+  const w = el('div','markwrap'); w.appendChild(e);
+  const svg = `<svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="100" d="${MARKS[b.mark]||MARKS.circle}" style="stroke-dasharray:100;stroke-dashoffset:100${b.markColor?';stroke:'+b.markColor:''}"/></svg>`;
+  w.insertAdjacentHTML('beforeend', svg);
+  const path = w.querySelector('path'), at = b.markAt ?? b.at + .5;
+  HOOKS.push(t => { path.style.strokeDashoffset = 100*(1-inOut(p(t, at, at + (b.markDur||.55)))); });
+  return w;
+}
 B.spacer = b => { const e = el('div'); e.style.height = (b.h||40)+'px'; e.dataset.self='1'; return e; };
 B.html = b => el('div', null, b.html);
 
@@ -369,12 +447,28 @@ const ILLUS_HOOK = {
 
 /* ---------- Build stage ---------- */
 const stage = $('stage'), scenesEl = $('scenes');
+/* Film grain: one noise tile drawn once, moved every frame (deterministic in t). */
+let grainEl = null;
+if (CFG.grain) {
+  const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'), im = g.createImageData(256,256);
+  let sd = 7; const rnd = () => (sd = (sd*16807) % 2147483647) / 2147483647;
+  for (let i=0;i<im.data.length;i+=4) { const v = 128 + (rnd()-.5)*255; im.data[i]=im.data[i+1]=im.data[i+2]=v; im.data[i+3]=255; }
+  g.putImageData(im,0,0); grainEl = el('div'); grainEl.id='grain'; grainEl.style.backgroundImage = `url(${c.toDataURL()})`;
+  if (typeof CFG.grain === 'number') grainEl.style.opacity = CFG.grain; stage.appendChild(grainEl);
+}
+const flashEl = el('div'); flashEl.id = 'flash'; stage.appendChild(flashEl);
+const FLASHES = CFG.flashes || [];
+/* Handheld camera: slow, deterministic wobble of the whole picture (0 = tripod). */
+const HAND = CFG.handheld || 0;
+const wob = (t, f, ph) => Math.sin(t*f + ph) + .5*Math.sin(t*f*2.3 + ph*1.7);
 stage.style.width = W+'px'; stage.style.height = H+'px';
 if (LAND) stage.classList.add('land');
 const CAP_ON = !!(CFG.captions && CFG.captions.phrases && CFG.captions.phrases.length);
 const WAVE_ON = !!(CFG.audio && CFG.wave !== false);
-const capTop = LAND ? H - 250 : H - 450;
-const padTop = CFG.brand === false ? 120 : (LAND ? 150 : 190);
+/* "safe": keep text out of the zones covered by Reels / TikTok / Shorts buttons and captions. */
+const SAFE = !!CFG.safe && !LAND;
+const capTop = LAND ? H - 250 : (SAFE ? H - 640 : H - 450);
+const padTop = (CFG.brand === false ? 120 : (LAND ? 150 : 190)) + (SAFE ? 70 : 0);
 const padBot = (CAP_ON ? H - capTop + (LAND ? 30 : 40) : (WAVE_ON ? 220 : 120));
 
 const SCENES = CFG.scenes.map(sc => {
@@ -396,8 +490,8 @@ const SCENES = CFG.scenes.map(sc => {
   (sc.blocks||[]).forEach((b,i) => {
     b.at = b.at ?? sc.start + .15 + i*.2;
     const fn = B[b.type]; if (!fn) { console.warn('bloc inconnu', b.type); return; }
-    const e = fn(b, sc, stage); (cols ? cols[i < sc.split ? 0 : 1] : inner).appendChild(e);
-    if (!e.dataset.self) A(e, b.at, b.out ?? sc.end, b.anim || 'up', b.animOpts || {});
+    let e = fn(b, sc, stage); if (b.mark) e = addMark(e, b); (cols ? cols[i < sc.split ? 0 : 1] : inner).appendChild(e);
+    if (!e.dataset.self) A(e, b.at, b.out ?? sc.end, b.anim || 'up', Object.assign({rot: b.tilt || 0}, b.animOpts || {}));
     else if (b.type !== 'rings') { e.style.opacity = 1; }
   });
   return {sc, s, inner, box};
@@ -416,7 +510,7 @@ function fitScenes() {
 
 let brandEl = null;
 if (CFG.brand !== false) {
-  brandEl = el('div','a', `${LOGO(56)}VISION Workspace<small>par BitEye</small>`); brandEl.id = 'brand'; stage.appendChild(brandEl);
+  brandEl = el('div','a', `${LOGO(56)}VISION Workspace<small>par BitEye</small>`); brandEl.id = 'brand'; if (SAFE) brandEl.style.top = '150px'; stage.appendChild(brandEl);
 }
 const BRAND_SPANS = CFG.brandSpans || [[.3, DUR - 4]];
 
@@ -456,6 +550,9 @@ function render(t) {
   $('glow').style.transform = `scale(${.9 + e*.25 + Math.sin(t*.8)*.03})`;
   $('glow').style.opacity = .55 + e*.45;
   $('grid').style.transform = `translate(${(t*6)%60}px,${(t*10)%60}px)`;
+  if (grainEl) grainEl.style.transform = `translate(${(Math.floor(t*24)*37)%256}px,${(Math.floor(t*24)*91)%256}px)`;
+  let fl = 0; for (const f of FLASHES) fl = Math.max(fl, (1 - p(t, f, f + .25)) * (t >= f ? 1 : 0)); flashEl.style.opacity = fl * .85;
+  if (HAND) scenesEl.style.transform = `translate(${wob(t,.9,1)*6*HAND}px,${wob(t,1.1,4)*5*HAND}px) rotate(${wob(t,.7,2)*.35*HAND}deg) scale(${1+.012*HAND})`;
   if (brandEl) {
     let o = 0; for (const [a,b] of BRAND_SPANS) o = Math.max(o, outExpo(p(t,a,a+.6)) * (1-inOut(p(t,b,b+.4))));
     brandEl.style.opacity = o; brandEl.style.transform = `translateY(${(1-o)*-20}px)`;

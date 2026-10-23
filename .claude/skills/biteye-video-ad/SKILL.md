@@ -1,75 +1,64 @@
 ---
 name: biteye-video-ad
-description: Produire une vidéo publicitaire motion design BitEye / VISION Workspace, livrée en MP4 et en page HTML synchronisée, à partir d'un mémo vocal, de photos, de séquences vidéo ou de simples données (chiffres, texte, script). À utiliser pour toute demande de vidéo, pub, reel, story, spot, clip promo ou motion design.
+description: Produire une vidéo marketing motion design BitEye / VISION Workspace, livrée en MP4 et en page HTML synchronisée, à partir d'un mémo vocal, de photos, de séquences vidéo ou de données. Méthode complète : questions de cadrage, analyse des médias, studio audio gratuit, veille web, proposition à valider, production, contrôle. À utiliser pour toute demande de vidéo, pub, reel, story, spot, clip promo ou motion design.
 ---
 
-# Vidéo publicitaire BitEye — méthode de bout en bout
+# Vidéo marketing BitEye : la méthode
 
-Ce skill orchestre les quatre autres :
-
-| Étape | Skill | Rôle |
+| Étape | Skill | Qui (voir `.claude/CLAUDE.md`) |
 |---|---|---|
-| Analyser | `media-analysis` | voix → transcription mot à mot + pauses ; photos et vidéos → contenu, cadrage, plans |
-| Écrire (si pas de voix) | `voiceover-script` | script darija/français, voix off ElevenLabs, musique |
-| Habiller | `biteye-brand` | couleurs, logo, ton, vocabulaire métier, mentions obligatoires |
-| Monter et rendre | `motion-engine` | storyboard.json → HTML synchronisé → MP4 |
+| 0. Cadrer | ce fichier, §0 | session principale (questions au demandeur) |
+| 1. Analyser et préparer les médias | `media-analysis`, `audio-studio`, `media-lab` | agents `biteye-audio-engineer` et `biteye-media-editor`, en parallèle |
+| 2. Veille + proposition | `marketing-research`, `creative-direction`, `biteye-brand` | agent `biteye-marketing-strategist` |
+| — validation par le demandeur — | | session principale |
+| 3. Produire | `motion-engine`, `creative-direction` | agent `biteye-video-producer` |
+| 4. Livrer | ce fichier, §4 | session principale |
 
-Lis chaque SKILL.md au moment de l'étape (chemins : `.claude/skills/<nom>/SKILL.md`).
+Lis chaque SKILL.md au moment de l'étape (`.claude/skills/<nom>/SKILL.md`). Outils gratuits : `bash .claude/skills/biteye-video-ad/scripts/setup_free_tools.sh` une fois par session.
 
-## 1. Cadrer la demande (sans bloquer)
+## 0. Questions de cadrage (avant tout travail)
 
-Relève dans la demande, sinon prends le défaut et dis-le dans le compte rendu :
+Pose-les en une fois (AskUserQuestion, 4 questions maximum par appel ; deux appels si nécessaire). Saute celles dont la réponse est déjà dans la demande.
 
-- **Format** : `9:16` (Reels, TikTok, Stories, Status WhatsApp) par défaut ; `16:9` (YouTube, écran salon, site) ; `1:1` ou `4:5` (fil Facebook / Instagram). Plusieurs formats demandés → un storyboard par format (même contenu, mise en page revue).
-- **Durée** : celle de la voix + 2,5 à 4 s d'écran final, arrondie. Sans voix : 15 s, 30 s ou 45 s.
-- **Public et langue** : promoteurs, entreprises de réalisation, syndics de copropriété en Algérie. Sous-titres dans la langue parlée (darija en lettres latines par défaut), titres à l'écran en français.
-- **Appel à l'action** : « Demande ta démo » (tutoiement si la voix tutoie) ou « Demandez votre démo », + `biteye-group.com`.
+1. **Diffusion** (choix multiple) : Reels Instagram / TikTok / YouTube Shorts · Story ou statut WhatsApp · fil Facebook / Instagram · LinkedIn · YouTube (vidéo ou pré-roll) · site officiel (en-tête, page produit) · salon / écran.
+   → déduit les formats (`creative-direction` §5). Plusieurs diffusions = plusieurs sorties.
+2. **Objectif** : faire connaître VISION · obtenir des demandes de démo · lancer un module (Estate, Build, Co-Owner) · témoignage client · événement (salon, offre) · recrutement.
+3. **Cible et langue** : promoteurs · entreprises de réalisation · syndics · acquéreurs ; darija · français · arabe · mélange.
+4. **Style** : terrain et humain (chantier, équipe, WhatsApp) · pédagogique (écrans du logiciel) · témoignage · humour léger. Identité : officielle (œil turquoise) ou site V2 (vert et citron), tant que BitEye n'a pas tranché (`biteye-brand`).
+5. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, CTA (démo, WhatsApp, site, téléphone), durée maximale, musique fournie.
 
-Ne pose une question que si un élément manque et qu'aucun défaut raisonnable n'existe (par exemple : des chiffres clients à afficher sans source).
+Note les réponses dans `$OUT/brief.json`. Sans réponse à une question : défaut raisonnable, signalé dans le compte rendu.
 
-## 2. Préparer un dossier de travail
+## 1. Analyser et préparer
 
-```
-OUT=<scratchpad de la session>/video-<slug>    # sinon ./.video-out/<slug> (ignoré par git)
-mkdir -p "$OUT/src"   # copier ici les médias reçus (voix, photos, clips)
-```
-Ne jamais écrire les médias du client dans le dépôt : le site est publié par GitHub Pages.
+Dossier de travail : `OUT=<scratchpad>/video-<slug>` (sinon `./.video-out/<slug>`, ignoré par git). Médias reçus copiés dans `$OUT/src`. Jamais de média dans le dépôt Git (le site est public).
 
-## 3. Analyser les médias
+- **Voix** (`audio-studio`) : `voice_studio.py` → `voix_studio.mp3` + rapport avant / après ; puis mots minutés avec `transcribe_local.py` (texte fourni ou Whisper local). ElevenLabs uniquement en option, avec accord.
+- **Vidéos et photos** (`media-analysis` puis `media-lab`) : inventaire, planches regardées avec Read, plans choisis, coupés, stabilisés, recadrés, étalonnés ; photos recadrées, corrigées, éventuellement détourées.
+- Résultat : `$OUT/media.md`, avec une ligne par média prêt (chemin, contenu, durée, usage proposé).
 
-Suis `media-analysis`. Résultat attendu dans `$OUT` :
-- `analysis/analysis.json` (durées, pauses, plans, orientation) ;
-- `words.json` (transcription mot à mot) pour toute voix ;
-- une description écrite de chaque photo / plan vidéo après les avoir **regardés** avec Read (aperçus et planches générés).
+## 2. Veille et proposition
 
-## 4. Écrire le storyboard
+`marketing-research` : recherche web sur ce qui marche dans le secteur et sur la plateforme visée, mise à jour de l'empreinte BitEye, puis `$OUT/proposition.md` avec 2 ou 3 concepts conformes à `creative-direction` (hook, touches humaines, rien de générique). **Arrêt : le demandeur choisit un concept** (ou demande des changements) avant la production.
 
-1. Découpe la voix en **temps forts** : une scène par idée, bornée par les pauses (`silences`). Une longue pause (> 1,5 s) = moment idéal pour une révélation (logo, produit).
-2. Pour chaque scène, choisis les blocs (`motion-engine`) qui **montrent ce qui est dit** : chaque mot-clé prononcé déclenche son élément (`at` = `start` du mot dans `words.json`). C'est ce qui donne la synchronisation.
-3. Place les médias du client là où ils servent le propos : photo de chantier en fond (`background` avec Ken Burns), clip en bloc `video`, galerie pour plusieurs photos, mémo vocal conservé tel quel comme bande son.
-4. Termine toujours par l'écran final de marque (logo, VISION Workspace, accroche, CTA, site).
-5. Écris `$OUT/storyboard.json`. Modèles validés : `.claude/skills/motion-engine/examples/vision-darija-9x16/storyboard.json` (vertical) et `examples/vision-darija-16x9/storyboard.json` (paysage, scènes en `split`). Vérifie la zone utile du format (tableau dans `motion-engine`).
+## 3. Produire
 
-Règles de rythme : 1 idée visuelle toutes les 2 à 4 s ; jamais plus de ~12 mots de titre à l'écran ; entrée de chaque élément sur le mot, sortie de la scène 0,3 s avant la phrase suivante.
+1. Storyboard `$OUT/storyboard.json` à partir du concept validé et des médias préparés :
+   - une scène par idée, bornée par les pauses de la voix ; chaque élément entre sur le mot qui le nomme (`at` = `start` du mot) ;
+   - hook à l'image 0 ; au moins 3 touches humaines ; `safe: true` pour les formats verticaux sociaux ; `theme` selon la réponse au cadrage ;
+   - écran final adapté à la plateforme.
+   Modèles : `.claude/skills/motion-engine/examples/` (pub darija 9:16, sa version 16:9, hook + touches humaines).
+2. Build, puis planche :
+   ```
+   ENG=.claude/skills/motion-engine/scripts
+   python3 -I $ENG/build.py "$OUT/storyboard.json" --out "$OUT/out"
+   node $ENG/render.js "$OUT/out/<slug>.local.html" --stills "$OUT/out/stills"
+   ```
+3. Regarde `sheet.jpg` (Read) et le champ `fit`, puis applique la grille de contrôle de `creative-direction` §6. Une passe de corrections.
+4. MP4 : `node $ENG/render.js "$OUT/out/<slug>.local.html" --mp4 "$OUT/out/<slug>.mp4"`, puis `ffprobe` (durée, piste audio) et une image extraite au milieu.
+5. Un MP4 par format demandé : copie le storyboard, change `format` / `safe`, revois la mise en page (`split` en 16:9), contrôle la planche.
 
-## 5. Construire, vérifier, rendre
+## 4. Livrer
 
-```
-ENG=.claude/skills/motion-engine/scripts
-python3 -I $ENG/build.py "$OUT/storyboard.json" --out "$OUT/out"
-node $ENG/render.js "$OUT/out/<slug>.local.html" --stills "$OUT/out/stills"
-```
-Regarde `$OUT/out/stills/sheet.jpg` avec Read, et le champ `fit` de la sortie (scènes réduites sous 0,9 à alléger). Corrige ce qui déborde, se chevauche, est illisible ou mal synchronisé, puis reconstruis : **une seule passe de corrections**. Ensuite :
-```
-node $ENG/render.js "$OUT/out/<slug>.local.html" --mp4 "$OUT/out/<slug>.mp4"
-```
-Contrôle : `ffprobe` (durée, piste audio présente) et une image extraite au milieu de la vidéo.
-
-## 6. Livrer
-
-Fichiers à remettre :
-- `<slug>.mp4` — la vidéo, son inclus ;
-- `<slug>.local.html` — page autonome, s'ouvre dans un navigateur, voix synchronisée ;
-- `<slug>.html` — même page, à publier comme Artifact (pas de doctype, le publieur l'ajoute) ; si `sidecar_media` vaut true, publier aussi `media/*` via `files`.
-
-Compte rendu court au demandeur : tableau temps → ce qui est dit → ce qui est animé ; défauts retenus (format, CTA) ; données inventées pour l'exemple, signalées comme telles ; coût de transcription ou de voix ElevenLabs.
+- `<slug>.mp4` (un par format) ; `<slug>.local.html` (page autonome, voix synchronisée) ; `<slug>.html` à publier comme Artifact (avec `media/*` via `files` si `sidecar_media`).
+- Compte rendu : tableau temps → voix → animation ; grille de contrôle remplie ; défauts retenus ; données d'exemple signalées ; outils utilisés (gratuits ou payants, avec le coût) ; sources de la veille.

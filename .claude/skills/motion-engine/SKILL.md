@@ -68,6 +68,11 @@ Sans sous-titres, la zone gagne ~300 px de haut. Les cartes (560 px) et la maque
 | `music` | musique de fond, fondu en entrée et en sortie (fournie par le demandeur ; ne jamais télécharger de musique sans licence) |
 | `brandSpans` | intervalles où la barre « VISION Workspace » est visible en haut (la masquer pendant une révélation du logo) |
 | `poster` | instant affiché avant lecture (défaut : 1,5 s avant la fin) |
+| `theme` | `v2` (vert forêt + citron, défaut) ou `officiel` (bleu nuit + turquoise, logo œil officiel) — voir `biteye-brand` |
+| `safe` | `true` pour Reels / TikTok / Shorts / Stories : textes et sous-titres remontés hors des zones des boutons |
+| `grain` | grain de film, 0,06 à 0,14 (touche humaine, cache la compression) |
+| `handheld` | caméra à l'épaule, 0 (trépied) à 1 (léger tremblé) |
+| `flashes` | instants de flash blanc (coupe nette, hook) ; ex. `[0.0]` |
 
 ### Scène
 
@@ -80,7 +85,7 @@ La scène est visible de `start` à `end` (+0,4 s de sortie). `split: N` met les
 
 ### Blocs
 
-Champs communs : `at` (entrée, s — **mets le `start` du mot prononcé**), `anim` (`up` défaut, `down`, `left`, `right`, `fade`, `pop`, `zoom`, `rise`), `out` (sortie anticipée), `animOpts` (`dur`, `os` échelle de sortie, `outDur`…). Texte : `*mot*` = citron, `\n` = retour à la ligne.
+Champs communs : `at` (entrée, s — **mets le `start` du mot prononcé**), `anim` (`up` défaut, `down`, `left`, `right`, `fade`, `pop`, `zoom`, `rise`, `punch` et `slam` pour un hook, `drop` pour une photo posée), `out` (sortie anticipée), `tilt` (inclinaison en degrés, effet posé à la main), `mark` (`circle`, `underline`, `arrow`, `cross`, `check` : trait au feutre animé autour du bloc, `markAt`, `markColor`), `animOpts` (`dur`, `os` échelle de sortie, `outDur`…). Texte : `*mot*` = accent, `\n` = retour à la ligne.
 
 | type | champs | usage |
 |---|---|---|
@@ -105,9 +110,17 @@ Champs communs : `at` (entrée, s — **mets le `start` du mot prononcé**), `an
 | `cta` | `text` | bouton citron qui pulse |
 | `url` | `text` (défaut biteye-group.com) | site |
 | `rings` | `ats[]` | ondes décoratives (accueil, révélation) |
+| `note` | `text`, `size` (72), `ar`, `color:"ink"` | note manuscrite (Caveat ; `ar` : Aref Ruqaa) |
+| `sticker` | `text` | autocollant (avec `tilt`) |
+| `typewriter` | `text`, `cps` (lettres/s), `size` | texte tapé en direct avec curseur |
+| `chat` | `items[{who, text, time, from:"in"\|"out", at, typing}]` | conversation WhatsApp ; « en train d'écrire » avant chaque message reçu |
+| `lowerthird` | `name`, `role`, `photo` | bandeau nom + rôle d'une vraie personne |
+| `polaroid` | `src`, `caption`, `aspect`, `width` (760) | photo papier avec scotch et légende manuscrite |
 | `spacer` / `html` | `h` / `html` | espace / contenu libre (dernier recours) |
 
 Icônes : `chart building tower crane doc check key users wallet calendar tools map truck coins shield home phone spark`.
+
+Exemple de hook et de touches humaines : `examples/touche-humaine-9x16/storyboard.json`.
 
 ## Synchroniser avec la voix
 

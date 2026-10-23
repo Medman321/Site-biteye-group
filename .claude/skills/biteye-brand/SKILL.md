@@ -1,58 +1,71 @@
 ---
 name: biteye-brand
-description: Charte BitEye / VISION Workspace pour les vidéos et visuels — couleurs, typographies, logo, ton (darija, français), vocabulaire métier de l'immobilier algérien, mentions et appels à l'action. À lire avant d'écrire le texte ou de choisir les visuels d'une vidéo BitEye.
+description: Charte et empreinte de BitEye / VISION Workspace pour les vidéos — deux identités (officielle : œil turquoise sur bleu nuit ; site V2 : vert forêt et citron), logo, modules VISION Estate / Build / Co-Owner, ton, vocabulaire métier de l'immobilier algérien, données à confirmer, procédure de mise à jour depuis le site et les réseaux sociaux. À lire avant d'écrire le texte ou de choisir les visuels d'une vidéo BitEye.
 ---
 
-# Charte BitEye pour la vidéo
+# Charte et empreinte BitEye
 
-Source : le site `index.html` de ce dépôt (biteye-group.com). Si la charte du site change, mets ce fichier à jour.
+Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche Brandfetch de biteye-group.com (logo, couleurs et textes du site en ligne), recherches web. Aucun compte officiel BitEye n'a été trouvé sur Facebook, Instagram, LinkedIn, YouTube ou TikTok à cette date : demande les liens au demandeur et ajoute-les ici.
 
 ## Identité
 
-- **Entreprise** : BitEye, éditeur de logiciels de gestion pour les entreprises algériennes.
-- **Produit** : VISION Workspace, la plateforme de gestion de l'immobilier en Algérie : promotion immobilière, entreprises de réalisation, gestion de copropriété (syndic), dans une seule interface.
-- **Signature** : « La plateforme de l'immobilier en Algérie ». Variante : « Pensée pour l'Algérie ».
-- **Site** : `biteye-group.com`. Adresse de contact (à faire confirmer avant usage) : `contact@biteye-group.com`.
+- **BitEye** (« biteye » en minuscules dans le logotype), éditeur algérien de logiciels de gestion. Site : `biteye-group.com`.
+- **VISION Workspace** : la plateforme qui réunit les modules (« VISION » en capitales) :
+  - **VISION Estate** : promotion immobilière (ventes, réservations, échéanciers acquéreurs, appels de fonds, démarches administratives, trésorerie du projet) ;
+  - **VISION Build** : réalisation (lots, quantités, situations de travaux, budgets, coûts, avancement par lot) ;
+  - **VISION Co-Owner** : copropriété (tantièmes, répartition des charges, budget de l'immeuble, interventions, dossiers des résidents) ;
+  - modules complémentaires : stocks, fiscalité, RH, CRM, application mobile, multi-sociétés.
+- **Signatures** : « La plateforme de l'immobilier en Algérie » (site V2) ; « Logiciel de gestion immobilière pour promoteurs et constructeurs » ; « Chaque échéance, à temps. » (site en ligne).
 
-## Couleurs (déjà dans le moteur)
+### À confirmer avant toute utilisation dans une vidéo
 
-| Rôle | Valeur |
-|---|---|
-| Fond vert forêt | `#0F1A14` (profond `#0A120D`) |
-| Accent citron | `#C4EF4E` — un mot clé par titre, CTA, coches |
-| Texte | `#F2EFE8` |
-| Vert profond (sur fond clair) | `#2F6A1F` |
-| Papier (maquettes d'écran) | `#F7F5F0` |
+Ces éléments viennent du site en ligne via Brandfetch et n'ont pas été vérifiés par BitEye :
+- « plus de 250 promoteurs et constructeurs » ;
+- « présents dans 19 wilayas » ;
+- « bureaux à Alger et à Oran » ;
+- l'adresse `contact@biteye-group.com`.
 
-Le citron ne sert qu'à l'accent : un ou deux mots par titre (`*mot*` dans le storyboard), jamais un fond plein d'écran.
+## Deux identités visuelles : choisir avec le demandeur
+
+| | Officielle (logo en ligne) | Site V2 (dans ce dépôt) |
+|---|---|---|
+| Thème du moteur | `"theme": "officiel"` | `"theme": "v2"` (défaut) |
+| Logo | `assets/logo-officiel.png` : œil turquoise stylisé sur carré bleu nuit | `assets/logo.svg` : arc citron + point |
+| Fond | bleu nuit `#022539` | vert forêt `#0F1A14` |
+| Accent | turquoise `#03DA9F` | citron `#C4EF4E` |
+| Texte clair | `#EAEEF1` | `#F2EFE8` |
+
+Le logo officiel est l'œil turquoise : c'est celui que connaissent les clients actuels. Tant que BitEye n'a pas tranché, demande quelle identité utiliser (question de cadrage) et note le choix ici.
+
+Règles communes : l'accent ne sert qu'à 1 ou 2 mots par titre (`*mot*`), aux CTA et aux coches, jamais en fond plein écran. Logo jamais déformé ni recoloré, toujours sur fond sombre.
 
 ## Typographies
 
-Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Arabic (arabe). Chargées depuis Google Fonts.
-
-## Logo
-
-`assets/logo.svg` : arc citron + point (l'œil). Le moteur l'intègre (bloc `logo`, barre de marque en haut). Ne pas déformer, ne pas recolorer, toujours sur fond sombre.
+Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Arabic (arabe), Caveat et Aref Ruqaa (notes manuscrites). Toutes sur Google Fonts. Le logotype en ligne utilise une typographie géométrique arrondie : ne la remplace pas par du texte, utilise l'image du logo.
 
 ## Ton
 
-- Parler comme un frère qui connaît le métier : direct, chaleureux, concret. En darija : « Khouya », « sahbi », « Marhaba bik ». En français : tutoiement si la voix tutoie, sinon vouvoiement.
-- Montrer des choses réelles du métier plutôt que des promesses vagues : lots, métrés, situations de travaux, échéanciers, G50, TVA, syndic.
-- Pas de superlatifs non prouvés (« n°1 », « le meilleur ») ni de chiffres clients sans source.
+- Pratique, direct, posé (positionnement du site) ; plus chaleureux en darija pour les réseaux sociaux : « Khouya », « sahbi », « Marhaba bik ».
+- Promettre du contrôle concret sur des tâches liées (« chaque échéance à temps », « l'avancement par lot ») plutôt qu'une « transformation » abstraite.
+- À éviter : grandes promesses de transformation, superlatifs non prouvés, blagues qui dévalorisent le client.
 
-## Vocabulaire métier (à utiliser dans les visuels)
+## Vocabulaire métier
 
-- **Promotion** : programme, résidence, blocs, logements (F2, F3, F4), réservations, contrats de vente (VSP), échéanciers, acquéreurs.
-- **Réalisation** : lots (gros œuvre, corps d'état secondaires, électricité, plomberie, VRD, finitions), métrés et quantités, situations de travaux, sous-traitants, ciment, rond à béton, avancement.
-- **Gestion / finances** : budget engagé (en DA, Md DA), achats, stocks, paie, RH, trésorerie.
-- **Fiscalité** : TVA, G50 (déclaration mensuelle), IBS, conformité.
-- **Copropriété** : syndic, charges, appels de fonds, assemblées.
-- **Lieux plausibles pour les exemples** : Alger (Bab Ezzouar, Chéraga, Dely Ibrahim), Oran, Constantine, Sétif.
+- **Promotion** : programme, résidence, blocs, logements F2/F3/F4, réservations, VSP, échéanciers, appels de fonds, acquéreurs, remise des clés.
+- **Réalisation** : lots (gros œuvre, CES, électricité, plomberie, VRD, finitions), métrés, quantités, situations de travaux, attachements, sous-traitants, ciment, rond à béton.
+- **Finances / gestion** : budget engagé (DA, Md DA), trésorerie, achats, stocks, paie, RH.
+- **Fiscalité** : TVA, G50, IBS.
+- **Copropriété** : syndic, tantièmes, charges, appels de fonds, assemblée générale.
+- **Lieux plausibles pour des exemples** : Alger (Bab Ezzouar, Chéraga, Dely Ibrahim), Oran, Constantine, Sétif, Blida.
 
 ## Données d'exemple
 
-Une maquette d'écran peut montrer des données fictives (« Résidence Les Oliviers, 96 logements »), mais le compte rendu doit le signaler. Les chiffres, noms et logos de vrais clients ne s'affichent qu'avec des données fournies par le demandeur.
+Une maquette peut montrer des données fictives (« Résidence Les Oliviers, 96 logements »), à signaler dans le compte rendu. Les chiffres, les noms, les visages et les logos de vrais clients ne s'affichent qu'avec l'accord du demandeur.
 
 ## Écran final type
 
-Logo → `VISION *Workspace*` → signature → puces « Promotion · Réalisation · Copropriété » → CTA citron « Demande ta démo » → `biteye-group.com`. 3 à 4 s minimum.
+Logo → `VISION *Workspace*` → signature → modules (« Estate · Build · Co-Owner » ou « Promotion · Réalisation · Copropriété ») → CTA adapté à la plateforme → `biteye-group.com`. 3 à 4 s.
+
+## Mise à jour de cette fiche
+
+À chaque campagne, le skill `marketing-research` refait la veille : site, réseaux sociaux, Brandfetch. Les nouveautés sont proposées au demandeur, puis ajoutées ici avec leur source et la date.
