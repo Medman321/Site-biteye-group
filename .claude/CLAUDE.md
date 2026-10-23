@@ -2,21 +2,29 @@
 
 ## Demandes de vidéo : l'équipe et l'ordre de passage
 
-Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la méthode `.claude/skills/biteye-video-ad/SKILL.md`. La session principale est le chef d'orchestre : les agents ne peuvent pas s'appeler entre eux, c'est donc elle qui les lance.
+Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la méthode `.claude/skills/biteye-video-ad/SKILL.md`, avec l'équipe ci-dessous.
 
-| Agent | Rôle |
-|---|---|
-| `biteye-audio-engineer` | voix « studio » et mots minutés, outils gratuits |
-| `biteye-media-editor` | vidéos et photos : plans, coupes, recadrage, stabilisation, étalonnage, détourage, outils gratuits |
-| `biteye-marketing-strategist` | veille web, empreinte BitEye, 2 ou 3 concepts à valider |
-| `biteye-video-producer` | storyboard, animation synchronisée, contrôle, MP4 + HTML |
+| # | Agent | Rôle |
+|---|---|---|
+| 0 | session principale (coordinateur) | orchestration, arbitrages, questions au demandeur, livraison |
+| 1 | `scenario-interview-architect` | narration B2B, ordre et liaison des extraits, ponts entre intervenants, voix off |
+| 2 | `audio-studio-analyst` | analyse au dixième de seconde, coupes sur les creux, raccords J/L-cut, room tone, lit musical avec ducking, mastering −14 LUFS |
+| 3 | `market-strategy-director` | veille, concepts, copywriting VISION Workspace, structure 40 s, légendes Instagram/TikTok/LinkedIn |
+| 4 | `art-direction-design-critic` | audit esthétique AVANT le rendu final : transitions, flous, couleurs, lisibilité |
+| 5 | `vfx-roto-compositing-engineer` | préparation des vidéos/photos, raccord couleur, détourage 2.5D (animations entre l'intervenant et son fond), masquage d'incrustations, .jsx After Effects optionnel |
+| 6 | `motion-video-producer` | storyboard, moteur HTML/Playwright/ffmpeg, rendu MP4 + HTML |
+| 7 | `quality-brand-inspector` | contrôle qualité et marque APRÈS rendu, verdict livrable / à reprendre |
+| 8 | `token-efficiency-auditor` | coûts mesurés, gaspillages, capitalisation des scripts en outils CLI |
 
-1. **Cadrer d'abord** : dès que la demande et ses fichiers arrivent, pose au demandeur les questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, **nom + poste + photo de chaque voix**, infos à afficher). Ne lance aucun agent avant les réponses, sauf l'étape 2 qui n'en dépend pas.
-2. **Préparer en parallèle** (un seul message, agents en arrière-plan) : `biteye-audio-engineer` pour chaque voix, `biteye-media-editor` pour les vidéos et les photos. Donne-leur les chemins absolus des fichiers et le dossier `$OUT` (scratchpad de la session, sinon `./.video-out/<slug>/`).
-3. **Proposer** : `biteye-marketing-strategist` avec le brief, la transcription et `media.md`. Montre au demandeur le concept recommandé et les autres concepts (publie `proposition.md` en page si c'est utile), ainsi que les mots incertains de la transcription. **Attends son choix.**
-4. **Produire** : `biteye-video-producer` avec le brief, le concept choisi et les médias préparés.
-5. **Livrer** : publie `<slug>.html` comme Artifact (avec `media/*` via `files` si l'agent l'indique), envoie les MP4 et la page `.local.html`, et résume les comptes rendus.
-6. **Retouches** : renvoie-les au même agent (SendMessage), avec le dossier et le storyboard existants.
+1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
+2. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 3 fait la veille.
+3. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
+4. **Pré-rendu** : 6 construit le storyboard et les images clés ; 4 audite ; 6 corrige (une passe).
+5. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
+6. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
+7. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
+
+Les agents ne peuvent pas s'appeler entre eux : la session principale les lance, transmet les fichiers et arbitre. Retouches : renvoyer au même agent (SendMessage).
 
 Raccourci : pour une simple retouche ou une déclinaison de format d'une vidéo déjà validée, va directement à l'étape 4.
 
