@@ -18,7 +18,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(HERE, '..', 'engine', 'template.html')
 FORMATS = {'9:16': (1080, 1920), '16:9': (1920, 1080), '1:1': (1080, 1080), '4:5': (1080, 1350)}
 EMBED_LIMIT = 14 * 1024 * 1024
-# "v2" = forest + lime (site V2, default). "officiel" = navy + turquoise of the BitEye eye logo.
+# "officiel" = navy + turquoise of the BitEye eye logo (default). "v2" = forest + lime palette (site V2), on request.
 THEMES = {'officiel': [('#0F1A14', '#022539'), ('#0A120D', '#011A29'), ('#C4EF4E', '#03DA9F'), ('#c4ef4e', '#03da9f'),
                        ('rgba(196,239,78', 'rgba(3,218,159'), ('#2F6A1F', '#027A5B'), ('#F2EFE8', '#EAEEF1'),
                        ('rgba(242,239,232', 'rgba(234,238,241'), ('rgba(10,18,13', 'rgba(1,26,41'), ('rgba(5,9,7', 'rgba(0,12,20')]}
@@ -163,9 +163,9 @@ def main():
     cfg['duration'] = dur
     render['duration'] = dur
 
-    theme = sb.get('theme', 'v2')
-    if theme == 'officiel':
-        media_src['__logo'] = os.path.join(HERE, '..', '..', 'biteye-brand', 'assets', 'logo-officiel.png')
+    # The original BitEye eye logo is used whatever the palette (brand rule).
+    theme = sb.get('theme', 'officiel')
+    media_src['__logo'] = os.path.join(HERE, '..', '..', 'biteye-brand', 'assets', 'logo-officiel.png')
     for k in ('grain', 'handheld', 'flashes', 'safe'):
         if k in sb: cfg[k] = sb[k]
 

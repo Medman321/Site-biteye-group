@@ -68,7 +68,7 @@ Sans sous-titres, la zone gagne ~300 px de haut. Les cartes (560 px) et la maque
 | `music` | musique de fond, fondu en entrée et en sortie (fournie par le demandeur ; ne jamais télécharger de musique sans licence) |
 | `brandSpans` | intervalles où la barre « VISION Workspace » est visible en haut (la masquer pendant une révélation du logo) |
 | `poster` | instant affiché avant lecture (défaut : 1,5 s avant la fin) |
-| `theme` | `v2` (vert forêt + citron, défaut) ou `officiel` (bleu nuit + turquoise, logo œil officiel) — voir `biteye-brand` |
+| `theme` | palette : `officiel` (bleu nuit + turquoise, défaut) ou `v2` (vert forêt + citron, sur demande). Le logo est toujours l'œil BitEye d'origine — voir `biteye-brand` |
 | `safe` | `true` pour Reels / TikTok / Shorts / Stories : textes et sous-titres remontés hors des zones des boutons |
 | `grain` | grain de film, 0,06 à 0,14 (touche humaine, cache la compression) |
 | `handheld` | caméra à l'épaule, 0 (trépied) à 1 (léger tremblé) |

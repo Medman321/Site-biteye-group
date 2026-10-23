@@ -5,7 +5,11 @@ description: Charte et empreinte de BitEye / VISION Workspace pour les vidéos �
 
 # Charte et empreinte BitEye
 
-Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche Brandfetch de biteye-group.com (logo, couleurs et textes du site en ligne), recherches web. Aucun compte officiel BitEye n'a été trouvé sur Facebook, Instagram, LinkedIn, YouTube ou TikTok à cette date : demande les liens au demandeur et ajoute-les ici.
+Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche Brandfetch de biteye-group.com (logo, couleurs et textes du site en ligne), recherches web, informations données par BitEye.
+
+**Comptes officiels**
+- Instagram : [@biteye_logiciels](https://www.instagram.com/biteye_logiciels) (communiqué par BitEye).
+- Facebook, LinkedIn, YouTube, TikTok : aucun compte trouvé à ce jour ; à demander et à ajouter ici.
 
 ## Identité
 
@@ -25,17 +29,20 @@ Ces éléments viennent du site en ligne via Brandfetch et n'ont pas été véri
 - « bureaux à Alger et à Oran » ;
 - l'adresse `contact@biteye-group.com`.
 
-## Deux identités visuelles : choisir avec le demandeur
+## Logo et palettes (décision de BitEye, 23/10/2026)
 
-| | Officielle (logo en ligne) | Site V2 (dans ce dépôt) |
+**Le logo est toujours l'œil BitEye d'origine** (`assets/logo-officiel.png` : œil turquoise stylisé sur carré bleu nuit), quelle que soit la palette. L'ancien pictogramme « arc + point » (`assets/logo.svg`, favicon du site V2) n'est plus utilisé dans les vidéos.
+
+Deux palettes, choisies selon la nature de la vidéo :
+
+| | Officielle (par défaut) | V2 (sur demande) |
 |---|---|---|
-| Thème du moteur | `"theme": "officiel"` | `"theme": "v2"` (défaut) |
-| Logo | `assets/logo-officiel.png` : œil turquoise stylisé sur carré bleu nuit | `assets/logo.svg` : arc citron + point |
+| Thème du moteur | `"theme": "officiel"` | `"theme": "v2"` |
 | Fond | bleu nuit `#022539` | vert forêt `#0F1A14` |
 | Accent | turquoise `#03DA9F` | citron `#C4EF4E` |
 | Texte clair | `#EAEEF1` | `#F2EFE8` |
 
-Le logo officiel est l'œil turquoise : c'est celui que connaissent les clients actuels. Tant que BitEye n'a pas tranché, demande quelle identité utiliser (question de cadrage) et note le choix ici.
+Palette officielle pour tout ce qui est marque, produit et réseaux sociaux. Palette V2 seulement quand le demandeur la demande (par exemple une vidéo intégrée au nouveau site, pour qu'elle s'accorde à ses couleurs).
 
 Règles communes : l'accent ne sert qu'à 1 ou 2 mots par titre (`*mot*`), aux CTA et aux coches, jamais en fond plein écran. Logo jamais déformé ni recoloré, toujours sur fond sombre.
 
@@ -62,9 +69,20 @@ Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Ar
 
 Une maquette peut montrer des données fictives (« Résidence Les Oliviers, 96 logements »), à signaler dans le compte rendu. Les chiffres, les noms, les visages et les logos de vrais clients ne s'affichent qu'avec l'accord du demandeur.
 
+## Appel à l'action : un par vidéo, selon sa nature
+
+| Nature de la vidéo | CTA | Où |
+|---|---|---|
+| Reel ou TikTok pour faire réagir, générer des démos | « Écris DEMO en commentaire » | dernière scène + légende du post |
+| Reel ou TikTok qui renvoie vers une offre, une page | « Lien en bio » (Instagram @biteye_logiciels) | dernière scène |
+| Story, statut WhatsApp, prospection directe, publicité locale | « Écris-nous sur WhatsApp » + numéro WhatsApp Business (à demander à BitEye) | dernière scène, numéro lisible 2 s minimum |
+| YouTube, LinkedIn, site officiel | « Demander une démo » + `biteye-group.com` ; sur le site, pas de CTA dans la vidéo (le bouton de la page suffit) | écran final |
+
+Une seule action par vidéo. Si la nature n'est pas claire, propose le CTA dans la proposition.
+
 ## Écran final type
 
-Logo → `VISION *Workspace*` → signature → modules (« Estate · Build · Co-Owner » ou « Promotion · Réalisation · Copropriété ») → CTA adapté à la plateforme → `biteye-group.com`. 3 à 4 s.
+Logo œil BitEye → `VISION *Workspace*` → signature → modules (« Estate · Build · Co-Owner » ou « Promotion · Réalisation · Copropriété ») → le CTA choisi ci-dessus → `biteye-group.com` ou `@biteye_logiciels`. 3 à 4 s.
 
 ## Mise à jour de cette fiche
 

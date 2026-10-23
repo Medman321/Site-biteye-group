@@ -48,6 +48,7 @@ const plan = fs.existsSync(renderJson) ? JSON.parse(fs.readFileSync(renderJson, 
 
   if (stills) {
     fs.mkdirSync(stills, { recursive: true });
+    for (const f of fs.readdirSync(stills)) if (/^still_.*\.jpg$/.test(f)) fs.unlinkSync(path.join(stills, f));  // no stale frames in the sheet
     const times = opt('--times') ? opt('--times').split(',').map(Number)
       : meta.scenes.map(([a, b]) => +Math.max(a + .2, Math.min(b, meta.duration) - .35).toFixed(2));  // all blocks have entered
     for (const [i, t] of times.entries()) {

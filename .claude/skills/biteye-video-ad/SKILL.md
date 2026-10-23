@@ -26,8 +26,8 @@ Pose-les en une fois (AskUserQuestion, 4 questions maximum par appel ; deux appe
    → déduit les formats (`creative-direction` §5). Plusieurs diffusions = plusieurs sorties.
 2. **Objectif** : faire connaître VISION · obtenir des demandes de démo · lancer un module (Estate, Build, Co-Owner) · témoignage client · événement (salon, offre) · recrutement.
 3. **Cible et langue** : promoteurs · entreprises de réalisation · syndics · acquéreurs ; darija · français · arabe · mélange.
-4. **Style** : terrain et humain (chantier, équipe, WhatsApp) · pédagogique (écrans du logiciel) · témoignage · humour léger. Identité : officielle (œil turquoise) ou site V2 (vert et citron), tant que BitEye n'a pas tranché (`biteye-brand`).
-5. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, CTA (démo, WhatsApp, site, téléphone), durée maximale, musique fournie.
+4. **Style** : terrain et humain (chantier, équipe, WhatsApp) · pédagogique (écrans du logiciel) · témoignage · humour léger. Palette : officielle par défaut (bleu nuit + turquoise), V2 (vert + citron) seulement si le demandeur le demande ; le logo reste l'œil BitEye dans tous les cas (`biteye-brand`).
+5. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, durée maximale, musique fournie. Le CTA découle de la nature de la vidéo (tableau dans `biteye-brand`) : ne le demande que s'il n'est pas évident.
 
 Note les réponses dans `$OUT/brief.json`. Sans réponse à une question : défaut raisonnable, signalé dans le compte rendu.
 

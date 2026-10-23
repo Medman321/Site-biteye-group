@@ -72,7 +72,7 @@ Note chaque point sur la planche (`sheet.jpg`) et dans le compte rendu :
 3. Aucun élément de la liste « à bannir » ?
 4. Une référence au métier ou à l'Algérie que seul BitEye mettrait ?
 5. Sous-titres lisibles et hors des zones de la plateforme ?
-6. Une seule promesse claire et un CTA adapté à la plateforme ?
+6. Une seule promesse claire et un seul CTA, choisi selon la nature de la vidéo (`biteye-brand`) ?
 7. Chiffres et noms : fournis par le client, ou signalés comme exemples ?
 
 Un « non » = corrige avant de rendre le MP4.
