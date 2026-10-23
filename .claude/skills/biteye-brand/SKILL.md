@@ -9,6 +9,7 @@ Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche 
 
 **Comptes officiels**
 - Instagram : [@biteye_logiciels](https://www.instagram.com/biteye_logiciels) (communiqué par BitEye).
+- WhatsApp Business : **05 60 06 36 41** (communiqué par BitEye, 23/10/2026).
 - Facebook, LinkedIn, YouTube, TikTok : aucun compte trouvé à ce jour ; à demander et à ajouter ici.
 
 ## Identité
@@ -65,6 +66,15 @@ Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Ar
 - **Copropriété** : syndic, tantièmes, charges, appels de fonds, assemblée générale.
 - **Lieux plausibles pour des exemples** : Alger (Bab Ezzouar, Chéraga, Dely Ibrahim), Oran, Constantine, Sétif, Blida.
 
+## Témoignages clients (accord : visage, nom et publicité sponsorisée)
+
+| Témoin | Bandeau validé | Source |
+|---|---|---|
+| Naïla | « Naïla · Commerciale · Littoral Immobilier » (Oran) | interview « Témoin client littoral promotion », en français |
+| Zahira | « Zahira · Ingénieure technico-commerciale · Gold Star » (Résidence Star) | interview « Témoin client Gold star », en français |
+
+Les deux vidéos sont d'anciens montages BitEye (cartons titres, musique, logo incrustés) ; aucune version brute n'existe. N'utiliser que les plages d'image propre. Elles citent l'ancien nom « VISION PRO » : éviter ces passages tant que BitEye n'a pas tranché. Ne pas reprendre « solutions innovantes », même dans la bouche d'un client.
+
 ## Données d'exemple
 
 Une maquette peut montrer des données fictives (« Résidence Les Oliviers, 96 logements »), à signaler dans le compte rendu. Les chiffres, les noms, les visages et les logos de vrais clients ne s'affichent qu'avec l'accord du demandeur.
@@ -75,7 +85,7 @@ Une maquette peut montrer des données fictives (« Résidence Les Oliviers, 96 
 |---|---|---|
 | Reel ou TikTok pour faire réagir, générer des démos | « Écris DEMO en commentaire » | dernière scène + légende du post |
 | Reel ou TikTok qui renvoie vers une offre, une page | « Lien en bio » (Instagram @biteye_logiciels) | dernière scène |
-| Story, statut WhatsApp, prospection directe, publicité locale | « Écris-nous sur WhatsApp » + numéro WhatsApp Business (à demander à BitEye) | dernière scène, numéro lisible 2 s minimum |
+| Story, statut WhatsApp, prospection directe, publicité locale | « Écris-nous sur WhatsApp · 05 60 06 36 41 » | dernière scène, numéro lisible 2 s minimum |
 | YouTube, LinkedIn, site officiel | « Demander une démo » + `biteye-group.com` ; sur le site, pas de CTA dans la vidéo (le bouton de la page suffit) | écran final |
 
 Une seule action par vidéo. Si la nature n'est pas claire, propose le CTA dans la proposition.
