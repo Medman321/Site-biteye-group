@@ -14,21 +14,31 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 | 5 | `vfx-roto-compositing-engineer` | préparation des vidéos/photos, raccord couleur, détourage 2.5D (animations entre l'intervenant et son fond), masquage d'incrustations, .jsx After Effects optionnel |
 | 6 | `motion-video-producer` | storyboard, moteur HTML/Playwright/ffmpeg, rendu MP4 + HTML |
 | 7 | `quality-brand-inspector` | contrôle qualité et marque APRÈS rendu, verdict livrable / à reprendre |
-| 8 | `token-efficiency-auditor` | coûts mesurés, gaspillages, capitalisation des scripts en outils CLI |
+| 8 | `token-efficiency-auditor` | responsable de l'efficacité, qui chapeaute tout : plan d'exécution et budget AVANT, bilan mesuré et capitalisation APRÈS ; jamais d'économie sur la qualité |
 
 1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
-2. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 3 fait la veille.
-3. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
-4. **Pré-rendu** : 6 construit le storyboard et les images clés ; 4 audite ; 6 corrige (une passe).
-5. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
-6. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
-7. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
+2. **Planifier** : 8 écrit `plan-efficacite.md` (équipe minimale, modèle par tâche, fichiers à réutiliser, parallélisme, rendus d'essai, budget). La session suit ce plan.
+3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 3 fait la veille.
+4. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
+5. **Pré-rendu** : 6 construit le storyboard et les images clés ; 4 audite ; 6 corrige (une passe).
+6. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
+7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
+8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
 
 Les agents ne peuvent pas s'appeler entre eux : la session principale les lance, transmet les fichiers et arbitre. Retouches : renvoyer au même agent (SendMessage).
 
-Raccourci : pour une simple retouche ou une déclinaison de format d'une vidéo déjà validée, va directement à l'étape 4.
+Raccourci : pour une simple retouche ou une déclinaison de format d'une vidéo déjà validée, va directement à l'étape 5 (8 peut sauter le plan).
 
 Si les agents ne sont pas disponibles dans la session (ils se chargent au démarrage), applique toi-même les skills dans le même ordre, ou lance un agent générique en lui demandant de suivre le fichier de l'agent concerné.
+
+## Efficacité (règles permanentes, enrichies par chaque bilan)
+
+- Ne refais jamais ce qui existe dans `$OUT` : transmets les chemins aux agents.
+- Briefs compacts : la liste exacte des fichiers à lire et le format du compte rendu.
+- Seulement les agents utiles à la demande ; le moins cher des modèles qui tient la qualité.
+- Images clés et animatic avant tout rendu complet ; un seul rendu final par format.
+- Un script écrit deux fois devient un outil CLI dans un skill.
+- Jamais d'économie sur l'audit DA, le contrôle qualité, l'écoute des coupes, les noms et le CTA.
 
 ## GitHub (dépôt public)
 
