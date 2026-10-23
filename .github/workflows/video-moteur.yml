@@ -1,0 +1,75 @@
+# Contrôle qualité du moteur vidéo : à chaque modification des skills, reconstruit les exemples,
+# produit les planches d'images et un MP4 court, et les joint au run (onglet Actions → Artifacts).
+name: "Vidéo · contrôle du moteur"
+
+on:
+  pull_request:
+    paths:
+      - ".claude/skills/**"
+      - ".github/workflows/video-*.yml"
+      - ".github/actions/video-setup/**"
+  push:
+    branches: [main]
+    paths:
+      - ".claude/skills/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: video-moteur-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exemples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/video-setup
+
+      - name: Médias de test synthétiques (aucun média client dans ce dépôt public)
+        run: |
+          EX=.claude/skills/motion-engine/examples
+          # voix muette de la bonne durée : les sous-titres et les minutages restent ceux du vrai mémo
+          ffmpeg -v error -y -f lavfi -i "sine=frequency=180:duration=38.44" -af "volume=0.05" $EX/vision-darija-9x16/voix.mp3
+          ffmpeg -v error -y -f lavfi -i "gradients=s=1600x1200:c0=0x2F6A1F:c1=0xC4EF4E:n=2:d=1" -frames:v 1 $EX/touche-humaine-9x16/chantier.jpg
+
+      - name: Scripts Python (syntaxe)
+        run: python3 -m py_compile .claude/skills/*/scripts/*.py
+
+      - name: Construire les exemples et leurs planches
+        run: |
+          set -e
+          ENG=.claude/skills/motion-engine/scripts
+          mkdir -p sortie
+          for d in .claude/skills/motion-engine/examples/*/; do
+            n=$(basename "$d")
+            mkdir -p "sortie/$n"
+            python3 -I $ENG/build.py "$d/storyboard.json" --out "sortie/$n" | tee "sortie/$n/build.json"
+            page=$(ls sortie/$n/*.local.html)
+            node $ENG/render.js "$page" --stills "sortie/$n/stills" | tee "sortie/$n/stills.json"
+            python3 - "$n" "sortie/$n/stills.json" >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json, sys
+          r = json.load(open(sys.argv[2]))
+          bad = [f for f in r["fit"] if f < 0.9]
+          print(f"### {sys.argv[1]}\n- images : {r['stills']} · réductions < 0,9 : {len(bad)} · erreurs JS : {len(r['errors'])}")
+          if r["errors"]: sys.exit("erreurs JavaScript : " + "; ".join(r["errors"]))
+          PY
+          done
+
+      - name: MP4 court (exemple touche humaine)
+        run: |
+          page=$(ls sortie/touche-humaine-9x16/*.local.html)
+          node .claude/skills/motion-engine/scripts/render.js "$page" --mp4 sortie/touche-humaine-9x16/exemple.mp4
+          ffprobe -v error -show_entries stream=codec_type,duration -of compact sortie/touche-humaine-9x16/exemple.mp4
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: controle-moteur
+          path: |
+            sortie/*/stills/sheet.jpg
+            sortie/*/*.mp4
+            sortie/*/*.local.html
+          retention-days: 14

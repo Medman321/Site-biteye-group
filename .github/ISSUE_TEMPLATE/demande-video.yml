@@ -1,0 +1,93 @@
+name: Demande de vidéo
+description: Commander une vidéo marketing BitEye / VISION Workspace (Reels, TikTok, YouTube, site…)
+title: "[Vidéo] "
+labels: ["vidéo", "vidéo : cadrage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ce dépôt est **public** : tout ce qui est déposé ici est visible par tous.
+        Ne joins pas de mémo vocal, de photo ou de vidéo confidentiels : mets-les dans un dossier partagé
+        (Google Drive, Dropbox…) et colle le lien plus bas. Écris « @claude » dans la description pour
+        lancer l'équipe vidéo automatiquement (voir `.github/workflows/claude.yml`).
+  - type: checkboxes
+    id: diffusion
+    attributes:
+      label: Où sera diffusée la vidéo ?
+      options:
+        - label: Reels Instagram / TikTok / YouTube Shorts (9:16)
+        - label: Story ou statut WhatsApp (9:16)
+        - label: Fil Facebook / Instagram (4:5)
+        - label: LinkedIn (1:1 ou 4:5)
+        - label: YouTube, vidéo ou pré-roll (16:9)
+        - label: Site officiel, en-tête ou page produit (16:9)
+        - label: Salon ou écran en boutique (16:9)
+  - type: dropdown
+    id: objectif
+    attributes:
+      label: Objectif principal
+      options:
+        - Obtenir des demandes de démo
+        - Faire connaître VISION Workspace
+        - Lancer un module (Estate, Build, Co-Owner)
+        - Témoignage client
+        - Événement (salon, offre)
+        - Recrutement
+    validations:
+      required: true
+  - type: dropdown
+    id: cible
+    attributes:
+      label: Cible
+      multiple: true
+      options:
+        - Promoteurs immobiliers
+        - Entreprises de réalisation
+        - Syndics et gestionnaires de copropriété
+        - Acquéreurs
+  - type: dropdown
+    id: langue
+    attributes:
+      label: Langue
+      options:
+        - Darija (sous-titres en lettres latines)
+        - Français
+        - Arabe
+        - Mélange darija et français
+  - type: dropdown
+    id: style
+    attributes:
+      label: Style
+      options:
+        - Terrain et humain (chantier, équipe, WhatsApp)
+        - Pédagogique (écrans du logiciel)
+        - Témoignage
+        - Humour léger
+  - type: dropdown
+    id: identite
+    attributes:
+      label: Identité visuelle
+      options:
+        - Officielle (œil turquoise sur bleu nuit)
+        - Site V2 (vert forêt et citron)
+        - À proposer
+  - type: input
+    id: duree
+    attributes:
+      label: Durée maximale
+      placeholder: "ex. 30 s"
+  - type: textarea
+    id: message
+    attributes:
+      label: Message, script ou transcription du mémo
+      description: Le texte exact de la voix s'il existe (utile pour les sous-titres en darija).
+  - type: textarea
+    id: medias
+    attributes:
+      label: Médias (liens)
+      description: Lien vers le mémo vocal, les photos, les vidéos. Lien direct vers un .zip si possible.
+  - type: textarea
+    id: infos
+    attributes:
+      label: Infos à afficher
+      description: Chiffres autorisés, nom du projet ou du client (avec son accord), offre, appel à l'action (démo, WhatsApp, site, téléphone).

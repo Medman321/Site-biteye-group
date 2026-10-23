@@ -1,0 +1,104 @@
+# Rendu d'une vidéo dans le cloud GitHub (gratuit et illimité sur ce dépôt public).
+# Lancer : onglet Actions → « Vidéo · rendu » → Run workflow.
+#  - projet : dossier du dépôt contenant storyboard.json (ex. .claude/skills/motion-engine/examples/touche-humaine-9x16)
+#  - archive_url : lien direct vers un .zip de médias (voix, photos, clips) décompressé dans le dossier du projet,
+#    pour ne jamais verser les médias du client dans ce dépôt public
+#  - publier : crée une Release avec les MP4 et la page HTML (lien de téléchargement à partager)
+# Attention : sur un dépôt public, les artefacts et les Releases sont visibles par tous.
+name: "Vidéo · rendu"
+
+on:
+  workflow_dispatch:
+    inputs:
+      projet:
+        description: "Dossier contenant storyboard.json (et éventuellement storyboard-*.json pour d'autres formats)"
+        required: true
+      archive_url:
+        description: "Lien direct vers un .zip de médias (optionnel)"
+        required: false
+      studio:
+        description: "Passer la voix (voice) dans le studio audio avant le rendu"
+        type: boolean
+        default: true
+      publier:
+        description: "Créer une Release avec les fichiers finaux"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  rendu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/video-setup
+
+      - name: Médias du projet
+        if: ${{ inputs.archive_url != '' }}
+        env:
+          URL: ${{ inputs.archive_url }}
+          DIR: ${{ inputs.projet }}
+        run: |
+          curl -fsSL "$URL" -o /tmp/medias.zip
+          unzip -o -q /tmp/medias.zip -d "$DIR"
+          ls -la "$DIR"
+
+      - name: Studio audio (voix « studio », gratuit)
+        if: ${{ inputs.studio }}
+        env:
+          DIR: ${{ inputs.projet }}
+        run: |
+          v=$(python3 -c "import json,sys;s=json.load(open(sys.argv[1]));v=s.get('voice');print(v if isinstance(v,str) else (v or {}).get('src',''))" "$DIR/storyboard.json")
+          if [ -n "$v" ] && [ -f "$DIR/$v" ]; then
+            python3 -I .claude/skills/audio-studio/scripts/voice_studio.py "$DIR/$v" --out /tmp/studio
+            cp /tmp/studio/voix_studio.wav "$DIR/$v.studio.wav"
+            python3 - "$DIR" "$v" <<'PY'
+          import json, sys, glob, os
+          d, v = sys.argv[1], sys.argv[2]
+          for f in glob.glob(os.path.join(d, 'storyboard*.json')):
+              s = json.load(open(f))
+              if s.get('voice') == v: s['voice'] = v + '.studio.wav'
+              elif isinstance(s.get('voice'), dict) and s['voice'].get('src') == v: s['voice']['src'] = v + '.studio.wav'
+              json.dump(s, open(f, 'w'), ensure_ascii=False)
+          PY
+            cat /tmp/studio/studio_report.json >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Rendu de chaque format
+        env:
+          DIR: ${{ inputs.projet }}
+        run: |
+          set -e
+          ENG=.claude/skills/motion-engine/scripts
+          mkdir -p livraison
+          for sb in "$DIR"/storyboard*.json; do
+            out="sortie/$(basename "$sb" .json)"
+            python3 -I $ENG/build.py "$sb" --out "$out"
+            page=$(ls $out/*.local.html)
+            slug=$(basename "$page" .local.html)
+            node $ENG/render.js "$page" --stills "$out/stills"
+            node $ENG/render.js "$page" --mp4 "livraison/$slug.mp4"
+            cp "$page" "livraison/$slug.html"
+            cp "$out/stills/sheet.jpg" "livraison/$slug-planche.jpg"
+            echo "- $slug : $(ffprobe -v error -show_entries format=duration -of csv=p=0 livraison/$slug.mp4) s" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video-${{ github.run_number }}
+          path: livraison/
+          retention-days: 30
+
+      - name: Release
+        if: ${{ inputs.publier }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROJ: ${{ inputs.projet }}
+        run: |
+          tag="video-$(date +%Y%m%d)-${{ github.run_number }}"
+          gh release create "$tag" livraison/* --title "Vidéo $(basename "$PROJ") · $(date +%d/%m/%Y)" \
+            --notes "Rendu automatique de $PROJ (run ${{ github.run_number }})." --prerelease
+          echo "Release : $tag" >> "$GITHUB_STEP_SUMMARY"

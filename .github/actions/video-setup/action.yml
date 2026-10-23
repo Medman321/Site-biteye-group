@@ -1,0 +1,37 @@
+name: Outils vidéo BitEye
+description: Installe ffmpeg, Python (sherpa-onnx), Node + Playwright/Chromium et met en cache les modèles gratuits.
+inputs:
+  rembg:
+    description: Installer aussi le détourage de photos (rembg, ~200 Mo)
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: ffmpeg et polices
+      shell: bash
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install -y -qq ffmpeg fonts-noto-core > /dev/null
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: pip
+        cache-dependency-path: .github/actions/video-setup/action.yml
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+    - name: Modèles gratuits (cache)
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/biteye-models
+          ~/.u2net
+          ~/.cache/ms-playwright
+        key: biteye-models-v1-${{ runner.os }}
+    - name: Bibliothèques Python et Playwright
+      shell: bash
+      run: |
+        pip install -q sherpa-onnx numpy
+        if [ "${{ inputs.rembg }}" = "true" ]; then pip install -q "rembg[cpu]"; fi
+        npm install --no-save --no-package-lock playwright@1.56.1 > /dev/null
+        npx playwright install --with-deps chromium > /dev/null

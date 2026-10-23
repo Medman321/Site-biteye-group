@@ -1,0 +1,109 @@
+{
+ "title": "Exemple touche humaine",
+ "format": "9:16",
+ "duration": 14,
+ "theme": "officiel",
+ "grain": 0.12,
+ "handheld": 1,
+ "flashes": [
+  0.0
+ ],
+ "media": {
+  "chantier": "chantier.jpg"
+ },
+ "scenes": [
+  {
+   "start": 0,
+   "end": 3.4,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "3 classeurs,\n2 fichiers Excel,\n*0 visibilité.*",
+     "size": 110,
+     "at": 0.05,
+     "anim": "slam"
+    },
+    {
+     "type": "note",
+     "text": "ça vous parle ?",
+     "at": 1.2,
+     "tilt": -4,
+     "mark": "underline",
+     "markAt": 1.6
+    }
+   ]
+  },
+  {
+   "start": 3.6,
+   "end": 7.6,
+   "blocks": [
+    {
+     "type": "chat",
+     "at": 4.2,
+     "items": [
+      {
+       "who": "Chef de chantier",
+       "text": "Khouya, ch7al bqa f le rond à béton ?",
+       "time": "08:14",
+       "at": 4.4
+      },
+      {
+       "from": "out",
+       "text": "Nchouf f VISION… *12 tonnes*, Bloc C.",
+       "time": "08:15",
+       "at": 6.0
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "start": 7.8,
+   "end": 10.8,
+   "blocks": [
+    {
+     "type": "polaroid",
+     "src": "chantier",
+     "caption": "Bloc C, coulage dalle",
+     "at": 7.9,
+     "tilt": 3,
+     "anim": "drop",
+     "width": 700
+    },
+    {
+     "type": "lowerthird",
+     "name": "Karim, conducteur de travaux",
+     "role": "Oran",
+     "at": 8.6
+    }
+   ]
+  },
+  {
+   "start": 11,
+   "end": 99,
+   "blocks": [
+    {
+     "type": "logo",
+     "size": 200,
+     "at": 11.1,
+     "anim": "pop"
+    },
+    {
+     "type": "typewriter",
+     "text": "biteye-group.com",
+     "at": 11.6,
+     "cps": 14
+    },
+    {
+     "type": "sticker",
+     "text": "Démo gratuite",
+     "at": 12.6,
+     "tilt": -5,
+     "anim": "punch"
+    }
+   ]
+  }
+ ],
+ "slug": "exemple-touche-humaine",
+ "safe": true
+}
