@@ -1,8 +1,10 @@
 # Claude dans GitHub : écrire « @claude » dans une issue ou une pull request pour lui confier une tâche
 # (par exemple une demande de vidéo ouverte avec le modèle « Demande de vidéo »). Claude suit alors
 # .claude/CLAUDE.md, les agents et les skills de ce dépôt.
-# Mise en place, une fois : dans Claude Code, lancer /install-github-app (installe l'application GitHub
-# Claude et ajoute le secret CLAUDE_CODE_OAUTH_TOKEN), ou ajouter un secret ANTHROPIC_API_KEY.
+# Mise en place, une fois : installer l'application GitHub Claude (https://github.com/apps/claude) puis
+# ajouter dans Settings → Secrets and variables → Actions le secret CLAUDE_CODE_OAUTH_TOKEN
+# (commande « claude setup-token ») ou ANTHROPIC_API_KEY. Sans secret, le job échoue en quelques secondes.
+# Les fichiers d'une issue (liens Google Drive) doivent être partagés « Tous les utilisateurs disposant du lien ».
 name: Claude
 
 on:
@@ -11,7 +13,12 @@ on:
   pull_request_review_comment:
     types: [created]
   issues:
-    types: [opened, assigned]
+    types: [opened]
+
+# Une seule exécution à la fois par issue ou PR (évite deux Claude sur la même demande).
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -37,3 +44,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Sans ces outils, Claude ne peut que lire le dépôt : il lui faut le terminal (ffmpeg, Python,
+          # rendu Playwright), l'écriture de fichiers et la recherche web pour la veille marketing.
+          claude_args: >-
+            --allowedTools "Bash,Edit,Write,Read,Glob,Grep,WebSearch,WebFetch,Task"
+            --max-turns 200
