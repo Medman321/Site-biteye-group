@@ -61,8 +61,8 @@ Sans sous-titres, la zone gagne ~300 px de haut. Les cartes (560 px) et la maque
 |---|---|
 | `format` | `9:16` 1080×1920, `16:9` 1920×1080, `1:1` 1080×1080, `4:5` 1080×1350 ; ou `size: [w,h]` |
 | `duration` | durée totale (s) ; défaut = fin de la dernière scène + 1 |
-| `voice` | bande son principale ; anime aussi le halo et l'onde |
-| `captions.words` | `words.json` ElevenLabs. `replace` : clé = index du mot **d'origine** (chaîne, avant fusion) ou texte du mot ; `""` supprime un mot. `merge` [i, j, texte] : fusionne les mots d'origine i à j. `phrases` [[a,b],…] : force le découpage, indices **après** fusion. Découpage auto : ponctuation finale, pause > `pause` (1,6 s), plus de `maxWords` (12) mots ou de `maxChars` caractères (62 en vertical, 52 en paysage) |
+| `voice` | bande son principale ; anime aussi le halo et l'onde. Sans `voice`, la vidéo est muette (les sous-titres restent possibles avec `captions.words`) |
+| `captions.words` | `words.json` (ElevenLabs ou `audio-studio`). L'orthographe darija validée par le demandeur sur la première pub est dans `examples/vision-darija-9x16/storyboard.json` (`replace`, `merge`) : reprends-la. `replace` : clé = index du mot **d'origine** (chaîne, avant fusion) ou texte du mot ; `""` supprime un mot. `merge` [i, j, texte] : fusionne les mots d'origine i à j. `phrases` [[a,b],…] : force le découpage, indices **après** fusion. Découpage auto : ponctuation finale, pause > `pause` (1,6 s), plus de `maxWords` (12) mots ou de `maxChars` caractères (62 en vertical, 52 en paysage) |
 | `media` | clé → fichier ; les blocs référencent la clé |
 | `audioMix` | son d'un clip ou bruitage placé à `start`, lu depuis `from` |
 | `music` | musique de fond, fondu en entrée et en sortie (fournie par le demandeur ; ne jamais télécharger de musique sans licence) |
@@ -120,7 +120,7 @@ Champs communs : `at` (entrée, s — **mets le `start` du mot prononcé**), `an
 
 Icônes : `chart building tower crane doc check key users wallet calendar tools map truck coins shield home phone spark`.
 
-Exemple de hook et de touches humaines : `examples/touche-humaine-9x16/storyboard.json`.
+Exemple de hook et de touches humaines : `examples/touche-humaine-9x16/storyboard.json`. Les exemples ne contiennent aucun média (dépôt public) : `voix.mp3` et `chantier.jpg` sont à déposer, ou à remplacer par des médias de test (le contrôle GitHub les génère).
 
 ## Synchroniser avec la voix
 

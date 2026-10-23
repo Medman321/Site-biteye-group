@@ -20,7 +20,7 @@ Le premier plan décide de tout. Il doit être visible **dès l'image 0** (pas d
 | La question qui pique | « Ton acquéreur te demande où en est son F3. Tu réponds quoi ? » |
 | Le chiffre surprenant (fourni par le client) | « 1,84 milliard engagé… et tu le suis sur un cahier ? » |
 
-Moteur : `"flashes": [0.0]`, animation `slam` ou `punch` sur le premier titre, `at` ≈ 0,05. La voix commence à moins de 0,5 s : sinon, coupe le début du mémo dans `voice` ou démarre sur un texte fort.
+Moteur : `"flashes": [0.0]`, animation `slam` ou `punch` sur le premier titre, `at` ≈ 0,05. La voix commence à moins de 0,5 s : sinon, coupe le début avec `audio-studio` → `edit_voice.py --start`, ou démarre sur un texte fort.
 
 ## 2. La touche humaine (au moins 3 par vidéo)
 
@@ -56,10 +56,12 @@ Variante 15 s : hook → une preuve → CTA.
 | Fil Facebook / Instagram | 4:5 (ou 1:1) | 20–45 s | lecture sans son par défaut : texte à l'écran autonome ; les 3 premières secondes valent une affiche |
 | LinkedIn | 1:1 ou 4:5 | 30–60 s | ton professionnel, français ; preuves chiffrées, témoignages ; moins de darija |
 | YouTube (vidéo, pré-roll) | 16:9 | 30–90 s (pré-roll : message avant 5 s) | le logo et la promesse avant le bouton « Ignorer » ; plus de détails produit |
-| Site officiel (en-tête, page produit) | 16:9 (et 9:16 pour le mobile) | 20–40 s, en boucle | souvent lue sans son, en boucle : pas de sous-titres karaoké si muette, pas d'écran final trop long, débuts et fins qui se raccordent |
+| Site officiel (en-tête, page produit) | 16:9 (et 9:16 pour le mobile) | 20–40 s, en boucle | lue sans son, en boucle : c'est un **montage différent**, pas une simple déclinaison du Reel (pas de voix ni de sous-titres karaoké, textes autonomes, `wave: false`, écran final court, fin qui se raccorde au début) |
 | Salon, écran en boutique | 16:9 | boucle 30–60 s | sans son : tout passe par le texte et l'image |
 
 Vérifie les spécifications du moment par une recherche web si la demande vise une campagne payante (formats publicitaires, durées maximales).
+
+Voix plus longue que la durée conseillée : propose dans la proposition des coupes précises (pauses, phrase répétée) avec la durée obtenue ; le demandeur tranche. Ne coupe jamais une voix sans son accord.
 
 ## 6. Grille de contrôle avant livraison
 

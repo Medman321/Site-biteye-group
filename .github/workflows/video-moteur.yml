@@ -46,6 +46,7 @@ jobs:
           mkdir -p sortie
           for d in .claude/skills/motion-engine/examples/*/; do
             n=$(basename "$d")
+            mkdir -p "sortie/$n"
             python3 -I $ENG/build.py "$d/storyboard.json" --out "sortie/$n" | tee "sortie/$n/build.json"
             page=$(ls sortie/$n/*.local.html)
             node $ENG/render.js "$page" --stills "sortie/$n/stills" | tee "sortie/$n/stills.json"

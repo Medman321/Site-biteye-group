@@ -51,7 +51,16 @@ Ordre de préférence :
 
 Sortie : `words.json` (format ElevenLabs, directement utilisable par `motion-engine`) et `transcript.txt`.
 
-## 3. Voix off gratuite
+## 3. Raccourcir ou remonter une voix (synchronisation conservée)
+
+Un mémo trop long pour la plateforme (Reels : 15–35 s) se coupe sans refaire la transcription :
+```
+python3 -I $AS/edit_voice.py "$OUT/audio/voix_studio.wav" --words "$OUT/words.json" --out "$OUT/audio/montage" \
+        [--start 0.9] [--end 37.2] [--max-pause 0.6] [--remove-words 16-18] [--remove 14.5-15.9]
+```
+`--max-pause` raccourcit toutes les pauses trop longues, `--remove-words` retire une phrase par indices de mots (ceux de `words.json`), `--start/--end` coupent le début et la fin. Sortie : `voix_montee.wav` et un `words.json` décalé (vérifié : moins de 0,08 s d'écart avec la voix réelle). Les coupes se proposent dans la proposition ; le demandeur les valide.
+
+## 4. Voix off gratuite
 
 Quand il n'y a pas de mémo :
 ```
@@ -61,10 +70,10 @@ python3 $AS/transcribe_local.py "$OUT/audio/voix_studio.wav" --out "$OUT" --text
 ```
 Une phrase par ligne : chaque ligne devient une respiration. Pas de voix darija gratuite : propose plutôt au demandeur d'enregistrer le script lui-même sur son téléphone. C'est gratuit, et c'est la touche humaine la plus forte.
 
-## 4. Son d'un clip vidéo
+## 5. Son d'un clip vidéo
 
 `python3 -I .claude/skills/media-lab/scripts/media_lab.py audio clip.mp4 "$OUT/audio/clip.wav"`, puis `voice_studio.py` dessus, si quelqu'un parle dans le clip. Pour garder l'ambiance du chantier (béton, outils), utilise `--preset brute --no-gate` et un volume de 0,3 à 0,5 dans `audioMix` : ce son réel fait partie de la touche humaine.
 
-## 5. Musique
+## 6. Musique
 
 Uniquement fournie par le demandeur, ou sous licence libre dont la source est notée dans le compte rendu. Volume 0,08 à 0,14 sous une voix.

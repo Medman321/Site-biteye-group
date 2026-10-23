@@ -14,7 +14,9 @@ description: Produire une vidéo marketing motion design BitEye / VISION Workspa
 | 3. Produire | `motion-engine`, `creative-direction` | agent `biteye-video-producer` |
 | 4. Livrer | ce fichier, §4 | session principale |
 
-Lis chaque SKILL.md au moment de l'étape (`.claude/skills/<nom>/SKILL.md`). Outils gratuits : `bash .claude/skills/biteye-video-ad/scripts/setup_free_tools.sh` une fois par session.
+Lis chaque SKILL.md au moment de l'étape (`.claude/skills/<nom>/SKILL.md`).
+
+`$OUT` = le dossier de travail de la vidéo, donné par la session principale (scratchpad de la session, sinon `./.video-out/<slug>`). Tous les chemins `$OUT/...` des skills sont relatifs à lui. Outils gratuits : `bash .claude/skills/biteye-video-ad/scripts/setup_free_tools.sh` une fois par session.
 
 ## 0. Questions de cadrage (avant tout travail)
 
