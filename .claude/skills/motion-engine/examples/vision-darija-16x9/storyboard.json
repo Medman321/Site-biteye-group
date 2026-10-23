@@ -1,0 +1,444 @@
+{
+ "title": "Pub VISION Workspace 16:9",
+ "slug": "pub-vision-workspace-16x9",
+ "format": "16:9",
+ "lang": "fr",
+ "duration": 41,
+ "voice": "../vision-darija-9x16/voix.mp3",
+ "captions": {
+  "words": "../vision-darija-9x16/words.json",
+  "merge": [
+   [
+    4,
+    5,
+    "wella"
+   ]
+  ],
+  "replace": {
+   "8": "réalisation ?",
+   "12": "ta3ek ?",
+   "15": "sahbi !",
+   "25": "l'Algérie.",
+   "28": "t3awnek",
+   "29": "f la",
+   "36": "ta3ek.",
+   "38": "tsiyri",
+   "47": "Ma tkhallilek",
+   "52": "w reglatou",
+   "56": "frère ?"
+  }
+ },
+ "brandSpans": [
+  [
+   0.3,
+   17.9
+  ],
+  [
+   24.6,
+   36.9
+  ]
+ ],
+ "scenes": [
+  {
+   "id": "accroche",
+   "start": 0.9,
+   "end": 6.5,
+   "gap": 24,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "Khouya !",
+     "size": 150,
+     "at": 0.96,
+     "anim": "pop"
+    },
+    {
+     "type": "eyebrow",
+     "text": "Tu es…",
+     "at": 1.58
+    },
+    {
+     "type": "cards",
+     "at": 1.9,
+     "separator": {
+      "text": "ou",
+      "at": 3.46
+     },
+     "items": [
+      {
+       "kicker": "Promotion",
+       "title": "Promoteur immobilier",
+       "illustration": "tower",
+       "at": 1.9
+      },
+      {
+       "kicker": "Réalisation",
+       "title": "Entreprise de réalisation",
+       "illustration": "crane",
+       "at": 4.7
+      }
+     ]
+    }
+   ],
+   "split": 2
+  },
+  {
+   "id": "organiser",
+   "start": 6.9,
+   "end": 9.95,
+   "gap": 50,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "Organiser ton entreprise ?",
+     "size": 96,
+     "at": 6.9
+    },
+    {
+     "type": "tiles",
+     "at": 6.95,
+     "sortAt": 8.28,
+     "columns": 5,
+     "items": [
+      [
+       "Factures",
+       "Fournisseurs"
+      ],
+      [
+       "Plans",
+       "Architecte"
+      ],
+      [
+       "Contrats",
+       "Acquéreurs"
+      ],
+      [
+       "Devis",
+       "Sous-traitants"
+      ],
+      [
+       "Paie",
+       "Ouvriers"
+      ],
+      [
+       "Stocks",
+       "Ciment, rond à béton"
+      ],
+      [
+       "Ventes",
+       "Logements"
+      ],
+      [
+       "Chantiers",
+       "Blocs A à D"
+      ],
+      [
+       "Impôts",
+       "G50, TVA"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "marhaba",
+   "start": 10.0,
+   "end": 12.55,
+   "blocks": [
+    {
+     "type": "rings",
+     "ats": [
+      10.06,
+      10.3,
+      11.7
+     ]
+    },
+    {
+     "type": "arabic",
+     "text": "مرحبا بيك",
+     "size": 170,
+     "at": 10.06,
+     "anim": "pop"
+    },
+    {
+     "type": "headline",
+     "text": "Marhaba bik, *sahbi !*",
+     "size": 96,
+     "at": 10.42
+    },
+    {
+     "type": "body",
+     "text": "Bienvenue chez nous.",
+     "at": 11.7
+    }
+   ]
+  },
+  {
+   "id": "solution",
+   "start": 12.65,
+   "end": 18.1,
+   "gap": 20,
+   "blocks": [
+    {
+     "type": "eyebrow",
+     "text": "On a pour toi",
+     "at": 12.7
+    },
+    {
+     "type": "letters",
+     "text": "la solution",
+     "size": 150,
+     "at": 13.6
+    },
+    {
+     "type": "headline",
+     "text": "idéale.",
+     "size": 180,
+     "italic": true,
+     "color": "lime",
+     "at": 15.88,
+     "anim": "zoom"
+    },
+    {
+     "type": "chip",
+     "text": "Pensée pour l'Algérie",
+     "flag": "dz",
+     "at": 17.28
+    }
+   ]
+  },
+  {
+   "id": "logo",
+   "start": 18.2,
+   "end": 20.15,
+   "blocks": [
+    {
+     "type": "logo",
+     "size": 280,
+     "at": 18.2,
+     "anim": "pop"
+    },
+    {
+     "type": "wordmark",
+     "at": 19.05
+    },
+    {
+     "type": "body",
+     "text": "par BitEye",
+     "at": 19.4
+    }
+   ]
+  },
+  {
+   "id": "gestion",
+   "start": 20.28,
+   "end": 24.55,
+   "gap": 18,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "La gestion\nde ta *promotion*\ndans un seul écran",
+     "size": 78,
+     "at": 20.28
+    },
+    {
+     "type": "app",
+     "at": 20.4,
+     "anim": "rise",
+     "window": "VISION Workspace · Projets",
+     "title": "Résidence Les Oliviers",
+     "subtitle": "Bab Ezzouar · 96 logements · Blocs A à D",
+     "sidebar": [
+      "Projets",
+      "Ventes",
+      "Chantier",
+      "Achats",
+      "Finances",
+      "Fiscalité",
+      "Syndic"
+     ],
+     "kpisAt": 21.32,
+     "barsAt": 22.82,
+     "kpis": [
+      {
+       "label": "Avancement",
+       "value": 68,
+       "suffix": "%"
+      },
+      {
+       "label": "Logements vendus",
+       "value": 71,
+       "suffix": "/ 96"
+      },
+      {
+       "label": "Budget engagé",
+       "value": 1.84,
+       "decimals": 2,
+       "suffix": "Md DA"
+      }
+     ],
+     "bars": {
+      "title": "Avancement par lot",
+      "items": [
+       {
+        "label": "Gros œuvre",
+        "value": 92
+       },
+       {
+        "label": "Corps d'état secondaires",
+        "value": 54
+       },
+       {
+        "label": "Électricité · Plomberie",
+        "value": 47
+       },
+       {
+        "label": "VRD",
+        "value": 38
+       },
+       {
+        "label": "Finitions",
+        "value": 21
+       }
+      ]
+     }
+    }
+   ],
+   "split": 1
+  },
+  {
+   "id": "piliers",
+   "start": 24.72,
+   "end": 30.95,
+   "gap": 28,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "Toute l'entreprise, *pilotée.*",
+     "size": 96,
+     "at": 24.72
+    },
+    {
+     "type": "eyebrow",
+     "text": "Du commercial à la fiscalité",
+     "at": 26.12
+    },
+    {
+     "type": "pillars",
+     "items": [
+      {
+       "title": "Commerciale",
+       "desc": "Réservations, ventes, échéanciers clients",
+       "icon": "chart",
+       "at": 28.6
+      },
+      {
+       "title": "Technique",
+       "desc": "Lots, métrés, quantités, avancement",
+       "icon": "building",
+       "at": 29.5
+      },
+      {
+       "title": "Fiscalité",
+       "desc": "TVA, G50, déclarations à jour",
+       "icon": "doc",
+       "at": 30.08
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "details",
+   "start": 32.0,
+   "end": 35.85,
+   "gap": 30,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "Aucun détail *n'est oublié.*",
+     "size": 96,
+     "at": 32.08
+    },
+    {
+     "type": "checklist",
+     "at": 32.8,
+     "every": 0.36,
+     "items": [
+      "Réservations & contrats",
+      "Situations de travaux",
+      "Métrés & quantités",
+      "Achats & stocks",
+      "Paie & ressources humaines",
+      "Déclarations G50",
+      "Gestion de copropriété"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "question",
+   "start": 36.3,
+   "end": 37.55,
+   "blocks": [
+    {
+     "type": "headline",
+     "text": "D'accord,\n*mon frère ?*",
+     "size": 150,
+     "at": 36.36,
+     "anim": "pop",
+     "animOpts": {
+      "os": 1.15,
+      "outDur": 0.35
+     }
+    }
+   ]
+  },
+  {
+   "id": "fin",
+   "start": 37.6,
+   "end": 99,
+   "gap": 22,
+   "blocks": [
+    {
+     "type": "logo",
+     "size": 150,
+     "at": 37.7,
+     "anim": "pop",
+     "draw": false
+    },
+    {
+     "type": "wordmark",
+     "size": 96,
+     "at": 37.9
+    },
+    {
+     "type": "body",
+     "text": "La plateforme de l'immobilier en Algérie",
+     "size": 38,
+     "at": 38.15
+    },
+    {
+     "type": "chips",
+     "items": [
+      "Promotion",
+      "Réalisation",
+      "Copropriété"
+     ],
+     "at": 38.4
+    },
+    {
+     "type": "cta",
+     "text": "Demande ta démo",
+     "at": 38.75,
+     "anim": "pop"
+    },
+    {
+     "type": "url",
+     "text": "biteye-group.com",
+     "at": 39.1
+    }
+   ]
+  }
+ ]
+}

@@ -37,6 +37,9 @@ body{background:var(--deep);color:var(--ink);font-family:var(--text);margin:0;ov
 .scene .box{position:absolute;left:60px;right:60px;display:flex;align-items:center;justify-content:center}
 .scene .inner{display:flex;flex-direction:column;align-items:center;gap:30px;width:100%;transform-origin:50% 50%;text-align:center}
 .scene.left .inner{align-items:flex-start;text-align:left}
+.scene .inner.split{flex-direction:row;align-items:center;gap:80px}
+.scene .inner.split>.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:inherit;align-items:flex-start;text-align:left}
+.scene .inner.split>.col+.col{align-items:center}
 
 /* brand bar */
 #brand{position:absolute;left:60px;top:80px;display:flex;align-items:center;gap:18px;font-weight:700;font-size:34px;letter-spacing:-.01em;z-index:5}
@@ -370,9 +373,9 @@ stage.style.width = W+'px'; stage.style.height = H+'px';
 if (LAND) stage.classList.add('land');
 const CAP_ON = !!(CFG.captions && CFG.captions.phrases && CFG.captions.phrases.length);
 const WAVE_ON = !!(CFG.audio && CFG.wave !== false);
-const capTop = LAND ? H - 290 : H - 450;
+const capTop = LAND ? H - 250 : H - 450;
 const padTop = CFG.brand === false ? 120 : (LAND ? 150 : 190);
-const padBot = (CAP_ON ? H - capTop + 40 : (WAVE_ON ? 220 : 120));
+const padBot = (CAP_ON ? H - capTop + (LAND ? 30 : 40) : (WAVE_ON ? 220 : 120));
 
 const SCENES = CFG.scenes.map(sc => {
   const s = el('section','scene'+(sc.align==='left'?' left':'')); scenesEl.appendChild(s);
@@ -387,21 +390,27 @@ const SCENES = CFG.scenes.map(sc => {
   }
   const box = el('div','box'); box.style.top = padTop+'px'; box.style.bottom = padBot+'px'; s.appendChild(box);
   const inner = el('div','inner'); if (sc.gap != null) inner.style.gap = sc.gap+'px'; box.appendChild(inner);
+  /* "split": N → the first N blocks form a left column, the rest a right column (landscape layouts). */
+  let cols = null;
+  if (sc.split) { inner.classList.add('split'); cols = [el('div','col'), el('div','col')]; cols.forEach(c => { c.style.gap = (sc.gap ?? 30)+'px'; inner.appendChild(c); }); }
   (sc.blocks||[]).forEach((b,i) => {
     b.at = b.at ?? sc.start + .15 + i*.2;
     const fn = B[b.type]; if (!fn) { console.warn('bloc inconnu', b.type); return; }
-    const e = fn(b, sc, stage); inner.appendChild(e);
+    const e = fn(b, sc, stage); (cols ? cols[i < sc.split ? 0 : 1] : inner).appendChild(e);
     if (!e.dataset.self) A(e, b.at, b.out ?? sc.end, b.anim || 'up', b.animOpts || {});
     else if (b.type !== 'rings') { e.style.opacity = 1; }
   });
   return {sc, s, inner, box};
 });
 /* Shrink a scene whose content is taller or wider than its box. */
+const FIT = [];
 function fitScenes() {
+  FIT.length = 0;
   SCENES.forEach(({inner, box}) => {
     inner.style.transform = 'none';
     const k = Math.min(1, box.clientHeight / inner.scrollHeight, box.clientWidth / inner.scrollWidth);
     inner.style.transform = k < 1 ? `scale(${k})` : 'none';
+    FIT.push(+k.toFixed(2));
   });
 }
 
@@ -435,7 +444,7 @@ function renderCaptions(t) {
 
 /* ---------- Waveform ---------- */
 const BARS = [];
-if (WAVE_ON) { const wv = el('div'); wv.id = 'wave'; wv.style.top = (CAP_ON ? capTop + (LAND?170:275) : H - 190)+'px'; stage.appendChild(wv);
+if (WAVE_ON) { const wv = el('div'); wv.id = 'wave'; wv.style.top = (CAP_ON ? capTop + (LAND?128:275) : H - 190)+'px'; stage.appendChild(wv);
   for (let i=0;i<41;i++) { const b = el('i'); wv.appendChild(b); BARS.push(b); } }
 
 /* ---------- Per-frame render ---------- */
@@ -520,7 +529,7 @@ window.addEventListener('resize', fit);
 if (/[?&]render/.test(location.search)) document.body.classList.add('render');
 /* Used by render.js: draw the exact frame at time s (awaits video seeks). */
 window.renderAt = async s => { t = s; render(s); await syncVideos(s, true); };
-window.__META = {width: W, height: H, duration: DUR, scenes: CFG.scenes.map(s => [s.start, s.end])};
+window.__META = {width: W, height: H, duration: DUR, scenes: CFG.scenes.map(s => [s.start, s.end]), fit: FIT};
 fit(); fitScenes(); render(t); requestAnimationFrame(loop);
 if (document.fonts) document.fonts.ready.then(() => { fitScenes(); render(t); });
 </script>

@@ -44,12 +44,12 @@ const plan = fs.existsSync(renderJson) ? JSON.parse(fs.readFileSync(renderJson, 
   const meta = await page.evaluate(() => window.__META);
   if (!meta) { console.error('Page sans __META : erreur JS ?', errors); process.exit(1); }
   await page.setViewportSize({ width: meta.width, height: meta.height });
-  await page.evaluate(() => { fit(); fitScenes(); });
+  meta.fit = await page.evaluate(() => { fit(); fitScenes(); return FIT; });
 
   if (stills) {
     fs.mkdirSync(stills, { recursive: true });
     const times = opt('--times') ? opt('--times').split(',').map(Number)
-      : meta.scenes.map(([a, b]) => +(a + Math.min(b - a, 6) * 0.75).toFixed(2));
+      : meta.scenes.map(([a, b]) => +Math.max(a + .2, Math.min(b, meta.duration) - .35).toFixed(2));  // all blocks have entered
     for (const [i, t] of times.entries()) {
       await page.evaluate(t => renderAt(t), t);
       await page.screenshot({ path: path.join(stills, `still_${String(i).padStart(2, '0')}_${t}s.jpg`), type: 'jpeg', quality: 80 });
@@ -57,7 +57,7 @@ const plan = fs.existsSync(renderJson) ? JSON.parse(fs.readFileSync(renderJson, 
     const cols = Math.min(times.length, meta.width > meta.height ? 4 : 6), rows = Math.ceil(times.length / cols);
     execFileSync('ffmpeg', ['-y', '-v', 'error', '-pattern_type', 'glob', '-i', path.join(stills, 'still_*.jpg'),
       '-vf', `scale=${meta.width > meta.height ? 640 : 340}:-1,tile=${cols}x${rows}:padding=8:color=0x222222`, '-frames:v', '1', path.join(stills, 'sheet.jpg')]);
-    console.log(JSON.stringify({ stills: times.length, sheet: path.join(stills, 'sheet.jpg'), errors }));
+    console.log(JSON.stringify({ stills: times.length, times, sheet: path.join(stills, 'sheet.jpg'), fit: meta.fit, errors }));
   }
 
   if (mp4) {
@@ -85,7 +85,7 @@ const plan = fs.existsSync(renderJson) ? JSON.parse(fs.readFileSync(renderJson, 
       await page.evaluate(t => renderAt(t), i / fps);
       const buf = await page.screenshot({ type: 'jpeg', quality: 92 });
       if (!proc.stdin.write(buf)) await new Promise(r => proc.stdin.once('drain', r));
-      if (i % (fps * 5) === 0) console.log(`image ${i}/${N}`);
+      if (i % (fps * 2) === 0) console.log(`image ${i}/${N}`);
     }
     proc.stdin.end();
     const code = await new Promise(r => proc.on('close', r));

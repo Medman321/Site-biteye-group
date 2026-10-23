@@ -71,12 +71,13 @@ def make_phrases(words, cap):
         i += 1
     if cap.get('phrases'):
         return [toks[a:b + 1] for a, b in cap['phrases']]
-    maxw, gap = cap.get('maxWords', 9), cap.get('pause', 1.6)
+    maxw, gap = cap.get('maxWords', 12), cap.get('pause', 1.6)
+    maxc = cap.get('maxChars', 62)  # ~2 lines in 9:16, ~1.5 lines in 16:9 at the default size
     out, cur = [], []
     for j, tk in enumerate(toks):
         cur.append(tk)
         nxt = toks[j + 1] if j + 1 < len(toks) else None
-        if (re.search(r'[.?!؟]$', tk[0]) or len(cur) >= maxw or nxt is None or nxt[1] - tk[2] > gap):
+        if (re.search(r'[.?!؟]$', tk[0]) or len(cur) >= maxw or (nxt is not None and len(' '.join(x[0] for x in cur + [nxt])) > maxc) or nxt is None or nxt[1] - tk[2] > gap):
             out.append(cur)
             cur = []
     return out
@@ -142,6 +143,7 @@ def main():
 
     cap = sb.get('captions') or {}
     if cap.get('words') and cap.get('enabled', True):
+        cap.setdefault('maxChars', 52 if W > H else 62)
         cfg['captions'] = {'phrases': make_phrases(load_words(rel(cap['words'])), cap), 'rtl': cap.get('rtl', False)}
 
     for tr in sb.get('audioMix', []):

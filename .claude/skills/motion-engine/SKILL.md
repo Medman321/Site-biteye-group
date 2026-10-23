@@ -9,7 +9,7 @@ description: Moteur de motion design BitEye — transforme un storyboard.json (s
 engine/template.html   moteur (CSS + JS), rendu = fonction pure du temps t
 scripts/build.py       storyboard.json → <slug>.html, <slug>.local.html, <slug>.render.json, media/
 scripts/render.js      page → planche d'images (--stills) ou MP4 (--mp4), audio mixé par ffmpeg
-examples/              storyboard validé (pub darija 9:16, 41 s) + words.json
+examples/              storyboards validés : pub darija 9:16 et sa version 16:9 (même voix, words.json)
 ```
 Prérequis : python3, ffmpeg, node + playwright avec Chromium (présents dans les sessions cloud ; ailleurs `npm i -g playwright && npx playwright install chromium`).
 
@@ -24,6 +24,21 @@ node $ENG/render.js OUT/<slug>.local.html --mp4 OUT/<slug>.mp4 [--fps 30]
 - Rendu : ~2,5 images/s en 9:16 (41 s ≈ 2 min) ; plus lent avec des clips vidéo (chaque image attend la position exacte du clip).
 - Médias embarqués en base64 tant que le total reste sous ~14 Mo ; au-delà (ou avec `--sidecar`), la page référence `media/…` : garder le dossier à côté du HTML, et le publier via `files`.
 - Les clips sont convertis en WebM VP9 sans son (le Chromium de rendu ne lit pas le H.264). Leur son passe par `audioMix`.
+- `--stills` prend une image juste avant la fin de chaque scène (tous les blocs sont entrés) et renvoie `fit` : le facteur de réduction de chaque scène (1 = tient sans réduction). En dessous de 0,9, allège la scène ou passe-la en `split`.
+- Un avertissement ffmpeg « Header missing / Invalid data found » sur un MP3 de téléphone vient du fichier source (dernière trame tronquée) : sans effet si le rendu finit avec `"ffmpeg":0`.
+
+## Zone utile par format
+
+Le contenu d'une scène se place entre la barre de marque et les sous-titres :
+
+| Format | Taille | Zone utile (avec sous-titres) | Conseils |
+|---|---|---|---|
+| 9:16 | 1080×1920 | 960 × ~1240 px | empiler : titre, puis visuel ; idéal pour cartes, listes, maquette |
+| 4:5 | 1080×1350 | 960 × ~670 px | 2 blocs par scène maximum |
+| 1:1 | 1080×1080 | 960 × ~400 px | titre + un seul visuel ; préférer `wave:false` ou des sous-titres courts |
+| 16:9 | 1920×1080 | 1800 × ~650 px | `split` (texte à gauche, visuel à droite), titres sur une ligne, tailles ÷ 1,3 |
+
+Sans sous-titres, la zone gagne ~300 px de haut. Les cartes (560 px) et la maquette `app` (~1000 px) sont hautes : en paysage, mets-les dans la colonne droite d'un `split`.
 
 ## storyboard.json
 
@@ -47,7 +62,7 @@ node $ENG/render.js OUT/<slug>.local.html --mp4 OUT/<slug>.mp4 [--fps 30]
 | `format` | `9:16` 1080×1920, `16:9` 1920×1080, `1:1` 1080×1080, `4:5` 1080×1350 ; ou `size: [w,h]` |
 | `duration` | durée totale (s) ; défaut = fin de la dernière scène + 1 |
 | `voice` | bande son principale ; anime aussi le halo et l'onde |
-| `captions.words` | `words.json` ElevenLabs ; `replace` par index de mot (chaîne) ou par texte ; `""` supprime un mot ; `merge` [i, j, texte] fusionne des mots ; `phrases` [[i,j],…] force le découpage (indices après fusion) |
+| `captions.words` | `words.json` ElevenLabs. `replace` : clé = index du mot **d'origine** (chaîne, avant fusion) ou texte du mot ; `""` supprime un mot. `merge` [i, j, texte] : fusionne les mots d'origine i à j. `phrases` [[a,b],…] : force le découpage, indices **après** fusion. Découpage auto : ponctuation finale, pause > `pause` (1,6 s), plus de `maxWords` (12) mots ou de `maxChars` caractères (62 en vertical, 52 en paysage) |
 | `media` | clé → fichier ; les blocs référencent la clé |
 | `audioMix` | son d'un clip ou bruitage placé à `start`, lu depuis `from` |
 | `music` | musique de fond, fondu en entrée et en sortie (fournie par le demandeur ; ne jamais télécharger de musique sans licence) |
@@ -57,11 +72,11 @@ node $ENG/render.js OUT/<slug>.local.html --mp4 OUT/<slug>.mp4 [--fps 30]
 ### Scène
 
 ```json
-{"id": "solution", "start": 12.65, "end": 18.1, "gap": 24, "align": "center",
+{"id": "solution", "start": 12.65, "end": 18.1, "gap": 24, "align": "center", "split": 0,
  "background": {"src": "chantier", "dim": 0.9, "position": "50% 30%", "kenburns": {"from": 1.0, "to": 1.15, "x": -2, "y": 0}},
  "blocks": [ … ]}
 ```
-La scène est visible de `start` à `end` (+0,4 s de sortie). Le contenu est centré dans la zone utile (sous la barre de marque, au-dessus des sous-titres) et réduit automatiquement s'il déborde : si la planche montre une scène trop petite, retire des blocs plutôt que de compter sur la réduction.
+La scène est visible de `start` à `end` (+0,4 s de sortie). `split: N` met les N premiers blocs dans une colonne gauche (alignée à gauche) et les autres dans une colonne droite : c'est la mise en page de base du 16:9. Le contenu est centré dans la zone utile (sous la barre de marque, au-dessus des sous-titres) et réduit automatiquement s'il déborde : si la planche montre une scène trop petite, retire des blocs plutôt que de compter sur la réduction.
 
 ### Blocs
 
@@ -99,7 +114,7 @@ Icônes : `chart building tower crane doc check key users wallet calendar tools 
 1. Pour chaque mot-clé, `at` = son `start` dans `words.json` (indices : ordre des mots, à partir de 0).
 2. Une scène commence 0,05 à 0,1 s avant son premier mot et se termine juste avant le premier mot de la scène suivante.
 3. Les pauses longues accueillent une révélation (logo, produit) : masque la barre de marque à ce moment (`brandSpans`).
-4. Laisse l'écran final après la fin de la voix (3 à 4 s) : `duration` = fin de la voix + 3.
+4. Laisse l'écran final 2,5 à 4 s après la fin de la voix (`duration` arrondie, par exemple 41 s pour 38,4 s de voix).
 
 ## Contrôle qualité (une passe)
 

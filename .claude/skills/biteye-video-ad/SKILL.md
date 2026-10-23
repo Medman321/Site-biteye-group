@@ -21,7 +21,7 @@ Lis chaque SKILL.md au moment de l'étape (chemins : `.claude/skills/<nom>/SKILL
 Relève dans la demande, sinon prends le défaut et dis-le dans le compte rendu :
 
 - **Format** : `9:16` (Reels, TikTok, Stories, Status WhatsApp) par défaut ; `16:9` (YouTube, écran salon, site) ; `1:1` ou `4:5` (fil Facebook / Instagram). Plusieurs formats demandés → un storyboard par format (même contenu, mise en page revue).
-- **Durée** : celle de la voix + 3 à 4 s d'écran final. Sans voix : 15 s, 30 s ou 45 s.
+- **Durée** : celle de la voix + 2,5 à 4 s d'écran final, arrondie. Sans voix : 15 s, 30 s ou 45 s.
 - **Public et langue** : promoteurs, entreprises de réalisation, syndics de copropriété en Algérie. Sous-titres dans la langue parlée (darija en lettres latines par défaut), titres à l'écran en français.
 - **Appel à l'action** : « Demande ta démo » (tutoiement si la voix tutoie) ou « Demandez votre démo », + `biteye-group.com`.
 
@@ -38,7 +38,7 @@ Ne jamais écrire les médias du client dans le dépôt : le site est publié pa
 ## 3. Analyser les médias
 
 Suis `media-analysis`. Résultat attendu dans `$OUT` :
-- `analysis.json` (durées, pauses, plans, orientation) ;
+- `analysis/analysis.json` (durées, pauses, plans, orientation) ;
 - `words.json` (transcription mot à mot) pour toute voix ;
 - une description écrite de chaque photo / plan vidéo après les avoir **regardés** avec Read (aperçus et planches générés).
 
@@ -48,7 +48,7 @@ Suis `media-analysis`. Résultat attendu dans `$OUT` :
 2. Pour chaque scène, choisis les blocs (`motion-engine`) qui **montrent ce qui est dit** : chaque mot-clé prononcé déclenche son élément (`at` = `start` du mot dans `words.json`). C'est ce qui donne la synchronisation.
 3. Place les médias du client là où ils servent le propos : photo de chantier en fond (`background` avec Ken Burns), clip en bloc `video`, galerie pour plusieurs photos, mémo vocal conservé tel quel comme bande son.
 4. Termine toujours par l'écran final de marque (logo, VISION Workspace, accroche, CTA, site).
-5. Écris `$OUT/storyboard.json`. Modèle complet et validé : `.claude/skills/motion-engine/examples/vision-darija-9x16/storyboard.json`.
+5. Écris `$OUT/storyboard.json`. Modèles validés : `.claude/skills/motion-engine/examples/vision-darija-9x16/storyboard.json` (vertical) et `examples/vision-darija-16x9/storyboard.json` (paysage, scènes en `split`). Vérifie la zone utile du format (tableau dans `motion-engine`).
 
 Règles de rythme : 1 idée visuelle toutes les 2 à 4 s ; jamais plus de ~12 mots de titre à l'écran ; entrée de chaque élément sur le mot, sortie de la scène 0,3 s avant la phrase suivante.
 
@@ -59,7 +59,7 @@ ENG=.claude/skills/motion-engine/scripts
 python3 -I $ENG/build.py "$OUT/storyboard.json" --out "$OUT/out"
 node $ENG/render.js "$OUT/out/<slug>.local.html" --stills "$OUT/out/stills"
 ```
-Regarde `$OUT/out/stills/sheet.jpg` avec Read. Corrige ce qui déborde, se chevauche, est illisible ou mal synchronisé, puis reconstruis : **une seule passe de corrections**. Ensuite :
+Regarde `$OUT/out/stills/sheet.jpg` avec Read, et le champ `fit` de la sortie (scènes réduites sous 0,9 à alléger). Corrige ce qui déborde, se chevauche, est illisible ou mal synchronisé, puis reconstruis : **une seule passe de corrections**. Ensuite :
 ```
 node $ENG/render.js "$OUT/out/<slug>.local.html" --mp4 "$OUT/out/<slug>.mp4"
 ```
