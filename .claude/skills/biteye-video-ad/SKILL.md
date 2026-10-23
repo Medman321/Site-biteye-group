@@ -60,5 +60,7 @@ Dossier de travail : `OUT=<scratchpad>/video-<slug>` (sinon `./.video-out/<slug>
 
 ## 4. Livrer
 
+Rendu long ou multi-formats : pousse le projet (storyboards seulement, pas les médias) et lance « Vidéo · rendu » sur GitHub avec `archive_url` pour les médias ; les fichiers finaux arrivent en artefact ou en Release. Voir `.claude/CLAUDE.md` § GitHub.
+
 - `<slug>.mp4` (un par format) ; `<slug>.local.html` (page autonome, voix synchronisée) ; `<slug>.html` à publier comme Artifact (avec `media/*` via `files` si `sidecar_media`).
 - Compte rendu : tableau temps → voix → animation ; grille de contrôle remplie ; défauts retenus ; données d'exemple signalées ; outils utilisés (gratuits ou payants, avec le coût) ; sources de la veille.

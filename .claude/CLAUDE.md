@@ -22,6 +22,13 @@ Raccourci : pour une simple retouche ou une déclinaison de format d'une vidéo 
 
 Si les agents ne sont pas disponibles dans la session (ils se chargent au démarrage), applique toi-même les skills dans le même ordre, ou lance un agent générique en lui demandant de suivre le fichier de l'agent concerné.
 
+## GitHub (dépôt public)
+
+- **Contrôle automatique** : toute modification de `.claude/skills/**` dans une pull request déclenche « Vidéo · contrôle du moteur » (reconstruit les exemples, planches et MP4 court en artefacts). Ne fusionne pas une PR dont ce contrôle est rouge.
+- **Rendu dans le cloud** : « Vidéo · rendu » (Actions → Run workflow) rend un projet (dossier avec `storyboard.json` et `storyboard-*.json`), passe la voix au studio, joint MP4 + HTML + planches au run et, sur demande, crée une Release téléchargeable. Les médias arrivent par `archive_url` (lien .zip), jamais par un commit.
+- **Demandes par issue** : modèle « Demande de vidéo » (questions de cadrage). Avec « @claude » dans l'issue et le secret configuré (`.github/workflows/claude.yml`), Claude traite la demande dans GitHub en suivant ces consignes ; sinon, traite l'issue depuis une session.
+- **Public** : issues, artefacts, Releases et fichiers du dépôt sont visibles par tous. Pour des médias ou des vidéos confidentiels, utilise le scratchpad de la session ou un dépôt privé dédié.
+
 ## Outils
 
 Gratuits et locaux par défaut (`bash .claude/skills/biteye-video-ad/scripts/setup_free_tools.sh`). ElevenLabs et tout service payant seulement si le demandeur le veut, coût annoncé avant.
