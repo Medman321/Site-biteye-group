@@ -2,7 +2,7 @@
 
 ## Demandes de vidéo : l'équipe et l'ordre de passage
 
-Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la méthode `.claude/skills/biteye-video-ad/SKILL.md`, avec l'équipe ci-dessous.
+Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la méthode `.claude/skills/biteye-video-ad/SKILL.md`, avec l'équipe ci-dessous. Les agents 9 à 13 ne sont lancés que si le plan d'efficacité (8) les juge utiles.
 
 | # | Agent | Rôle |
 |---|---|---|
@@ -15,12 +15,17 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 | 6 | `motion-video-producer` | storyboard, moteur HTML/Playwright/ffmpeg, rendu MP4 + HTML |
 | 7 | `quality-brand-inspector` | contrôle qualité et marque APRÈS rendu, verdict livrable / à reprendre |
 | 8 | `token-efficiency-auditor` | responsable de l'efficacité, qui chapeaute tout : plan d'exécution et budget AVANT, bilan mesuré et capitalisation APRÈS ; jamais d'économie sur la qualité |
+| 9 | `chief-editor-monteur` | animatic basse définition, rythme, ordre et durée des plans, verdict montage avant tout rendu soigné |
+| 10 | `image-restoration-engineer` | débruitage, netteté, agrandissement Real-ESRGAN, artefacts de compression, ralentis (seulement si les sources le demandent) |
+| 11 | `colorist` | scopes, raccord couleur entre sources, look et LUT .cube, couleurs d'accent mesurées dans les images |
+| 12 | `sound-designer` | habillage sonore calé sur les animations, musique coupée sur les temps, jingle (l'ingénieur du son mixe) |
+| 13 | `motion-3d-artist` | 3D Blender (bpy), suivi de mouvement (OpenCV, MediaPipe), parallaxe, 1 ou 2 effets avancés par vidéo |
 
 1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
 2. **Planifier** : 8 écrit `plan-efficacite.md` (équipe minimale, modèle par tâche, fichiers à réutiliser, parallélisme, rendus d'essai, budget). La session suit ce plan.
-3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 3 fait la veille.
+3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média, 10 si les sources sont abîmées, 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
 4. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
-5. **Pré-rendu** : 6 construit le storyboard et les images clés ; 4 audite ; 6 corrige (une passe).
+5. **Pré-rendu** : 9 monte l'animatic et le valide ; 6 construit le storyboard et les images clés, avec les calques de 13 et l'habillage de 12 ; 4 audite ; 6 corrige (une passe).
 6. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
 7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
 8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
