@@ -5,7 +5,7 @@ description: Charte et empreinte de BitEye / VISION Workspace pour les vidéos �
 
 # Charte et empreinte BitEye
 
-Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche Brandfetch de biteye-group.com (logo, couleurs et textes du site en ligne), recherches web, informations données par BitEye.
+Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche Brandfetch de biteye-group.com (logo, couleurs et textes du site en ligne), recherches web, informations données par BitEye. Complété le 24/10/2026 par la charte, la fiche technique VISION Estate et la plaquette « VISION Workspace 2.0 » du Drive de BitEye (parties marketing seulement : ni prix, ni conditions, ni coordonnées personnelles dans ce dépôt public).
 
 **Comptes officiels**
 - Instagram : [@biteye_logiciels](https://www.instagram.com/biteye_logiciels) (communiqué par BitEye).
@@ -15,20 +15,43 @@ Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche 
 ## Identité
 
 - **BitEye** (« biteye » en minuscules dans le logotype), éditeur algérien de logiciels de gestion. Site : `biteye-group.com`.
-- **VISION Workspace** : la plateforme qui réunit les modules (« VISION » en capitales) :
+- **VISION Workspace** (version « 2.0 » dans la plaquette) : la plateforme qui réunit les modules (« VISION » en capitales). La plaquette en compte **six** : CRM, Estate, Build, Co-Owner, Mobile, Reporting & BI.
+  - **VISION CRM** : prospecter, convertir, fidéliser (leads du site et des campagnes Meta, entonnoir prospects → rendez-vous → visites → réservations → ventes, coût par vente de chaque canal). Avec **PhoneLink** (téléphonie intégrée) : appel en un clic, journal des appels, résumé automatique de chaque appel par l'IA. Déjà en production ;
   - **VISION Estate** : promotion immobilière (ventes, réservations, échéanciers acquéreurs, appels de fonds, démarches administratives, trésorerie du projet) ;
   - **VISION Build** : réalisation (lots, quantités, situations de travaux, budgets, coûts, avancement par lot) ;
   - **VISION Co-Owner** : copropriété (tantièmes, répartition des charges, budget de l'immeuble, interventions, dossiers des résidents) ;
-  - modules complémentaires : stocks, fiscalité, RH, CRM, application mobile, multi-sociétés.
-- **Signatures** : « La plateforme de l'immobilier en Algérie » (site V2) ; « Logiciel de gestion immobilière pour promoteurs et constructeurs » ; « Chaque échéance, à temps. » (site en ligne).
+  - **VISION Mobile** : consulter, valider, contrôler depuis le terrain (smartphone, tablette) ;
+  - **Reporting & BI** : connexion native à Power BI, tableaux de bord sur mesure ;
+  - briques transverses : stocks (achats, entrepôts), fiscalité, RH (pointage, paie), multi-sociétés, gestion électronique des documents (GED).
+- **Signatures** : « La plateforme de l'immobilier en Algérie » (site V2) ; « Logiciel de gestion immobilière pour promoteurs et constructeurs ». **« Chaque échéance, à temps. » est interdit** (décision de BitEye, 24/10/2026), même s'il figure encore sur le site en ligne.
+- **Accroches du site en ligne** (charte du Drive) : « Vos projets prennent forme. » ; « Gardez une vision claire de chaque projet immobilier. Vos ventes, vos encaissements et vos chantiers. Enfin réunis. » ; « Des acquéreurs, des chantiers, des résidents. Une seule plateforme. » ; « Trois métiers. Un seul espace. » ; « Une saisie. Deux entreprises. » ; « Conçu ici. Pour ici. » ; « Du premier clic sur votre publicité jusqu'à la remise des clés. » (CRM) ; « Cinq couches. Un seul partenaire. » ; « Des commerciaux qui convertissent. » (formation).
+- **Plaquette 2.0** : « L'ERP du promoteur immobilier algérien » ; « La seule plateforme algérienne qui couvre les trois métiers de l'immobilier » ; « Un promoteur. Plusieurs activités. Un seul écosystème. » ; signature de couverture « OWN THE WORLD » (usage : voir « Banque de données »).
 
-### À confirmer avant toute utilisation dans une vidéo
+## Banque de données : on stocke tout, on n'utilise que ce qui sert la vidéo
 
-Ces éléments viennent du site en ligne via Brandfetch et n'ont pas été vérifiés par BitEye :
-- « plus de 250 promoteurs et constructeurs » ;
-- « présents dans 19 wilayas » ;
-- « bureaux à Alger et à Oran » ;
-- l'adresse `contact@biteye-group.com`.
+Règle de BitEye (24/10/2026) : toute donnée récupérée (site, réseaux, documents, témoignages) est rangée ici et analysée ; elle ne sort dans une vidéo **que si le contexte le justifie**, jamais en liste de chiffres « pour remplir ». Une vidéo porte en général **une seule preuve chiffrée**, celle qui répond à la question de sa cible.
+
+| Donnée (confirmée par BitEye) | Quand l'utiliser | Quand l'éviter |
+|---|---|---|
+| « 250 clients » | pub de notoriété, preuve sociale, écran final d'une pub produit | témoignage (le témoin est déjà la preuve) |
+| « depuis 2014 » / « 12 ans » | confiance, pérennité, pub institutionnelle, recrutement | pub d'une nouveauté (VISION Mobile, PhoneLink) |
+| « présents dans 19 wilayas » | ciblage hors Alger, couverture nationale, salon | vidéo locale (Oran, Alger) où la proximité compte plus |
+| « bureaux à Alger et à Oran » | vidéo destinée à l'Ouest ou à l'Algérois, invitation à une démonstration en présentiel | sans appel au présentiel ; jamais d'adresse à l'écran |
+| « partenaire du salon Elogia (Oran) » | annonce ou retour de salon, contenu événementiel | tout le reste |
+| « 99 % de satisfaction » | voir ci-dessous | — |
+| « OWN THE WORLD » | voir ci-dessous | — |
+
+**« 99 % de satisfaction »** : chiffre fort mais sans méthode publiée ; seul à l'écran, il sonne « publicité » et peut être contesté. À utiliser seulement en fin de vidéo de preuve (témoignages, bilan annuel), adossé à du concret : « 250 clients. 99 % satisfaits. » ou après deux témoignages, « Ils ne sont pas les seuls : 99 % de nos clients sont satisfaits. » Préférer, quand c'est possible, une preuve vérifiable (« 250 clients depuis 2014 », un témoin nommé). Si BitEye publie un jour la méthode (enquête, période, nombre de réponses), l'indiquer en petit.
+
+**« OWN THE WORLD »** : en anglais et très large, il ne parle pas directement à un promoteur algérien. Ne pas l'utiliser tel quel en accroche ni en signature de pub. Pistes plus proches de la cible, dans l'esprit « maîtriser son univers » :
+- « Maîtrisez tout votre projet. » / « Votre projet. Sous contrôle. Du terrain aux clés. »
+- « Votre promotion, entre vos mains. »
+- en darija, à faire valider : « مشروعك كامل، تحت يدك » (ton projet entier, sous ta main).
+Réserver « OWN THE WORLD » d'origine aux contenus de marque en anglais (salon international, LinkedIn), si BitEye le souhaite.
+
+Autres points :
+- l'adresse `contact@biteye-group.com` reste à confirmer avant affichage ;
+- les adresses postales ne s'affichent jamais (elles diffèrent entre les documents).
 
 ## Logo et palettes (décision de BitEye, 23/10/2026)
 
@@ -43,6 +66,13 @@ Deux palettes, choisies selon la nature de la vidéo :
 | Accent | turquoise `#03DA9F` | citron `#C4EF4E` |
 | Texte clair | `#EAEEF1` | `#F2EFE8` |
 
+Le « turquoise » `#03DA9F` est nommé « vert émeraude vif » dans la charte du Drive : même code, même couleur. La charte donne aussi, pour la palette officielle :
+- `#06E0A4` : vert émeraude de l'œil du logo, pour les mots-clés et le sous-titre actif quand le logo est à l'écran ;
+- `#0A2F47`, `#0B3550`, `#0E3A55` : bleus nuit plus clairs, pour les dégradés de fond, les bâtiments vectoriels et la profondeur 3D ;
+- `#FFFFFF` : titres sur le bleu nuit (`#EAEEF1` pour le texte doux) ;
+- `#E9D99A` (or sablé) : touche secondaire rare, par exemple fenêtres éclairées ou étoiles ;
+- `#1E4E79` (bleu acier) : titres sur fond blanc dans les fiches PDF, pas dans les vidéos.
+
 Palette officielle pour tout ce qui est marque, produit et réseaux sociaux. Palette V2 seulement quand le demandeur la demande (par exemple une vidéo intégrée au nouveau site, pour qu'elle s'accorde à ses couleurs).
 
 Règles communes : l'accent ne sert qu'à 1 ou 2 mots par titre (`*mot*`), aux CTA et aux coches, jamais en fond plein écran. Logo jamais déformé ni recoloré, toujours sur fond sombre.
@@ -50,6 +80,8 @@ Règles communes : l'accent ne sert qu'à 1 ou 2 mots par titre (`*mot*`), aux C
 ## Typographies
 
 Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Arabic (arabe), Caveat et Aref Ruqaa (notes manuscrites). Toutes sur Google Fonts. Le logotype en ligne utilise une typographie géométrique arrondie : ne la remplace pas par du texte, utilise l'image du logo.
+
+**Écart avec la charte du Drive (à arbitrer par BitEye)** : la charte décrit le site officiel avec **Poppins** (titres H1/H2, 300/500/600/700 ; logotype « bit » en gras + « eye » en léger), **Inter** (interface, sous-titres, chiffres) et **Nunito** (badges, étiquettes). Les polices ci-dessus sont celles du site V2 de ce dépôt. Tant que BitEye n'a pas tranché, garder Inter Tight / Inter dans les vidéos ; Poppins seulement si le demandeur veut les titres de la charte officielle. Dans les deux cas : mots-clés des titres en italique couleur accent.
 
 ## Ton
 
@@ -62,9 +94,39 @@ Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Ar
 - **Promotion** : programme, résidence, blocs, logements F2/F3/F4, réservations, VSP, échéanciers, appels de fonds, acquéreurs, remise des clés.
 - **Réalisation** : lots (gros œuvre, CES, électricité, plomberie, VRD, finitions), métrés, quantités, situations de travaux, attachements, sous-traitants, ciment, rond à béton.
 - **Finances / gestion** : budget engagé (DA, Md DA), trésorerie, achats, stocks, paie, RH.
-- **Fiscalité** : TVA, G50, IBS.
+- **Fiscalité** : TVA, G50, IBS, TAP.
 - **Copropriété** : syndic, tantièmes, charges, appels de fonds, assemblée générale.
+- **Formules et modèles de projet** : promotion libre, LPA 1 (dispositifs CNL), LPA 2 (dispositifs BNH), vente de terrains (lots, îlots, sections), location immobilière (baux, échéances récurrentes). Modes de financement acquéreur : autofinancement, crédit bancaire, CNL, BNH, FNPOS.
+- **Termes de la charte et de la fiche technique** : EDD (état descriptif de division), schéma de réservation par bloc (libres, pré-réservés, réservés), pré-réservation, VSP (vente sur plan), ordre de versement, reste à encaisser, décision de remise des clés ; CDC (cahier des charges), DQE (devis quantitatif et estimatif), attachements, décomptes, retenue de garantie, DGD (décompte général et définitif), situation d'avance ; démarches chez le notaire, le visa CTC, Sonelgaz, le cadastre.
 - **Lieux plausibles pour des exemples** : Alger (Bab Ezzouar, Chéraga, Dely Ibrahim), Oran, Constantine, Sétif, Blida.
+
+## Arguments et bénéfices (plaquette 2.0, fiche technique, charte)
+
+**Le constat (accroche de problème)** : « Trois métiers, dix outils, aucune vision d'ensemble. »
+- Données dispersées : commercial, chantier et comptabilité sur des fichiers séparés, jamais à jour en même temps ;
+- ressaisies permanentes, avec les écarts qu'elles produisent ;
+- suivi financier tardif : l'état réel d'un projet n'apparaît qu'à la clôture comptable ;
+- traçabilité difficile : retrouver l'historique d'un engagement ou d'un paiement prend des heures.
+
+**La réponse** : « La seule plateforme algérienne qui couvre les trois métiers de l'immobilier » : un seul environnement, une seule base d'information, une vision consolidée.
+
+**Le cycle** (trame de scénario possible) : avant la vente (prospects, campagnes, appels, qualification) → la vente (réservation, contrat, financement, échéancier) → la réalisation (marchés, sous-traitants, situations, décomptes, avancement) → après la vente (clôture, suivi fiscal, transfert en copropriété, gestion de la résidence).
+
+**Bénéfices par module**
+- **Estate** : disponibilité des lots en temps réel ; échéancier créé automatiquement selon le mode de financement ; alertes de retard et notifications d'échéances, de pré-réservations et de validations ; documents générés automatiquement (fiches de pré-réservation, attestations, VSP, reçus, ordres de versement) ; montants calculés à la réservation et au règlement ; historique des transferts de lots conservé.
+- **Build** : prévisionnel contre réalisé (quantités, montants, délais) ; les attachements génèrent les situations de travaux et les décomptes ; contrats, avenants, bons de commande et retenues de garantie suivis au même endroit ; solde de chaque fournisseur ou sous-traitant en temps réel.
+- **Co-Owner** : à la remise des clés, l'acquéreur devient résident sans ressaisie (« Vous vendez le logement. VISION Workspace vous accompagne jusqu'à sa gestion. ») ; appels de charges et relances ; interventions et prestataires.
+- **Multi-sociétés** : une société de promotion et sa société de réalisation sur le même VISION Workspace ; la situation de travaux saisie une fois apparaît chez les deux (« Une seule saisie. Zéro ressaisie. ») ; la séparation juridique des sociétés est conservée.
+- **Mobile et BI** : le dirigeant valide paiements, remises et dépenses depuis son téléphone ; suivi des réserves et du chantier ; Power BI pour ventes, encaissements, trésorerie, achats, rentabilité.
+- **Gestion administrative** : chaque tâche est affectée, datée et suivie jusqu'à son échéance, en interne et auprès des administrations, avec contrôle depuis l'application mobile.
+- **Documents** : GED intégrée (scan instantané, accès immédiat aux pièces) ; tableaux exportables avec totaux, moyennes, minimum et maximum.
+
+
+**Mise en service** (4 étapes) : serveur et postes installés dans les bureaux du client (« vos données restent dans vos bureaux ») → formation sur site, y compris le métier et la réglementation algérienne → saisie des données disponibles pendant la formation → accompagnement continu (groupe WhatsApp, e-mail, téléphone, service après-vente).
+
+**Les sept raisons** : spécialisée, intégrée, connectée, multi-entreprises, traçable, évolutive, orientée décision.
+
+**Au-delà du logiciel** (« Cinq couches. Un seul partenaire. ») : logiciel, accès à distance sécurisé (RemoteApp, « Votre bureau, partout. »), serveur et réseau clé en main, sécurité et sauvegarde (« Vos données. À l'abri. »), formation et accompagnement commercial (« Intelligence Commerciale Immobilière », 3 jours, 10 modules, 80 % de pratique). À ne montrer que si le demandeur le veut : la vidéo parle d'abord de VISION Workspace.
 
 ## Témoignages clients (accord : visage, nom et publicité sponsorisée)
 
