@@ -21,7 +21,10 @@ EMBED_LIMIT = 14 * 1024 * 1024
 # "officiel" = navy + turquoise of the BitEye eye logo (default). "v2" = forest + lime palette (site V2), on request.
 THEMES = {'officiel': [('#0F1A14', '#022539'), ('#0A120D', '#011A29'), ('#C4EF4E', '#03DA9F'), ('#c4ef4e', '#03da9f'),
                        ('rgba(196,239,78', 'rgba(3,218,159'), ('#2F6A1F', '#027A5B'), ('#F2EFE8', '#EAEEF1'),
-                       ('rgba(242,239,232', 'rgba(234,238,241'), ('rgba(10,18,13', 'rgba(1,26,41'), ('rgba(5,9,7', 'rgba(0,12,20')]}
+                       ('rgba(242,239,232', 'rgba(234,238,241'), ('rgba(10,18,13', 'rgba(1,26,41'), ('rgba(5,9,7', 'rgba(0,12,20')],
+          'temoignage': [('#0F1A14', '#022539'), ('#0A120D', '#011A29'), ('#C4EF4E', '#EEBC5C'), ('#c4ef4e', '#eebc5c'),
+                       ('rgba(196,239,78', 'rgba(238,188,92'), ('#2F6A1F', '#8A5A1E'), ('#F2EFE8', '#F6EFE3'),
+                       ('rgba(242,239,232', 'rgba(246,239,227'), ('rgba(10,18,13', 'rgba(2,22,34'), ('rgba(5,9,7', 'rgba(0,10,16')]}
 
 
 def run(cmd):
@@ -89,6 +92,11 @@ def make_phrases(words, cap):
 
 def prepare_media(key, path, mdir):
     ext = os.path.splitext(path)[1].lower()
+    if ext == '.webm':
+        # V2 : WebM VP9 déjà prêt (plaque ambilight ou sujet détouré avec alpha yuva420p) : copié tel quel.
+        dst = os.path.join(mdir, key + '.webm')
+        shutil.copyfile(path, dst)
+        return dst, 'video/webm'
     if ext in ('.mp4', '.mov', '.webm', '.mkv', '.avi', '.m4v'):
         # WebM VP9: the open-source Chromium used for rendering cannot decode H.264.
         dst = os.path.join(mdir, key + '.webm')
@@ -165,8 +173,8 @@ def main():
 
     # The original BitEye eye logo is used whatever the palette (brand rule).
     theme = sb.get('theme', 'officiel')
-    media_src['__logo'] = os.path.join(HERE, '..', '..', 'biteye-brand', 'assets', 'logo-officiel.png')
-    for k in ('grain', 'handheld', 'flashes', 'safe'):
+    media_src['__logo'] = os.environ.get('BITEYE_LOGO') or os.path.join(HERE, '..', '..', 'biteye-brand', 'assets', 'logo-officiel.png')
+    for k in ('grain', 'handheld', 'flashes', 'safe', 'accents', 'plainBg', 'glowColor', 'capStyle', 'capPlain', 'capMoves', 'capHide', 'brandTop', 'brandCompact'):
         if k in sb: cfg[k] = sb[k]
 
     prepared, total = {}, 0
@@ -187,8 +195,8 @@ def main():
     page = page.replace('__TITLE__', sb.get('title', 'Vidéo BitEye').replace('<', '&lt;'))
     page = page.replace('/*__CONFIG__*/null', js(cfg)).replace('/*__MEDIA__*/{}', js(media))
 
-    if theme == 'officiel':
-        for old, new in THEMES['officiel']:
+    if theme in THEMES:
+        for old, new in THEMES[theme]:
             page = page.replace(old, new)
 
     html = os.path.join(out, slug + '.html')

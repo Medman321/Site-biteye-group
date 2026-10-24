@@ -138,3 +138,14 @@ Après `--stills`, regarde `sheet.jpg` : texte coupé ou trop petit, chevaucheme
 ## Étendre le moteur
 
 Un nouveau type de bloc s'ajoute dans `template.html` : `B.<type> = (b, sc, stage) => élément` ; animer avec `A(el, tin, tout, kind)` ou un `HOOKS.push(t => …)` qui ne dépend que de `t`. Tout doit rester une fonction du temps (pas d'animation CSS ni de `setTimeout`), sinon le MP4 ne correspond plus à la page.
+
+## Porte avant rendu (outils V2)
+`bash .claude/skills/motion-engine/scripts/pre_render_gate.sh PROD [animatic.mp4]` (align_check, coupes non prévues, ffprobe, sonie) doit être vert avant le rendu final et avant tout contrôle croisé.
+`layer_diff.py behind|effect` : mot vraiment derrière la tête / effet visible mais pas trop fort, sur 2 ou 3 images clés. `cut_audit.py` : coupes non prévues. `make_lite.sh` : version WhatsApp ≤ 16 Mo. `cut_audit.py` a été testé sur un MP4 réel ; `layer_diff.py` seulement sur des images de synthèse, et son mode `behind` attend une option `--hide` de `render.js` qui n'existe pas encore.
+
+## Ajouts du moteur V2 (témoignage)
+
+- `theme: "temoignage"` (couleurs ambre/champagne tirées des vidéos) en plus de `officiel` et `v2`.
+- Médias `.webm` VP9 copiés tels quels (plaques plein cadre, sujets détourés avec alpha `yuva420p`) pour la composition 2.5D : fond → effets → sujet.
+- Options d'en-tête : `accents`, `plainBg`, `glowColor`, `capStyle`, `capPlain`, `capMoves`, `capHide` (masquer les sous-titres sur des plages), `brandTop`, `brandCompact`.
+- `render.js` préchauffe la page avant la première image (sinon l'image 0 pouvait sortir sans ses vidéos).

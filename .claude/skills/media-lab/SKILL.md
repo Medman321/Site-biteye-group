@@ -37,3 +37,9 @@ Travaille toujours sur des copies dans `$OUT/` ; les originaux restent intacts d
 - Pas d'images générées par IA pour représenter des chantiers, des personnes ou des clients BitEye.
 - Captures d'écran de VISION : ne jamais les monter dans une vidéo (interface confidentielle). Elles servent de référence pour dessiner les maquettes (`creative-direction` §3).
 - Visages de tiers et plaques d'immatriculation : flouter si la personne n'a pas donné son accord (`ffmpeg -vf "boxblur=10:enable='between(t,a,b)'"` sur une zone `crop`/`overlay`), ou choisir un autre plan.
+
+## Contrôles et détourage vidéo (outils V2)
+
+Écrits pendant la vidéo témoignage V2. `align_check.py` a été testé sur un vrai storyboard ; `cutout_video.py` n'a été que compilé : vérifie son premier lot sur 2 ou 3 images avant un long calcul.
+- `python3 -I .claude/skills/media-lab/scripts/align_check.py PROD [--subjects z1] --info-gate` : alignement sujet/plaque image par image, `start` corrigé, crâne coupé (head_top plafonné ou qui saute). Échec = pas de rendu.
+- `python3 -I .claude/skills/media-lab/scripts/cutout_video.py --jobs travaux.txt --log lot.log` : détourage sur la plaque en lot (une ligne : plaque image0 nb u2net|rvm sortie), arrêt au premier défaut de tête. Remplace les lanceurs `run_*.sh`.
