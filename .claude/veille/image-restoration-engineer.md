@@ -1,0 +1,25 @@
+# Veille du 2026-10-24 — image-restoration-engineer
+
+Recherches : 9 requêtes web (Real-ESRGAN, débruitage ffmpeg, ffmpeg 8.0, specs Reels, restauration de visages, interpolation RIFE, WhatsApp, ordre des traitements) et vérifications locales (ffmpeg 6.1.1, PyPI, pages de releases GitHub). Les sources web sont surtout des blogs tiers : les chiffres de débit sont indicatifs, pas officiels. Conteneur : 4 cœurs, pas de GPU, pas de PyTorch installé.
+
+## Constats
+
+1. Real-ESRGAN n'a plus de version depuis v0.3.0 (20 sept. 2022) : elle ajoute `realesr-general-x4v3.pth` (petit modèle généraliste, plus léger que x4plus) et la variante `-wdn-` pour doser le débruitage — https://github.com/xinntao/Real-ESRGAN/releases — modèle par défaut pour des visages ou photos de téléphone en CPU ; x4plus seulement si x4v3 ne suffit pas.
+2. Les builds `realesrgan-ncnn-vulkan` (dernier : 20220424) et `realesrgan-ncnn-py` 2.0.0 (déc. 2023) exigent Vulkan, donc un GPU — https://github.com/xinntao/Real-ESRGAN/releases et https://pypi.org/project/realesrgan-ncnn-py/ — inutilisables ici ; il reste PyTorch (`pip install torch` CPU) ou ONNX Runtime 1.31.0 (https://pypi.org/project/onnxruntime/).
+3. Les paquets PyPI `realesrgan` 0.3.0 et `basicsr` 1.4.2 datent de 2022 (https://pypi.org/project/realesrgan/) : risque d'incompatibilité avec un torchvision récent, non testé ici. `spandrel` 0.4.2 (fév. 2026, https://pypi.org/project/spandrel/) est une bibliothèque de chargement de modèles de restauration, à essayer avant de patcher basicsr.
+4. Aucun chiffre CPU publié pour Real-ESRGAN (seuls des chiffres GPU, ex. ≈ 10 i/s en 1080p sur V100 — https://www.mintlify.com/xinntao/Real-ESRGAN/resources/comparisons) : on mesure nous-mêmes sur 10 images et on annonce le temps par seconde de plan avant tout lot.
+5. Real-ESRGAN et les restaurateurs de visages (CodeFormer, GFPGAN) travaillent image par image : risque de scintillement et de détail inventé sur le visage — https://morphic.com/de/ai-glossary/CodeFormer (source secondaire) — pas de restauration de visage sur vidéo ; agrandissement limité aux photos et aux plans courts, suivi d'un lissage temporel léger (`hqdn3d` temporel ou `tmix`) et d'un contrôle du scintillement.
+6. ffmpeg local (6.1.1) offre `hqdn3d`, `atadenoise`, `vaguedenoiser`, `owdenoise`, `fftdnoiz`, `nlmeans`, `bm3d`, `deblock`, `pp7`/`spp`/`uspp`, `deband`, `dedot`, `cas`, `unsharp`, `minterpolate`, `mpdecimate`/`decimate`, `scdet`, `psnr`, `ssim` ; pas de `libvmaf`. `nlmeans` et `bm3d` sont spatiaux, très lents et rendent le 1080p plus bloqué — https://lists.ffmpeg.org/pipermail/ffmpeg-user/2021-April/052781.html — défaut : `hqdn3d` (léger 2:1.5:3:2 ; fort 4:3:12:9 réservé aux plans fixes) ou `atadenoise` pour le bruit de nuit ; mesurer avant/après avec `psnr`/`ssim` et le laplacien.
+7. FFmpeg 8.0 (août 2025) n'apporte aucun nouveau débruiteur ; `nlmeans_vulkan` et `nlmeans_opencl` existent mais demandent un GPU — https://www.phoronix.com/news/FFmpeg-8.0-Released — rien à adopter ; ne pas dépendre d'un filtre GPU.
+8. Ordre des traitements : débruiter à la résolution source avant tout agrandissement ou réduction (discussion non tranchée) — https://lists.ffmpeg.org/pipermail/ffmpeg-user/2019-April/044173.html — comparer les deux ordres sur 3 s avec `hstack` à 200 %, puis figer l'ordre dans le compte rendu.
+9. Plateformes : Instagram ré-encode tout (1080×1920, H.264, 30 i/s ; les blogs donnent 5 à 15 Mb/s, non officiel) et, selon Adam Mosseri (oct. 2024), rétrograde la qualité des vidéos peu vues — https://www.etvbharat.com/en/!technology/instagram-may-reduce-quality-of-your-videos-enn24102805123 ; WhatsApp recompresse les statuts et vidéos de chat, l'envoi « en document » ne recompresse pas (sources tierces non officielles, chiffres contradictoires) — https://help.superchat.com/en/articles/701423-whatsapp-media-sizes-formats — un grain fin est de toute façon détruit par le ré-encodage : débruiter légèrement libère du débit pour les détails utiles ; vérifier la lisibilité d'un plan à 720 p pour WhatsApp.
+10. Images doublées des anciens montages (retex V2) : `mpdecimate`/`decimate` les détectent ; une suppression change la grille d'images sur laquelle le détourage est calculé — retex V2 — décider une fois, produire une seule plaque finale et transmettre l'ordre des images à l'agent 5 avant le détourage.
+
+## Écarté
+
+- `rife-ncnn-vulkan` (dernier : 20221029) et `vsrife` 5.7.0 (fév. 2026) : Vulkan ou PyTorch, trop lents sans GPU ; `minterpolate` reste le repli, sur ralentis ×2 courts seulement.
+- `nlmeans_vulkan` / `nlmeans_opencl` / FFmpeg 8.0 : GPU requis, et rien de décisif en plus.
+- SwinIR : meilleure texture annoncée sur images fixes mais 3× plus lent (Replicate, source vendeur) ; non testé sur vidéo.
+- Topaz (fal.ai), Video2x, Real Video Enhancer, services en ligne : payants, ou non vérifiés (GitHub inaccessible depuis cette session).
+- `pyiqa` 0.1.16 (mesures de qualité sans référence) : utile mais exige PyTorch ; `psnr`/`ssim` de ffmpeg suffisent pour l'instant.
+- Débits et durées Instagram/WhatsApp des blogs : contradictoires, non officiels ; à ne pas coder en dur.

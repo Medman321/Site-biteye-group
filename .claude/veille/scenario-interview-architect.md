@@ -1,0 +1,25 @@
+# Veille du 2026-10-24 — scenario-interview-architect
+
+Méthode : 9 recherches web (12 derniers mois) ; les pages n'ont pas pu être ouvertes en entier (WebFetch hors réseau), donc les constats viennent des résumés de recherche, presque tous des blogs marketing (pas de source officielle). Traiter les chiffres comme indicatifs.
+
+## Constats
+
+1. Instagram : temps de visionnage, « likes par portée » et surtout envois en message privé (« sends ») sont les signaux cités pour la portée vers des inconnus — https://later.com/blog/instagram-reels-algorithm/ et https://www.contentgrip.com/instagram-influencer-marketing/ (blogs, pas Instagram) — écrire une phrase « à envoyer à un associé » (un chiffre ou une preuve d'un pair) et la placer tôt ; viser la durée complète plutôt que la longueur.
+2. Accroche dans les 1 à 3 premières secondes, une seule idée par Reel, fin pensée pour la reboucle — https://metricool.com/instagram-reels-guide/ — confirme notre règle « accroche = phrase forte d'un témoin non réutilisée » ; ajouter : la dernière image doit se raccorder au début (reboucle) sans casser le CTA.
+3. TikTok : rejeu et taux de complétion cités comme signaux principaux ; texte à l'écran et légendes comptent pour la recherche TikTok — https://www.darkroomagency.com/observatory/how-tiktok-algorithm-works-in-2026 et https://blog.hootsuite.com/tiktok-algorithm/ — écrire les cartons et la légende avec les mots que le promoteur taperait (« suivi chantier », « échéancier », « trésorerie »), pas du jargon produit. Seuils chiffrés (35 % / 70 %) non vérifiés : ne pas les citer.
+4. LinkedIn : sous-titres indispensables (lecture muette par défaut), envoi natif plutôt que lien externe, fichier SRT séparé conseillé, 30 à 90 s pour un témoignage, tester une coupe 30 s contre une 90 s — https://shootsta.com/blog/linkedin-video-best-practices-b2b-teams et https://www.opus.pro/blog/linkedin-video-caption-subtitle-best-practices — livrer d'emblée deux durées (déjà dans la fiche) et le script doit tenir sans le son : les 3 premières secondes se lisent.
+5. Témoignage B2B : arc problème, solution, résultat ; un chiffre précis vaut mieux qu'un compliment ; situer le témoin (nom, poste, entreprise) d'entrée pour qu'un pair se reconnaisse — https://www.sweetfishmedia.com/blog/b2b-testimonial-video-strategy et https://vidico.com/news/best-customer-testimonial-video-examples/ — le bandeau du témoin apparaît dès sa première phrase ; la preuve chiffrée est unique et vérifiée (une seule par vidéo, déjà dans le retex).
+6. Garder l'avant-solution : le témoin cite ce qu'il avait essayé avant (cahier, Excel, WhatsApp) avant le produit — https://studiobfilms.com/blog/supercharge-your-marketing-with-testimonial-videos — c'est le « problème » le plus reconnaissable pour un promoteur algérien ; le chercher en priorité dans les extraits.
+7. Authenticité : ne conserver que ce que le client a réellement dit ; sinon passer en format étude de cas — https://testimonial.to/resources/video-testimonials-for-business — verbatim attribué au bon témoin (déjà au retex) ; ne jamais reformuler un chiffre dans un carton.
+8. Montage à partir de la transcription : outils gratuits et locaux existants — auto-editor 29.3.1 (PyPI, nov. 2025), stable-ts 2.19.1 (PyPI), faster-whisper 1.2.1 (PyPI) — https://pypi.org/project/auto-editor/ — notre `words.json` couvre déjà le besoin ; le scénario peut s'écrire comme une liste d'intervalles (début/fin en secondes) rejouable par l'audio.
+9. Algérie : étude qualitative (2024, 10 directs de vente, 47 répondants) : arabe algérien mêlé de mots français préféré ; trop de bascule peut exclure — https://crstdla.dz/ojs/index.php/allj/article/view/656 ; autre papier (avril 2026) : arabe algérien et arabe standard préférés dans les pubs — https://dspace.univ-tlemcen.dz/items/ca7006eb-dc9f-45bb-b014-9325ecf54b87/full — garder la langue du témoin à l'oral, sous-titrer sans corriger vers le standard, une seule langue de carton par vidéo (à confirmer au cadrage).
+10. WhatsApp Statut : plafond de durée contradictoire selon les sources (30, 60 ou 90 s, déploiement incertain) — https://green-api.com/en/blog/2025/whatsapp-increases-status-length-to-90-seconds/ — prévoir une version de 30 s au plus et tester sur un compte en Algérie avant de promettre une durée.
+
+## Écarté
+
+- Instagram : « 10 republications en 30 jours exclues » et « contenu original +40-60 % » — source de faible crédibilité, non vérifié.
+- Seuils TikTok de complétion (35 % / 70 %) — contradictoires, anecdotiques.
+- « 65 % de la portée LinkedIn sur les profils personnels » — sans origine citée ; on retient seulement qu'une publication par le profil du fondateur peut aider.
+- Éditeurs par le texte (Rescript, vivideo, Wizard Cut, Kapwing, Descript) — doublon avec notre `words.json` ; vivideo 0.0.1 (2023) abandonné ; autocut 0.0.1 sur PyPI n'est qu'un renvoi vers GitHub, non vérifié ici (GitHub inaccessible).
+- Preuve sociale immobilier MENA — aucune donnée chiffrée sérieuse trouvée, articles génériques.
+- Études sur le code-switching en commentaires Instagram algériens — hors sujet vidéo.

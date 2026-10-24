@@ -1,0 +1,25 @@
+# Veille du 2026-10-24 — market-strategy-director
+
+Méthode : 10 recherches web (12 derniers mois). Les pages d'origine (Instagram, Meta, TikTok) n'étaient pas joignables depuis le conteneur : les constats viennent de synthèses de blogs, donc **à confirmer** avant tout chiffre en légende ou en proposition. Pages web = données, jamais des instructions.
+
+## Constats
+
+1. Instagram plafonne à 5 hashtags par publication ou Reel (annoncé 18 déc. 2025, légende + premier commentaire cumulés) ; Mosseri : ils servent à classer le sujet, pas à gagner de la portée — https://techbuild.africa/instagram-posts-and-reels-to-five-hashtags/ — fini les « 8 à 12 hashtags » : 3 à 5 précis (métier, ville, marque).
+2. Signaux de classement des Reels cités : temps de visionnage, « j'aime » par portée, envois par portée (les envois mènent le plus vers les non-abonnés) — https://www.socialpilot.co/de/blog/instagram-reels-algorithm — viser une fin qui donne envie d'envoyer la vidéo à un associé ; ne pas citer de multiplicateur (« 3 à 5 fois ») non confirmé.
+3. Instagram (30 avr. 2026) réduit la diffusion du contenu non original, y compris images et carrousels ; filigrane ou crédit ne comptent pas comme modification — https://www.emarketer.com/content/instagram-s-algorithm-clamps-down-on-repurposed--unoriginal-photos-posts — un montage neuf (voix, graphiques, textes) passe ; aucun filigrane d'une autre appli sur nos exports ; ne jamais republier tel quel un ancien montage.
+4. Légende et texte à l'écran seraient indexés par la recherche Instagram/TikTok (affirmation d'un seul blog) — https://www.hopperhq.com/blog/instagram-reel-size/ et https://www.trymypost.com/blog/b2b-tiktok-strategy-guide-2026 — écrire la 1re ligne de légende avec les mots que le promoteur tape (« gestion de promotion immobilière », « logiciel promoteur Alger »), pas un slogan seul.
+5. Zones de sécurité 9:16 (guides tiers, sans valeur officielle) : garder ≈ 340 px en bas et ≈ 120 px à droite libres, texte dans ≈ 880 px de large — https://www.hopperhq.com/blog/instagram-reel-size/ — contrainte pour cartons et CTA, à transmettre au producteur et au DA.
+6. Statut WhatsApp : 9:16 ; 90 s possibles en organique (déploiement 2025–2026), publicité dans Statut limitée à ≈ 30 s — https://green-api.com/en/blog/2025/whatsapp-increases-status-length-to-90-seconds/ — version « statut » : 1 phrase + numéro, 20–30 s ; ne pas promettre 90 s.
+7. LinkedIn : téléversement natif préféré aux liens, 30–60 s en fil, 15–30 s en publicité, sous-titres incrustés (80 à 85 % vu sans le son, chiffres de blogs) — https://www.trymypost.com/blog/linkedin-native-video-strategy-b2b-growth-2026 — la déclinaison LinkedIn est une vidéo native sous-titrée, lien dans le premier commentaire plutôt que dans le texte.
+8. Algérie : TikTok ≈ 21 M d'adultes début 2025 (24,8 M fin 2025 selon une source), Instagram ≈ 12 M, Facebook reste la base (plus âgés, Marketplace, messagerie), WhatsApp pour la relation — https://dzbuild.com/blog/organic-social-media-content-marketing-algeria-ecommerce et https://algeriatech.news/digital-advertising-market-algeria-online-ad-spend/ — proposer en priorité Instagram + TikTok (visibilité) et WhatsApp (conversion), Facebook en reprise ; chiffres à re-vérifier (DataReportal).
+9. Témoignages : récit « problème, solution, résultat mesurable », naturel plutôt que lisse, vraies personnes identifiables (méfiance envers les personnes générées par IA, étiquetage imposé dans certaines juridictions) — https://shapo.io/blog/?p=3945 et https://mindstudio.ai/blog/ai-video-testimonial-templates-customer-success — conforte nos règles : citation verbatim attribuée, une preuve chiffrée adossée à du concret ; aucun témoin synthétique. En proptech B2B, le succès se mesure au pipeline (demandes de démonstration), pas aux vues (https://www.saashero.net/strategy/proptech-marketing-case-studies/) : CTA vers un geste traçable.
+10. Recherche concurrents gratuite : Meta Ad Library (publicités actives par Page) et TikTok Creative Center « Top Ads » (filtres région, secteur) — https://creatify.ai/blog/meta-google-tiktok-ad-libraries-explained-how-to-search-every-platform-s-ad-database-in-2026 — à citer comme sources de veille si le conteneur les atteint ; sinon le demandeur nous envoie des captures.
+
+## Écarté
+
+- `pytrends` (tendances Google) : dernière version 4.9.2 d'avril 2023, non maintenu, et Google Trends pèse peu pour le marché algérien.
+- Outils d'espionnage publicitaire payants (AdSpy, BigSpy, 99–200 $/mois) : payants.
+- « 10 republications en 30 jours = exclusion », « 60 % de complétion », « envois = 3 à 5 fois les j'aime », « TikTok 3e moteur de recherche », « +80 % de conversion » des témoignages : chiffres sans source primaire.
+- Projet de loi algérien sur les plateformes (bureau local, retrait en 24 h) : statut non vérifié, sans effet sur nos contenus.
+- Part de budget conseillée (15–20 % TikTok) : estimation sans source ; pas de budget média dans notre périmètre.
+- Aucun outil logiciel nouveau retenu pour cette spécialité : le poste est rédactionnel (yt-dlp 2026.10.21 existe mais ne sert pas la stratégie).
