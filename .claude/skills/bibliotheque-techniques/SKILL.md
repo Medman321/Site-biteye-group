@@ -71,6 +71,14 @@ Format : technique — où vue (W = Windermere, L = Lake Nona, S = Sunridge, tem
 14. **Lit musical mastérisé à −14 LUFS avec ducking de 8–15 dB sous la voix** — W −14,1 (baisse de 8–15 dB à 27 s), L −14,1 (8–12 dB), S −14,2 (LRA 3,6, ducking faible) — mastering −14 LUFS, crête ≤ −1 dBTP, ducking 8–12 dB (déjà la méthode de l'agent 2) — à éviter : crête +1,2 dBTP (L), musique forte pendant la parole (S).
 15. **Autres gestes de personnage fort** — W faux appel iPhone 0,5–2,4 s, S carte vidéo posée sur la paume 2,2–4,2 s — notification/appel natif ou écran sur la main de l'intervenant, tourné en motion design (agent 13 pour la main) — à éviter : fausse UI qui imite un vrai service ou une vraie marque tierce ; ne les utiliser qu'une fois par vidéo.
 
+### Tutoriel « meubler une pièce vide avec l'IA » (Higgsfield, Nano Banana Pro, Kling 2.5 Turbo — oct. 2026)
+- **Avant/après dans une fenêtre en forme de téléphone dès 0 s** (la transformation se fait en ≈ 1 s) — chez BitEye : un lot « libre » qui devient « réservé » dans une maquette VISION Estate, un tableau vide qui se remplit — à éviter : un avant/après trompeur pour un acheteur.
+- **Accroche qui se referme en capsule puis en point, bascule en écran partagé** (orateur en haut, écran en bas, échelle en 0,25 s) — chez BitEye : intervenant en haut, maquette du logiciel en bas, couleurs de la vidéo.
+- **Étapes numérotées de 2 à 4 mots** (« 1 Importer les lots » … « 5 Résultat »), une légende centrée par étape ; coupes sur les respirations ; attentes de calcul supprimées.
+- **Résultat montré trois fois** (accroche, milieu, fin) ; voix seule propre possible sans musique (−14 LUFS).
+- **Prompts affichés** (option A) : image « Furnish living room with modern furniture, including a sectional, rug, coffee table, light fixture and two accent chairs. Add greenery to the shelves and make everything proportional to the room. All the furniture should be modern and cozy in style, » ; vidéo « Each piece of furniture pops up and falls into place one by one. The camera has super smooth forward motion » — idée : les éléments d'un écran ou d'un bureau de promoteur qui « tombent en place un par un ».
+- À éviter : CTA absent, texte flou par compression, fautes à l'écran.
+
 ### Traversée sans coupe (pub immobilière, oct. 2026)
 - **Une personne traverse plusieurs pièces en un seul plan**, raccord « mur-rideau » (un panneau qui glisse révèle l'espace suivant), un mot-clé ancré dans chaque décor, la personne passe parfois devant le texte, fin qui boucle sur le début — chez BitEye : une « pièce » par module VISION (Estate, Build, Co-Owner…), panneau coulissant entre maquettes d'écran, intervenant détouré pleine hauteur — à éviter : 16:9 centré dans du 9:16, tenue qui change (signe d'IA), absence de produit et CTA faible.
 
@@ -83,6 +91,9 @@ Format : technique — où vue (W = Windermere, L = Lake Nona, S = Sunridge, tem
 
 | Vidéo (Drive) | Analysée | Apports |
 |---|---|---|
+| Construction par IA « gravité inversée » (29,5 s) | 2026-10-24 | méthode option A, 4 prompts (rapport Drive) |
+| Traversée de pièces sans coupe (15 s) | 2026-10-24 | plan unique, raccord mur-rideau, mot ancré dans le décor |
+| Tutoriel « meubler une pièce avec l'IA » (81 s) | 2026-10-24 | avant/après en fenêtre téléphone, étapes numérotées, prompts |
 | Spira — « Les conseils de Mamie » (23 s) | 2026-10-24 | accroche-accusation, punch-in unique, pastilles verre dépoli, compteur |
 | Spira — « Une pub ne commence pas par une pub » (42 s) | 2026-10-24 | paradoxe, liste qui s'empile, métaphore filée, CTA à mot-clé |
 | 4 Chase Rd, Windermere (45,8 s, 17 plans) | 2026-10-24 | accroche en mouvement + texte géant derrière la personne, whips calés sur le geste, fuites de lumière |
