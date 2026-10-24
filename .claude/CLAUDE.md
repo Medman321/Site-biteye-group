@@ -23,13 +23,15 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 
 1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
 2. **Planifier** : 8 écrit `plan-efficacite.md` (équipe minimale, modèle par tâche, fichiers à réutiliser, parallélisme, rendus d'essai, budget). La session suit ce plan.
-3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média, 10 si les sources sont abîmées, 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
+3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 10 dès qu'une source est sous la résolution de livraison ou compressée (obligatoire) ; 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
 4. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
-5. **Pré-rendu** : 9 monte l'animatic et le valide ; 6 construit le storyboard et les images clés, avec les calques de 13 et l'habillage de 12 ; 4 audite ; 6 corrige (une passe).
-6. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
+5. **Pré-rendu** : 9 monte l'animatic avec une transition conçue à chaque changement de plan et le valide ; 6 construit le storyboard et les images clés, avec les calques de 13 et l'habillage de 12 ; 4 audite (grille « sophistication » en premium) ; 6 corrige (une passe).
+6. **Rendre** : 6 rend les MP4 (premium : maître 4K 2160×3840 + version 1080 réduite du maître + version WhatsApp) ; 7 contrôle ; une reprise si « à reprendre ».
 7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
 8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
 9. **Veille d'expertise** : la session écrit le retour d'expérience (`.claude/retex/`) puis lance `veille-expertise` (une veille web par agent, fiches mises à jour, pull request). Aussi chaque mois, par la tâche planifiée « Veille d'expertise BitEye ».
+
+**Niveau premium** (choisi au cadrage) : agents 9, 10 (si source faible), 11, 12 et 13 obligatoires ; aucune coupe sèche entre deux plans (transitions de la bibliothèque du moteur : zoomPunch, zoomThrough, maskReveal, whip, matchCut) ; caméra vivante (léger mouvement continu sur chaque plan) ; 3 plans de profondeur (fond, graphisme, personne) ; un seul concept visuel validé sur planche ; écran final animé.
 
 Les agents ne peuvent pas s'appeler entre eux : la session principale les lance, transmet les fichiers et arbitre. Retouches : renvoyer au même agent (SendMessage).
 

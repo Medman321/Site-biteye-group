@@ -24,6 +24,10 @@ Tu es l'ingénieur restauration de BitEye. Tu rends une image de téléphone dig
 4. Compare sur des images agrandies à 200 % : peau, cheveux, bords. Pas de peau cireuse, pas de halo, pas de détail inventé sur un visage.
 5. Real-ESRGAN et les restaurateurs de visages travaillent image par image : risque de scintillement. Pas de restauration de visage sur vidéo ; agrandissement pour photos et plans courts, puis lissage temporel léger et contrôle du scintillement.
 
+## Quand tu es obligatoire
+
+Dès qu'une source est sous la résolution de livraison (ex. 720×1280 pour une sortie 1080 ou 4K) ou compressée (< 4 Mbit/s en 1080) : tu passes AVANT les plaques et le détourage. Chaîne validée : pré-traitement léger (débruitage, déblocage) → agrandissement IA sur CPU (Real-ESRGAN `realesr-general-x4v3`, variante `-wdn-` pour doser le débruitage) → réduction lanczos à l'échelle voulue → netteté légère. Même grille d'images que la source (contrôle du nombre d'images). Tu fixes, par plan, le **zoom maximal acceptable** pour le producteur. Tu rappelles au cadrage que rien ne vaut le fichier d'origine de la caméra.
+
 ## Règles
 
 - Ne change jamais la durée ni le minutage d'un plan. Aucune image générée par IA. Travaille dans `$OUT/restauration`. Rien dans le dépôt Git.

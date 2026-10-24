@@ -28,7 +28,9 @@ Pose-les en une fois (AskUserQuestion, 4 questions maximum par appel ; deux appe
 3. **Cible et langue** : promoteurs · entreprises de réalisation · syndics · acquéreurs ; darija · français · arabe · mélange.
 4. **Style** : terrain et humain (chantier, équipe, WhatsApp) · pédagogique (écrans du logiciel) · témoignage · humour léger. Palette : officielle par défaut (bleu nuit + turquoise), V2 (vert + citron) seulement si le demandeur le demande ; le logo reste l'œil BitEye dans tous les cas (`biteye-brand`).
 5. **Les voix** : pour **chaque personne dont on entend la voix**, demande son nom, son poste et une photo (portrait au téléphone). Ils servent au bandeau `lowerthird`, affiché 2 à 3 s quand la personne commence à parler. Sans photo, le bandeau montre son initiale.
-6. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, durée maximale, musique fournie. Le CTA découle de la nature de la vidéo (tableau dans `biteye-brand`) : ne le demande que s'il n'est pas évident.
+6. **Niveau de finition** : **standard** (motion design et montage propres, 1080) ou **premium** (sources restaurées et agrandies, rendu 4K des graphismes, transitions conçues à chaque changement de plan, habillage sonore, étalonnage commun, grille « sophistication » ; ≈ 2× plus de calcul et d'agents). Par défaut : premium pour un témoignage ou une pub de marque, standard pour une retouche ou une story rapide.
+7. **Fichiers d'origine** : demande les vidéos **telles qu'elles sortent de la caméra ou du téléphone** (4K si possible), envoyées en fichier original (lien Drive ou WeTransfer « fichier original »), **jamais par WhatsApp** ni sous forme d'ancien montage exporté. Une image ne sera jamais plus nette que sa source.
+8. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, durée maximale, musique fournie. Le CTA découle de la nature de la vidéo (tableau dans `biteye-brand`) : ne le demande que s'il n'est pas évident.
 
 Note les réponses dans `$OUT/brief.json`. Sans réponse à une question : défaut raisonnable, signalé dans le compte rendu.
 
