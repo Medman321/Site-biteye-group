@@ -57,7 +57,7 @@ Autres points :
 
 **Le logo est toujours l'œil BitEye d'origine** (`assets/logo-officiel.png` : œil turquoise stylisé sur carré bleu nuit), quelle que soit la palette. L'ancien pictogramme « arc + point » (`assets/logo.svg`, favicon du site V2) n'est plus utilisé dans les vidéos.
 
-Deux palettes, choisies selon la nature de la vidéo :
+Deux palettes de départ, utilisées quand la vidéo n'a pas de médias fournis (sinon, les couleurs viennent des images : voir « Typographies et couleurs ») :
 
 | | Officielle (par défaut) | V2 (sur demande) |
 |---|---|---|
@@ -77,11 +77,16 @@ Palette officielle pour tout ce qui est marque, produit et réseaux sociaux. Pal
 
 Règles communes : l'accent ne sert qu'à 1 ou 2 mots par titre (`*mot*`), aux CTA et aux coches, jamais en fond plein écran. Logo jamais déformé ni recoloré, toujours sur fond sombre.
 
-## Typographies
+## Typographies et couleurs : elles suivent les médias de la vidéo
 
-Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Arabic (arabe), Caveat et Aref Ruqaa (notes manuscrites). Toutes sur Google Fonts. Le logotype en ligne utilise une typographie géométrique arrondie : ne la remplace pas par du texte, utilise l'image du logo.
+Décision de BitEye (24/10/2026) : **les polices et les couleurs ne sont pas figées par une charte ; elles se choisissent d'après les vidéos et les images fournies pour chaque vidéo.** Le demandeur reste le point de communication : il valide le choix au moment du concept.
 
-**Écart avec la charte du Drive (à arbitrer par BitEye)** : la charte décrit le site officiel avec **Poppins** (titres H1/H2, 300/500/600/700 ; logotype « bit » en gras + « eye » en léger), **Inter** (interface, sous-titres, chiffres) et **Nunito** (badges, étiquettes). Les polices ci-dessus sont celles du site V2 de ce dépôt. Tant que BitEye n'a pas tranché, garder Inter Tight / Inter dans les vidéos ; Poppins seulement si le demandeur veut les titres de la charte officielle. Dans les deux cas : mots-clés des titres en italique couleur accent.
+Méthode :
+1. Mesurer les couleurs dominantes et d'accent dans les rushes et les photos (`media-analysis`, comme pour le témoignage V2 : ambre/miel chez Gold Star, champagne/perle chez Littoral) et en tirer 1 ou 2 couleurs d'accent lisibles sur ces images.
+2. Choisir les polices selon le ton des images : serif éditoriale (ex. DM Serif Display) pour un témoignage ou un rendu « magazine » ; sans-serif géométrique (Poppins, Inter Tight) pour un produit, une démonstration ou des chiffres ; arabe : IBM Plex Sans Arabic ; notes manuscrites : Caveat ou Aref Ruqaa. Une famille de titres et une de texte au plus.
+3. Proposer ce choix dans le concept (planche de 2 ou 3 images clés) avant la production.
+
+Ce qui ne change jamais : **le logo œil BitEye d'origine** (image, jamais retapé en texte), « VISION Workspace » écrit ainsi, et la lisibilité (contraste mesuré). Les palettes « officielle » et « V2 » ci-dessus et les polices de la charte (Poppins / Inter / Nunito) ou du site V2 (Inter Tight / Inter) servent de **point de départ** quand aucun média n'est fourni (vidéo 100 % motion design).
 
 ## Ton
 
