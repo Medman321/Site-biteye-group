@@ -20,7 +20,9 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 | 11 | `colorist` | scopes, raccord couleur entre sources, look et LUT .cube, couleurs d'accent mesurées dans les images |
 | 12 | `sound-designer` | habillage sonore calé sur les animations, musique coupée sur les temps, jingle (l'ingénieur du son mixe) |
 | 13 | `motion-3d-artist` | 3D Blender (bpy), suivi de mouvement (OpenCV, MediaPipe), parallaxe, 1 ou 2 effets avancés par vidéo |
+| 14 | `conseiller-demande` | partenaire de brainstorming du demandeur AVANT la fiche : questions, pistes, contre-propositions, lecture des documents fournis, fiche de demande enrichie remplie toute seule (Drive `00_Demandes/<projet>/`) |
 
+0. **Brainstormer** (facultatif, à l'initiative du demandeur : « brainstorm : … ») : la session lance 14 et relaie l'échange **mot pour mot** dans les deux sens (même instance reprise par SendMessage) ; elle n'intervient que si une proposition contredit une décision du Journal. Après chaque échange, la fiche brouillon est copiée dans le Drive (`00_Demandes/<projet>/Fiche de demande`). Au « lance » du demandeur, la fiche remplit `brief.json` : le cadrage (1) se réduit à une confirmation et les pistes vont à 3 comme points de départ.
 1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
 2. **Planifier** : 8 écrit `plan-efficacite.md` (équipe minimale, modèle par tâche, fichiers à réutiliser, parallélisme, rendus d'essai, budget). La session suit ce plan.
 3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 10 dès qu'une source est sous la résolution de livraison ou compressée (obligatoire) ; 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
@@ -61,6 +63,18 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - État de travail tenu à jour dans `.claude/state/etat-en-cours.md` (hors Git) à chaque étape ; réinjecté automatiquement après un compactage (hook `SessionStart` « compact »). Il fait foi après un compactage.
 - Lectures lourdes déléguées à des sous-agents (comptes rendus ≤ 15 lignes) ; dans la session, seulement des extraits.
 - En fin d'étape : mettre l'état à jour, puis proposer au demandeur `/compact garde l'état en cours, les décisions et les chemins`.
+
+## Google Drive « BitEye — Studio vidéo »
+
+La session a l'autonomie complète sur ce dossier (créer, renommer, déplacer, mettre à la corbeille) ; elle garde la hiérarchie :
+
+- racine : `LISEZ-MOI`, `Suivi des demandes vidéo` (tableur), `Journal des décisions` ;
+- `00_Demandes/AAAA-MM_Type_Sujet/` : entrées du demandeur, `01_Vidéos`, `02_Photos`, `03_Mémos-audio`, `04_Documents`, plus `Fiche de demande` et `Notes de brainstorming` ;
+- `01_Productions/<même nom>/V1, V2…` : sorties par version (vidéos déposées par le demandeur, rapport qualité, légendes, bilan) ;
+- `02_Bibliothèque/` : `Vidéos pour apprentissage` (+ registre), `Charte et logos`, `Musiques et sons` ;
+- `99_Archives/` : projets clos ou versions remplacées (on archive avant de mettre à la corbeille).
+
+Le connecteur ne dépose pas de vidéo et n'édite pas un document existant : on recrée le document, puis on met l'ancien à la corbeille.
 
 ## GitHub (dépôt public)
 

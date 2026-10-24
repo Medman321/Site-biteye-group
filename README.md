@@ -27,6 +27,7 @@ python3 -m http.server 8000
 
 `.claude/` contient une équipe d'agents Claude Code qui produit les vidéos marketing de VISION Workspace (MP4 + page HTML synchronisée) à partir de mémos vocaux, de photos et de vidéos, avec des outils gratuits : voir `.claude/CLAUDE.md`.
 
+- Mûrir une idée avant de commander : écrire « brainstorm : … » dans une session (agent `conseiller-demande`).
 - Commander une vidéo : issue « Demande de vidéo ».
 - Rendre une vidéo dans le cloud : Actions → « Vidéo · rendu ».
 - Chaque modification du moteur est contrôlée par « Vidéo · contrôle du moteur ».
