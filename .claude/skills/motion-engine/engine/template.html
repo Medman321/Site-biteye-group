@@ -777,7 +777,10 @@ const punchState = new Map();   // dernier cadrage de chaque mover (alternance 1
 function punchOp(C) {
   if (C.punches) return C.punches;
   const P = C.punches = [];
-  C.ops.push(t => { let g = null; for (const x of P) if (t >= x.at) g = x; if (!g) return P[0].Zf; return mixA(g.Zf, g.Zt, outCubic(p(t, g.at, g.end))); });
+  /* sans « peak » : de Zf à Zt en outCubic (collant) ; avec « peak » : Zf → Zp en inCubic jusqu'à la coupe (accélération, la coupe tombe au pic), puis Zp → Zt en outCubic */
+  C.ops.push(t => { let g = null; for (const x of P) if (t >= x.at) g = x; if (!g) return P[0].Zf;
+    if (g.Zp) return t < g.cut ? mixA(g.Zf, g.Zp, inCubic(p(t, g.at, g.cut))) : mixA(g.Zp, g.Zt, outCubic(p(t, g.cut, g.end)));
+    return mixA(g.Zf, g.Zt, outCubic(p(t, g.at, g.end))); });
   return P;
 }
 TRS.forEach(T => {
@@ -801,7 +804,7 @@ TRS.forEach(T => {
     const tg = A.length ? A : targetsOf({scene: T.a.scene}, mode);
     const C0 = camOf(tg[0].mover, tg[0].filt);
     const Zf = T.from != null ? scl(T.from, o) : (punchState.get(C0.mover) || AID), Zt = scl(T.to ?? 1.12, o);
-    (A.length ? all : tg).forEach(x => { const C = camOf(x.mover, x.filt); punchOp(C).push({at: T.at, end: T.end, Zf, Zt}); punchState.set(x.mover, Zt); });
+    (A.length ? all : tg).forEach(x => { const C = camOf(x.mover, x.filt); punchOp(C).push({at: T.at, cut: T.cut, end: T.end, Zf, Zp: T.peak != null ? scl(T.peak, o) : null, Zt}); punchState.set(x.mover, Zt); });
     addEcho(A.length ? all : tg, echo, 0);
   } else if (T.type === 'matchCut') {
     const a = T.faceA, b = T.faceB, k = a.s / b.s, settle = T.end - T.cut, pre = T.pre ?? .25;
@@ -832,7 +835,7 @@ TRS.forEach(T => {
       HOOKS.push(t => { f.style.opacity = t < T.cut ? inCubic(p(t, T.cut - lead, T.cut)) : 1 - outCubic(p(t, T.cut, T.cut + fo)); }); }
   } else if (T.type === 'maskReveal') {
     const cv = document.createElement('canvas'), q = (T.maskRes ?? .5) * DPR; cv.width = Math.round(W*q); cv.height = Math.round(H*q);
-    const M = {T, cv, g: cv.getContext('2d'), bEls: Bt.map(x => x.vis), url: null, o: orig(T.origin || '50% 45%')};
+    const M = {T, cv, g: cv.getContext('2d'), bEls: Bt.map(x => x.vis), url: null, o: (T.shape === 'circle' && T.x != null) ? [T.x, T.y ?? H / 2] : orig(T.origin || '50% 45%')};   /* cercle : centre x, y (documentés) ; sinon origin */
     if (T.src) { const v = el('video'); v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = src(T.src); v.style.cssText = 'position:absolute;width:2px;height:2px;opacity:0;pointer-events:none'; stage.appendChild(v);
       VIDEOS.push({v, start: T.at, from: T.from || 0, end: T.end}); M.v = v; M.chain = []; }
     else if (T.shape !== 'circle') {
@@ -909,7 +912,8 @@ async function drawMask(M, t) {
     const v = M.v, c = Math.max(W / v.videoWidth, H / v.videoHeight);
     g.setTransform(q*tot[0], 0, 0, q*tot[0], q*tot[1], q*tot[2]); g.drawImage(v, (W - v.videoWidth*c)/2, (H - v.videoHeight*c)/2, v.videoWidth*c, v.videoHeight*c);
   } else {
-    const r = lerp(T.r0 ?? 80, T.r1 ?? Math.hypot(W, H), inCubic(k));
+    const r0 = T.r0 ?? 80, r1 = T.r1 ?? Math.hypot(W, H);   /* ease : in (défaut), out, inOut, area (surface linéaire : luminance régulière) */
+    const r = T.ease === 'area' ? Math.sqrt(lerp(r0 * r0, r1 * r1, k)) : lerp(r0, r1, T.ease === 'out' ? outCubic(k) : T.ease === 'inOut' ? inOut(k) : inCubic(k));
     g.setTransform(q, 0, 0, q, 0, 0); g.beginPath(); g.arc(M.o[0], M.o[1], r, 0, Math.PI*2); g.fill();
   }
   g.setTransform(1, 0, 0, 1, 0, 0); g.filter = 'none'; g.globalAlpha = inOut(p(k, .7, 1)); g.fillRect(0, 0, cv.width, cv.height);

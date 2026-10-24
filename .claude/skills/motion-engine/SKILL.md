@@ -177,10 +177,10 @@ Temps mesurés (exemple touche-humaine-9x16, 14 s, 420 images, 4 cœurs) : 0,19 
 
 | type | défaut | ce qui bouge | options |
 |---|---|---|---|
-| `zoomPunch` | 8 images, coupe à 30 % | plaques + sujet (`target: "media"`) | `to` (1,12), `from` (sinon le cadrage précédent : alternance 1,00 ↔ 1,12 automatique), `origin` ("50% 40%"), `blur` |
+| `zoomPunch` | 8 images, coupe à 30 % | plaques + sujet (`target: "media"`) | `to` (1,12), `from` (sinon le cadrage précédent : alternance 1,00 ↔ 1,12 automatique), `origin` ("50% 40%"), `blur`, `peak` (pic puis retour : `from` → `peak` en accélération jusqu'à `cut`, puis `peak` → `to` en décélération jusqu'à `end`) ; `target: "scene"` déplace aussi les blocs (ex. plongée dans un logo) |
 | `whip` | 8 images, coupe au milieu | scène entière (A et B côte à côte, panoramique continu) | `dir` (`left`, `right`, `up`, `down`), `blur` |
 | `zoomThrough` | 0,9 s, coupe à 62 % | scène entière | `el` (id d'un bloc ou d'un calque `fx`, ex. le mot magazine) ou `x`,`y`, `dx`,`dy`, `to` (16), `fromB` (1,8), `fill` (couleur qui remplit l'écran à la coupe, défaut couleur du mot, `false` pour aucune) |
-| `maskReveal` | 0,8 s à partir de la coupe | B apparaît dans la silhouette de A | sujet = premier calque `subject` de A (ou `src` : un WebM alpha), `grow` (7), `origin` ("50% 45%"), `feather` (6 px), `shape: "circle"` avec `x`,`y`,`r0`,`r1` |
+| `maskReveal` | 0,8 s à partir de la coupe | B apparaît dans la silhouette de A | sujet = premier calque `subject` de A (ou `src` : un WebM alpha), `grow` (7), `origin` ("50% 45%"), `feather` (6 px), `shape: "circle"` avec `x`,`y`,`r0`,`r1`, `ease` du rayon (`in` par défaut, `out`, `inOut`, `area` : la surface du cercle croît linéairement, sans saut de luminance) |
 | `matchCut` | coupe sèche puis 0,6 s de relâche | plaques + sujet | `faceA`, `faceB` : `{x, y, s}` (centre et hauteur du visage en px de la toile), `hold: true` (pas de relâche), `pre` (0,25 s) ; la plus petite tête est toujours agrandie, jamais l'inverse ; le cadrage ne montre jamais de bord |
 
 ```json
@@ -193,6 +193,7 @@ Temps mesurés (exemple touche-humaine-9x16, 14 s, 420 images, 4 cœurs) : 0,19 
 ]
 ```
 - Dans une même scène : `"scene": id` sans `a`/`b` = une coupe dans la même plaque (la caméra de la scène zoome) ; avec `a`/`b` = deux listes d'`id` de calques (plaque + sujet de chaque plan, transformés ensemble).
+- Punch « pic puis retour » (V3.1) : `{"type": "zoomPunch", "scene": "a", "at": 5.47, "cut": 5.567, "dur": 0.233, "from": 1, "peak": 1.04, "to": 1.01}` : la caméra accélère jusqu'à la coupe, qui tombe au pic, puis se pose. Sans `peak`, le comportement V3 (montée continue, collante) est inchangé. Une coupe franche avec relâche (matchCut « recalé ») s'obtient avec `at` = `cut` − 0,001 et `peak` = l'échelle de départ de B.
 - Flou de mouvement : 2 échantillons de l'image placés là où la caméra était à t−1/120 s et t−1/60 s (obturateur 180°), opacités 0,34 et 0,2 × `blur` (1 par défaut, 0 = aucun) ; le `whip` ajoute un flou gaussien dans le sens du mouvement. Une image avec flou coûte environ 2,5 fois une image normale.
 - Vérifier chaque transition sur sa planche : `render.js … --tsheets DIR` (coupe − 4 … coupe + 5 images ; `maskReveal` : milieu de la croissance).
 
