@@ -152,7 +152,7 @@ Une maquette peut montrer des données fictives (« Résidence Les Oliviers, 96 
 |---|---|---|
 | Reel ou TikTok pour faire réagir, générer des démos | « Écris DEMO en commentaire » | dernière scène + légende du post |
 | Reel ou TikTok qui renvoie vers une offre, une page | « Lien en bio » (Instagram @biteye_logiciels) | dernière scène |
-| Story, statut WhatsApp, prospection directe, publicité locale | « Écris-nous sur WhatsApp · 05 60 06 36 41 » | dernière scène, numéro lisible 2 s minimum |
+| Vidéo de prospection (Reel, story, statut, publicité locale) | « Écrivez-nous sur WhatsApp pour une présentation gratuite · 05 60 06 36 41 » (décision du 24/10/2026 : CTA unique de toutes les vidéos de prospection ; la voix peut le tourner autrement, l'écran garde ce texte) | dernière scène, phrase immobile 3 s et numéro lisible 2,5 s minimum |
 | YouTube, LinkedIn, site officiel | « Demander une démo » + `biteye-group.com` ; sur le site, pas de CTA dans la vidéo (le bouton de la page suffit) | écran final |
 
 Une seule action par vidéo. Si la nature n'est pas claire, propose le CTA dans la proposition.
