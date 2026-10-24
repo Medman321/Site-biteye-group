@@ -23,20 +23,35 @@ Sources consultées le 23/10/2026 : `index.html` de ce dépôt (site V2), fiche 
   - **VISION Mobile** : consulter, valider, contrôler depuis le terrain (smartphone, tablette) ;
   - **Reporting & BI** : connexion native à Power BI, tableaux de bord sur mesure ;
   - briques transverses : stocks (achats, entrepôts), fiscalité, RH (pointage, paie), multi-sociétés, gestion électronique des documents (GED).
-- **Signatures** : « La plateforme de l'immobilier en Algérie » (site V2) ; « Logiciel de gestion immobilière pour promoteurs et constructeurs » ; « Chaque échéance, à temps. » (site en ligne, non retrouvé dans les documents du Drive).
+- **Signatures** : « La plateforme de l'immobilier en Algérie » (site V2) ; « Logiciel de gestion immobilière pour promoteurs et constructeurs ». **« Chaque échéance, à temps. » est interdit** (décision de BitEye, 24/10/2026), même s'il figure encore sur le site en ligne.
 - **Accroches du site en ligne** (charte du Drive) : « Vos projets prennent forme. » ; « Gardez une vision claire de chaque projet immobilier. Vos ventes, vos encaissements et vos chantiers. Enfin réunis. » ; « Des acquéreurs, des chantiers, des résidents. Une seule plateforme. » ; « Trois métiers. Un seul espace. » ; « Une saisie. Deux entreprises. » ; « Conçu ici. Pour ici. » ; « Du premier clic sur votre publicité jusqu'à la remise des clés. » (CRM) ; « Cinq couches. Un seul partenaire. » ; « Des commerciaux qui convertissent. » (formation).
-- **Plaquette 2.0** : « L'ERP du promoteur immobilier algérien » ; « La seule plateforme algérienne qui couvre les trois métiers de l'immobilier » ; « Un promoteur. Plusieurs activités. Un seul écosystème. » ; signature de couverture « OWN THE WORLD » (à confirmer avant usage dans une vidéo).
+- **Plaquette 2.0** : « L'ERP du promoteur immobilier algérien » ; « La seule plateforme algérienne qui couvre les trois métiers de l'immobilier » ; « Un promoteur. Plusieurs activités. Un seul écosystème. » ; signature de couverture « OWN THE WORLD » (usage : voir « Banque de données »).
 
-### À confirmer avant toute utilisation dans une vidéo
+## Banque de données : on stocke tout, on n'utilise que ce qui sert la vidéo
 
-Ces éléments viennent du site en ligne via Brandfetch et n'ont pas été vérifiés par BitEye :
-- « présents dans 19 wilayas » (charte du Drive, 2026) ;
-- « bureaux à Alger et à Oran » (le bureau d'Oran est « en cours d'ouverture » selon la charte ; l'adresse d'Alger diffère entre la charte et la plaquette : n'afficher aucune adresse) ;
-- « 99 % de satisfaction client » (plaquette 2.0, sans source de mesure) ;
-- « partenaire du salon Elogia à Oran » (charte du Drive) ;
-- l'adresse `contact@biteye-group.com`.
+Règle de BitEye (24/10/2026) : toute donnée récupérée (site, réseaux, documents, témoignages) est rangée ici et analysée ; elle ne sort dans une vidéo **que si le contexte le justifie**, jamais en liste de chiffres « pour remplir ». Une vidéo porte en général **une seule preuve chiffrée**, celle qui répond à la question de sa cible.
 
-Confirmés par plusieurs sources de BitEye : « 250 clients » (site V2 et plaquette 2.0) et « depuis 2014 », donc « 12 ans » en 2026 (site V2 et charte du Drive).
+| Donnée (confirmée par BitEye) | Quand l'utiliser | Quand l'éviter |
+|---|---|---|
+| « 250 clients » | pub de notoriété, preuve sociale, écran final d'une pub produit | témoignage (le témoin est déjà la preuve) |
+| « depuis 2014 » / « 12 ans » | confiance, pérennité, pub institutionnelle, recrutement | pub d'une nouveauté (VISION Mobile, PhoneLink) |
+| « présents dans 19 wilayas » | ciblage hors Alger, couverture nationale, salon | vidéo locale (Oran, Alger) où la proximité compte plus |
+| « bureaux à Alger et à Oran » | vidéo destinée à l'Ouest ou à l'Algérois, invitation à une démonstration en présentiel | sans appel au présentiel ; jamais d'adresse à l'écran |
+| « partenaire du salon Elogia (Oran) » | annonce ou retour de salon, contenu événementiel | tout le reste |
+| « 99 % de satisfaction » | voir ci-dessous | — |
+| « OWN THE WORLD » | voir ci-dessous | — |
+
+**« 99 % de satisfaction »** : chiffre fort mais sans méthode publiée ; seul à l'écran, il sonne « publicité » et peut être contesté. À utiliser seulement en fin de vidéo de preuve (témoignages, bilan annuel), adossé à du concret : « 250 clients. 99 % satisfaits. » ou après deux témoignages, « Ils ne sont pas les seuls : 99 % de nos clients sont satisfaits. » Préférer, quand c'est possible, une preuve vérifiable (« 250 clients depuis 2014 », un témoin nommé). Si BitEye publie un jour la méthode (enquête, période, nombre de réponses), l'indiquer en petit.
+
+**« OWN THE WORLD »** : en anglais et très large, il ne parle pas directement à un promoteur algérien. Ne pas l'utiliser tel quel en accroche ni en signature de pub. Pistes plus proches de la cible, dans l'esprit « maîtriser son univers » :
+- « Maîtrisez tout votre projet. » / « Votre projet. Sous contrôle. Du terrain aux clés. »
+- « Votre promotion, entre vos mains. »
+- en darija, à faire valider : « مشروعك كامل، تحت يدك » (ton projet entier, sous ta main).
+Réserver « OWN THE WORLD » d'origine aux contenus de marque en anglais (salon international, LinkedIn), si BitEye le souhaite.
+
+Autres points :
+- l'adresse `contact@biteye-group.com` reste à confirmer avant affichage ;
+- les adresses postales ne s'affichent jamais (elles diffèrent entre les documents).
 
 ## Logo et palettes (décision de BitEye, 23/10/2026)
 
