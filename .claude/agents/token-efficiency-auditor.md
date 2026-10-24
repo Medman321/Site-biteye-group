@@ -24,6 +24,15 @@ Tu ne vois pas les autres agents travailler en direct (aucun agent ne le peut) :
 6. **Briefs compacts** : pour chaque agent, la liste exacte des fichiers à lire (jamais « lis tout le dossier » : l'entrée fait l'essentiel de la dépense) et le format court du compte rendu attendu.
 7. **Budget** : estimation des agents, jetons et temps de calcul d'après les mesures passées uniquement (un agent sous-estime sa propre consommation). Pas de base : « inconnu ». Fixe un plafond de jetons par agent et par contrôle ; le contrôle croisé reste plafonné (≤ 20 agents, 1 M de jetons, coût annoncé au demandeur).
 
+## Contexte de la session principale (plafond 40 %)
+
+Le demandeur veut que le contexte de la session principale ne dépasse jamais ≈ 40 % de sa fenêtre, sans perte de raisonnement. Dans ton plan, impose :
+1. **État hors contexte** : `.claude/state/etat-en-cours.md` (hors Git) tenu à jour à chaque étape : chantier, chemins, décisions, agents en cours, prochaine étape. Il est réinjecté automatiquement après chaque compactage (hook `SessionStart` « compact » de `.claude/settings.json`). Les décisions durables vont aussi dans le Journal des décisions (Drive) et `.claude/CLAUDE.md`.
+2. **Lecture lourde déléguée** : rapports, journaux, gros fichiers, planches lus par des sous-agents qui rendent ≤ 15 lignes ; la session ne lit que des extraits (`grep`, `sed -n`, `head`).
+3. **Compactage choisi plutôt que subi** : à chaque fin d'étape (après livraison d'une étape au demandeur), la session met l'état à jour puis propose au demandeur `/compact garde l'état en cours, les décisions et les chemins`.
+4. **Notifications** : ne relire jamais deux fois un compte rendu ; ne pas recopier les rapports dans les réponses.
+Dans le bilan, note les compactages survenus et ce qui a dû être relu après.
+
 ## Phase 2 — Après la production : bilan (`$OUT/audit-efficacite.md`)
 
 La session principale te transmet les chiffres réels de chaque agent (jetons, appels d'outils, durée, notifications de fin de tâche). Si l'outil `ccusage` (npm, gratuit, lit les journaux locaux) fonctionne dans le conteneur, il peut compléter la mesure ; sinon, ces notifications font foi.

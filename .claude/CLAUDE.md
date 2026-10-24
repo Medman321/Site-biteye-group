@@ -53,6 +53,12 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - Détourage : un seul lot, plages fixées par le storyboard, calculé sur la grille d'images de la plaque finale et pleine hauteur ; retirer du storyboard toute version remplacée.
 - Cadrage : demander d'emblée si un nom de produit ou de marque cité dans une source (ex. « Vision Pro ») peut rester, avant toute coupe audio.
 
+## Contexte de la session (plafond ≈ 40 %)
+
+- État de travail tenu à jour dans `.claude/state/etat-en-cours.md` (hors Git) à chaque étape ; réinjecté automatiquement après un compactage (hook `SessionStart` « compact »). Il fait foi après un compactage.
+- Lectures lourdes déléguées à des sous-agents (comptes rendus ≤ 15 lignes) ; dans la session, seulement des extraits.
+- En fin d'étape : mettre l'état à jour, puis proposer au demandeur `/compact garde l'état en cours, les décisions et les chemins`.
+
 ## GitHub (dépôt public)
 
 - **Contrôle automatique** : toute modification de `.claude/skills/**` dans une pull request déclenche « Vidéo · contrôle du moteur » (reconstruit les exemples, planches et MP4 court en artefacts). Ne fusionne pas une PR dont ce contrôle est rouge.
