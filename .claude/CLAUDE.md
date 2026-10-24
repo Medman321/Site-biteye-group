@@ -44,6 +44,11 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - Images clés et animatic avant tout rendu complet ; un seul rendu final par format.
 - Un script écrit deux fois devient un outil CLI dans un skill.
 - Jamais d'économie sur l'audit DA, le contrôle qualité, l'écoute des coupes, les noms et le CTA.
+- Porte avant rendu : pas de rendu complet tant que l'alignement personne détourée / fond n'est pas vérifié image par image (écart, crâne non coupé, coupes de la source repérées) ; images clés aux bornes de chaque calque détouré (t−1, t, t+1 image), pas seulement à heures fixes.
+- Contrôle croisé plafonné : seulement après la porte et l'audit DA ; 1 contradicteur par constat (3 si bloquant), au plus 20 agents et 1 M de jetons, coût annoncé au demandeur avant. Référence V2 : 9,3 M de jetons pour 18 défauts, contre 0,2 M pour un contrôle qualité unique.
+- Goût contradictoire (DA ↔ demandeur) : trancher sur une planche de 3 niveaux d'une même image clé, jamais par un rendu ; un effet « subtil » garde un plancher de visibilité mesuré.
+- Détourage : un seul lot, plages fixées par le storyboard, calculé sur la grille d'images de la plaque finale et pleine hauteur ; retirer du storyboard toute version remplacée.
+- Cadrage : demander d'emblée si un nom de produit ou de marque cité dans une source (ex. « Vision Pro ») peut rester, avant toute coupe audio.
 
 ## GitHub (dépôt public)
 
