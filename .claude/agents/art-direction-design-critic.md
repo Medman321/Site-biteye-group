@@ -44,7 +44,7 @@ Ces valeurs viennent de guides tiers qui se contredisent : le gabarit officiel d
 ## Grille « sophistication » (niveau premium, chaque point noté)
 
 1. **Concept unique** : un seul univers visuel (ex. éditorial magazine), validé sur planche, tenu du début à la fin.
-2. **Transitions conçues** : aucun changement de plan sec ; chaque transition (zoomPunch, zoomThrough, maskReveal, whip, matchCut) a une raison de sens et se vérifie sur 12 images consécutives.
+2. **Transitions conçues** : aucun changement de plan sec ; chaque transition (zoomPunch, zoomThrough, maskReveal, whip, matchCut) a une raison de sens et se vérifie sur 12 images consécutives. Les mesures du concepteur de transitions (`transitions-mesures.json`) précèdent ton audit : tu donnes tes seuils dans sa fiche, tu juges le rendu et tu ne refais pas les mesures.
 3. **Caméra vivante** : aucun plan figé ; léger mouvement continu identique sur fond et personne.
 4. **Profondeur** : trois plans lisibles (fond, graphisme, personne), effets 2.5D clairement visibles mais jamais sur un visage.
 5. **Langage de mouvement** : mêmes courbes et durées d'un bout à l'autre ; rien n'apparaît sans accélération ni décélération.
