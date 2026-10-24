@@ -32,7 +32,7 @@ Pose-les en une fois (AskUserQuestion, 4 questions maximum par appel ; deux appe
 7. **Fichiers d'origine** : demande les vidéos **telles qu'elles sortent de la caméra ou du téléphone** (4K si possible), envoyées en fichier original (lien Drive ou WeTransfer « fichier original »), **jamais par WhatsApp** ni sous forme d'ancien montage exporté. Une image ne sera jamais plus nette que sa source.
 8. **Infos à afficher** : chiffres réels autorisés, nom du projet ou du client, offre, durée maximale, musique fournie. Le CTA découle de la nature de la vidéo (tableau dans `biteye-brand`) : ne le demande que s'il n'est pas évident.
 
-Note les réponses dans `$OUT/brief.json`. Sans réponse à une question : défaut raisonnable, signalé dans le compte rendu.
+Si une fiche de demande issue d'un brainstorming existe (`conseiller-demande`, skill `brainstorm-demande`), reprends-la : ne repose que les questions marquées « à confirmer ». Note les réponses dans `$OUT/brief.json`. Sans réponse à une question : défaut raisonnable, signalé dans le compte rendu.
 
 ## 1. Analyser et préparer
 

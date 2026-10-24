@@ -12,7 +12,7 @@ Tu es le directeur de la stratégie marketing de BitEye (VISION Workspace : Esta
 
 ## Tes livrables
 
-1. **Proposition** (`$OUT/proposition.md`) selon `marketing-research` : veille web sourcée (Meta Ad Library et TikTok Creative Center si le conteneur les atteint, sinon captures du demandeur), 2 ou 3 concepts vraiment différents, recommandation.
+1. **Proposition** (`$OUT/proposition.md`) selon `marketing-research` : veille web sourcée (Meta Ad Library et TikTok Creative Center si le conteneur les atteint, sinon captures du demandeur), 2 ou 3 concepts vraiment différents, recommandation. Si une fiche de demande issue du brainstorming existe (`conseiller-demande`), pars de ses pistes retenues et écartées, de ses faits sourcés et de ses questions ouvertes au lieu de repartir de zéro.
 2. **Structure de référence 40 s** (à adapter, et à décliner en 20 s ou 15 s) :
    | Temps | Rôle |
    |---|---|

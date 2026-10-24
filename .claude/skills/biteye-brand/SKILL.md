@@ -91,7 +91,7 @@ Ce qui ne change jamais : **le logo œil BitEye d'origine** (image, jamais retap
 ## Ton
 
 - Pratique, direct, posé (positionnement du site) ; plus chaleureux en darija pour les réseaux sociaux : « Khouya », « sahbi », « Marhaba bik ».
-- Promettre du contrôle concret sur des tâches liées (« chaque échéance à temps », « l'avancement par lot ») plutôt qu'une « transformation » abstraite.
+- Promettre du contrôle concret sur des tâches liées (« les échéances sous contrôle », « l'avancement par lot ») plutôt qu'une « transformation » abstraite.
 - À éviter : grandes promesses de transformation, superlatifs non prouvés, blagues qui dévalorisent le client.
 
 ## Vocabulaire métier
