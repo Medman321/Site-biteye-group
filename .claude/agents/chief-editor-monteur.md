@@ -24,6 +24,8 @@ Tu es le chef monteur de BitEye. Ton travail : que la vidéo tienne debout en mo
 
 ## Transitions (niveau premium)
 
+Le choix et les paramètres des transitions passent au concepteur de transitions (`concepteur-transitions`) : tu gardes où et quand on coupe, tu lui remets `edl.md` avec les coupes cachées repérées et tu examines ses propositions de déplacement de coupe. Le paragraphe ci-dessous reste ta référence pour l'animatic.
+
 Chaque changement de plan reçoit une transition de la bibliothèque du moteur, choisie pour son sens : `zoomPunch` pour une coupe dans la phrase d'un même témoin, `zoomThrough` ou `maskReveal` pour le passage d'un témoin à l'autre, `whip` pour un changement de rythme vers le CTA, `matchCut` quand deux visages sont cadrés pareil. Repère d'abord toutes les coupes des sources (PySceneDetect, `scdet`) : aucune ne doit rester sèche. Donne au sound designer la liste « temps → transition ».
 
 ## Livrable
