@@ -73,7 +73,7 @@ Inter Tight (titres, 800, interlettrage serré), Inter (texte), IBM Plex Sans Ar
 | Naïla | « Naïla · Commerciale · Littoral Immobilier » (Oran) | interview « Témoin client littoral promotion », en français |
 | Zahira | « Zahira · Ingénieure technico-commerciale · Gold Star » (Résidence Star) | interview « Témoin client Gold star », en français |
 
-Les deux vidéos sont d'anciens montages BitEye (cartons titres, musique, logo incrustés) ; aucune version brute n'existe. N'utiliser que les plages d'image propre. Elles citent l'ancien nom « VISION PRO » : éviter ces passages tant que BitEye n'a pas tranché. Ne pas reprendre « solutions innovantes », même dans la bouche d'un client.
+Les deux vidéos sont d'anciens montages BitEye (cartons titres, musique, logo incrustés) ; aucune version brute n'existe. N'utiliser que les plages d'image propre. Elles citent l'ancien nom « VISION PRO » : décision de BitEye, il peut rester dans la voix et dans l'image d'origine du témoin (sous-titre verbatim), mais **tous nos textes** (cartons, bandeaux, badges, écran de fin, légendes) disent « VISION Workspace ». « Solutions innovantes » : jamais dans nos textes ; dans la bouche d'un client, seulement si le demandeur garde la phrase (c'est le cas pour Naïla).
 
 ## Données d'exemple
 

@@ -8,10 +8,10 @@ description: Produire une vidéo marketing motion design BitEye / VISION Workspa
 | Étape | Skill | Qui (voir `.claude/CLAUDE.md`) |
 |---|---|---|
 | 0. Cadrer | ce fichier, §0 | session principale (questions au demandeur) |
-| 1. Analyser et préparer les médias | `media-analysis`, `audio-studio`, `media-lab` | agents `biteye-audio-engineer` et `biteye-media-editor`, en parallèle |
-| 2. Veille + proposition | `marketing-research`, `creative-direction`, `biteye-brand` | agent `biteye-marketing-strategist` |
+| 1. Analyser et préparer les médias | `media-analysis`, `audio-studio`, `media-lab` | agents `audio-studio-analyst` et `vfx-roto-compositing-engineer`, en parallèle |
+| 2. Veille + proposition | `marketing-research`, `creative-direction`, `biteye-brand` | agents `market-strategy-director` puis `scenario-interview-architect` |
 | — validation par le demandeur — | | session principale |
-| 3. Produire | `motion-engine`, `creative-direction` | agent `biteye-video-producer` |
+| 3. Produire | `motion-engine`, `creative-direction` | agents `motion-video-producer`, `art-direction-design-critic` (avant rendu), `quality-brand-inspector` (après) |
 | 4. Livrer | ce fichier, §4 | session principale |
 
 Lis chaque SKILL.md au moment de l'étape (`.claude/skills/<nom>/SKILL.md`).

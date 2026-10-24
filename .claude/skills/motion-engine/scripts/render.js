@@ -82,6 +82,7 @@ const plan = fs.existsSync(renderJson) ? JSON.parse(fs.readFileSync(renderJson, 
     ff.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(fps), '-t', String(D), '-movflags', '+faststart', path.resolve(mp4));
     const proc = spawn('ffmpeg', ff, { stdio: ['pipe', 'inherit', 'inherit'] });
     const t0 = Date.now();
+    await page.evaluate(t => renderAt(t), 0.5); await page.evaluate(t => renderAt(t), 0); await page.waitForTimeout(400);   // préchauffage : sinon la 1re image peut sortir sans les vidéos
     for (let i = 0; i < N; i++) {
       await page.evaluate(t => renderAt(t), i / fps);
       const buf = await page.screenshot({ type: 'jpeg', quality: 92 });

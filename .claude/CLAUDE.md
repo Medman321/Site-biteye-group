@@ -2,25 +2,53 @@
 
 ## Demandes de vidéo : l'équipe et l'ordre de passage
 
-Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la méthode `.claude/skills/biteye-video-ad/SKILL.md`. La session principale est le chef d'orchestre : les agents ne peuvent pas s'appeler entre eux, c'est donc elle qui les lance.
+Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la méthode `.claude/skills/biteye-video-ad/SKILL.md`, avec l'équipe ci-dessous. Les agents 9 à 13 ne sont lancés que si le plan d'efficacité (8) les juge utiles.
 
-| Agent | Rôle |
-|---|---|
-| `biteye-audio-engineer` | voix « studio » et mots minutés, outils gratuits |
-| `biteye-media-editor` | vidéos et photos : plans, coupes, recadrage, stabilisation, étalonnage, détourage, outils gratuits |
-| `biteye-marketing-strategist` | veille web, empreinte BitEye, 2 ou 3 concepts à valider |
-| `biteye-video-producer` | storyboard, animation synchronisée, contrôle, MP4 + HTML |
+| # | Agent | Rôle |
+|---|---|---|
+| 0 | session principale (coordinateur) | orchestration, arbitrages, questions au demandeur, livraison |
+| 1 | `scenario-interview-architect` | narration B2B, ordre et liaison des extraits, ponts entre intervenants, voix off |
+| 2 | `audio-studio-analyst` | analyse au dixième de seconde, coupes sur les creux, raccords J/L-cut, room tone, lit musical avec ducking, mastering −14 LUFS |
+| 3 | `market-strategy-director` | veille, concepts, copywriting VISION Workspace, structure 40 s, légendes Instagram/TikTok/LinkedIn |
+| 4 | `art-direction-design-critic` | audit esthétique AVANT le rendu final : transitions, flous, couleurs, lisibilité |
+| 5 | `vfx-roto-compositing-engineer` | préparation des vidéos/photos, raccord couleur, détourage 2.5D (animations entre l'intervenant et son fond), masquage d'incrustations, .jsx After Effects optionnel |
+| 6 | `motion-video-producer` | storyboard, moteur HTML/Playwright/ffmpeg, rendu MP4 + HTML |
+| 7 | `quality-brand-inspector` | contrôle qualité et marque APRÈS rendu, verdict livrable / à reprendre |
+| 8 | `token-efficiency-auditor` | responsable de l'efficacité, qui chapeaute tout : plan d'exécution et budget AVANT, bilan mesuré et capitalisation APRÈS ; jamais d'économie sur la qualité |
+| 9 | `chief-editor-monteur` | animatic basse définition, rythme, ordre et durée des plans, verdict montage avant tout rendu soigné |
+| 10 | `image-restoration-engineer` | débruitage, netteté, agrandissement Real-ESRGAN, artefacts de compression, ralentis (seulement si les sources le demandent) |
+| 11 | `colorist` | scopes, raccord couleur entre sources, look et LUT .cube, couleurs d'accent mesurées dans les images |
+| 12 | `sound-designer` | habillage sonore calé sur les animations, musique coupée sur les temps, jingle (l'ingénieur du son mixe) |
+| 13 | `motion-3d-artist` | 3D Blender (bpy), suivi de mouvement (OpenCV, MediaPipe), parallaxe, 1 ou 2 effets avancés par vidéo |
 
-1. **Cadrer d'abord** : dès que la demande et ses fichiers arrivent, pose au demandeur les questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, **nom + poste + photo de chaque voix**, infos à afficher). Ne lance aucun agent avant les réponses, sauf l'étape 2 qui n'en dépend pas.
-2. **Préparer en parallèle** (un seul message, agents en arrière-plan) : `biteye-audio-engineer` pour chaque voix, `biteye-media-editor` pour les vidéos et les photos. Donne-leur les chemins absolus des fichiers et le dossier `$OUT` (scratchpad de la session, sinon `./.video-out/<slug>/`).
-3. **Proposer** : `biteye-marketing-strategist` avec le brief, la transcription et `media.md`. Montre au demandeur le concept recommandé et les autres concepts (publie `proposition.md` en page si c'est utile), ainsi que les mots incertains de la transcription. **Attends son choix.**
-4. **Produire** : `biteye-video-producer` avec le brief, le concept choisi et les médias préparés.
-5. **Livrer** : publie `<slug>.html` comme Artifact (avec `media/*` via `files` si l'agent l'indique), envoie les MP4 et la page `.local.html`, et résume les comptes rendus.
-6. **Retouches** : renvoie-les au même agent (SendMessage), avec le dossier et le storyboard existants.
+1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
+2. **Planifier** : 8 écrit `plan-efficacite.md` (équipe minimale, modèle par tâche, fichiers à réutiliser, parallélisme, rendus d'essai, budget). La session suit ce plan.
+3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média, 10 si les sources sont abîmées, 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
+4. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
+5. **Pré-rendu** : 9 monte l'animatic et le valide ; 6 construit le storyboard et les images clés, avec les calques de 13 et l'habillage de 12 ; 4 audite ; 6 corrige (une passe).
+6. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
+7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
+8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
 
-Raccourci : pour une simple retouche ou une déclinaison de format d'une vidéo déjà validée, va directement à l'étape 4.
+Les agents ne peuvent pas s'appeler entre eux : la session principale les lance, transmet les fichiers et arbitre. Retouches : renvoyer au même agent (SendMessage).
+
+Raccourci : pour une simple retouche ou une déclinaison de format d'une vidéo déjà validée, va directement à l'étape 5 (8 peut sauter le plan).
 
 Si les agents ne sont pas disponibles dans la session (ils se chargent au démarrage), applique toi-même les skills dans le même ordre, ou lance un agent générique en lui demandant de suivre le fichier de l'agent concerné.
+
+## Efficacité (règles permanentes, enrichies par chaque bilan)
+
+- Ne refais jamais ce qui existe dans `$OUT` : transmets les chemins aux agents.
+- Briefs compacts : la liste exacte des fichiers à lire et le format du compte rendu.
+- Seulement les agents utiles à la demande ; le moins cher des modèles qui tient la qualité.
+- Images clés et animatic avant tout rendu complet ; un seul rendu final par format.
+- Un script écrit deux fois devient un outil CLI dans un skill.
+- Jamais d'économie sur l'audit DA, le contrôle qualité, l'écoute des coupes, les noms et le CTA.
+- Porte avant rendu : pas de rendu complet tant que l'alignement personne détourée / fond n'est pas vérifié image par image (écart, crâne non coupé, coupes de la source repérées) ; images clés aux bornes de chaque calque détouré (t−1, t, t+1 image), pas seulement à heures fixes.
+- Contrôle croisé plafonné : seulement après la porte et l'audit DA ; 1 contradicteur par constat (3 si bloquant), au plus 20 agents et 1 M de jetons, coût annoncé au demandeur avant. Référence V2 : 9,3 M de jetons pour 18 défauts, contre 0,2 M pour un contrôle qualité unique.
+- Goût contradictoire (DA ↔ demandeur) : trancher sur une planche de 3 niveaux d'une même image clé, jamais par un rendu ; un effet « subtil » garde un plancher de visibilité mesuré.
+- Détourage : un seul lot, plages fixées par le storyboard, calculé sur la grille d'images de la plaque finale et pleine hauteur ; retirer du storyboard toute version remplacée.
+- Cadrage : demander d'emblée si un nom de produit ou de marque cité dans une source (ex. « Vision Pro ») peut rester, avant toute coupe audio.
 
 ## GitHub (dépôt public)
 
