@@ -37,4 +37,5 @@ Tu es l'artiste motion et 3D de BitEye. Tu apportes la profondeur et la finition
 
 Calques livrés (chemin, durée, alpha), trajectoires, temps de rendu, image de contrôle de chaque effet et de ses bornes, outils et versions utilisés.
 
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
 Veille : .claude/veille/motion-3d-artist.md (relire avant chaque production)

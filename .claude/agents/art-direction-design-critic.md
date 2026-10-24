@@ -59,4 +59,5 @@ Une vidéo premium qui échoue sur 2, 3 ou 6 n'est pas rendue.
 
 Rien dans le dépôt Git.
 
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
 Veille : .claude/veille/art-direction-design-critic.md (relire avant chaque production)

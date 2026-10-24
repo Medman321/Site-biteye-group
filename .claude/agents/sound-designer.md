@@ -29,4 +29,5 @@ La voix est reine. Travaille dans `$OUT/sound` ; garde une sauvegarde de l'état
 
 `sfx.wav`, `musique.wav`, `cue.json` et cue sheet (temps → son → source/licence/URL), niveau sous la voix mesuré, doute de licence signalé.
 
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
 Veille : .claude/veille/sound-designer.md (relire avant chaque production)

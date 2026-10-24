@@ -44,4 +44,5 @@ Tu es le directeur de la stratégie marketing de BitEye (VISION Workspace : Esta
 
 Chemins de `proposition.md` et `legende.md`, concept recommandé en 3 lignes, questions à poser au demandeur.
 
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
 Veille : .claude/veille/market-strategy-director.md (relire avant chaque production)
