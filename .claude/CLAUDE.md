@@ -29,6 +29,7 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 6. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
 7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
 8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
+9. **Veille d'expertise** : la session écrit le retour d'expérience (`.claude/retex/`) puis lance `veille-expertise` (une veille web par agent, fiches mises à jour, pull request). Aussi chaque mois, par la tâche planifiée « Veille d'expertise BitEye ».
 
 Les agents ne peuvent pas s'appeler entre eux : la session principale les lance, transmet les fichiers et arbitre. Retouches : renvoyer au même agent (SendMessage).
 
