@@ -82,9 +82,12 @@ Ce que l'outil contrôle à chaque coupe (seuils détaillés : `references/seuil
 | rampe avant la coupe (mouvement, zoom ou flou mesurés) | **≥ 3 images** | `maskReveal`, fondus : rampe ou relâche ≥ 3 |
 | saut visible (coupe franche non masquée par le flou ou le mouvement) | aucun | cas V3 : 22,13 et 29,67 |
 | saut de luminance entre t−1 et t | ≤ 12 sur 255, sinon progressif | whip vers un fond sombre : vérifier |
-| visage à t−1, t, t+1 | jamais coupé par le bord ni dédoublé | Δx, Δy, taille notés pour les `matchCut` |
+| visage à t−1, t, t+1 | jamais coupé par le bord ni dédoublé ; ne saute pas de plus de 2 % de la largeur (centre des yeux) sur une coupe franche nette | Δx, Δy (yeux, px de la vidéo) et taille notés à chaque coupe |
 | image fantôme | aucune (image isolée, coupe en deux temps, image mélangée seule) | fondu ≥ 6 images |
 | direction du mouvement | pas d'inversion de part et d'autre | whips, coupe sur l'action |
+| relâche, transition sans effet | signalées en note | `end` = `cut` (lu dans `cues.json` ou le storyboard), `matchCut` aux listes `a`/`b` vides |
+
+Lecture : la coupe déclarée (`cut` du storyboard ou de `cues.json`, image `ceil(cut × fps)`) est gardée si elle est franche et suit un zoom fort continu, dont les images comptent alors comme rampe (V3, 17,17 : ×1,41 en 4 images). Avec `--cuts` (temps arrondis), la coupe est recalée sur le plus grand saut à ±3 images. Les yeux viennent de YuNet ou MediaPipe ; avec Haar, le centre de la boîte sert de repli (noté « boîte »). Un clignement rend les yeux moins sûrs (V3, 10,03 : −76 px mesurés en 540×960, −87 px en pleine résolution).
 
 Le visage « coupé » par un détourage décalé (V2) ne se voit pas à la seule détection : la porte avant rendu le contrôle (`motion-engine/scripts/pre_render_gate.sh` → `media-lab/scripts/align_check.py`). Les deux portes sont complémentaires ; aucune ne remplace l'autre.
 
