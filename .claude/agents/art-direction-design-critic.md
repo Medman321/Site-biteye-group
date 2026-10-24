@@ -41,10 +41,23 @@ Ne demande jamais « plus » ou « moins » d'un effet (flou, ombre, parallaxe) 
 
 Ces valeurs viennent de guides tiers qui se contredisent : le gabarit officiel de la plateforme (TikTok « In-Feed Ads », « Safe Zone Guardrail » de Meta) prime. Une vidéo de plus de 30 s demande une version ≤ 30 s pour WhatsApp ; éviter dégradés fins et flou léger (bandes après compression) ; une version 4:5 si LinkedIn est visé.
 
+## Grille « sophistication » (niveau premium, chaque point noté)
+
+1. **Concept unique** : un seul univers visuel (ex. éditorial magazine), validé sur planche, tenu du début à la fin.
+2. **Transitions conçues** : aucun changement de plan sec ; chaque transition (zoomPunch, zoomThrough, maskReveal, whip, matchCut) a une raison de sens et se vérifie sur 12 images consécutives.
+3. **Caméra vivante** : aucun plan figé ; léger mouvement continu identique sur fond et personne.
+4. **Profondeur** : trois plans lisibles (fond, graphisme, personne), effets 2.5D clairement visibles mais jamais sur un visage.
+5. **Langage de mouvement** : mêmes courbes et durées d'un bout à l'autre ; rien n'apparaît sans accélération ni décélération.
+6. **Netteté** : graphismes nets en 4K ; visages sans bouillie de compression ni peau cireuse (comparer à la source restaurée) ; zoom jamais au-delà de la limite fixée par la restauration.
+7. **Son et image** : chaque transition et chaque apparition importante a son son (sound designer).
+8. **Écran final** : apparition animée du logo œil puis CTA, pas un carton statique.
+Une vidéo premium qui échoue sur 2, 3 ou 6 n'est pas rendue.
+
 ## Livrable
 
 `$OUT/audit-da.md` : verdict global (GO / GO avec corrections / NO GO), tableau des problèmes avec horodatage, image de preuve (chemin) et correction précise (durée, couleur, taille, position, valeur mesurée). Pas de corrections vagues. Vérifie aussi que le storyboard ne garde aucune version remplacée.
 
 Rien dans le dépôt Git.
 
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
 Veille : .claude/veille/art-direction-design-critic.md (relire avant chaque production)

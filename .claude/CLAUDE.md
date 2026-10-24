@@ -23,13 +23,16 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 
 1. **Cadrer** : questions de cadrage (`biteye-video-ad` §0 : diffusion et formats, objectif, cible et langue, style, nom + poste + photo de chaque voix, infos à afficher).
 2. **Planifier** : 8 écrit `plan-efficacite.md` (équipe minimale, modèle par tâche, fichiers à réutiliser, parallélisme, rendus d'essai, budget). La session suit ce plan.
-3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média, 10 si les sources sont abîmées, 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
-4. **Proposer** : 3 (concepts) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
-5. **Pré-rendu** : 9 monte l'animatic et le valide ; 6 construit le storyboard et les images clés, avec les calques de 13 et l'habillage de 12 ; 4 audite ; 6 corrige (une passe).
-6. **Rendre** : 6 rend les MP4 ; 7 contrôle ; une reprise si « à reprendre ».
+3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 10 dès qu'une source est sous la résolution de livraison ou compressée (obligatoire) ; 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
+4. **Proposer** : 3 (concepts, en s'appuyant sur `bibliotheque-techniques`, les vidéos de référence du demandeur) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
+5. **Pré-rendu** : 9 monte l'animatic avec une transition conçue à chaque changement de plan et le valide ; 6 construit le storyboard et les images clés, avec les calques de 13 et l'habillage de 12 ; 4 audite (grille « sophistication » en premium) ; 6 corrige (une passe).
+6. **Rendre** : 6 rend les MP4 (premium : maître 4K 2160×3840 + version 1080 réduite du maître + version WhatsApp) ; 7 contrôle ; une reprise si « à reprendre ».
 7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
 8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
-9. **Veille d'expertise** : la session écrit le retour d'expérience (`.claude/retex/`) puis lance `veille-expertise` (une veille web par agent, fiches mises à jour, pull request). Aussi chaque mois, par la tâche planifiée « Veille d'expertise BitEye ».
+9. **Apprentissage** : toute nouvelle vidéo du dossier Drive « Vidéos pour apprentissage » est analysée et ses techniques ajoutées à `bibliotheque-techniques` (registre Drive des vidéos analysées).
+10. **Veille d'expertise** : la session écrit le retour d'expérience (`.claude/retex/`) puis lance `veille-expertise` (une veille web par agent, fiches mises à jour, pull request). Aussi chaque mois, par la tâche planifiée « Veille d'expertise BitEye ».
+
+**Niveau premium** (choisi au cadrage) : agents 9, 10 (si source faible), 11, 12 et 13 obligatoires ; aucune coupe sèche entre deux plans (transitions de la bibliothèque du moteur : zoomPunch, zoomThrough, maskReveal, whip, matchCut) ; caméra vivante (léger mouvement continu sur chaque plan) ; 3 plans de profondeur (fond, graphisme, personne) ; un seul concept visuel validé sur planche ; écran final animé.
 
 Les agents ne peuvent pas s'appeler entre eux : la session principale les lance, transmet les fichiers et arbitre. Retouches : renvoyer au même agent (SendMessage).
 
@@ -47,9 +50,17 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - Jamais d'économie sur l'audit DA, le contrôle qualité, l'écoute des coupes, les noms et le CTA.
 - Porte avant rendu : pas de rendu complet tant que l'alignement personne détourée / fond n'est pas vérifié image par image (écart, crâne non coupé, coupes de la source repérées) ; images clés aux bornes de chaque calque détouré (t−1, t, t+1 image), pas seulement à heures fixes.
 - Contrôle croisé plafonné : seulement après la porte et l'audit DA ; 1 contradicteur par constat (3 si bloquant), au plus 20 agents et 1 M de jetons, coût annoncé au demandeur avant. Référence V2 : 9,3 M de jetons pour 18 défauts, contre 0,2 M pour un contrôle qualité unique.
-- Goût contradictoire (DA ↔ demandeur) : trancher sur une planche de 3 niveaux d'une même image clé, jamais par un rendu ; un effet « subtil » garde un plancher de visibilité mesuré.
+- Goût contradictoire (DA ↔ demandeur) et tout calcul de plus de 20 min (restauration, rendu 4K) : trancher d'abord sur une planche de 3 niveaux de 2 images clés, jamais par un rendu ; un effet « subtil » garde un plancher de visibilité mesuré.
+- Transitions : le DA donne ses seuils mesurables avant le pré-rendu (rampe d'au moins 3 images avant chaque coupe) et le producteur les vérifie sur `--tsheets` avant l'audit ; tout plan source sans image propre est décidé à la planification ; animatic refait après toute passe qui déplace une coupe.
+- Mesure : relever le compteur de jetons d'une instance avant chaque reprise ; une attente de rendu se fait en tâche de fond, pas dans une instance reprise.
 - Détourage : un seul lot, plages fixées par le storyboard, calculé sur la grille d'images de la plaque finale et pleine hauteur ; retirer du storyboard toute version remplacée.
 - Cadrage : demander d'emblée si un nom de produit ou de marque cité dans une source (ex. « Vision Pro ») peut rester, avant toute coupe audio.
+
+## Contexte de la session (plafond ≈ 40 %)
+
+- État de travail tenu à jour dans `.claude/state/etat-en-cours.md` (hors Git) à chaque étape ; réinjecté automatiquement après un compactage (hook `SessionStart` « compact »). Il fait foi après un compactage.
+- Lectures lourdes déléguées à des sous-agents (comptes rendus ≤ 15 lignes) ; dans la session, seulement des extraits.
+- En fin d'étape : mettre l'état à jour, puis proposer au demandeur `/compact garde l'état en cours, les décisions et les chemins`.
 
 ## GitHub (dépôt public)
 

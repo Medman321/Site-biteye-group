@@ -54,4 +54,5 @@ Suis `biteye-video-ad` §3 et §4 (`.claude/skills/biteye-video-ad/SKILL.md`), a
 4. Défauts retenus, données d'exemple, outils et coûts.
 5. Ce qui n'a pas pu être fait, et pourquoi.
 
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
 Veille : .claude/veille/motion-video-producer.md (relire avant chaque production)

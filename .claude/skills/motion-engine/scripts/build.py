@@ -6,7 +6,8 @@ Usage: python3 -I build.py STORYBOARD.json --out OUT_DIR [--sidecar]
 Writes, in OUT_DIR:
   <slug>.html         page to publish as an Artifact (no <!doctype>, the publisher wraps it)
   <slug>.local.html   same page as a standalone document (open in a browser, or render to MP4)
-  <slug>.render.json  what render.js needs: size, duration, audio tracks to mix
+  <slug>.render.json  what render.js needs: size, duration, audio tracks to mix, render scale
+  <slug>.cues.json    V3: times of each transition (start, cut, end) for the sound designer
   media/              prepared media (always; also referenced by the page in --sidecar mode)
 
 Media paths in the storyboard are relative to the storyboard file.
@@ -90,7 +91,108 @@ def make_phrases(words, cap):
     return out
 
 
-def prepare_media(key, path, mdir):
+# V3 transitions: default duration (s), share of the duration before the cut, what moves ("media" = plates and
+# cut-out subject only, "scene" = the whole scene with its texts).
+TR_DEFAULTS = {'zoomPunch': (8 / 30, .3, 'media'), 'whip': (8 / 30, .5, 'scene'), 'zoomThrough': (.9, .62, 'scene'),
+               'maskReveal': (.8, 0., 'scene'), 'matchCut': (.6, 0., 'media')}
+TR_SOUND = {'zoomPunch': 'souffle court (whoosh) de start à cut, petit impact sur cut',
+            'whip': 'whoosh 0,25 s centré sur cut',
+            'zoomThrough': 'montée (riser) de start à cut, impact ou souffle sur cut',
+            'maskReveal': 'nappe ou scintillement qui gonfle de start à end',
+            'matchCut': 'coupe sèche : accent bref (tick, kick) sur cut'}
+
+
+def norm_transitions(sb, fps=30):
+    """Scene-level `transition` (from the previous scene) and top-level `transitions` → one normalised list
+    with explicit times (at = start of the move, cut = frame where the shot changes, end)."""
+    scenes = sb['scenes']
+    ids = {sc['id']: i for i, sc in enumerate(scenes) if sc.get('id') is not None}
+    lids = {L['id']: i for i, sc in enumerate(scenes) for L in sc.get('layers', []) if L.get('id')}
+    warns = []
+
+    def sref(x):
+        if isinstance(x, int) and 0 <= x < len(scenes):
+            return x
+        if x in ids:
+            return ids[x]
+        raise SystemExit('transition : scène inconnue %r' % (x,))
+
+    raw = []
+    for i, sc in enumerate(scenes):
+        tr = sc.get('transition')
+        if tr:
+            if i == 0 and 'scene' not in tr:
+                warns.append('scène 0 : transition ignorée (pas de plan avant)')
+                continue
+            raw.append(dict(tr, _a=i - 1, _b=i, _cut=sc['start']))
+    raw += [dict(t) for t in sb.get('transitions', [])]
+    out = []
+    for n, T in enumerate(raw):
+        typ = T.get('type')
+        if typ not in TR_DEFAULTS:
+            raise SystemExit('transition : type inconnu %r (zoomPunch, zoomThrough, maskReveal, whip, matchCut)' % (typ,))
+        dur0, lead, mode = TR_DEFAULTS[typ]
+        dur = float(T.get('dur', dur0))
+        if 'scene' in T:   # inside one scene: two lists of layer ids, or nothing (a cut inside one plate)
+            si = sref(T['scene'])
+            if isinstance(T.get('a'), list) or isinstance(T.get('b'), list):
+                a, b, same = {'scene': si, 'layers': T.get('a') or []}, {'scene': si, 'layers': T.get('b') or []}, False
+                for lid in a['layers'] + b['layers']:
+                    if lid not in lids:
+                        warns.append('transition %d : calque %r introuvable' % (n, lid))
+            else:
+                a = b = {'scene': si}
+                same = True
+            cut0 = T.get('_cut')
+        else:
+            a, b, same = {'scene': sref(T.get('a', T.get('_a')))}, {'scene': sref(T.get('b', T.get('_b')))}, False
+            cut0 = T.get('_cut', scenes[b['scene']]['start'])
+        at, cut = T.get('at'), T.get('cut')
+        if at is None and cut is None:
+            if cut0 is None:
+                raise SystemExit('transition %d (%s) : donner « at » ou « cut »' % (n, typ))
+            cut = cut0
+        if at is None:
+            at = cut - lead * dur
+        if cut is None:
+            cut = at + lead * dur
+        end = (cut + dur) if typ == 'matchCut' else (at + dur)
+        if typ in ('zoomPunch', 'whip') and not 6 <= round(dur * fps) <= 10:
+            warns.append('transition %d (%s) : %d images, conseillé 6 à 10' % (n, typ, round(dur * fps)))
+        if typ == 'matchCut' and not (T.get('faceA') and T.get('faceB')):
+            raise SystemExit('transition %d (matchCut) : faceA et faceB {x, y, s} requis' % n)
+        e = {k: v for k, v in T.items() if not k.startswith('_') and k not in ('a', 'b', 'scene')}
+        e.update(type=typ, at=round(at, 4), cut=round(cut, 4), end=round(end, 4), a=a, b=b, mode=T.get('target', mode))
+        if same:
+            e['same'] = True
+        start = at
+        if typ == 'matchCut' and T['faceA']['s'] < T['faceB']['s']:
+            start = cut - T.get('pre', .25)
+        e['cue'] = {'start': round(start, 3), 'cut': round(cut, 3), 'end': round(end, 3), 'son': TR_SOUND[typ]}
+        out.append(e)
+    out.sort(key=lambda e: e['at'])
+    return out, warns
+
+
+def generate_media(key, spec, mdir, base):
+    """V3: test media generated by ffmpeg (no file in the public repo). spec = {"lavfi": graph, "duration": s,
+    "alpha": bool, "image": bool}. Only lavfi sources: graphs that read files are refused."""
+    graph = spec['lavfi']
+    if re.search(r'(movie|file|filename|sendcmd|zmq)\s*=', graph):
+        raise SystemExit('media %s : graphe lavfi qui lit un fichier refusé' % key)
+    if spec.get('image'):
+        dst = os.path.join(mdir, key + '.png')
+        run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i', graph, '-frames:v', '1', dst])
+        return dst, 'image/png'
+    dst = os.path.join(mdir, key + '.webm')
+    alpha = spec.get('alpha', False)
+    run(['ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i', graph, '-t', str(spec.get('duration', 4)),
+         '-c:v', 'libvpx-vp9', '-pix_fmt', 'yuva420p' if alpha else 'yuv420p', '-b:v', '0', '-crf', str(spec.get('crf', 32)),
+         '-deadline', 'realtime', '-cpu-used', '8', '-row-mt', '1'] + (['-auto-alt-ref', '0'] if alpha else []) + ['-an', dst])
+    return dst, 'video/webm'
+
+
+def prepare_media(key, path, mdir, scale=1):
     ext = os.path.splitext(path)[1].lower()
     if ext == '.webm':
         # V2 : WebM VP9 déjà prêt (plaque ambilight ou sujet détouré avec alpha yuva420p) : copié tel quel.
@@ -99,9 +201,11 @@ def prepare_media(key, path, mdir):
         return dst, 'video/webm'
     if ext in ('.mp4', '.mov', '.webm', '.mkv', '.avi', '.m4v'):
         # WebM VP9: the open-source Chromium used for rendering cannot decode H.264.
+        # V3: with renderScale 2 (4K master) clips keep their native size up to 3840 px on the long side.
+        lim = 1920 * scale
         dst = os.path.join(mdir, key + '.webm')
-        run(['ffmpeg', '-y', '-v', 'error', '-i', path, '-vf', "scale='if(gt(iw,ih),min(1920,iw),-2)':'if(gt(iw,ih),-2,min(1920,ih))'",
-             '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '36', '-deadline', 'realtime', '-cpu-used', '8', '-row-mt', '1', '-an', dst])
+        run(['ffmpeg', '-y', '-v', 'error', '-i', path, '-vf', "scale='if(gt(iw,ih),min(%d,iw),-2)':'if(gt(iw,ih),-2,min(%d,ih))'" % (lim, lim),
+             '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '36' if scale < 2 else '30', '-deadline', 'realtime', '-cpu-used', '8', '-row-mt', '1', '-an', dst])
         return dst, 'video/webm'
     if ext in ('.mp3', '.wav', '.m4a', '.aac', '.ogg', '.opus', '.flac', '.webm'):
         dst = os.path.join(mdir, key + '.mp3')
@@ -113,7 +217,7 @@ def prepare_media(key, path, mdir):
         return dst, 'image/svg+xml'
     keep_alpha = ext in ('.png', '.webp')
     dst = os.path.join(mdir, key + ('.png' if keep_alpha else '.jpg'))
-    run(['ffmpeg', '-y', '-v', 'error', '-i', path, '-vf', "scale='min(2160,iw)':-2", '-frames:v', '1']
+    run(['ffmpeg', '-y', '-v', 'error', '-i', path, '-vf', "scale='min(%d,iw)':-2" % (2160 * scale), '-frames:v', '1']
         + ([] if keep_alpha else ['-q:v', '3']) + [dst])
     return dst, 'image/png' if keep_alpha else 'image/jpeg'
 
@@ -142,7 +246,12 @@ def main():
     media_src = dict(sb.get('media', {}))
     cfg = {'width': W, 'height': H, 'scenes': sb['scenes'], 'brand': sb.get('brand', True),
            'brandSpans': sb.get('brandSpans'), 'wave': sb.get('wave', True), 'poster': sb.get('poster')}
-    render = {'width': W, 'height': H, 'tracks': []}
+    rscale = sb.get('renderScale', 1)
+    render = {'width': W, 'height': H, 'tracks': [], 'scale': rscale}
+    transitions, twarn = norm_transitions(sb)
+    if transitions:
+        cfg['transitions'] = transitions
+        render['transitions'] = [t['cue'] for t in transitions]
 
     voice = sb.get('voice')
     if voice:
@@ -179,7 +288,10 @@ def main():
 
     prepared, total = {}, 0
     for key, p in media_src.items():
-        dst, mime = prepare_media(key, rel(p), mdir)
+        if isinstance(p, dict) and 'lavfi' in p:
+            dst, mime = generate_media(key, p, mdir, base)
+        else:
+            dst, mime = prepare_media(key, rel(p), mdir, max(1, int(rscale)))
         prepared[key] = (dst, mime)
         total += os.path.getsize(dst)
     sidecar = a.sidecar or total * 4 / 3 > EMBED_LIMIT
@@ -207,9 +319,14 @@ def main():
         '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>\n%s\n</body></html>\n'
         % (sb.get('lang', 'fr'), page))
     json.dump(render, open(os.path.join(out, slug + '.render.json'), 'w'), indent=1)
+    if transitions:
+        json.dump([dict(t['cue'], n=i, type=t['type']) for i, t in enumerate(transitions)],
+                  open(os.path.join(out, slug + '.cues.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(json.dumps({'html': html, 'local': local, 'size_mb': round(os.path.getsize(html) / 1e6, 2),
                       'sidecar_media': sidecar, 'format': [W, H], 'duration': dur,
-                      'phrases': len(cfg.get('captions', {}).get('phrases', []))}, ensure_ascii=False))
+                      'phrases': len(cfg.get('captions', {}).get('phrases', [])), 'renderScale': rscale,
+                      'transitions': [[t['type'], t['at'], t['cut'], t['end']] for t in transitions], 'warnings': twarn},
+                     ensure_ascii=False))
 
 
 if __name__ == '__main__':
