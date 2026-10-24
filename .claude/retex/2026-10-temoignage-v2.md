@@ -25,3 +25,16 @@ Reel 9:16 de 39,8 s, deux témoins filmés dans deux lieux (anciens montages Bit
 - **colorist** : couleurs tirées des vidéos (ambre/miel, champagne/perle) ; le vert venait de décors translucides posés sur le fond bleu du thème ; règle R ≥ G + 12 pour nos calques seulement.
 - **sound-designer** : jingle extrait de la source, confirmé par le client ; nappe synthétisée accordée sur le jingle ; licence à confirmer pour toute musique d'origine inconnue.
 - **motion-3d-artist** : l'effet « couverture de magazine » (grand mot posé sur le fond, partiellement caché par la tête) a convaincu ; parallaxe lente (12–30 px/s) et ombre douce de la tête (≤ 0,20) ; un mot ne doit jamais flotter au-dessus de la tête.
+
+## V3 premium (24/10)
+
+- **image-restoration-engineer** : Real-ESRGAN ×3 sur CPU = 1 110 images, ≈ 1 h 30 de calcul ; la planche a montré une peau trop lisse (mélange 60 % IA / 40 % source + netteté CAS + grain). Juger 2 images en 3 niveaux avant de lancer le lot.
+- **chief-editor-monteur** : carte des transitions et animatic faits, mais l'animatic n'a pas été refait après les corrections ; le refaire en basse définition après toute passe qui déplace une coupe.
+- **motion-video-producer** : maître 4K avec transitions et flous ≈ 2,0 s/image (1 195 images, 40 min) ; un seul rendu final, aucun rendu jeté. Le zoomPunch monotone ne suffit pas : option `peak` (pic puis retour) ajoutée au moteur.
+- **art-direction-design-critic** : l'audit a donné un NO GO utile (transitions timides, caméra, netteté) ; donner des seuils mesurables en amont (rampe d'au moins 3 images avant chaque coupe, saut par image) plutôt que des adjectifs.
+- **vfx-roto-compositing-engineer** : mattes de la V2 réutilisées et affinées en 4K ; un plan source sans image propre (carton) doit être décidé avant le storyboard, sinon un second lot de détourage et une silhouette figée.
+- **motion-3d-artist** : la part cachée des mots « magazine » a été mesurée de deux façons (producteur, contrôle) ; un seul script de mesure, cible 25–40 %, 50 % reste la limite basse de lisibilité.
+- **sound-designer** : kit puis pose et mix en deux passes, repères de `cues.json` tous tombés sur les images prévues ; le jingle après ducking n'a pas été contrôlé en fin de chaîne.
+- **colorist** : netteté et luminosité tranchées sur planches de 3 niveaux, sans aucun rendu jeté.
+- **quality-brand-inspector** : un contrôle unique ≈ 0,2 M jetons, LIVRABLE avec 3 réserves mineures ; pas de contrôle croisé (V2 : 9,3 M). La même famille de défaut (saut d'une image sans rampe) revient après l'audit DA.
+- **token-efficiency-auditor** : production entière 1,9 à 3,3 M jetons selon que les compteurs des instances reprises sont cumulés ou non ; relever le compteur avant chaque reprise pour le savoir.
