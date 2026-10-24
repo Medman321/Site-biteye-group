@@ -43,3 +43,16 @@ Travaille toujours sur des copies dans `$OUT/` ; les originaux restent intacts d
 Écrits pendant la vidéo témoignage V2. `align_check.py` a été testé sur un vrai storyboard ; `cutout_video.py` n'a été que compilé : vérifie son premier lot sur 2 ou 3 images avant un long calcul.
 - `python3 -I .claude/skills/media-lab/scripts/align_check.py PROD [--subjects z1] --info-gate` : alignement sujet/plaque image par image, `start` corrigé, crâne coupé (head_top plafonné ou qui saute). Échec = pas de rendu.
 - `python3 -I .claude/skills/media-lab/scripts/cutout_video.py --jobs travaux.txt --log lot.log` : détourage sur la plaque en lot (une ligne : plaque image0 nb u2net|rvm sortie), arrêt au premier défaut de tête. Remplace les lanceurs `run_*.sh`.
+
+## Plans de profondeur (photos)
+
+`depth_layers.py` sépare une photo en 3 calques : personnes, AP1 (mobilier proche : table, écrans, panneaux) et AP2 (mur, comblé derrière tout le reste). Il essaie ensuite un mot inséré, avec 3 amplitudes de parallaxe et la mesure de la part cachée (`layer_diff.py behind` et masques). Testé sur 2 photos de formation (octobre 2026) : environ 6 s de calcul par photo, 1 min avec mesures et aperçu, CPU 3 fils.
+- **Quand l'utiliser** : un mot ou un graphisme doit passer derrière des personnes **et** derrière du mobilier, ou une photo doit bouger en parallaxe sans que la personne apparaisse en double. Le détourage seul laisse la personne dans la plaque (doublon dès qu'on décale) et ne fait jamais passer le mot derrière une table ou un écran.
+- **Commande type** : `python3 -I .claude/skills/media-lab/scripts/depth_layers.py photo.jpg --out $OUT/profondeur/p1 --word MOT --plan fond --amplitude tous --erase x,y,w,h --exclude x,y,w,h --preview --compare-detourage`. Utilise `--plan personne` quand un panneau est devant le mur à hauteur de tête, `--blur-poly` pour un écran à rendre illisible (seulement sur AP2, aucun visage flouté), `--font` pour la police de la vidéo. Code de sortie 1 si le mot sort de 25 à 40 % caché ou si une lettre de bord est cachée à plus de 50 %.
+- **Modèle** : Depth Anything V2 Small (Apache-2.0), export ONNX de la release GitHub `fabio-sim/Depth-Anything-ONNX`. Il est téléchargé une fois dans `~/.cache/biteye-depth/`, taille et SHA256 vérifiés, et ne va jamais dans le dépôt.
+- **Limites relevées** :
+  - u2net_human_seg rate des vêtements (dos, bras, jambes) et prend parfois un objet pour une personne : ces morceaux tombent dans AP1 ; retire les faux positifs avec `--exclude` et vérifie `calque_personnes.png`.
+  - Bouge **personnes et AP1 ensemble** (chaises et tables sont souvent devant les gens) ; seuls le mur et le mot bougent autrement (mot à 0,25 × l'amplitude).
+  - **Amplitude moyenne (20 px/s) recommandée**. En forte (30 px/s), le comblement d'un mur texturé (marbre) se voit en bande floue et les lettres de bord sortent des bornes.
+  - Contraste : un mot de la couleur des vêtements fausse la mesure et ne se lit pas ; `layer_diff` le signale.
+- **Aucune IA générative sur les photos de clients** : le fond est comblé par OpenCV (TELEA, reflet du mur voisin, grain mesuré), jamais inventé.

@@ -19,6 +19,8 @@ Décision du demandeur (24/10/2026) : cette bibliothèque élargit la gamme de m
 
 ## Génération IA (option A) — autorisée par le demandeur, au cas par cas
 
+**Photos et vidéos de clients** (décision du 24/10/2026) : l'IA ne sert qu'à la restauration (netteté, agrandissement, débruitage, artefacts : `image-restoration-engineer`). Elle ne crée jamais de contenu : rien d'ajouté, rien d'inventé, aucun mouvement fabriqué. L'option A ci-dessous ne s'applique qu'aux visuels propres à BitEye (maquettes, décors abstraits).
+
 Méthode « construction en gravité inversée » (vidéo de référence analysée le 24/10/2026, prompts complets dans le Drive : « Rapport — Construction par IA ») :
 1. Une image finale RÉELLE (photo, perspective officielle ou, pour le logiciel, une maquette d'écran dessinée « Données fictives ») verrouille le résultat.
 2. Trois stades intermédiaires générés depuis cette image (≈ 25 %, 55 %, 85 %), chacun avec la référence réelle + les précédents « pour la continuité seulement », et une longue liste de négations (« même point de vue, même cadrage 9:16, rien qui n'existe pas sur la référence, pas d'étages en plus, pas de texte ni de logo »).
