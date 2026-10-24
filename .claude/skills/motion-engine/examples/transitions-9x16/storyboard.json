@@ -1,0 +1,347 @@
+{
+ "title": "Bibliothèque de transitions",
+ "slug": "transitions-9x16",
+ "format": "9:16",
+ "duration": 13.6,
+ "theme": "officiel",
+ "safe": true,
+ "grain": 0.08,
+ "wave": false,
+ "media": {
+  "plA": {
+   "lavfi": "gradients=s=1080x1920:c0=0x011A29:c1=0x0B3550:c2=0x027A5B:n=3:speed=0.015:type=linear:d=4:r=30,drawgrid=w=120:h=120:t=2:c=white@0.14",
+   "duration": 4
+  },
+  "plB": {
+   "lavfi": "gradients=s=1080x1920:c0=0x0A2F47:c1=0x1E4E79:c2=0x6B5A2E:n=3:speed=0.015:type=radial:d=4:r=30,drawgrid=w=160:h=160:t=2:c=white@0.14",
+   "duration": 4
+  },
+  "plC": {
+   "lavfi": "gradients=s=1080x1920:c0=0x011A29:c1=0x0E3A55:c2=0x0A2F47:n=3:speed=0.015:type=linear:d=4:r=30,drawgrid=w=96:h=96:t=2:c=white@0.14",
+   "duration": 4
+  },
+  "plD": {
+   "lavfi": "gradients=s=1080x1920:c0=0x2A2414:c1=0x0E3A55:c2=0x011A29:n=3:speed=0.015:type=radial:d=4:r=30,drawgrid=w=140:h=140:t=2:c=white@0.14",
+   "duration": 4
+  },
+  "plE": {
+   "lavfi": "gradients=s=1080x1920:c0=0x027A5B:c1=0x0B3550:c2=0x011A29:n=3:speed=0.015:type=linear:d=4:r=30,drawgrid=w=110:h=110:t=2:c=white@0.14",
+   "duration": 4
+  },
+  "sujet": {
+   "lavfi": "color=c=black@0:s=540x960:r=30:d=4,format=yuva420p,geq=lum=150:cb=118:cr=142:a='255*gt(lt(hypot(X-270-8*sin(2*T),Y-560),62)+lt(hypot((X-270-5*sin(2*T))/1.3,Y-930),165),0)'",
+   "duration": 4,
+   "alpha": true
+  }
+ },
+ "brandSpans": [
+  [
+   0.2,
+   13.2
+  ]
+ ],
+ "transitions": [
+  {
+   "type": "zoomPunch",
+   "scene": "punch",
+   "cut": 1.3,
+   "to": 1.12,
+   "origin": "50% 45%"
+  }
+ ],
+ "scenes": [
+  {
+   "id": "punch",
+   "start": 0,
+   "end": 2.6,
+   "drift": 0.03,
+   "valign": "top",
+   "layers": [
+    {
+     "kind": "video",
+     "id": "p1",
+     "src": "plA",
+     "start": 0,
+     "end": 1.3,
+     "from": 0
+    },
+    {
+     "kind": "video",
+     "id": "p2",
+     "src": "plA",
+     "start": 1.3,
+     "end": 3.1,
+     "from": 2.2
+    },
+    {
+     "kind": "fx",
+     "fx": "title",
+     "id": "t0",
+     "text": "COUPE",
+     "x": 540,
+     "y": 1180,
+     "size": 230,
+     "at": 0,
+     "out": 3,
+     "color": "rgba(234,238,241,.9)"
+    },
+    {
+     "kind": "subject",
+     "id": "s0",
+     "src": "sujet",
+     "start": 0,
+     "end": 3.1
+    }
+   ],
+   "blocks": [
+    {
+     "type": "eyebrow",
+     "text": "Transition 1/5",
+     "at": 0.05
+    },
+    {
+     "type": "headline",
+     "text": "zoomPunch",
+     "size": 96,
+     "at": 0.1
+    },
+    {
+     "type": "note",
+     "text": "la coupe se cache dans le zoom",
+     "size": 56,
+     "at": 0.35,
+     "tilt": -3
+    }
+   ]
+  },
+  {
+   "id": "whip",
+   "start": 2.6,
+   "end": 5.2,
+   "drift": {
+    "scale": 0.03,
+    "x": -20
+   },
+   "valign": "top",
+   "transition": {
+    "type": "whip",
+    "dir": "left"
+   },
+   "layers": [
+    {
+     "kind": "video",
+     "id": "pB",
+     "src": "plB",
+     "start": 2.6,
+     "end": 5.7,
+     "from": 0
+    },
+    {
+     "kind": "fx",
+     "fx": "halo",
+     "x": 540,
+     "y": 1050,
+     "r": 120,
+     "color": "#E9D99A",
+     "at": 2.4,
+     "peak": 2.4,
+     "out": 5.7,
+     "max": 1
+    }
+   ],
+   "blocks": [
+    {
+     "type": "eyebrow",
+     "text": "Transition 2/5",
+     "at": 2.65
+    },
+    {
+     "type": "headline",
+     "text": "whip",
+     "size": 96,
+     "at": 2.6999999999999997
+    },
+    {
+     "type": "note",
+     "text": "balayage de 8 images",
+     "size": 56,
+     "at": 2.9499999999999997,
+     "tilt": -3
+    }
+   ]
+  },
+  {
+   "id": "match",
+   "start": 5.2,
+   "end": 7.8,
+   "drift": 0.025,
+   "valign": "top",
+   "transition": {
+    "type": "matchCut",
+    "faceA": {
+     "x": 540,
+     "y": 1050,
+     "s": 240
+    },
+    "faceB": {
+     "x": 380,
+     "y": 1250,
+     "s": 170
+    },
+    "dur": 0.7
+   },
+   "layers": [
+    {
+     "kind": "video",
+     "id": "pC",
+     "src": "plC",
+     "start": 5.2,
+     "end": 8.3,
+     "from": 0
+    },
+    {
+     "kind": "fx",
+     "fx": "halo",
+     "x": 380,
+     "y": 1250,
+     "r": 85,
+     "color": "#E9D99A",
+     "at": 5.0,
+     "peak": 5.0,
+     "out": 8.3,
+     "max": 1
+    },
+    {
+     "kind": "fx",
+     "fx": "title",
+     "id": "mot",
+     "text": "VISION",
+     "x": 540,
+     "y": 900,
+     "size": 300,
+     "at": 6.0,
+     "enter": 0.8,
+     "out": 9,
+     "color": "var(--lime)"
+    }
+   ],
+   "blocks": [
+    {
+     "type": "eyebrow",
+     "text": "Transition 3/5",
+     "at": 5.25
+    },
+    {
+     "type": "headline",
+     "text": "matchCut",
+     "size": 96,
+     "at": 5.3
+    },
+    {
+     "type": "note",
+     "text": "même place, même taille",
+     "size": 56,
+     "at": 5.55,
+     "tilt": -3
+    }
+   ]
+  },
+  {
+   "id": "plongee",
+   "start": 7.8,
+   "end": 10.4,
+   "drift": 0.03,
+   "valign": "top",
+   "transition": {
+    "type": "zoomThrough",
+    "el": "mot",
+    "a": "match",
+    "to": 18
+   },
+   "layers": [
+    {
+     "kind": "video",
+     "id": "pD",
+     "src": "plD",
+     "start": 7.8,
+     "end": 10.9,
+     "from": 0
+    },
+    {
+     "kind": "subject",
+     "id": "sD",
+     "src": "sujet",
+     "start": 7.8,
+     "end": 11.4
+    }
+   ],
+   "blocks": [
+    {
+     "type": "eyebrow",
+     "text": "Transition 4/5",
+     "at": 7.85
+    },
+    {
+     "type": "headline",
+     "text": "zoomThrough",
+     "size": 96,
+     "at": 7.8999999999999995
+    },
+    {
+     "type": "note",
+     "text": "plongée dans le mot",
+     "size": 56,
+     "at": 8.15,
+     "tilt": -3
+    }
+   ]
+  },
+  {
+   "id": "revele",
+   "start": 10.4,
+   "end": 13.0,
+   "drift": 0.03,
+   "valign": "top",
+   "transition": {
+    "type": "maskReveal",
+    "grow": 7,
+    "origin": "50% 55%"
+   },
+   "layers": [
+    {
+     "kind": "video",
+     "id": "pE",
+     "src": "plE",
+     "start": 10.4,
+     "end": 13.6,
+     "from": 0
+    }
+   ],
+   "blocks": [
+    {
+     "type": "eyebrow",
+     "text": "Transition 5/5",
+     "at": 10.45
+    },
+    {
+     "type": "headline",
+     "text": "maskReveal",
+     "size": 96,
+     "at": 10.5
+    },
+    {
+     "type": "note",
+     "text": "le plan suivant dans la silhouette",
+     "size": 56,
+     "at": 10.75,
+     "tilt": -3
+    },
+    {
+     "type": "logo",
+     "size": 200,
+     "at": 11.6
+    }
+   ]
+  }
+ ]
+}

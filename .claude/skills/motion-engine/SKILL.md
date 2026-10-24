@@ -7,9 +7,9 @@ description: Moteur de motion design BitEye — transforme un storyboard.json (s
 
 ```
 engine/template.html   moteur (CSS + JS), rendu = fonction pure du temps t
-scripts/build.py       storyboard.json → <slug>.html, <slug>.local.html, <slug>.render.json, media/
-scripts/render.js      page → planche d'images (--stills) ou MP4 (--mp4), audio mixé par ffmpeg
-examples/              storyboards validés : pub darija 9:16 et sa version 16:9 (même voix, words.json)
+scripts/build.py       storyboard.json → <slug>.html, <slug>.local.html, <slug>.render.json, <slug>.cues.json (V3), media/
+scripts/render.js      page → planche d'images (--stills, --tsheets) ou MP4 (--mp4, maître 4K --scale 2 --master), audio mixé par ffmpeg
+examples/              storyboards validés : pub darija 9:16 et sa version 16:9 (même voix, words.json), touche humaine, transitions-9x16 (V3)
 ```
 Prérequis : python3, ffmpeg, node + playwright avec Chromium (présents dans les sessions cloud ; ailleurs `npm i -g playwright && npx playwright install chromium`).
 
@@ -20,6 +20,8 @@ ENG=.claude/skills/motion-engine/scripts
 python3 -I $ENG/build.py STORYBOARD.json --out OUT [--sidecar]
 node $ENG/render.js OUT/<slug>.local.html --stills OUT/stills [--times 1.5,6,12]
 node $ENG/render.js OUT/<slug>.local.html --mp4 OUT/<slug>.mp4 [--fps 30]
+node $ENG/render.js OUT/<slug>.local.html --tsheets OUT/transitions            # V3 : 10 images consécutives par transition
+node $ENG/render.js OUT/<slug>.local.html --mp4 OUT/<slug>.mp4 --scale 2 --master --deliver1080 [--maxrate 8M] [--hevc]
 ```
 - Rendu : ~2,5 images/s en 9:16 (41 s ≈ 2 min) ; plus lent avec des clips vidéo (chaque image attend la position exacte du clip).
 - Médias embarqués en base64 tant que le total reste sous ~14 Mo ; au-delà (ou avec `--sidecar`), la page référence `media/…` : garder le dossier à côté du HTML, et le publier via `files`.
@@ -139,6 +141,8 @@ Après `--stills`, regarde `sheet.jpg` : texte coupé ou trop petit, chevaucheme
 
 Un nouveau type de bloc s'ajoute dans `template.html` : `B.<type> = (b, sc, stage) => élément` ; animer avec `A(el, tin, tout, kind)` ou un `HOOKS.push(t => …)` qui ne dépend que de `t`. Tout doit rester une fonction du temps (pas d'animation CSS ni de `setTimeout`), sinon le MP4 ne correspond plus à la page.
 
+Structure d'une scène (V3) : `section.scene` (visibilité, masque, flou de la scène entière) > `.sv` (transformation « scene ») > `.camf` (flou des médias) > `.cam` (caméra : `drift`, `zoomPunch`, `matchCut`) > fond + `.layers` ; les blocs sont dans `.sv`, hors de la caméra. Un calque vidéo/sujet/image : `.ly` (visibilité, flou) > `.lyi` (caméra du calque) > `.lyi` (zoom V2). Une nouvelle transition = des opérations `t => [s, tx, ty]` poussées dans `camOf(mover, filt).ops` (le flou de mouvement se calcule seul à partir de ces opérations à t−δ).
+
 ## Porte avant rendu (outils V2)
 `bash .claude/skills/motion-engine/scripts/pre_render_gate.sh PROD [animatic.mp4]` (align_check, coupes non prévues, ffprobe, sonie) doit être vert avant le rendu final et avant tout contrôle croisé.
 `layer_diff.py behind|effect` : mot vraiment derrière la tête / effet visible mais pas trop fort, sur 2 ou 3 images clés. `cut_audit.py` : coupes non prévues. `make_lite.sh` : version WhatsApp ≤ 16 Mo. `cut_audit.py` a été testé sur un MP4 réel ; `layer_diff.py` seulement sur des images de synthèse, et son mode `behind` attend une option `--hide` de `render.js` qui n'existe pas encore.
@@ -149,3 +153,53 @@ Un nouveau type de bloc s'ajoute dans `template.html` : `B.<type> = (b, sc, stag
 - Médias `.webm` VP9 copiés tels quels (plaques plein cadre, sujets détourés avec alpha `yuva420p`) pour la composition 2.5D : fond → effets → sujet.
 - Options d'en-tête : `accents`, `plainBg`, `glowColor`, `capStyle`, `capPlain`, `capMoves`, `capHide` (masquer les sous-titres sur des plages), `brandTop`, `brandCompact`.
 - `render.js` préchauffe la page avant la première image (sinon l'image 0 pouvait sortir sans ses vidéos).
+
+## Moteur V3 (premium) : 4K, transitions, caméra vivante
+
+Exemple complet : `examples/transitions-9x16/` (les 5 transitions, sans média : plaques générées par ffmpeg).
+
+### Rendu 4K net et encodage maître
+
+| Option `render.js` | Effet |
+|---|---|
+| `--scale 2` (ou `"renderScale": 2` dans le storyboard) | la page 1080×1920 est capturée avec `deviceScaleFactor: 2` → images 2160×3840 : textes, logo, SVG et grain nets. Au build, les clips gardent leur taille d'origine jusqu'à 3840 px (VP9 crf 30), les photos jusqu'à 4320 px de large |
+| `--master` | libx264 `-preset slow -crf 14 -profile high -level 5.1` (5.2 au-delà de 30 i/s, 4.2 en 1080), `yuv420p`, conversion et étiquettes BT.709 (les captures JPEG sont en BT.601 pleine échelle), `+faststart`, captures JPEG qualité 95 |
+| `--hevc` | avec `--master` : libx265 `-crf 16`, `hvc1` (lecture Apple), BT.709 |
+| `--deliver1080` | écrit aussi `<slug>-1080.mp4` : réduction lanczos du maître, x264 crf 17, son copié (jamais un second rendu) |
+| `--maxrate 8M` | plafonne le débit du fichier livré (TikTok ≈ 8 Mbit/s) |
+| `--quality N` | qualité JPEG des captures (92 par défaut) |
+
+Temps mesurés (exemple touche-humaine-9x16, 14 s, 420 images, 4 cœurs) : 0,19 s/image en 1080×1920 (x264 crf 18), 1,40 s/image en 2160×3840 maître (capture ≈ 0,45 s, le reste est x264 `slow` crf 14 en 4K) ; exemple transitions en 4K maître : 1,93 s/image (filtres de flou et masques). Un maître 4K avec grain pèse ≈ 150 à 250 Mbit/s (≈ 25 Mo par seconde) : le débit est plafonné à 240 Mbit/s (VBV) pour rester dans le niveau 5.1 ; livrer la version `-1080` (≈ 10 Mbit/s) et garder le maître pour l'archive.
+
+### Transitions (`transition` sur une scène, ou liste `transitions`)
+
+`transition` sur une scène = passage depuis la scène précédente ; la coupe (`cut`) est par défaut le `start` de la scène. Temps : `at` = début du mouvement, `cut` = image où le plan change, `end` = fin ; donner l'un des deux premiers suffit, `dur` a une valeur par défaut. Le build écrit `<slug>.cues.json` (début, coupe, fin et son conseillé de chaque transition) pour le sound designer, et `render.js --stills` les renvoie aussi (`transitions`).
+
+| type | défaut | ce qui bouge | options |
+|---|---|---|---|
+| `zoomPunch` | 8 images, coupe à 30 % | plaques + sujet (`target: "media"`) | `to` (1,12), `from` (sinon le cadrage précédent : alternance 1,00 ↔ 1,12 automatique), `origin` ("50% 40%"), `blur` |
+| `whip` | 8 images, coupe au milieu | scène entière (A et B côte à côte, panoramique continu) | `dir` (`left`, `right`, `up`, `down`), `blur` |
+| `zoomThrough` | 0,9 s, coupe à 62 % | scène entière | `el` (id d'un bloc ou d'un calque `fx`, ex. le mot magazine) ou `x`,`y`, `dx`,`dy`, `to` (16), `fromB` (1,8), `fill` (couleur qui remplit l'écran à la coupe, défaut couleur du mot, `false` pour aucune) |
+| `maskReveal` | 0,8 s à partir de la coupe | B apparaît dans la silhouette de A | sujet = premier calque `subject` de A (ou `src` : un WebM alpha), `grow` (7), `origin` ("50% 45%"), `feather` (6 px), `shape: "circle"` avec `x`,`y`,`r0`,`r1` |
+| `matchCut` | coupe sèche puis 0,6 s de relâche | plaques + sujet | `faceA`, `faceB` : `{x, y, s}` (centre et hauteur du visage en px de la toile), `hold: true` (pas de relâche), `pre` (0,25 s) ; la plus petite tête est toujours agrandie, jamais l'inverse ; le cadrage ne montre jamais de bord |
+
+```json
+{"id": "b", "start": 6.4, "end": 9.8, "transition": {"type": "whip", "dir": "left"}}
+{"id": "c", "start": 9.8, "end": 13, "transition": {"type": "matchCut", "faceA": {"x": 540, "y": 700, "s": 260}, "faceB": {"x": 470, "y": 820, "s": 200}}}
+"transitions": [
+  {"type": "zoomPunch", "scene": "naila", "cut": 12.37},
+  {"type": "zoomPunch", "scene": "naila", "a": ["plaque1", "sujet1"], "b": ["plaque2", "sujet2"], "cut": 15.1, "to": 1.0},
+  {"type": "zoomThrough", "a": "mag", "b": "suite", "el": "motMag", "cut": 21.4}
+]
+```
+- Dans une même scène : `"scene": id` sans `a`/`b` = une coupe dans la même plaque (la caméra de la scène zoome) ; avec `a`/`b` = deux listes d'`id` de calques (plaque + sujet de chaque plan, transformés ensemble).
+- Flou de mouvement : 2 échantillons de l'image placés là où la caméra était à t−1/120 s et t−1/60 s (obturateur 180°), opacités 0,34 et 0,2 × `blur` (1 par défaut, 0 = aucun) ; le `whip` ajoute un flou gaussien dans le sens du mouvement. Une image avec flou coûte environ 2,5 fois une image normale.
+- Vérifier chaque transition sur sa planche : `render.js … --tsheets DIR` (coupe − 4 … coupe + 5 images ; `maskReveal` : milieu de la croissance).
+
+### Caméra vivante
+
+`"drift": 0.03` sur une scène = push-in de 3 % sur toute la durée du plan, appliqué au fond, à la plaque, aux effets et au sujet détouré ensemble (les blocs de texte restent fixes). Forme longue : `{"scale": 0.03, "x": -20, "y": 0, "origin": "50% 40%", "ease": "inOut"}` (x, y = panoramique en px ; sans `scale`, l'échelle minimale qui cache les bords est calculée). Aussi possible sur un calque (`layers[].drift`, même valeur sur la plaque et le sujet).
+
+### Médias de test générés
+
+Une entrée de `media` peut être `{"lavfi": "gradients=s=1080x1920:…", "duration": 4, "alpha": false}` : ffmpeg génère le WebM au build (`"alpha": true` → `yuva420p`, pour un faux sujet détouré ; `"image": true` → PNG). Les graphes qui lisent un fichier (`movie=`, `file=`…) sont refusés. Sert aux exemples et aux essais ; jamais pour une vidéo client.
