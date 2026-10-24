@@ -13,6 +13,23 @@ Le demandeur dépose dans Google Drive (`BitEye — Studio vidéo / 02_Biblioth�
 2. Un agent par lot de vidéos (`sonnet`) : `scdet`, planches de scènes, `silencedetect`, `ebur128`, lecture des images ; analyse en 8 points (fiche, structure et rythme, montage, présentation du produit, texte, son, publicité, transposition BitEye).
 3. La session ajoute ici les techniques nouvelles (une ligne : technique — où on l'a vue — comment l'utiliser chez BitEye — à éviter) et met à jour les fiches concernées ; registre Drive mis à jour ; pull request.
 
+## Usage : proposer au cas par cas
+
+Décision du demandeur (24/10/2026) : cette bibliothèque élargit la gamme de montage de l'équipe. Elle ne s'applique pas d'office : à chaque vidéo, le stratège (3) et le chef monteur (9) choisissent 1 à 3 techniques qui servent le message et **les proposent au demandeur** dans le concept (« technique — où on l'a vue — ce qu'elle apporte ici »). Les vidéos BitEye parlent du logiciel VISION Workspace : aucune technique n'impose de filmer le projet d'un client.
+
+## Génération IA (option A) — autorisée par le demandeur, au cas par cas
+
+Méthode « construction en gravité inversée » (vidéo de référence analysée le 24/10/2026, prompts complets dans le Drive : « Rapport — Construction par IA ») :
+1. Une image finale RÉELLE (photo, perspective officielle ou, pour le logiciel, une maquette d'écran dessinée « Données fictives ») verrouille le résultat.
+2. Trois stades intermédiaires générés depuis cette image (≈ 25 %, 55 %, 85 %), chacun avec la référence réelle + les précédents « pour la continuité seulement », et une longue liste de négations (« même point de vue, même cadrage 9:16, rien qui n'existe pas sur la référence, pas d'étages en plus, pas de texte ni de logo »).
+3. Storyboard de 4 images dans l'ordre (3 stades + la référence).
+4. Un seul prompt vidéo de 8 à 10 s minuté par tranches de 2 s (un mouvement de caméra par tranche), avec la consigne « la dernière image = la référence exactement ».
+5. Montage : le clip tel quel + habillage du moteur ; creux sonore d'une demi-seconde puis impact au moment où tout se pose.
+Modèle de prompt d'image (à adapter) : « USE THE UPLOADED REFERENCE AS THE ABSOLUTE FINAL STATE. CREATE AN EARLIER STAGE, APPROXIMATELY X % ASSEMBLED. PRESERVE THE EXACT SAME FRAMING (9:16), CAMERA ANGLE, LIGHTING AND SURROUNDINGS. ELEMENTS ARE FLYING UPWARD TOWARD THEIR EXACT FINAL POSITIONS. EVERY GENERATED COMPONENT MUST EXIST IN THE REFERENCE. DO NOT REDESIGN, DO NOT ADD ANYTHING NOT VISIBLE IN THE REFERENCE. NO TEXT, NO LOGOS, NO WATERMARK. »
+Idées pour le logiciel : un tableau de bord VISION Workspace (maquette dessinée) qui « s'assemble » pièce par pièce ; les modules qui se posent comme des étages ; un chantier abstrait (pas celui d'un client) qui se construit pendant que le suivi s'affiche.
+**Garde-fous obligatoires** : proposition au demandeur avec coût annoncé avant (outils payants : générateur d'images à référence type Gemini « Nano Banana » ou GPT-image, générateur vidéo à images clés type Kling, Seedance ou Veo — tarifs et droits d'usage commercial vérifiés au moment du projet) ; dernier plan toujours réel ou maquette officielle ; aucune vraie interface du logiciel ; aucun chiffre, prix ou délai tiré d'une image générée ; mention « animation d'illustration » et étiquette IA de la plateforme ; aucun média confidentiel envoyé à un service externe sans vérification de ses conditions ; contrôle image par image contre la référence ; jamais de « look IA générique » (déformations visibles = refus).
+Sans IA (option B, gratuite, dans notre moteur) : référence découpée en calques qui montent et se posent avec inertie, poussière en particules discrètes, flou de mouvement ; frise avant → après avec images réelles recalées.
+
 ## Techniques retenues
 
 ### Accroche
@@ -53,6 +70,9 @@ Format : technique — où vue (W = Windermere, L = Lake Nona, S = Sunridge, tem
 13. **Light leak / flash de couleur pour changer de chapitre** — W 5,17–5,27 et 35,13–35,67, S 51,7 — fuite orange 3 images entre deux modules (Estate → Build → Co-Owner) — à éviter : plus de 2 par vidéo (effet daté), teinte hors charte.
 14. **Lit musical mastérisé à −14 LUFS avec ducking de 8–15 dB sous la voix** — W −14,1 (baisse de 8–15 dB à 27 s), L −14,1 (8–12 dB), S −14,2 (LRA 3,6, ducking faible) — mastering −14 LUFS, crête ≤ −1 dBTP, ducking 8–12 dB (déjà la méthode de l'agent 2) — à éviter : crête +1,2 dBTP (L), musique forte pendant la parole (S).
 15. **Autres gestes de personnage fort** — W faux appel iPhone 0,5–2,4 s, S carte vidéo posée sur la paume 2,2–4,2 s — notification/appel natif ou écran sur la main de l'intervenant, tourné en motion design (agent 13 pour la main) — à éviter : fausse UI qui imite un vrai service ou une vraie marque tierce ; ne les utiliser qu'une fois par vidéo.
+
+### Traversée sans coupe (pub immobilière, oct. 2026)
+- **Une personne traverse plusieurs pièces en un seul plan**, raccord « mur-rideau » (un panneau qui glisse révèle l'espace suivant), un mot-clé ancré dans chaque décor, la personne passe parfois devant le texte, fin qui boucle sur le début — chez BitEye : une « pièce » par module VISION (Estate, Build, Co-Owner…), panneau coulissant entre maquettes d'écran, intervenant détouré pleine hauteur — à éviter : 16:9 centré dans du 9:16, tenue qui change (signe d'IA), absence de produit et CTA faible.
 
 **Non transposable** :
 - Vol FPV intérieur et plans drone du bien fini ; lifestyle de luxe (voiture, bourg) ; prix en dollars. Chez BitEye : maquettes dessinées du logiciel, chantier ou résidence du client, chiffres du client en dinars (m², lots, délais), à faire confirmer.

@@ -42,7 +42,7 @@ On ne montre **jamais** la vraie interface de VISION, même si des captures sont
 ## 4. À bannir (le « look IA générique »)
 
 - Particules lumineuses, néons violets ou bleus, dégradés « tech », robots, hologrammes, cerveaux, globes.
-- Images générées par IA de personnes, de chantiers ou de bureaux. Photos de banque d'images avec des gens « trop parfaits ».
+- Images générées par IA de personnes, de chantiers ou de bureaux (exception : option A de `bibliotheque-techniques`, proposée et validée au cas par cas, jamais un « look IA générique »). Photos de banque d'images avec des gens « trop parfaits ».
 - Phrases creuses : « révolutionnez », « libérez le potentiel », « solution innovante de pointe », « à l'ère du numérique ».
 - Voix de synthèse monotone sur toute la vidéo, musique « corporate » générique à fond.
 - Animer tout en même temps : un seul mouvement principal à la fois.

@@ -34,5 +34,5 @@ Chaque changement de plan reçoit une transition de la bibliothèque du moteur, 
 
 Un montage automatique par silence (`auto-editor`) ne comprend pas la parole : s'il sert à dégrossir, tu juges le sens. N'utilise que des outils gratuits et locaux ; ne dépends pas d'un filtre absent de la version ffmpeg installée (`ffmpeg -filters`). Export EDL/OTIO réel seulement si demandé (`opentimelineio` + `opentimelineio-plugins`).
 
-Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
+Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur, dont la génération IA « option A » autorisée au cas par cas) — à chaque vidéo, propose au demandeur 1 à 3 techniques qui servent le message ; ne les applique pas d'office.
 Veille : .claude/veille/chief-editor-monteur.md (relire avant chaque production)
