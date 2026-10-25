@@ -47,6 +47,7 @@ Ordre de préférence :
    python3 $AS/transcribe_local.py "$OUT/audio/voix_studio.wav" --out "$OUT" --asr --lang fr
    ```
    Très bon en français et en arabe standard. En darija, il donne une approximation phonétique (« Mou la entreprise réalisation », « Lik la solution idéal ») : reconstruis le texte darija à partir de ce brouillon et du contexte, montre-le au demandeur pour correction, puis relance en mode `--text`.
+   Langue inconnue : `--lang auto` (détection par Whisper, peu fiable sur la darija mêlée de français). **Musique sous la voix** (pub, vidéo de référence) : sans pauses, les zones de parole se perdaient (46 mots sur 142 au test, oct. 2026). Le VAD Silero local prend alors le relais (`--vad auto`, par défaut ; `on` pour le forcer) et chaque zone est plafonnée à 20 s. Mesuré sur une voix de 53 s mêlée à un lit continu : 142 mots, 24 s de calcul, écart médian de 0,14 s par mot (90 % sous 0,35 s) avec la voix seule. Assez pour le squelette d'un script, pas pour des sous-titres mot à mot. La sortie donne `first_word`, `last_word_end` et `words_per_s`, et liste `chunks_without_words` (musique seule, ou parole manquée : écoute ce passage).
 3. **ElevenLabs Scribe** (option payante, skill `media-analysis`) : seulement si le demandeur le préfère ou si la darija est trop dense pour être reconstruite. Le dire avant, avec le coût (~14 crédits par seconde).
 
 Sortie : `words.json` (format ElevenLabs, directement utilisable par `motion-engine`) et `transcript.txt`.

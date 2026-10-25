@@ -5,10 +5,14 @@ Two modes, same output (words.json in the ElevenLabs format: [{text, type, start
 
   1. Known text (best for darija):  --text FILE.txt   or   --text-string "Khouya, nta promoteur…"
      The text the person actually said is aligned on the audio.
-  2. Unknown text:  --asr [--model turbo|small] [--lang fr|ar|en]
+  2. Unknown text:  --asr [--model turbo|small] [--lang fr|ar|en|auto]
      Whisper runs locally (sherpa-onnx, models from GitHub), then its words are aligned.
      Good in French and Arabic; weak on darija written in Latin letters: show the result to the
-     requester and re-run with --text once corrected.
+     requester and re-run with --text once corrected. --lang auto lets Whisper detect the language
+     (on the start of each chunk: unreliable on darija mixed with French).
+     Music under the voice (ads, reference videos): pauses vanish, so speech regions come from the
+     local Silero VAD instead (--vad auto, default: switched on when the noise floor is high).
+     Regions are capped at 20 s so Whisper (30 s window) never truncates a chunk.
 
 Alignment: speech regions come from the pauses in the audio; words are spread over speaking
 time in proportion to their length, never across a pause, then each boundary snaps to the
@@ -77,6 +81,54 @@ def env_regions(env, min_pause=0.22):
         else:
             merged.append(r)
     return [r for r in merged if r[1] - r[0] >= 0.08]
+
+
+def music_bed(env):
+    """True when the quiet frames stay loud (music or constant noise under the voice)."""
+    import numpy as np
+    sm = np.convolve(env, np.ones(5) / 5, mode='same')
+    return float(np.percentile(sm, 10) / (np.percentile(sm, 95) + 1e-12)) > 0.15
+
+
+def vad_regions(audio, max_len=20):
+    """Speech regions from the local Silero VAD (sherpa-onnx): robust to a music bed."""
+    import sherpa_onnx
+    c = sherpa_onnx.VadModelConfig()
+    c.silero_vad.model = os.path.join(CACHE, 'silero_vad.onnx')
+    if not os.path.isfile(c.silero_vad.model):
+        os.makedirs(CACHE, exist_ok=True)
+        urllib.request.urlretrieve(REL + 'silero_vad.onnx', c.silero_vad.model)
+    c.silero_vad.threshold, c.silero_vad.min_silence_duration = 0.5, 0.25
+    c.silero_vad.min_speech_duration, c.silero_vad.max_speech_duration = 0.1, max_len
+    c.sample_rate = 16000
+    vad = sherpa_onnx.VoiceActivityDetector(c, buffer_size_in_seconds=max(60, int(len(audio) / 16000) + 10))
+    w = c.silero_vad.window_size
+    for i in range(0, len(audio), w):
+        vad.accept_waveform(audio[i:i + w])
+    vad.flush()
+    regs, dur = [], len(audio) / 16000
+    while not vad.empty():
+        s = vad.front  # the VAD fires late on soft onsets: pad 0.3 s before, 0.15 s after
+        a, b = max(0.0, s.start / 16000 - 0.3), min(dur, (s.start + len(s.samples)) / 16000 + 0.15)
+        if regs and a <= regs[-1][1]:
+            a = regs[-1][1]
+        regs.append([round(a, 2), round(b, 2)])
+        vad.pop()
+    return [r for r in regs if r[1] - r[0] >= 0.08]
+
+
+def cap_regions(regs, env, max_len=20):
+    """Split any region longer than max_len at its quietest 10 ms frame (Whisper reads 30 s)."""
+    import numpy as np
+    sm = np.convolve(env, np.ones(5) / 5, mode='same')
+    out = []
+    for a, b in regs:
+        while b - a > max_len:
+            f0, f1 = int((a + max_len / 2) * 100), min(len(sm), int((a + max_len) * 100))
+            cut = (f0 + int(sm[f0:f1].argmin())) / 100 if f1 > f0 else a + max_len
+            out.append([a, cut]); a = cut
+        out.append([a, b])
+    return out
 
 
 def _split_region(ws, L, a, b, sm):
@@ -173,7 +225,7 @@ def dedupe(ws):
 def asr(audio, regs, model, lang):
     import sherpa_onnx
     enc, dec, tok = get_model(model)
-    rec = sherpa_onnx.OfflineRecognizer.from_whisper(encoder=enc, decoder=dec, tokens=tok, language=lang, task='transcribe', num_threads=os.cpu_count() or 4)
+    rec = sherpa_onnx.OfflineRecognizer.from_whisper(encoder=enc, decoder=dec, tokens=tok, language='' if lang == 'auto' else lang, task='transcribe', num_threads=os.cpu_count() or 4)
     # short chunks (≤ 12 s, cut at pauses): Whisper loops less on short inputs
     chunks, cur = [], []
     for r in regs:
@@ -200,21 +252,26 @@ def main():
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument('--text'); g.add_argument('--text-string'); g.add_argument('--asr', action='store_true')
     ap.add_argument('--model', default='turbo', choices=['tiny', 'small', 'medium', 'turbo', 'large-v3'])
-    ap.add_argument('--lang', default='fr')
+    ap.add_argument('--lang', default='fr', help='fr, ar, en… or auto (detected by Whisper)')
+    ap.add_argument('--vad', default='auto', choices=['auto', 'on', 'off'],
+                    help='speech regions from Silero VAD: auto = only under a music bed')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
 
     audio = pcm16k(a.audio)
     dur = len(audio) / 16000
     env = envelope(audio)
-    regs = env_regions(env)
-    words = []
+    use_vad = a.vad == 'on' or (a.vad == 'auto' and a.asr and music_bed(env))
+    regs = cap_regions(vad_regions(audio) if use_vad else env_regions(env), env)
+    words, empty = [], []
     if a.asr:
         groups, rgroups = asr(audio, regs, a.model, a.lang)
         for ws, rg in zip(groups, rgroups):
             if ws:
                 words += [{'text': t, 'type': 'word', 'start': s, 'end': e} for t, (s, e) in zip(ws, align(ws, rg, env))]
-        method = f'whisper-{a.model} ({a.lang}) local + alignement'
+            elif rg[-1][1] - rg[0][0] > 2:
+                empty.append([rg[0][0], rg[-1][1]])
+        method = f'whisper-{a.model} ({a.lang}) local + alignement' + (' + VAD (musique sous la voix)' if use_vad else '')
     else:
         text = open(a.text, encoding='utf-8').read() if a.text else a.text_string
         ws = text.split()
@@ -222,8 +279,15 @@ def main():
         method = 'texte fourni + alignement local'
     json.dump(words, open(os.path.join(a.out, 'words.json'), 'w'), ensure_ascii=False, indent=0)
     open(os.path.join(a.out, 'transcript.txt'), 'w', encoding='utf-8').write(' '.join(w['text'] for w in words) + '\n')
-    print(json.dumps({'method': method, 'words': len(words), 'regions': len(regs), 'duration': round(dur, 2),
-                      'words_json': os.path.join(a.out, 'words.json'), 'text': ' '.join(w['text'] for w in words)}, ensure_ascii=False))
+    summary = {'method': method, 'words': len(words), 'regions': len(regs), 'duration': round(dur, 2)}
+    if words:  # script skeleton cues: first word, speech rate, completeness
+        span = words[-1]['end'] - words[0]['start']
+        summary.update({'first_word': words[0]['start'], 'last_word_end': words[-1]['end'],
+                        'words_per_s': round(len(words) / span, 2) if span > 0 else None})
+    if empty:
+        summary['chunks_without_words'] = empty  # music only, or speech missed: listen before trusting
+    summary.update({'words_json': os.path.join(a.out, 'words.json'), 'text': ' '.join(w['text'] for w in words)})
+    print(json.dumps(summary, ensure_ascii=False))
 
 
 if __name__ == '__main__':

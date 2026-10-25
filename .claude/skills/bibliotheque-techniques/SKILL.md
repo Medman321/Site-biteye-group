@@ -11,7 +11,14 @@ Le demandeur dépose dans Google Drive (`BitEye — Studio vidéo / 02_Biblioth�
 
 1. Registre Drive « Registre des vidéos analysées » : ne traiter que les nouvelles. Fichier ≤ 10 Mo (limite du connecteur) ; au-delà, demander l'envoi direct dans la session.
 2. Un agent par lot de vidéos (`sonnet`) : `scdet`, planches de scènes, `silencedetect`, `ebur128`, lecture des images ; analyse en 8 points (fiche, structure et rythme, montage, présentation du produit, texte, son, publicité, transposition BitEye).
-3. La session ajoute ici les techniques nouvelles (une ligne : technique — où on l'a vue — comment l'utiliser chez BitEye — à éviter) et met à jour les fiches concernées ; registre Drive mis à jour ; pull request.
+3. **Squelette du script** (9e point, gratuit et local) :
+   - Source : le fichier déposé par le demandeur, jamais un téléchargement depuis un lien (instagram.com, tiktok.com, youtube.com sont bloqués ici : on ne contourne rien, pas de yt-dlp).
+   - Voix : `python3 .claude/skills/audio-studio/scripts/transcribe_local.py VIDEO --out $SCRATCH/ref --asr --lang auto` (VAD automatique sous la musique). La sortie donne `first_word` et `words_per_s` ; avec musique, le premier mot se lit là, pas dans `silencedetect`.
+   - Texte à l'écran (le hook est souvent écrit, pas dit) : planche de 0 à 3 s à 10 images/s, `ffmpeg -i VIDEO -t 3 -vf "fps=10,scale=180:-2,tile=6x5" -frames:v 1 $SCRATCH/ref/hook_0-3s.jpg` (une image, 30 vignettes à 0,1 s).
+   - Relève les instants du hook, du problème, de la bascule, de la preuve et du CTA, croisés avec les coupes `scdet`, puis la catégorie et le mécanisme du hook (Banque de hooks ci-dessous). Une ligne : « hook 0–1,8 s (écrit, curiosité) | problème 1,8–6 | bascule 6,5 | preuve 7–15 (1 chiffre) | CTA 15–18 (WhatsApp) | 1er mot 0,3 s, 2,7 mots/s ».
+   - Darija : la transcription n'est qu'approchée ; classe le hook après écoute ou texte corrigé (`--text`). Vidéo sans voix : champs « n/a », le squelette vient des textes à l'écran.
+   - Droits : la transcription complète d'un tiers reste dans le scratchpad ou le Drive privé (ni dépôt, ni issue, ni artefact, ni Release). Ici n'entrent que le squelette chiffré et la technique reformulée : paraphrase, ou citation de 3 mots au plus.
+4. La session ajoute ici les techniques nouvelles (une ligne : technique — où on l'a vue — comment l'utiliser chez BitEye — à éviter) et met à jour les fiches concernées ; dans « Vidéos analysées », la colonne « Apports » cite la catégorie du hook et la structure ; registre Drive mis à jour ; pull request.
 
 ## Usage : proposer au cas par cas
 
@@ -88,6 +95,10 @@ Format : technique — où vue (W = Windermere, L = Lake Nona, S = Sunridge, tem
 - Vol FPV intérieur et plans drone du bien fini ; lifestyle de luxe (voiture, bourg) ; prix en dollars. Chez BitEye : maquettes dessinées du logiciel, chantier ou résidence du client, chiffres du client en dinars (m², lots, délais), à faire confirmer.
 - Le B2B exige une preuve chiffrée et un CTA écrit ; les 3 vidéos vendent un désir (acheteur particulier), BitEye vend un gain (promoteur).
 - Marques, enseignes et coordonnées tierces vues dans ces vidéos : ne rien reprendre ; musique : jamais celle de ces vidéos.
+
+## Banque de hooks
+
+Référence complète dans `references/hooks.md` : règles (rien d'inventé, aucune promesse de vues, la question du hook trouve sa réponse avant le CTA), mécanismes, catégories transposées à VISION Workspace, hooks visuels faisables avec le moteur. À lire au moment du concept : chaque concept propose 3 hooks de 3 catégories, notés sur 10.
 
 ## Vidéos analysées
 

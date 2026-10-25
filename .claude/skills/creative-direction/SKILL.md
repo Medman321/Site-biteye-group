@@ -22,6 +22,8 @@ Le premier plan décide de tout. Il doit être visible **dès l'image 0** (pas d
 
 Moteur : `"flashes": [0.0]`, animation `slam` ou `punch` sur le premier titre, `at` ≈ 0,05. La voix commence à moins de 0,5 s : sinon, coupe le début avec `audio-studio` → `edit_voice.py --start`, ou démarre sur un texte fort.
 
+Autres catégories (preuve par un pair, erreur qui coûte, boucle refermée, actualité), mécanismes, hooks visuels et grille de choix : « Banque de hooks » de `bibliotheque-techniques`. Rien d'inventé, aucune promesse de vues, et toute question posée par le hook trouve sa réponse avant le CTA.
+
 ## 2. La touche humaine (au moins 3 par vidéo)
 
 - **Une vraie voix** : celle du demandeur, d'un client, d'un chef de chantier. La voix de synthèse vient en dernier recours.
@@ -46,6 +48,7 @@ On ne montre **jamais** la vraie interface de VISION, même si des captures sont
 - Phrases creuses : « révolutionnez », « libérez le potentiel », « solution innovante de pointe », « à l'ère du numérique ».
 - Voix de synthèse monotone sur toute la vidéo, musique « corporate » générique à fond.
 - Animer tout en même temps : un seul mouvement principal à la fois.
+- Clips d'accroche tiers (packs de « hooks », vidéos virales sans rapport avec le métier) et promesses de vues : droits inconnus, public hors cible.
 - Textes centrés qui disent la même chose que la voix, mot pour mot : l'écran **montre** (chiffre, écran, objet), la voix **raconte**.
 - Durée trop longue : chaque scène doit apporter une information nouvelle, sinon coupe.
 
@@ -83,5 +86,6 @@ Note chaque point sur la planche (`sheet.jpg`) et dans le compte rendu :
 7. Chiffres et noms : fournis par le client, ou signalés comme exemples ?
 8. Chaque voix réelle a son bandeau nom + poste (+ photo) ? Les écrans du logiciel sont des maquettes marquées « Données fictives » ?
 9. Les pauses qui séparent les idées sont-elles gardées après une coupe de la voix ?
+10. La question ou la promesse du hook trouve-t-elle sa réponse avant le CTA ?
 
 Un « non » = corrige avant de rendre le MP4.
