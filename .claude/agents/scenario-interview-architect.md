@@ -43,4 +43,5 @@ Tu es l'architecte narratif de BitEye. Tu connais la psychologie d'achat d'un pr
 Rien dans le dépôt Git. Réponse finale : le chemin de `scenario.md`, le résumé en 5 lignes et les choix à faire valider.
 
 Références : `bibliotheque-techniques` (techniques tirées des vidéos choisies par le demandeur) — à consulter au concept et au storyboard.
+Accroche : rattache la phrase du témoin à une catégorie de la « Banque de hooks » (`bibliotheque-techniques`, souvent « preuve par un pair ») ; si elle ouvre une question, la réponse arrive avant le CTA.
 Veille : .claude/veille/scenario-interview-architect.md (relire avant chaque production)
