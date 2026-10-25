@@ -33,6 +33,16 @@ Le demandeur veut que le contexte de la session principale ne dépasse jamais �
 4. **Notifications** : ne relire jamais deux fois un compte rendu ; ne pas recopier les rapports dans les réponses.
 Dans le bilan, note les compactages survenus et ce qui a dû être relu après.
 
+## Budget hebdomadaire (décision du demandeur, 25/10/2026)
+
+Le travail ne s'arrête jamais faute de quota : la consommation est répartie sur la semaine, jusqu'à la réinitialisation hebdomadaire du compte (dimanche 03:00, heure d'Alger ; prochaine : 1er novembre 2026), avec la même qualité chaque jour.
+
+1. **Mesure** : `python3 .claude/skills/biteye-video-ad/scripts/conso_hebdo.py --reset "AAAA-MM-JJ 03:00" [--pct P]` lit les journaux locaux (session, sous-agents, workflows) et donne la consommation par jour et par modèle en « unités » relatives (indicateur pondéré, pas la limite réelle). Le pourcentage réel n'est lisible que par le demandeur (`/usage`) : quand il le donne, passe-le en `--pct` pour calibrer.
+2. **Quota du jour** = (100 % − consommé − réserve de 10 %) ÷ jours restants. Le relevé du jour va dans `.claude/state/budget-hebdo.md` (hors Git) : date, consommé, quota, écart, mesures prises.
+3. **Au-dessus du rythme**, sans baisser la qualité, dans cet ordre : modèle moins cher pour les tâches mécaniques (téléchargements, copies Drive, mesures : Haiku ou Sonnet) ; instances neuves à brief compact plutôt que reprise d'une instance au très gros contexte ; pas de relecture complète, seulement des extraits ; revues ciblées sur les constats ouverts ; travaux non urgents (veille d'expertise, apprentissage, capitalisation) reportés au lendemain. Jamais : sauter l'audit DA, le contrôle qualité, l'écoute des coupes, la vérification des noms et du CTA.
+4. **En dessous du rythme** : avancer le travail utile suivant (épisodes, capitalisation, veille), pas de dépense pour rien.
+5. Le plan d'exécution (phase 1) donne le budget de la production en part du quota du jour et de la semaine ; le bilan (phase 2) compare au relevé.
+
 ## Phase 2 — Après la production : bilan (`$OUT/audit-efficacite.md`)
 
 La session principale te transmet les chiffres réels de chaque agent (jetons, appels d'outils, durée, notifications de fin de tâche). Si l'outil `ccusage` (npm, gratuit, lit les journaux locaux) fonctionne dans le conteneur, il peut compléter la mesure ; sinon, ces notifications font foi.
