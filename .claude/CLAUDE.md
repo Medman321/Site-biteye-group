@@ -61,11 +61,12 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - Détourage : un seul lot, plages fixées par le storyboard, calculé sur la grille d'images de la plaque finale et pleine hauteur ; retirer du storyboard toute version remplacée.
 - Cadrage : demander d'emblée si un nom de produit ou de marque cité dans une source (ex. « Vision Pro ») peut rester, avant toute coupe audio.
 
-## Contexte de la session (plafond ≈ 40 %)
+## Contexte de la session (plafond 40–45 %)
 
-- État de travail tenu à jour dans `.claude/state/etat-en-cours.md` (hors Git) à chaque étape ; réinjecté automatiquement après un compactage (hook `SessionStart` « compact »). Il fait foi après un compactage.
-- Lectures lourdes déléguées à des sous-agents (comptes rendus ≤ 15 lignes) ; dans la session, seulement des extraits.
-- En fin d'étape : mettre l'état à jour, puis proposer au demandeur `/compact garde l'état en cours, les décisions et les chemins`.
+- Compactage automatique vers 42 % (`CLAUDE_CODE_AUTO_COMPACT_WINDOW` dans `.claude/settings.json`) ; règles détaillées et autorité : `token-efficiency-auditor` § Contexte.
+- État de travail court (≤ 4 Ko) dans `.claude/state/etat-en-cours.md` (hors Git), RÉÉCRIT à chaque étape, jamais empilé ; historique dans `.claude/state/archive/`. Seul l'état court est réinjecté après un compactage (hook `SessionStart` « compact ») ; il fait foi.
+- Lectures lourdes déléguées à des sous-agents (comptes rendus ≤ 12 lignes, chemins plutôt que contenus) ; dans la session, seulement des extraits.
+- En fin d'étape : réécrire l'état, puis compacter (`/compact garde l'état en cours, les décisions et les chemins`).
 
 ## Google Drive « BitEye — Studio vidéo »
 
