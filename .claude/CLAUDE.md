@@ -66,7 +66,14 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - Compactage automatique vers 42 % (`CLAUDE_CODE_AUTO_COMPACT_WINDOW` dans `.claude/settings.json`) ; règles détaillées et autorité : `token-efficiency-auditor` § Contexte.
 - État de travail court (≤ 4 Ko) dans `.claude/state/etat-en-cours.md` (hors Git), RÉÉCRIT à chaque étape, jamais empilé ; historique dans `.claude/state/archive/`. Seul l'état court est réinjecté après un compactage (hook `SessionStart` « compact ») ; il fait foi.
 - Lectures lourdes déléguées à des sous-agents (comptes rendus ≤ 12 lignes, chemins plutôt que contenus) ; dans la session, seulement des extraits.
-- En fin d'étape : réécrire l'état, puis compacter (`/compact garde l'état en cours, les décisions et les chemins`).
+- En fin d'étape : réécrire l'état, puis compacter (`/compact garde l'état en cours, les décisions et les chemins`). Le compactage automatique à 42 % n'est qu'un filet : on compacte de préférence entre deux étapes, jamais au milieu d'un raisonnement ou d'un arbitrage.
+- **Consignes du demandeur mot pour mot** : `.claude/state/consignes-demandeur.md` (hors Git, ≤ 4 Ko) garde ses consignes durables et ses décisions du chantier actif, citées telles quelles avec la date. Une consigne est ajoutée dès qu'elle est donnée et retirée quand elle est remplacée. Le fichier est réinjecté avec l'état après chaque compactage : le résumé paraphrase, ce fichier ne paraphrase pas.
+- **Rien n'est effacé** : le compactage retire du contexte, pas du disque. La transcription complète (`~/.claude/projects/…/<session>.jsonl`), les fichiers de `$OUT`, les rapports d'agents et l'archive restent consultables. Un détail manquant après compactage (chiffre, réglage, citation, identifiant d'agent) se retrouve par `grep` dans ces fichiers, jamais de mémoire ni par supposition.
+- **Après chaque compactage, avant d'agir** : relire l'état et les consignes réinjectés, vérifier les agents et tâches en cours (fichiers de sortie, processus), et confronter la prochaine action au Journal des décisions. En cas de doute sur une décision, on la retrouve dans la transcription.
+
+### Instructions de compactage
+
+Quand tu résumes la conversation, garde obligatoirement : les messages du demandeur du chantier actif mot pour mot ; chaque décision avec sa raison ; les chemins de fichiers ; les identifiants d'agents, de tâches et de déclencheurs encore actifs ; les chiffres mesurés (durées, LUFS, minutages, tailles) ; les constats ouverts (DA, contrôle qualité, transitions) et leur statut ; le raisonnement en cours et l'hypothèse qu'il teste ; ce qui est promis au demandeur et pas encore livré. Les comptes rendus déjà traités se réduisent à leur conclusion et à leur chemin.
 
 ## Google Drive « BitEye — Studio vidéo »
 
@@ -83,6 +90,7 @@ Le connecteur ne dépose pas de vidéo et n'édite pas un document existant : on
 ## GitHub (dépôt public)
 
 - **Contrôle automatique** : toute modification de `.claude/skills/**` dans une pull request déclenche « Vidéo · contrôle du moteur » (reconstruit les exemples, planches et MP4 court en artefacts). Ne fusionne pas une PR dont ce contrôle est rouge.
+- **Fusion automatique (décision du demandeur du 01/11/2026)** : Claude fusionne lui-même, sans demander, les pull requests qu'il a ouvertes, dès que tous les contrôles de la PR sont verts (ou qu'aucun ne s'applique) et qu'il n'y a pas de conflit. Il prévient ensuite le demandeur en une ligne. Il ne fusionne jamais une PR rouge, en conflit, ouverte par quelqu'un d'autre, ou qui contient des médias ou données de clients. Une modification du site (`index.html`, `favicon.svg`, `CNAME`) est en ligne dès la fusion : il la relit avant de fusionner.
 - **Rendu dans le cloud** : « Vidéo · rendu » (Actions → Run workflow) rend un projet (dossier avec `storyboard.json` et `storyboard-*.json`), passe la voix au studio, joint MP4 + HTML + planches au run et, sur demande, crée une Release téléchargeable. Les médias arrivent par `archive_url` (lien .zip), jamais par un commit.
 - **Demandes par issue** : modèle « Demande de vidéo » (questions de cadrage). Avec « @claude » dans l'issue et le secret configuré (`.github/workflows/claude.yml`), Claude traite la demande dans GitHub en suivant ces consignes ; sinon, traite l'issue depuis une session.
 - **Public** : issues, artefacts, Releases et fichiers du dépôt sont visibles par tous. Pour des médias ou des vidéos confidentiels, utilise le scratchpad de la session ou un dépôt privé dédié.

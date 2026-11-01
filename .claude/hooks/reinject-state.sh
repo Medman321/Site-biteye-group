@@ -8,6 +8,10 @@ echo "État de travail (source de vérité après compactage) :"
 echo
 head -c "$max" "$d/etat-en-cours.md"
 [ "$(wc -c < "$d/etat-en-cours.md")" -gt "$max" ] && echo && echo "[état tronqué à $max octets : le réécrire plus court]"
+if [ -f "$d/consignes-demandeur.md" ]; then
+  echo; echo "=== Consignes du demandeur (mot pour mot, font foi) ==="; head -c 6000 "$d/consignes-demandeur.md"
+fi
+echo; echo "Avant d'agir : vérifier les agents et tâches en cours ; tout détail manquant se retrouve par grep dans la transcription (~/.claude/projects/), jamais de mémoire."
 if [ -f "$d/budget-hebdo.md" ]; then
   echo; echo "=== budget-hebdo.md (3 dernières lignes) ==="; tail -n 3 "$d/budget-hebdo.md"
 fi
