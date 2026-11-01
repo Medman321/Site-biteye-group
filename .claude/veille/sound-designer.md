@@ -23,3 +23,22 @@ Méthode : 9 recherches web (12 derniers mois), versions vérifiées sur PyPI et
 - `pedalboard` 0.9.26 (2026-10-07) : licence GPL ; le mixage reste fait en ffmpeg, pas de dépendance GPL.
 - Musique des bibliothèques TikTok et Instagram, banques payantes (Soundstripe, Tunepocket, Morphic) : licence limitée à la plateforme ou payante ; contraire à « outils gratuits ».
 - Tendances d'agences de « sonic branding » : aucune source 2026 exploitable trouvée.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Plafonds d'habillage (intervalles minimaux, regroupement, rien sur la syllabe accentuée d'un chiffre, 4 notes de marimba au lieu de 14 tics) — `lib/cues.js` (slideGap, appearGap, accentGap, minGap, marimba) ; `references/sfx.md` « The house rule » ; `references/style.md` « Sound » ; `steal/references/learnings.md` n°5 ; retours d'utilisateurs du pack (8/10, 16/10) — Règles : plafonds hors sons de `transitions.json`, impact du CTA et signature ; repère 2 à 4 sons marquants, 17 par minute jugés envahissants, plafond de 15 par minute à valider avec le demandeur ; même densité que la référence du demandeur.
+2. Calage au dixième de seconde — `lib/cues.js` (décalages d'appel) ; `scene-library.md` « sfx » (peak: true, endAt, kit.gap 0,12) — étape 2 : son d'apparition 30 à 60 ms après la première image visible, impact par son pic, montée par sa fin ; la cue sheet note l'écart et le décalage pic/début, un son en avance de plus d'une image est corrigé avant remise.
+3. Famille de sons par type d'événement (pose, pop, cloche, compteur, saisie, tap), niveaux relatifs, panoramique selon la position à l'écran — `lib/dsp.js` (thud, pop, tap, tick, bell, mallet) ; `lib/cues.js` ; `examples/*/ig-cta.html` (sons) — palette dans `audio-studio/references/palette-evenements.md` (constantes seulement, rejouable).
+4. Sons proposés par le build à partir des blocs — `lib/cues.js` sfxCues ; `SKILL.md` §3 « Sound » — étape 1 : lecture de `<slug>.cues.json`, tri par la palette et les plafonds, événement source gardé pour le contrôle du QC.
+5. Creux statique pour la voix avant le ducking — `lib/chill.js` finish() (creux à 320 Hz et 2,8 kHz, étagère à 4,5 kHz) ; `lib/chill-styles.js` — étape 3 : EQ du lit, contrôle 300–3 400 Hz ≥ 24 dB sous la voix et perte en mono ≤ 1 dB ; évite de baisser tout le lit.
+6. Choix et structure du lit sous une voix — `references/music.md` (Avoid for, Pick the moment, sections) ; `lib/chill.js` ; `engine/audio.mjs` (drops de 0,3 s à −24 dB) — étape 3 : `audio-studio/references/lit-musical.md` (68–100 BPM, aucun transitoire régulier, pas d'intro, une couche par relance, rupture avant la preuve, plein sur le CTA, creux sur 1 à 2 coups forts).
+
+### Écarté
+
+- Lits du pack (lits de tension, styles, sonar, compte à rebours…), kit d'environ 20 sons, ressources sonores : fichiers binaires non copiables, conçus pour des vidéos tech ; seules les méthodes et constantes sont reprises.
+- « 2 à 4 sons par short », « aucune montée », coupes sèches partout, `kitHits` : plafonds de créateur qui contredisent le premium (un son par transition, aucune coupe sèche) ; le plafond s'applique hors sons de transition.
+- Compteur à 14 tics de hauteur croissante : le pack l'a lui-même remplacé par 4 notes de marimba après un retour « insupportable » (16/10) ; la règle à 4 notes fait foi.
+- Sons générés par API payante : aucun service payant sans accord du demandeur et coût annoncé.
+- Ducking « respirant » (−6 dB, 350 ms) : contraire à la consigne de relâchement ≥ 1 s.

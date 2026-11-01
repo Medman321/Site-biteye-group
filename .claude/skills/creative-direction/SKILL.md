@@ -20,9 +20,13 @@ Le premier plan décide de tout. Il doit être visible **dès l'image 0** (pas d
 | La question qui pique | « Ton acquéreur te demande où en est son F3. Tu réponds quoi ? » |
 | Le chiffre surprenant (fourni par le client) | « 1,84 milliard engagé… et tu le suis sur un cahier ? » |
 
-Moteur : `"flashes": [0.0]`, animation `slam` ou `punch` sur le premier titre, `at` ≈ 0,05. La voix commence à moins de 0,5 s : sinon, coupe le début avec `audio-studio` → `edit_voice.py --start`, ou démarre sur un texte fort.
+Moteur : l'accroche est **déjà posée à l'image 0** : `shown: true` (ou `at` de −0,3 à −0,5 s) sur le premier titre, déjà en mouvement (compteur en cours, texte qui s'écrit, plan qui avance), et un changement visible avant 1 s. Plus de flash à 0 avec un titre qui entre à 0,05 s : l'image 0 sort blanche ou vide, et les aperçus des fils (Facebook, WhatsApp, LinkedIn) et certaines vignettes prennent cette image. Un flash reste possible à la coupe accroche → corps (grammaire R10). La même image sert de couverture (centre 1080×1350). La voix commence à moins de 0,5 s : sinon, coupe le début avec `audio-studio` → `edit_voice.py --start`, ou démarre sur un texte fort.
 
 Autres catégories (preuve par un pair, erreur qui coûte, boucle refermée, actualité), mécanismes, hooks visuels et grille de choix : « Banque de hooks » de `bibliotheque-techniques`. Rien d'inventé, aucune promesse de vues, et toute question posée par le hook trouve sa réponse avant le CTA.
+
+Jamais en première phrase : salut ou prénom, « dans cette vidéo », « aujourd'hui je vais vous montrer », question oui/non à réponse évidente (« Vous voulez plus de ventes ? »), « saviez-vous que » + fait connu, contexte avant l'affirmation (« la semaine dernière, je réfléchissais… »), ni une promesse que la suite ne tient pas. L'interpellation qui identifie la cible (« Nta promoteur ? ») reste permise. Contrôle : les 5 premiers mots de la voix.
+
+Un hook travaillé est une mini-histoire en 2 actes avec renversement sur un mot-pivot (« mais », « jusqu'à ce que ») : acte 1, la douleur posée en moins d'une seconde ; acte 2, la bascule, avec un impact doux (coup de grave ≤ 0,1 s) sur le mot-pivot et le gain en badge. Un seul mouvement principal à la fois : l'acte 2 démarre quand l'acte 1 est posé. Un hook qui ne fait que placer un objet et le faire glisser est à refaire, pas à retoucher.
 
 ## 2. La touche humaine (au moins 3 par vidéo)
 
@@ -52,22 +56,35 @@ On ne montre **jamais** la vraie interface de VISION, même si des captures sont
 - Textes centrés qui disent la même chose que la voix, mot pour mot : l'écran **montre** (chiffre, écran, objet), la voix **raconte**.
 - Durée trop longue : chaque scène doit apporter une information nouvelle, sinon coupe.
 
+## 4 bis. Passe d'humanisation
+
+Dernière passe sur tout texte lu ou publié (voix off, cartons, légende, commentaire épinglé) :
+1. mots-tics : plonger, véritable, incontournable, crucial, primordial, booster, décupler, optimiser sans chiffre, tirer parti de, « permettre de » partout, la clé du succès, en effet / de plus / par ailleurs, en somme, il est important de noter, à l'ère du numérique, sans plus attendre, n'hésitez pas à, que vous soyez… ou… ; en darija, le lien formel de l'arabe standard que personne ne dit à voix haute ;
+2. formes : un seul « ce n'est pas X, c'est Y » par texte (et seulement si X est une croyance réelle), trois adjectifs en rafale, phrases hachées, « Le résultat ? » suivi de sa réponse, annonce (« voici pourquoi : »), récapitulatif final, appât d'engagement ;
+3. rythme plat (toutes les phrases de 12 à 16 mots) ;
+4. lecture à voix haute ;
+5. chiffres, noms et CTA inchangés.
+
+Note de 0 à 2 sur 5 contrôles (propre, mots, formes, rythme, faits) : validé à 9/10 avec les faits à 2, sinon seconde passe. Un mot que la personne dit réellement n'est jamais remplacé ; chaque correction du demandeur rejoint « Ne dit jamais » (`biteye-brand` § Ton). Caractères invisibles et typographie : `texte_controle.py` (`biteye-video-ad` §4).
+
 ## 5. Structure narrative (30 à 45 s)
 
-Hook (0–2 s) → problème vécu (2–8 s) → « et si… » / bascule (8–12 s) → la solution montrée dans le vrai métier (12–30 s : 2 ou 3 preuves concrètes, pas 7) → preuve sociale ou chiffre client (si fourni) → appel à l'action simple (dernières 3–4 s).
-Variante 15 s : hook → une preuve → CTA.
+Structure du Journal : **Hook** 0–3 s → **Lead** avant 10 s (la promesse, explicite : problème vécu, puis la « bascule et si… » de 8–12 s) → **Body 1, 2, 3** (une idée chacun, chaque bloc ouvert par une relance ; la solution montrée dans le vrai métier, 2 ou 3 preuves concrètes, pas 7 ; preuve sociale ou chiffre client si fourni) → **CTA** simple (dernières 3–4 s).
+La relance principale tombe à 40–60 % de la durée (question nouvelle, chiffre, retournement ou objection levée avec un chiffre) ; sous 25 s elle est facultative. Variante 15 s : hook → une preuve → CTA.
 
 ## 6. Par plateforme
 
 | Plateforme | Format | Durée conseillée | Particularités |
 |---|---|---|---|
-| Instagram Reels, TikTok, YouTube Shorts | 9:16, `"safe": true` | 15–35 s | hook visuel immédiat ; sous-titres obligatoires (lecture sans son) ; zones du haut et du bas réservées aux boutons ; rythme rapide ; CTA « lien en bio » ou « écris DEMO en commentaire » |
+| Instagram Reels, TikTok, YouTube Shorts | 9:16, `"safe": true` | 15–35 s | hook visuel immédiat ; sous-titres obligatoires (lecture sans son) ; zones du haut et du bas réservées aux boutons ; rythme rapide ; à l'écran, le CTA WhatsApp unique + mot-code, « commentez <mot-code> » en légende et commentaire épinglé (`biteye-brand` § Appel à l'action) |
 | Stories Instagram / Facebook, statut WhatsApp | 9:16, `"safe": true` | ≤ 15 s par segment (statut ≤ 60 s) | une idée par segment ; CTA vers le site ou WhatsApp Business |
 | Fil Facebook / Instagram | 4:5 (ou 1:1) | 20–45 s | lecture sans son par défaut : texte à l'écran autonome ; les 3 premières secondes valent une affiche |
 | LinkedIn | 1:1 ou 4:5 | 30–60 s | ton professionnel, français ; preuves chiffrées, témoignages ; moins de darija |
 | YouTube (vidéo, pré-roll) | 16:9 | 30–90 s (pré-roll : message avant 5 s) | le logo et la promesse avant le bouton « Ignorer » ; plus de détails produit |
 | Site officiel (en-tête, page produit) | 16:9 (et 9:16 pour le mobile) | 20–40 s, en boucle | lue sans son, en boucle : c'est un **montage différent**, pas une simple déclinaison du Reel (pas de voix ni de sous-titres karaoké, textes autonomes, `wave: false`, écran final court, fin qui se raccorde au début) |
 | Salon, écran en boutique | 16:9 | boucle 30–60 s | sans son : tout passe par le texte et l'image |
+
+Miniature 16:9 (YouTube, site) : image réelle extraite de la vidéo, 1280×720, JPG de moins de 2 Mo (à vérifier sur la page officielle de la plateforme), un seul sujet, 3 mots au plus, fort contraste, rien dans le coin bas droit (la plateforme y affiche la durée), lisible en vignette réduite ; jamais de visage généré. Couverture 9:16 : `biteye-video-ad` §4.
 
 Vérifie les spécifications du moment par une recherche web si la demande vise une campagne payante (formats publicitaires, durées maximales).
 

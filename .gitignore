@@ -2,3 +2,9 @@
 __pycache__/
 .claude/skills/motion-engine/examples/*/voix.mp3
 .claude/state/
+# exemples du moteur : jamais de média ni de rendu (dépôt public) ; le contrôle GitHub les génère
+.claude/skills/motion-engine/examples/**/*.mp4
+.claude/skills/motion-engine/examples/**/*.webm
+.claude/skills/motion-engine/examples/**/*.wav
+.claude/skills/motion-engine/examples/**/*.jpg
+.claude/skills/motion-engine/examples/**/*.png

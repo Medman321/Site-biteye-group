@@ -23,3 +23,19 @@ Recherches : coûts des agents (études), mise en cache des invites, routage de 
 - Rendu par flux (`image2pipe` du projet Kavio) et capture Playwright à 11 images/s : sans mesure de benchmark, projet marginal, notre moteur a déjà une base mesurée.
 - Dépense en jetons de FinOps X 2026 (AT&T, 8 à 27 milliards de jetons/jour) : anecdote d'entreprise, sans application à une vidéo de 40 s.
 - Variable `CLAUDE_CODE_SUBAGENT_MODEL` et ordre de priorité des modèles de sous-agents : affirmé par un seul article payant, non confirmé.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Rendu par tranches avec cache — `short-editing/references/performance.md` (Chunk cache, Workers, Rules learned) — phase 1 « Rendus » : `render.js` rend par tranches de 5 s avec cache par empreinte, une correction d'une scène ne réencode que 1 à 2 tranches (pré-rendus et retouches ; le rendu final reste complet) ; gain lu dans le journal du rendu, jamais supposé ; base de budget en 1080 de 0,19 à 0,47 s/image selon les filtres, 4K seulement sur demande explicite (≈ 1,4 à 1,9 s/image).
+2. Un producteur par composant — `short-editing/references/sub-agents.md` (rôles, boucle, brief, rapport court) — phase 1 « Parallélisme » : à partir de 3 maquettes complexes ou blocs `html`, une instance par composant (4 au plus), chacune écrivant seulement `$OUT/composants/<nom>.*`, un seul rédacteur du storyboard ; coût (chaque instance relit fiche et brief) chiffré contre le temps gagné.
+3. Étiquetage en lots par un modèle léger — `broll/SKILL.md` « /broll setup » étape 4 — phase 1 « Modèle par tâche » : plus d'une vingtaine de plans = sous-agents Haiku par lots de 5 planches, un JSON par lot (`media-analysis` § Index du projet), lot invalide relancé et jamais relu par la session, 100 clips d'abord au-delà de 300.
+4. Série par héritage et copie figée — `short-editing/references/style-schema.md` (ordre des couches, instantané du style) — phase 1 « Réutilisation » : `serie.json` hérité par `extends` réduit chaque storyboard ; une déclinaison ou une retouche rejoue la copie datée du dossier de la vidéo, jamais la série courante.
+
+### Écarté
+
+- Alias d'images identiques, mode économique, décodage dans la page, accélération matérielle et moteur neuronal d'un Mac : propres à macOS et au GPU ; notre rendu tourne sous Linux (Chromium, x264 sur processeur) et le grain ou la dérive rendent chaque image différente. Seuls le cache par tranches et l'audit de la police rendue sont repris.
+- Vitesses de rendu du pack : mesurées sur une puce Apple (M4 Max) avec encodeurs matériels ; nos mesures font foi pour le budget.
+- Modification de `.claude/CLAUDE.md` pour des producteurs parallèles : la fiche de l'auditeur (plan) et celle du producteur (brief) suffisent.
+- Cadence et mix hebdomadaires d'un créateur : sans rapport avec le budget d'une production à la demande.

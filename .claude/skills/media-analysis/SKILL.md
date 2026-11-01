@@ -17,6 +17,15 @@ Le script écrit `analysis.json` :
 - **image** : `width`, `height`, `orientation`, `avg_color`, `preview` ;
 - **vidéo** : `duration`, `fps`, `orientation`, `has_audio`, `shots` (débuts de plans détectés), `sheet` (planche d'une vignette par plan).
 
+## 1 bis. Index du projet (plus d'une vingtaine de plans, ou série de vidéos du même client)
+
+`python3 -I .claude/skills/media-analysis/scripts/analyze_media.py --index $OUT/mediatheque DOSSIER` (option `--index` à écrire) écrit, par clip : durée, dimensions après rotation, orientation, date de création, présence de coordonnées GPS (oui/non, jamais la valeur), une planche 3×2 de 6 images réparties sur la durée (photo réduite à 720 px) et une ligne dans `index.txt`, interrogeable par `grep`. Relancé sur un dossier, il n'ajoute que les nouveaux fichiers ; les originaux restent intacts.
+
+- **Étiquetage** (plus de 20 plans) : sous-agents Haiku, 5 planches par sous-agent, lancés ensemble, un JSON par lot. Champs : titre (4 à 8 mots), description (ce qu'on voit, ce qui bouge, la lumière), cadre, sujets, actions, type de plan, 8 à 15 mots-clés de recherche (une seule langue, le français), personnes oui/non, seconde du début propre, drapeaux (flou, tremblé, sombre, surexposé, filigrane, ancien carton, visage de tiers, plaque, écran du logiciel ou document lisible). Seulement ce qui est visible : jamais un lieu, une marque ou un nom non lisible à l'écran. JSON invalide ou id manquant : on relance ce lot.
+- **Recherche** : `grep` avec les synonymes joints par `|`, puis un second filtre. Classement : correspond à la phrase, pas encore utilisé dans la série, récent, bonne orientation (vertical pour 9:16 ; un plan paysage sera recadré). Regarde les planches des 3 meilleurs avant de choisir : les étiquettes aident à trouver, seuls les yeux valident.
+- **Suivi** : après validation de la vidéo, son nom est noté dans « utilisé dans » de chaque plan retenu ; un plan refusé (consentement retiré, flou, visage de tiers) passe au statut « rejeté » (réversible), le fichier n'est jamais supprimé.
+- **Périmètre** : l'index est propre à un client et à un projet, jamais mélangé avec un autre, jamais dans le dépôt, et aucune coordonnée n'est envoyée à un service externe.
+
 ## 2. Regarder les visuels (toujours)
 
 Ouvre chaque `preview` et chaque `sheet` avec **Read** et note pour chacun, en une ligne : ce qu'on voit (chantier, façade, intérieur, plan, équipe, écran du logiciel…), le sujet principal et où il se trouve dans l'image (pour `position` / `kenburns`), la qualité (nette, floue, sombre), le meilleur usage (fond plein écran, bloc, galerie, écarté). Pour une vidéo : quels plans garder (`from` = début du plan en secondes).

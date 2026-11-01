@@ -21,3 +21,16 @@ Méthode : 11 recherches web (12 derniers mois), versions vérifiées sur PyPI l
 - `blenderless` (surcouche de `bpy` avec Xvfb) : paquet tiers peu suivi ; `bpy` + `xvfb-run` directement suffit.
 - Article Habr sur la parallaxe Depth Anything + PyTorch : script GPU, rien de plus que la fiche du dépôt officiel.
 - Moteurs de zones sûres « prêts à l'emploi » (Tella, Flixier) : aperçus d'éditeur, non exportés ; on garde nos propres marges.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur planche de 3 niveaux. Format : apport — source dans le pack — ce que ça change.
+
+1. Parallaxe par facteur de profondeur sur des calques réellement séparés — `skills/vox/references/animation.md` « What makes it look like… » (0,4 / 0,7 / 1) — nouvelle étape 3 de la méthode : fond 0,4, plan du milieu 0,7, premier plan 1 appliqués à la même dérive ; personne détourée et plaque d'origine gardent le même mouvement ; total dans les bornes de dérive du film (≤ 1 %/s).
+2. Zones sûres — `short-editing/references/shorts-codes.md` « Safe zones » — le jeu de marges propre à cette fiche (235 px en haut, 420 px en bas, colonne droite dès x ≈ 900) est remplacé par le tableau du DA ; seuls des éléments décoratifs débordent.
+
+### Écarté
+
+- Style « papier découpé » (demi-teinte, bande déchirée, grain à deux toiles) : gardé comme idée non testée dans `bibliotheque-techniques` ; à confier à l'artiste seulement si le demandeur retient la piste.
+- Personnages et images générées par IA, voix clonées : aucune IA générative sur les photos et voix de clients ; services payants.
+- Gadgets de personnages et blocs d'outils de code : hors ton B2B.

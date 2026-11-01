@@ -93,6 +93,7 @@ Ce qui ne change jamais : **le logo œil BitEye d'origine** (image, jamais retap
 - Pratique, direct, posé (positionnement du site) ; plus chaleureux en darija pour les réseaux sociaux : « Khouya », « sahbi », « Marhaba bik ».
 - Promettre du contrôle concret sur des tâches liées (« les échéances sous contrôle », « l'avancement par lot ») plutôt qu'une « transformation » abstraite.
 - À éviter : grandes promesses de transformation, superlatifs non prouvés, blagues qui dévalorisent le client.
+- Liste « Ne dit jamais » (à tenir à jour) : chaque correction du demandeur sur un texte (voix off, carton, légende : « je ne dirais jamais ça ») y entre le jour même, avec la formulation qu'il préfère. La fiche de voix du demandeur (Drive, `02_Bibliothèque/Voix du demandeur`) en est la source complète ; mots-tics bannis : `creative-direction` §4 bis.
 
 ## Vocabulaire métier
 
@@ -150,12 +151,14 @@ Une maquette peut montrer des données fictives (« Résidence Les Oliviers, 96 
 
 | Nature de la vidéo | CTA | Où |
 |---|---|---|
-| Reel ou TikTok pour faire réagir, générer des démos | « Écris DEMO en commentaire » | dernière scène + légende du post |
+| Reel ou TikTok pour faire réagir, générer des démos | à l'écran, le CTA WhatsApp unique ci-dessous + le mot-code de la vidéo (FORMATION 1, TÉMOIGNAGE 2…) ; « commentez <mot-code> » en légende et en commentaire épinglé, réponse automatique Meta en message privé (décision du Journal, 27/10/2026) | dernière scène + légende et commentaire épinglé |
 | Reel ou TikTok qui renvoie vers une offre, une page | « Lien en bio » (Instagram @biteye_logiciels) | dernière scène |
 | Vidéo de prospection (Reel, story, statut, publicité locale) | « Écrivez-nous sur WhatsApp pour une présentation gratuite · 05 60 06 36 41 » (décision du 24/10/2026 : CTA unique de toutes les vidéos de prospection ; la voix peut le tourner autrement, l'écran garde ce texte) | dernière scène, phrase immobile 3 s et numéro lisible 2,5 s minimum |
 | YouTube, LinkedIn, site officiel | « Demander une démo » + `biteye-group.com` ; sur le site, pas de CTA dans la vidéo (le bouton de la page suffit) | écran final |
 
 Une seule action par vidéo. Si la nature n'est pas claire, propose le CTA dans la proposition.
+
+Option « geste de commentaire » (bloc `commentCta` du moteur, 3 à 4 s juste avant l'écran final ; la phrase immobile de 3 s et le numéro lisible 2,5 s du CTA WhatsApp restent inchangés) : à proposer au demandeur sur une planche de 3 niveaux (sobre / moyen / complet), jamais d'office, seulement si la réponse automatique est active sur la plateforme du post. La bannière reprend le texte exact de cette réponse ; feuille et bannière aux couleurs du storyboard, aucune interface de plateforme imitée (`bibliotheque-techniques` n° 15).
 
 ## Écran final type
 

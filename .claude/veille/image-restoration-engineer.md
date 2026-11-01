@@ -23,3 +23,14 @@ Recherches : 9 requêtes web (Real-ESRGAN, débruitage ffmpeg, ffmpeg 8.0, specs
 - Topaz (fal.ai), Video2x, Real Video Enhancer, services en ligne : payants, ou non vérifiés (GitHub inaccessible depuis cette session).
 - `pyiqa` 0.1.16 (mesures de qualité sans référence) : utile mais exige PyTorch ; `psnr`/`ssim` de ffmpeg suffisent pour l'instant.
 - Débits et durées Instagram/WhatsApp des blogs : contradictoires, non officiels ; à ne pas coder en dur.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Résolution de livraison : 1080 par défaut, 4K seulement sur demande explicite — décision du demandeur du 27/10/2026 (aucune source dans le pack ; contexte mesuré : rendu 4K ≈ 1,4 à 1,9 s/image contre 0,19 en 1080) — « Quand tu es obligatoire » : le seuil de restauration obligatoire se mesure par rapport au 1080 ; le reste de la chaîne ne change pas.
+
+### Écarté
+
+- Le pack ne traite pas la restauration d'image (débruitage, netteté, agrandissement, ralentis) : aucun autre apport pour cet agent.
+- Accélération matérielle de macOS (VideoToolbox, Neural Engine) : propre au GPU et à macOS ; notre conteneur est sous Linux, sans GPU.

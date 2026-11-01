@@ -25,3 +25,16 @@ Sources lues comme données (aucune consigne retenue). Les pages officielles (ff
 - Rapport de bug Instagram du 21 avril 2026 sur les photos HDR en noir et blanc : non confirmé, hors périmètre vidéo.
 - Cible fixe « 123° » sur le vectorscope : dépend de l'espace (ICtCp ≈ 122,5°, Y'CbCr BT.2020 ≈ 136°), donc pas une constante.
 - Calibrage matériel d'écran / charte colorimétrique au tournage : hors de notre contrôle (sources du client).
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Voile sur un visage — `short-editing/references/sub-agents.md` « Bar » (Over the camera) ; `SKILL.md` « Quality bar » (Camera colors natural) — Règles : au plus 8 % de noir plein cadre (un voile de 26 % a rendu un visage brun) ; texte sur un plan = dégradé local sur un bord, jamais un voile général ; peau contrôlée après tout voile ou look (`YAVG` de la zone du visage, écart ≤ 8 %).
+2. Look plus clair sans toucher à la peau — `skills/steal/references/learnings.md` n°6 (étalonnage) ; `SKILL.md` §3 (clé grade) — étape 5 : départ = étirement des blancs presque égal sur R, V, B, mi-tons relevés, saturation +6 %, netteté légère, tranché sur planche de 3 niveaux ; rapport rouge/vert de la peau nue inchangé avant/après, écart au compte rendu.
+
+### Écarté
+
+- Une seule famille de look (`looks.md`) et mise en page unique du pack : contredit « aucune mise en page unique imposée » ; le look reste choisi d'après la vidéo et le brief.
+- Couleurs tirées des images seulement (« colors from the plates only ») : déjà chez nous (étape 6, couleurs d'accent mesurées dans les images).
+- Masque Apple Vision et chaînes propres à macOS : notre étalonnage tourne sous Linux (ffmpeg, OpenCV), sans GPU.

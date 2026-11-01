@@ -39,3 +39,17 @@ Méthode : lecture directe des skills et agents publics sur GitHub, une vingtain
 - Textes algériens sur la promotion immobilière, la vente sur plan, les garanties des acquéreurs, les règles de paiement et la copropriété : source officielle (Journal officiel) avant toute mention dans une fiche.
 - Études sur l'usage des réseaux et de WhatsApp par les décideurs B2B en Algérie ou au Maghreb (DataReportal, agences régionales).
 - Retours des séances réelles : questions qui ont débloqué, pistes reprises par le stratège, pièges rencontrés (à verser au retour d'expérience `.claude/retex/`).
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Fiche de voix du demandeur — `studio-setup/SKILL.md` §4 ; `references/voice-template.md` (« Keeping it alive ») — fiche : rythme mesuré (mots ÷ minutes sur 2 ou 3 prises), mots dits souvent et jamais, façon d'ouvrir et de conclure, idées reçues du métier (chacune = un hook prêt), ennemi = un outil ou une habitude, objections → réponses, 3 textes de sa main ; chaque correction du demandeur y entre le jour même ; en Drive, jamais dans le dépôt.
+2. Relances « objection exacte » et « idées reçues » — `studio-script/references/hooks.md` formules 3, 4, 5, 11, 17, 19, 22 ; `voice-template.md` « Myths of my niche » — ajoutées à `brainstorm-demande/references/questions.md` (Insight et Voix) ; chaque idée reçue = un hook « idée reçue retournée ».
+3. Hors pack : rappel d'office de la structure du Journal (Hook / Lead / Body 1-2-3 / CTA unique WhatsApp + mot-code, « commentez <mot-code> », réponse automatique Meta) ; une piste qui ne s'y plie pas est remodelée, pas écartée.
+
+### Écarté
+
+- Entretien d'installation du pack (`studio-setup` : comptes, clés demandées dans la conversation) : les clés ne sont jamais demandées ni collées (règle ajoutée à `.claude/CLAUDE.md`, § Outils).
+- Collecte de 10 à 12 chaînes à étudier par téléchargement : contredit `marketing-research` §2 bis ; les comptes cités par le demandeur vont dans la fiche, pour une liste de veille tenue en Drive.
+- 20 hooks de 10 formules et « Nobody says it » : copie de formules de tiers ; le conseiller propose des catégories de la banque de hooks, pas d'accroche finale.

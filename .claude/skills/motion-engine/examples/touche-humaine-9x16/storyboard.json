@@ -4,9 +4,10 @@
  "duration": 14,
  "theme": "officiel",
  "grain": 0.12,
+ "outDur": 0.26,
  "handheld": 1,
  "flashes": [
-  0.0
+  0.06
  ],
  "media": {
   "chantier": "chantier.jpg"
@@ -20,7 +21,7 @@
      "type": "headline",
      "text": "3 classeurs,\n2 fichiers Excel,\n*0 visibilité.*",
      "size": 110,
-     "at": 0.05,
+     "at": -0.12,
      "anim": "slam"
     },
     {

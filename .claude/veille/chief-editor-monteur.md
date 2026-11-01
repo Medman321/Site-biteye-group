@@ -21,3 +21,21 @@ Constats (une ligne : constat — source — ce que ça change pour nous). Pages
 - Durées « optimales » (7–90 s, 21–34 s, 15–30 s) : avis contradictoires de blogs ; la durée suit le scénario validé (≈ 40 s).
 - Multiplicateurs « envois pondérés 3–5x » et seuil « 10 republications » : non officiels.
 - Taille maximale TikTok (287 Mo / 500 Mo) : sources en désaccord, sans effet sur un reel de 40 s.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Rythme mesuré sur l'animatic — `short-editing/SKILL.md` §3 « Something changes every 2 to 4 s », « Camera » ; `references/shorts-codes.md` « Pacing » ; `vox/references/animation.md` « One entrance at a time » — `edl.md` liste les événements visibles ; intervalle le plus long ≤ 4 s (≤ 6 s en témoignage plein cadre), visage plein cadre ≥ 5 s, carte de preuve ≥ 2 s, dernier élément 1,5 s avant la coupe, 0,5 s entre deux entrées.
+2. Plans d'illustration posés sur la voix — `skills/broll/SKILL.md` « /broll use » étapes 1 à 3 et « No good hit = the library lacks that image » — nouvelle étape 7 : seulement ce que la phrase montre, un plan toutes les 8 à 15 s (2 à 5 s), au moins 5 s de visage entre deux ; image qui ne colle pas ou n'est pas propre = l'intervenant ou un carton, jamais un plan pris au hasard.
+3. Référence imposée : cadence et mesures de visage comme plafond — `skills/steal/SKILL.md` §2 « Frames and cuts », « Zooms » ; `references/learnings.md` n°2 — nouvelle étape 8 : cadence de la fiche de style comparée à l'animatic avec le même outil et le même seuil (`scdet` 12) ; tout écart justifié dans `edl.md`.
+4. Zones de sécurité — `short-editing/references/shorts-codes.md` « Safe zones » — le cadre propre à cette fiche (y 250–1670, 150 px à droite) est remplacé par le tableau du DA ; version WhatsApp ≤ 15 Mo (16 Mo avant).
+5. Bloc `commentCta` — `README.md` (CTA par commentaire) — le monteur réserve ses 3 à 4 s avant l'écran final seulement si le demandeur le choisit (épisodes 2 à 4), jamais d'office.
+
+### Écarté
+
+- Ultra cut (pauses de plus de 0,3 s supprimées, voix accélérée à 1,15×) : contredit le Journal ; on resserre les silences à la main, le rythme naturel reste (la mesure du silence pour placer une coupe est reprise côté ingénieur du son).
+- Coupes sèches partout et plafonds de créateur (nombre de sons par vidéo, aucune montée) : contredisent le premium (aucune coupe sèche entre deux plans).
+- Cadence hebdomadaire d'un créateur (5 scripts par semaine, 25 à 40 s) : BitEye produit à la demande, la durée suit le scénario validé.
+- Bibliothèque de plans d'illustration globale et permanente, géocodage en ligne des chantiers : un index par client et par projet seulement, hors dépôt, aucune coordonnée envoyée à un service externe.
+- Mise en page unique et caméra du créateur en carte : contredit « aucune mise en page unique imposée ».

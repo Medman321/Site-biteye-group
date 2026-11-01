@@ -23,3 +23,16 @@ Méthode : 9 recherches web (12 derniers mois), versions vérifiées sur PyPI le
 - SAM 3 vidéo : mémoire et calcul GPU, trop lourd pour un détourage de personne sur CPU.
 - Outils web « texte derrière la vidéo » (WebGPU, comptes) : pas reproductibles dans le conteneur, médias clients hors dépôt.
 - Aucune source trouvée sur une règle de plateforme (Instagram, TikTok, LinkedIn) propre à la transparence ou au 2.5D ; rien à changer côté formats.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Contrôle de bords d'un détourage sur fond rouge saturé puis fond clair, à 200 % — `skills/vox/SKILL.md` §4 (fond rouge, aucune lettre dans le calque) ; `references/look.md` « The chroma cut » — Règles : cheveux, mains, bord du costume aux images t−1, t, t+1 des bornes ; franges de couleur, morceaux de plaque ou lettre parasite = lot à refaire avant la porte ; l'option `--check-bg` de `cutout_video.py` s'écrit si le geste revient deux fois.
+2. Clé de couleur d'un fond uni filmé exprès — mêmes sources — Règles : `chromakey` similarité 0,30 et mélange 0,10 puis `despill` ; 0,36 si une frange reste, 0,24 pour un objet transparent par endroits (valeurs de départ ; jamais le cas des sources clients à ce jour).
+
+### Écarté
+
+- Images générées par IA pour le calque (flux Codex payant du pack) et photo « redessinée » : aucune IA générative sur les photos de clients, aucun service payant sans accord.
+- Style « papier découpé » (demi-teinte, bande déchirée, grain à 12 i/s) : style non demandé ; idée à proposer au cas par cas dans `bibliotheque-techniques`, code seulement si le demandeur la retient.
+- Découpes de créateur face caméra (cutout, camSplit, camTile, vanish) et masque Apple Vision : propres à un créateur et à macOS ; notre rendu tourne sous Linux, sans GPU.

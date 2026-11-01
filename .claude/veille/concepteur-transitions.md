@@ -35,3 +35,16 @@ Méthode : recherches web, lecture des dépôts GitHub par clone superficiel et 
 - `render.js --scale 0.5` pour le pré-rendu de contrôle à 540×960 : à tester au premier usage.
 - Guides officiels Meta (Reels, Edits) et TikTok (Creative best practices) en lecture directe : transitions recommandées, durée d'accroche.
 - Retours des productions : coupes passées OK par l'outil mais refusées par le DA ou le demandeur (seuils à ajuster dans `references/seuils.md`).
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur planche de 3 niveaux. Format : apport — source dans le pack — ce que ça change.
+
+1. Relation R14 : un objet de A devient l'élément principal de B, transition `morph` — `scene-library.md` « layout.keys » (transition fenêtre), élément `morph: true` ; `design-system.md` « Shared-element morphs » — nouvelle ligne dans la grammaire (`references/grammaire.md`), dans le tableau de `transitions/SKILL.md` et dans la fiche ; contrôle du visage (position à t−1, t, t+1 variant de ≤ 2 % de la largeur), décor de A atténué de 22 % au plus, son L-cut + souffle court.
+2. Bornes hautes de mouvement — `scene-library.md` « Top level » (zoom.keys, zoom.drift) ; `style-schema.md` (zoom.drift, zoom.wideOnly) ; `examples/kitchen-composants-premium/source/spec.js` — nouvelle section de `references/seuils.md` : punch-in ≤ 1,15 sur un visage (1,4 pour la plongée dans l'œil du logo), un par 4 s, dérive ≤ 1 %/s recalée à chaque coupe ; la fiche les fait contrôler en plus des planchers. L'outil ne sort pas encore le zoom maximal par plan : à ajouter s'il sert deux fois, d'ici là lecture dans le storyboard.
+
+### Écarté
+
+- Faire sortir puis réapparaître le visage pendant un `morph` : défaut vu sur un exemple de référence, écrit comme piège de R14.
+- Coupes sèches partout, effets de casse, glitch, secousse, pixellisation : contredisent « aucune coupe sèche en premium » et le ton B2B.
+- Changer le défaut `outDur` du moteur : sans lien direct avec les transitions et casserait les vidéos validées.

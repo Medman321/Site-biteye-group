@@ -6,6 +6,7 @@
  "theme": "officiel",
  "safe": true,
  "grain": 0.08,
+ "outDur": 0.26,
  "wave": false,
  "media": {
   "plA": {
