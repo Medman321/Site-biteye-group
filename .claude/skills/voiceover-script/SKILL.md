@@ -7,6 +7,8 @@ description: Écrire le script d'une pub BitEye (darija algérienne ou français
 
 ## 1. Écrire le script
 
+Lis d'abord la fiche de voix du demandeur (Drive, `02_Bibliothèque/Voix du demandeur`, remplie par `conseiller-demande`) : ses mots, ses « ne dit jamais », sa façon d'ouvrir et de conclure, ses idées reçues du métier.
+
 Structure d'une pub de 30 à 45 s (environ 2,3 mots par seconde en darija, 2,5 en français) :
 
 | Temps | Rôle | Exemple (darija) |
@@ -19,6 +21,11 @@ Structure d'une pub de 30 à 45 s (environ 2,3 mots par seconde en darija, 2,5 e
 
 - Une idée par phrase ; chaque phrase devient une scène.
 - Les chiffres viennent du demandeur. Sans source, écris une formulation qualitative.
+- Script en deux blocs. « À lire » : seulement les mots dits, une phrase par ligne de 4 à 15 mots (= un souffle) ; c'est ce que le demandeur enregistre et ce qu'on passe à `transcribe_local.py --text`. « Notes », repérées par numéro de ligne (« ligne 5 → carton : 12 lots »), plan, durée, leviers et « À remplir » avec les `{{chiffre client}}`.
+- Jamais 3 lignes abstraites d'affilée : la 3e devient un exemple du métier (F3 du bloc C, G50, échéancier) ; longueurs variées (3 mots après 14) ; une seule personne en face, « tu » ou « vous » tenu jusqu'au bout.
+- Durée = mots ÷ rythme mesuré (`words_per_s` d'une prise ; à défaut 2,3 mots/s en darija, 2,5 en français).
+- Contrôle avant de montrer : accroche dite en 3 s au plus ; aucune ligne de plus de 4 s ; premier changement à l'écran avant 5 s ; un événement visuel (coupe, carton, punch-in) toutes les 4 à 5 s ; durée dans la cible. Lecture à voix haute : tout ce qu'on ne dirait pas à un associé est coupé.
+- Avant d'envoyer le script au demandeur, passe d'humanisation de `creative-direction` §4 bis (mots-tics, formes toutes faites, rythme plat ; chiffres, noms et CTA inchangés) ; un mot que le demandeur emploie réellement n'est jamais remplacé.
 - Donne le script au demandeur avec la vidéo, pour validation.
 
 ## 2. Obtenir la voix, par ordre de préférence
@@ -42,4 +49,4 @@ La darija écrite en lettres latines est mal prononcée par la synthèse : écri
 
 ## 3. Musique
 
-Uniquement une musique fournie par le demandeur ou dont la licence est connue. Dans le storyboard : `"music": {"src": "src/musique.mp3", "volume": 0.10, "fadeOut": 2}`. Avec une voix, reste entre 0,08 et 0,14 pour que la voix reste claire.
+Uniquement une musique fournie par le demandeur ou dont la licence est connue. Dans le storyboard : `"music": {"src": "src/musique.mp3", "volume": 0.10, "fadeOut": 2}`. Niveau du lit mesuré en sonie, jamais au jugé : lit seul = voix seule − 12 LU avant ducking (`audio-studio` §6, valeur retenue par le demandeur le 27/10/2026) ; le `volume` du storyboard se calcule depuis ces mesures (10^((L_voix − 12 − L_lit)/20)), le ducking s'ajoute ensuite. Le 0,10 de l'exemple ci-dessus n'est qu'une valeur de départ.

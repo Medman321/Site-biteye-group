@@ -19,7 +19,7 @@ La session te donne les chemins : sources et plaques préparées (`$OUT/media`, 
 ## Méthode (skill `transitions`)
 
 1. **Sources** : `transition_audit.py sources` sur chaque source vidéo, avec `--sheet` ; tu notes les coupes cachées et les faux positifs (incrustation, fondu), et tu signales tout plan sans image propre à la session (décision de planification).
-2. **Relations** : pour chaque changement de plan de `edl.md` et chaque coupe cachée gardée, tu nommes la relation entre A et B (R1 à R13 de `references/grammaire.md`) : même intervenant même idée, changement d'intervenant, problème → solution, visage → écran, saut de lieu ou de temps, photo → photo, fin → CTA…
+2. **Relations** : pour chaque changement de plan de `edl.md` et chaque coupe cachée gardée, tu nommes la relation entre A et B (R1 à R14 de `references/grammaire.md`) : même intervenant même idée, changement d'intervenant, problème → solution, visage → écran, saut de lieu ou de temps, photo → photo, un objet de A qui devient l'élément principal de B, fin → CTA…
 3. **Fiche** : `$OUT/transitions.json` et `$OUT/transitions.md` : par coupe, type du moteur, temps (`at`, `cut`, `dur`), direction, paramètres, rampe prévue, son pour le sound designer (J-cut, L-cut, souffle, impact, creux), raison. Une seule direction de whip dans le film ; une transition voyante seulement là où le sens change.
 4. **Preuve** : sur le pré-rendu de contrôle à 30 i/s, `transition_audit.py cuts PRE.mp4 --storyboard $OUT/transitions.json --sheet … --json …` ; tu regardes la planche et, pour une transition douteuse, sa planche `render.js --tsheets`. Une boucle de correction au plus (paramètres, ou point de coupe **proposé** au monteur), puis nouvelle mesure.
 5. **Remise** : la fiche remplie de ses mesures va au producteur (application), au sound designer (repères) et au DA (audit). Les seuils sont ceux de `references/seuils.md` ; un seuil changé est écrit dans la fiche avec sa raison.
@@ -27,6 +27,8 @@ La session te donne les chemins : sources et plaques préparées (`$OUT/media`, 
 ## Règles
 
 - Rampe d'au moins 3 images **mesurées** avant chaque coupe franche ; un « subtil » garde un plancher de visibilité mesuré ; jamais de coupe sèche entre deux personnes ni, en premium, entre deux plans.
+- Relation R14 (un objet de A devient l'élément principal de B : miniature de maquette → maquette plein cadre, carte du témoin → plein cadre) → transition `morph` du moteur ; contrôle : la position du visage à t−1, t, t+1 varie de ≤ 2 % de la largeur (`transition_audit`), ancien décor atténué de 22 % au plus, marges et rayons d'angle fondent vers 0 ; son : L-cut + souffle court. Paramètres de départ à confirmer sur planche de 3 niveaux.
+- Bornes hautes de `references/seuils.md` (punch-in ≤ 1,15 sur un visage, un par 4 s hors transitions, dérive ≤ 1 %/s recalée à chaque coupe) contrôlées en plus des planchers ; au-delà, planche de 3 niveaux.
 - Visage jamais coupé par le bord ni dédoublé à t−1, t, t+1 ; origine des zooms sur les yeux. L'alignement personne détourée / plaque reste contrôlé par la porte avant rendu (`pre_render_gate.sh`, `align_check.py`) : tu ne le refais pas, tu vérifies qu'elle est verte.
 - Tu réutilises les outils existants (`cut_audit.py`, `layer_diff.py`, `align_check.py`, `render.js --tsheets`) ; un nouveau script écrit deux fois devient une option de `transition_audit.py`.
 - Désaccord de goût (plus fort, plus doux) : planche de 3 niveaux de 2 images clés, jamais un rendu.

@@ -45,6 +45,7 @@ Pour chaque changement de plan de `edl.md` (et chaque coupe cachée gardée), no
 | R11 fin → CTA | `whip` ou plongée dans l'œil du logo (`target: "scene"`) | L-cut, souffle, impact, jingle |
 | R12 carton ↔ plan | premium : `maskReveal` cercle ou fondu 6 à 10 img | sur le temps |
 | R13 même mouvement des deux côtés | coupe sur l'action + `whip` de même sens | son du geste à cheval |
+| R14 un objet de A devient l'élément principal de B | `morph` (B part du rectangle mesuré de A, 0,6 s, courbe très douce) | L-cut + souffle court |
 
 Règles de choix : une transition voyante seulement là où le sens change (témoin, chapitre, CTA) ; une seule direction de whip dans le film ; techniques de la `bibliotheque-techniques` (whip calé sur un geste, punch-in, fuite de lumière ≤ 2) proposées, pas imposées ; règles de raccord (180°, regard, forme, coupe sur l'action) rappelées dans la grammaire §2. Paramètres exacts des types : `motion-engine` SKILL.md, « Transitions ».
 
@@ -107,7 +108,7 @@ Coupes cachées trouvées par source ; nombre de transitions par relation ; tabl
 
 ## Références
 
-- `references/grammaire.md` : grammaire complète (13 relations, paramètres, son, pièges, règles de raccord).
-- `references/seuils.md` : définitions et seuils de chaque mesure, valeurs de départ par transition, résultats de référence V3.
+- `references/grammaire.md` : grammaire complète (14 relations, paramètres, son, pièges, règles de raccord).
+- `references/seuils.md` : définitions et seuils de chaque mesure, bornes hautes de mouvement, valeurs de départ par transition, résultats de référence V3.
 - `references/ressources-libres.md` : PySceneDetect, `scdet`, TransNetV2, gl-transitions, `xfade`, YuNet, MediaPipe, avec leurs licences et ce qui est portable dans le moteur.
 - Outils réutilisés : `motion-engine/scripts/cut_audit.py`, `layer_diff.py`, `pre_render_gate.sh`, `render.js --tsheets`, `media-lab/scripts/align_check.py`.

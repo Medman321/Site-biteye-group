@@ -1,6 +1,6 @@
 ---
 name: bibliotheque-techniques
-description: Bibliothèque des techniques de montage et de publicité tirées des vidéos de référence choisies par BitEye (dossier Drive « Vidéos pour apprentissage ») — accroches, rythme, transitions, présentation du produit, texte à l'écran, son, CTA — chacune avec sa transposition à VISION Workspace. À lire au moment du concept et du storyboard ; à enrichir à chaque nouvelle vidéo de référence.
+description: Bibliothèque des techniques de montage et de publicité tirées des vidéos de référence choisies par BitEye (dossier Drive « Vidéos pour apprentissage ») — accroches, rythme, transitions, présentation du produit, texte à l'écran, son, CTA — chacune avec sa transposition à VISION Workspace. À lire au moment du concept et du storyboard ; à enrichir à chaque nouvelle vidéo de référence ; contient la méthode de la fiche de style quand le demandeur impose une référence.
 ---
 
 # Bibliothèque des techniques (vidéos de référence du demandeur)
@@ -15,7 +15,7 @@ Le demandeur dépose dans Google Drive (`BitEye — Studio vidéo / 02_Biblioth�
    - Source : le fichier déposé par le demandeur, jamais un téléchargement depuis un lien (instagram.com, tiktok.com, youtube.com sont bloqués ici : on ne contourne rien, pas de yt-dlp).
    - Voix : `python3 .claude/skills/audio-studio/scripts/transcribe_local.py VIDEO --out $SCRATCH/ref --asr --lang auto` (VAD automatique sous la musique). La sortie donne `first_word` et `words_per_s` ; avec musique, le premier mot se lit là, pas dans `silencedetect`.
    - Texte à l'écran (le hook est souvent écrit, pas dit) : planche de 0 à 3 s à 10 images/s, `ffmpeg -i VIDEO -t 3 -vf "fps=10,scale=180:-2,tile=6x5" -frames:v 1 $SCRATCH/ref/hook_0-3s.jpg` (une image, 30 vignettes à 0,1 s).
-   - Relève les instants du hook, du problème, de la bascule, de la preuve et du CTA, croisés avec les coupes `scdet`, puis la catégorie et le mécanisme du hook (Banque de hooks ci-dessous). Une ligne : « hook 0–1,8 s (écrit, curiosité) | problème 1,8–6 | bascule 6,5 | preuve 7–15 (1 chiffre) | CTA 15–18 (WhatsApp) | 1er mot 0,3 s, 2,7 mots/s ».
+   - Relève les instants du hook, du problème, de la bascule, de la preuve et du CTA, croisés avec les coupes `scdet`, puis la catégorie et le mécanisme du hook (Banque de hooks ci-dessous). Une ligne : « hook 0–1,8 s (écrit, curiosité) | problème 1,8–6 | bascule 6,5 | preuve 7–15 (1 chiffre) | promesse tenue à 12 s | CTA 15–18 (WhatsApp) | 1er mot 0,3 s, 2,7 mots/s ». Quand les chiffres existent, ajouter « commentaires pour 1 000 vues : N (médiane du compte : M) ». Le hook se note d'après la voix écoutée ou le texte lu à l'écran, jamais d'après la légende seule.
    - Darija : la transcription n'est qu'approchée ; classe le hook après écoute ou texte corrigé (`--text`). Vidéo sans voix : champs « n/a », le squelette vient des textes à l'écran.
    - Droits : la transcription complète d'un tiers reste dans le scratchpad ou le Drive privé (ni dépôt, ni issue, ni artefact, ni Release). Ici n'entrent que le squelette chiffré et la technique reformulée : paraphrase, ou citation de 3 mots au plus.
 4. La session ajoute ici les techniques nouvelles (une ligne : technique — où on l'a vue — comment l'utiliser chez BitEye — à éviter) et met à jour les fiches concernées ; dans « Vidéos analysées », la colonne « Apports » cite la catégorie du hook et la structure ; registre Drive mis à jour ; pull request.
@@ -23,6 +23,16 @@ Le demandeur dépose dans Google Drive (`BitEye — Studio vidéo / 02_Biblioth�
 ## Usage : proposer au cas par cas
 
 Décision du demandeur (24/10/2026) : cette bibliothèque élargit la gamme de montage de l'équipe. Elle ne s'applique pas d'office : à chaque vidéo, le stratège (3) et le chef monteur (9) choisissent 1 à 3 techniques qui servent le message et **les proposent au demandeur** dans le concept (« technique — où on l'a vue — ce qu'elle apporte ici »). Les vidéos BitEye parlent du logiciel VISION Workspace : aucune technique n'impose de filmer le projet d'un client.
+
+## Fiche de style (référence imposée)
+
+Quand le demandeur choisit une vidéo de référence comme modèle (« fais comme celle-ci »), écrire `$OUT/reference/<nom>.md` avant tout storyboard : une ligne par réglage = valeur + mesure (« coupe franche toutes les 1,4 s, 35 coupes en 50 s »). Sections : Coupes, Cadrage, Sous-titres, Images posées, Son, Étalonnage, Laissé de côté (et pourquoi : premium, décisions du Journal, plans réels à la place de clips IA), Application dans notre moteur. Trois passes obligatoires, chacune chiffrée (copier une référence sur les seules images donne une vidéo sans énergie : le son compte autant que la coupe) :
+
+1. **Images et coupes** : `scdet` seuil de départ 12, faux positifs (fondus, gestes) retirés sur la planche ; secondes par plan = durée ÷ (coupes + 1), coupes par 10 s. Planche sur toute la durée à 2 images/s (24 vignettes par planche ; vignette i de la planche N = seconde 12×(N−1) + i/2) en plus de la planche 0–3 s. Sur chaque planche, relever : mises en page (plein cadre, écran partagé et place de la jointure, fond uni + texte, personne détourée, plan d'illustration) ; sous-titres par mise en page (graisse, casse, taille, position sur le corps, apparition, mot mis en avant) ; images posées (type, bord, taille, arrivée sur le mot qui les nomme, empilement) ; accroche (2 premières secondes) ; CTA (3 dernières secondes) ; étalonnage. Garder 6 à 10 images clés.
+2. **Son** : spectrogramme (3000×500, échelle log, jusqu'à 11 kHz), coupes lues à x = 3000 × t ÷ durée (trait fin clair en haut = clic ; large et bas = impact ; traînée montante = souffle ; creux dans la bande de musique = musique coupée), zoom de ±1 s sur 2 ou 3 coupes. Cue sheet de la référence : départ de la musique, tempo (`librosa`, sinon traits graves par 10 s × 6), événement → type de son ; écart voix − musique mesuré par l'ingénieur du son (`audio-studio-analyst`). On n'y copie ni musique ni son.
+3. **Zooms** : hauteur du visage en % du cadre toutes les 0,5 s (détecteur de `transition_audit.py` ; sous-commande à ajouter s'il sert deux fois), sauts classés (à une coupe = cadrage ; dans un plan = punch-in ; croissance lente = poussée). Fourchette de taille, punch-ins par 10 s et poussée en %/s = plafond de notre version (monteur, DA).
+
+Les passes peuvent aller à trois sous-agents (notes chiffrées seulement). Fiche, planches et images clés restent dans `$OUT` ou le Drive, jamais dans le dépôt ; chaque retour du demandeur y est consigné.
 
 ## Génération IA (option A) — autorisée par le demandeur, au cas par cas
 
@@ -37,9 +47,13 @@ Méthode « construction en gravité inversée » (vidéo de référence analys�
 Modèle de prompt d'image (à adapter) : « USE THE UPLOADED REFERENCE AS THE ABSOLUTE FINAL STATE. CREATE AN EARLIER STAGE, APPROXIMATELY X % ASSEMBLED. PRESERVE THE EXACT SAME FRAMING (9:16), CAMERA ANGLE, LIGHTING AND SURROUNDINGS. ELEMENTS ARE FLYING UPWARD TOWARD THEIR EXACT FINAL POSITIONS. EVERY GENERATED COMPONENT MUST EXIST IN THE REFERENCE. DO NOT REDESIGN, DO NOT ADD ANYTHING NOT VISIBLE IN THE REFERENCE. NO TEXT, NO LOGOS, NO WATERMARK. »
 Idées pour le logiciel : un tableau de bord VISION Workspace (maquette dessinée) qui « s'assemble » pièce par pièce ; les modules qui se posent comme des étages ; un chantier abstrait (pas celui d'un client) qui se construit pendant que le suivi s'affiche.
 **Garde-fous obligatoires** : proposition au demandeur avec coût annoncé avant (outils payants : générateur d'images à référence type Gemini « Nano Banana » ou GPT-image, générateur vidéo à images clés type Kling, Seedance ou Veo — tarifs et droits d'usage commercial vérifiés au moment du projet) ; dernier plan toujours réel ou maquette officielle ; aucune vraie interface du logiciel ; aucun chiffre, prix ou délai tiré d'une image générée ; mention « animation d'illustration » et étiquette IA de la plateforme ; aucun média confidentiel envoyé à un service externe sans vérification de ses conditions ; contrôle image par image contre la référence ; jamais de « look IA générique » (déformations visibles = refus).
+Référence faite de clips générés par IA : elle ne se reproduit pas sur des médias de clients ; la remplacer par des plans réels du client (chantier, équipe, bureau) de 0,5 à 1,5 s, plein cadre, coupe franche sur le mot d'action. Aucun plan réel pour ce mot : un carton ou un punch-in, jamais un plan de banque d'images pris au hasard ; le remplacement est consigné dans « Laissé de côté » de la fiche de style.
+Contrôle après génération : un prompt = une image. Exactement une image par prompt, aucun doublon (somme de contrôle), ratio exact (mise à l'échelle avec remplissage puis recadrage, jamais d'étirement), contrôle à l'œil des lettres parasites, mains et visages ; manifeste `$OUT/ia/manifest.json`, une ligne par image : fichier, prompt, références, date, outil et coût annoncé. Rien de généré sans ligne au manifeste.
 Sans IA (option B, gratuite, dans notre moteur) : référence découpée en calques qui montent et se posent avec inertie, poussière en particules discrètes, flou de mouvement ; frise avant → après avec images réelles recalées.
 
 ## Techniques retenues
+
+Une technique n'entre comme règle de style qu'après avoir été vue dans 2 ou 3 vidéos du même format ; vue une seule fois, elle porte « vue 1 fois » (exception possible) et reste une simple idée. Chaque ligne indique le nombre de vidéos où elle a été vue (les lignes déjà là citent leurs sources, qui en tiennent lieu).
 
 ### Accroche
 - **Question-accusation ou paradoxe dès l'image 0**, sans logo ni intro (« Vous n'avez toujours pas de stratégie ? », « Une pub ne commence pas par une pub ») — Spira (2 pubs, oct. 2026). Chez BitEye : « Vous suivez encore vos acquéreurs sur Excel ? », « Un promoteur ne vend pas des logements. Il vend des échéances tenues. » Texte en apparition mot à mot (flou → net) + léger coup de grave à 0,08 s.
@@ -91,6 +105,10 @@ Format : technique — où vue (W = Windermere, L = Lake Nona, S = Sunridge, tem
 ### Traversée sans coupe (pub immobilière, oct. 2026)
 - **Une personne traverse plusieurs pièces en un seul plan**, raccord « mur-rideau » (un panneau qui glisse révèle l'espace suivant), un mot-clé ancré dans chaque décor, la personne passe parfois devant le texte, fin qui boucle sur le début — chez BitEye : une « pièce » par module VISION (Estate, Build, Co-Owner…), panneau coulissant entre maquettes d'écran, intervenant détouré pleine hauteur — à éviter : 16:9 centré dans du 9:16, tenue qui change (signe d'IA), absence de produit et CTA faible.
 
+### Idée non testée : « papier découpé » (Story de 6 à 15 s tirée d'une photo de client)
+- Style documentaire à proposer au cas par cas, jamais imposé : calques issus de la photo elle-même (`depth_layers`), imprimés en demi-teinte par le code (points sur grille à 45°, pas de 7 px ; la photo n'est jamais redessinée), liseré blanc de 5 px et ombre chaude douce, titre sur une bande de papier déchiré, grain à deux toiles alternées à 12 i/s (≈ 16 %, mode overlay), palette de 5 teintes, déplacements tenus sur un pas de 12 i/s ; photo entière en tirage si le détourage est sale. Valeurs de départ, à valider sur une planche de 3 niveaux.
+- Aucune image générée ; aucun nom ni logo de média tiers ; les blocs à créer dans le moteur ne sont développés que si le demandeur retient la piste.
+
 **Non transposable** :
 - Vol FPV intérieur et plans drone du bien fini ; lifestyle de luxe (voiture, bourg) ; prix en dollars. Chez BitEye : maquettes dessinées du logiciel, chantier ou résidence du client, chiffres du client en dinars (m², lots, délais), à faire confirmer.
 - Le B2B exige une preuve chiffrée et un CTA écrit ; les 3 vidéos vendent un désir (acheteur particulier), BitEye vend un gain (promoteur).
@@ -98,7 +116,7 @@ Format : technique — où vue (W = Windermere, L = Lake Nona, S = Sunridge, tem
 
 ## Banque de hooks
 
-Référence complète dans `references/hooks.md` : règles (rien d'inventé, aucune promesse de vues, la question du hook trouve sa réponse avant le CTA), mécanismes, catégories transposées à VISION Workspace, hooks visuels faisables avec le moteur. À lire au moment du concept : chaque concept propose 3 hooks de 3 catégories, notés sur 10.
+Référence complète dans `references/hooks.md` : règles (rien d'inventé, aucune promesse de vues, la question du hook trouve sa réponse avant le CTA), mécanismes, catégories transposées à VISION Workspace, hooks visuels faisables avec le moteur. À lire au moment du concept : chaque concept propose 3 hooks de 3 catégories, notés sur 10 (recommandé à partir de 7, deux vetos : tension ou reconnaissance à 0).
 
 ## Vidéos analysées
 

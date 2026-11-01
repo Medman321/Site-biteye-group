@@ -29,7 +29,7 @@ Toute demande de vidéo, pub, reel, story, spot, clip ou motion design suit la m
 3. **Préparer en parallèle** : 2 (son) et 5 (image) sur chaque média ; 10 dès qu'une source est sous la résolution de livraison ou compressée (obligatoire) ; 11 dès qu'il y a plusieurs sources ; 3 fait la veille.
 4. **Proposer** : 3 (concepts, en s'appuyant sur `bibliotheque-techniques`, les vidéos de référence du demandeur) puis 1 (scénario minuté du concept choisi). **Attendre le choix du demandeur.**
 5. **Pré-rendu** : 9 monte l'animatic et le valide ; 15 repère les coupes cachées et écrit `transitions.json` (relation → transition, paramètres, son) ; 6 construit le storyboard et les images clés en appliquant la fiche, avec les calques de 13 et l'habillage de 12 ; 15 mesure le pré-rendu de contrôle (`transitions/scripts/transition_audit.py cuts`) ; 4 audite (grille « sophistication » en premium) ; 6 corrige (une passe).
-6. **Rendre** : 6 rend les MP4 (premium : maître 4K 2160×3840 + version 1080 réduite du maître + version WhatsApp) ; 7 contrôle ; une reprise si « à reprendre ».
+6. **Rendre** : 6 rend les MP4 (maître 1080 `--quality 100 --bt709` + version WhatsApp ≤ 15 Mo ; 4K seulement sur demande explicite) ; 7 contrôle ; une reprise si « à reprendre ».
 7. **Livrer** : la session publie la page en Artifact et envoie les MP4, la légende (3) et le rapport qualité (7).
 8. **Bilan** : 8 audite l'efficacité ; la session applique les capitalisations validées.
 9. **Apprentissage** : toute nouvelle vidéo du dossier Drive « Vidéos pour apprentissage » est analysée et ses techniques ajoutées à `bibliotheque-techniques` (registre Drive des vidéos analysées).
@@ -48,6 +48,7 @@ Si les agents ne sont pas disponibles dans la session (ils se chargent au démar
 - Ne refais jamais ce qui existe dans `$OUT` : transmets les chemins aux agents.
 - Briefs compacts : la liste exacte des fichiers à lire et le format du compte rendu.
 - Seulement les agents utiles à la demande ; le moins cher des modèles qui tient la qualité.
+- Modèle et effort choisis automatiquement à chaque lancement d'agent, selon la nature de la tâche (le `model` de la fiche n'est qu'un défaut) : mécanique (copies Drive, listings, étiquetage, conversions, mux, relevés) → Haiku, effort bas ; mesures et contrôles outillés, lectures, transcriptions, rédaction depuis un plan, revues transitions / montage → Sonnet, effort moyen ; jugement créatif (concepts, scénario, direction artistique, arbitrages), code du moteur, corrections à risque de régression, relecture finale → Opus (défaut), effort haut ; effort maximal jamais sans demande explicite du demandeur. Grille détaillée et exceptions : `token-efficiency-auditor` § Plan, point 3.
 - Images clés et animatic avant tout rendu complet ; un seul rendu final par format.
 - Un script écrit deux fois devient un outil CLI dans un skill.
 - Jamais d'économie sur l'audit DA, le contrôle qualité, l'écoute des coupes, les noms et le CTA.
@@ -88,6 +89,8 @@ Le connecteur ne dépose pas de vidéo et n'édite pas un document existant : on
 ## Outils
 
 Gratuits et locaux par défaut (`bash .claude/skills/biteye-video-ad/scripts/setup_free_tools.sh`). ElevenLabs et tout service payant seulement si le demandeur le veut, coût annoncé avant.
+
+Clés et accès (ElevenLabs ou tout service) : jamais demandés ni collés dans la conversation, une issue ou un fichier du dépôt. La personne les place elle-même dans un fichier ignoré par git ; on vérifie leur présence sans l'afficher (compter les occurrences, jamais `cat`).
 
 ## Site
 

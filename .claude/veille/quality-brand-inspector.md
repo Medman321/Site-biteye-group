@@ -22,3 +22,21 @@ Outils vérifiés sur PyPI le 2026-10-24 ; filtres vérifiés dans le ffmpeg du 
 - Chiffres de zones sûres et de durée de statut WhatsApp en désaccord entre sources : pas retenus comme règles, seulement comme marges prudentes.
 - ffmpeg 8.0 (nouveaux filtres, dont `whisper`) : pas installable de façon fiable ici sans changer le conteneur ; à réévaluer si le setup passe à ffmpeg ≥ 8.0.1.
 - Recherche « 2026 » sur la modération de contenu des plateformes : rien d'officiel trouvé.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Contrôle de l'habillage (écart son/événement, sons par minute, sonie sous la voix, perte en mono, fondus de piste, valeurs non finies) — `short-editing/SKILL.md` §6 (contrôle final) ; `engine/audio.mjs` (fondus 20/350 ms, erreur sur valeur non finie) — nouveau contrôle 2 bis, mesuré sur `cue.json` et sur le MP4.
+2. Crête vraie sur le MP4 encodé, mode « dynamic » = KO — `engine/audio.mjs` (mix.ceil : l'AAC ajoute jusqu'à ≈ 1,5 dB de crête) ; essai de session ffmpeg 6.1.1 — contrôle 2 : ≤ −1 dBTP mesuré après encodage, reprise avec limiteur si « dynamic ».
+3. Une seule lecture du MP4 pour l'image et le son — `references/performance.md` « Never decode the video twice » — contrôle 3 : `blackdetect,freezedetect` et `ebur128=peak=true` dans la même commande ; gain à mesurer avant de généraliser.
+4. Zones sûres : un gabarit unique, mesuré par le DOM — `short-editing/references/shorts-codes.md` « Safe zones » (consolidation de nos jeux de marges) ; décision du demandeur du 27/10/2026 (maître 1080, WhatsApp ≤ 15 Mo) — contrôles marque : les chiffres propres à la fiche sont remplacés par le tableau de `art-direction-design-critic` ; `hors_zone` et `taille_min` de `render.js --stills`, recoupés sur 3 images du MP4.
+5. Vrais logos, aucun emoji, polices rendues — `short-editing/SKILL.md` §3 « Real logos, always » ; `design-system.md` « Type », « Motion design over emojis » — contrôles marque : logo réel ou pas de logo, jamais un sosie ; aucun carré ni police de repli (`fonts.json` de la porte).
+6. Livrables de publication — `short-editing/SKILL.md` §7 Deliver (.srt) ; `skills/publish/SKILL.md` §3 (Cover) ; `studio-script/references/ai-tells.md` § Invisible characters — contrôle 7 : `.srt` (≤ 7 mots, ≤ 2 lignes de ≤ 36 signes), `cover.jpg` lisible en vignette et centrée, `texte_controle.py` à sortie vide.
+7. Métadonnées de localisation — `skills/broll/SKILL.md` « /broll setup » étape 3 (lecture des balises de date et de lieu) — contrôle 1 : aucun GPS dans les MP4 livrés, `-map_metadata -1` au dernier encodage si besoin ; coordonnées jamais dans un compte rendu partagé ni dans le dépôt.
+
+### Écarté
+
+- Valeurs de zones sûres du pack (haut 220, bas 420, colonne 140 px, boîte x 60–940 / y 220–1500) : nos valeurs viennent du tableau du DA (la fiche officielle de la plateforme prime) ; seule la consolidation en un gabarit mesuré par le DOM est reprise.
+- Géocodage en ligne des coordonnées et bibliothèque de plans globale et permanente : aucune coordonnée de chantier n'est envoyée à un service externe ; l'index reste par client et par projet, hors dépôt.
+- Portes de qualité génériques, test de décodage, « Honest limits » : déjà chez nous (contrôles techniques de cette fiche, porte avant rendu, CLAUDE.md).

@@ -1,0 +1,37 @@
+{
+ "title": "Exemple CTA commentaire",
+ "slug": "exemple-comment-cta",
+ "format": "9:16",
+ "lang": "fr",
+ "duration": 6,
+ "theme": "officiel",
+ "safe": true,
+ "safeZone": "reels",
+ "grain": 0.08,
+ "outDur": 0.26,
+ "wave": false,
+ "brand": false,
+ "captions": {"words": "words.json", "maxWords": 6},
+ "media": {
+  "plaque": {"lavfi": "gradients=s=1080x1920:c0=0x011A29:c1=0x0B3550:c2=0x0A2F47:n=3:speed=0.01:type=radial:d=4.4:r=30", "duration": 4.4},
+  "sujet": {"lavfi": "color=c=black@0:s=540x960:r=30:d=4.4,format=yuva420p,geq=lum=150:cb=118:cr=142:a='255*gt(lt(hypot(X-270,Y-330),72)+lt(hypot((X-270)/1.25,Y-760),230),0)'", "duration": 4.4, "alpha": true}
+ },
+ "scenes": [
+  {"id": "temoin", "start": 0, "end": 3.9, "drift": 0.03,
+   "layers": [
+    {"kind": "video", "id": "pl", "src": "plaque", "start": 0, "end": 4.4},
+    {"kind": "subject", "id": "sj", "src": "sujet", "start": 0, "end": 4.4}
+   ],
+   "blocks": [
+    {"type": "lowerthird", "name": "Témoin (exemple)", "role": "Poste · Entreprise", "roleSize": 38, "pos": {"top": 290}, "shown": true, "out": 1.6},
+    {"type": "commentCta", "at": 0.2, "code": "FORMATION 1", "variant": "instagram",
+     "reply": "Voici le lien WhatsApp : 05 60 06 36 41", "link": "wa.me/213560063641"}
+   ]},
+  {"id": "fin", "start": 3.9, "end": 6, "transition": {"type": "whip", "dir": "left"},
+   "blocks": [
+    {"type": "logo", "size": 180, "at": 4.0},
+    {"type": "wordmark", "size": 96, "at": 4.2},
+    {"type": "cta", "wide": true, "text": "Écrivez-nous sur WhatsApp pour une présentation gratuite · 05 60 06 36 41", "maxWidth": 900, "at": 4.4}
+   ]}
+ ]
+}

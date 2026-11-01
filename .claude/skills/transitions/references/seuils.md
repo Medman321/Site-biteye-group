@@ -26,6 +26,15 @@ Toutes les mesures se font sur l'image réduite à 270×480 (écarts, flux, lumi
 - `matchCut` : écart des centres de visage < 8 % de la largeur après recalage, rapport de taille ≤ 1,3.
 - Fondu par calques : au moins 6 images ; 1 à 3 images = image fantôme.
 
+## Bornes hautes (en plus des planchers)
+
+Les planchers ci-dessus empêchent une transition invisible ; ces bornes empêchent un mouvement agressif. Valeurs de départ, contrôlées par le concepteur de transitions et le DA.
+
+- Punch-in ≤ 1,15 sur un visage (1,4 seulement pour la plongée dans l'œil du logo, R11) ; pas plus d'un punch-in tous les 4 s hors transitions (un zoom de ×1,3 et plus par seconde a été rejeté comme beaucoup trop agressif). Punch instantané = ressort raide, retour à 1 sur la coupe suivante.
+- Dérive de caméra ≤ 1 %/s (3 % au plus sur un plan de 3 s ou plus, 1,5 % sur 1,5 s), redémarrée à chaque plan (2 %/s est lu comme agressif).
+- Au-delà de ces bornes : planche de 3 niveaux au demandeur, jamais à l'œil seul.
+- À faire dès que le contrôle sert deux fois (règle « un script écrit deux fois ») : `transition_audit.py cuts` noterait en information la composante zoom maximale mesurée par plan ; il écrit déjà `zoom_avant` (composante de flux sur les 5 images avant chaque coupe). D'ici là, lire le facteur dans le storyboard (`peak`, `to`, `drift`).
+
 ## Résultats de référence (V3, 1080×1920, 30 i/s, YuNet)
 
 | Coupe | Transition | Rampe | Saut | Verdict de l'outil |

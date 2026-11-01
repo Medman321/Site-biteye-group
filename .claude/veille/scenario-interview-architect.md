@@ -23,3 +23,24 @@ Méthode : 9 recherches web (12 derniers mois) ; les pages n'ont pas pu être ou
 - Éditeurs par le texte (Rescript, vivideo, Wizard Cut, Kapwing, Descript) — doublon avec notre `words.json` ; vivideo 0.0.1 (2023) abandonné ; autocut 0.0.1 sur PyPI n'est qu'un renvoi vers GitHub, non vérifié ici (GitHub inaccessible).
 - Preuve sociale immobilier MENA — aucune donnée chiffrée sérieuse trouvée, articles génériques.
 - Études sur le code-switching en commentaires Instagram algériens — hors sujet vidéo.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Relance à 40–60 % de la durée — `studio-script/references/script-rules.md` § Re-hook ; `references/viral.md` règle 6 — règle « Relance » : question nouvelle, chiffre du témoin, retournement ou objection levée avec un chiffre ; seconde exacte dans `scenario.md` ; le pont entre deux témoins compte s'il tombe dans la fenêtre ; facultative sous 25 s.
+2. Jamais en première phrase — `studio-script/references/hooks.md` § Never open with — salut, « dans cette vidéo », question oui/non évidente, « saviez-vous que », contexte avant l'affirmation ; la présentation du témoin n'ouvre jamais la vidéo (le bandeau la remplace) ; contrôle des 5 premiers mots.
+3. Leviers placés avec leur seconde — `script-rules.md` § Triggers, placed ; § Quality gates (2) — sous le tableau minuté, au moins 4 leviers sur 7 ; l'ennemi est un outil ou une habitude, jamais un concurrent nommé ; l'accroche promet A, le corps livre A.
+4. Source longue : inventaire typé et extraits validés — `clips/SKILL.md` §1 à §5 — lecture déléguée (≤ 15 lignes), moins de 4 pièces = source trop mince, `extraits.md` avec note d'extrait autonome sur 5 points (gardé à 7/10), carton d'accroche de 6 mots au plus plutôt qu'une coupe dans la phrase, « matière non utilisée » en questions pour le prochain entretien.
+5. Chiffre dit tel quel — `script-rules.md` § Facts — jamais arrondi ; `{{chiffre client}}` sous « À remplir » ; pas de rendu tant que la liste n'est pas vide ou marquée « exemple ».
+6. Position des intervenants avant tout recadrage 9:16 — `clips/SKILL.md` §7 et « Honest limits » — x de 0 à 1 relevé sur la planche ; un cadrage par locuteur ou un écran partagé ; deux visages entiers sur l'image clé de chaque extrait.
+7. Version dans une autre langue — `short-translate/SKILL.md` §2, §5, « Honest limits » — repartir du storyboard et de `words.json`, jamais du MP4 ; voix de la personne conservée ; relecture par un locuteur ; fichiers `<slug>-<langue>`.
+8. Script de voix off — `studio-script/SKILL.md` §4 ; `references/script-rules.md` § Lines, Length, Beat timing, Visual notes ; `references/humanize.md` §5 — `voiceover-script` §1 : blocs « à lire » et « notes », une phrase par souffle (4 à 15 mots), durée = mots ÷ rythme mesuré, contrôles avant de montrer (accroche dite en 3 s, ligne de 4 s au plus, événement visuel toutes les 4 à 5 s), passe d'humanisation, fiche de voix du demandeur lue d'abord ; niveau du lit mesuré (voix − 12 LU, décision du demandeur du 27/10/2026).
+9. Hors pack : l'arc Hook / Lead / Body 1-2-3 / CTA vient du Journal des décisions (27/10/2026) ; l'arc en deux preuves devient sa version témoignage.
+
+### Écarté
+
+- Coupe « ultra » du pack (pauses de plus de 0,3 s supprimées, voix à 1,15×) : contredit le Journal (on resserre les silences à la main, le rythme naturel reste).
+- Doublage par voix clonée (`short-translate`) : service payant et IA générative sur la voix d'une vraie personne ; seule la traduction des textes à l'écran est reprise.
+- Reprise de scripts de tiers mot pour mot (`outliers` §3, `steal` appliqué aux mots) : copie de textes, risque de marque en B2B local.
+- Mise en page « papier » avec la caméra du créateur en carte : propre à un créateur face caméra ; nos vidéos sont faites de photos et de vidéos de clients.

@@ -19,6 +19,7 @@ Travaille toujours sur des copies dans `$OUT/` ; les originaux restent intacts d
 3. **Couper précisément** : `python3 -I $ML cut src/clip.mp4 $OUT/c1.mp4 --start 3.2 --end 6.0`.
 4. **Stabiliser** les plans tournés à la main : `python3 -I $ML stabilize c1.mp4 c1s.mp4` (garde un léger tremblé : `--strength 8`, c'est humain ; 30 pour un plan très secoué).
 5. **Recadrer pour le format** : `python3 -I $ML reframe c1s.mp4 c1v.mp4 --aspect 9:16 --x 0.4 --size 1080x1920`. `--x/--y` (0 à 1) placent le cadre sur le sujet ; `--to-x 0.7` fait un panoramique lent, utile pour un plan large de chantier recadré en vertical.
+   **Source horizontale à deux personnes ou avec un support projeté** : relève d'abord la position de chaque intervenant (x de 0 à 1) sur la planche et signale-la au coordinateur. Un recadrage centré qui en perd un est interdit : un cadrage par locuteur (`--x` propre à chaque extrait, `--to-x` pour un panoramique lent entre deux) ou un écran partagé dans le moteur. Contrôle : les deux visages entiers sur l'image clé de chaque extrait.
 6. **Étalonner** : `python3 -I $ML grade c1v.mp4 c1g.mp4 --look chantier [--denoise] [--sharpen]`.
    Looks : `naturel` (correction légère), `chaud` (soleil, accueil), `chantier` (béton, acier, contraste), `nuit` (intérieur sombre), `biteye` (neutre, ombres légèrement teal). Un même look pour tous les plans d'une vidéo.
 7. **Ralenti / accéléré** : `python3 -I $ML speed c1g.mp4 slow.mp4 --factor 0.5 --smooth` (ralenti fluide par interpolation) ; `--factor 8` pour un timelapse de chantier.
@@ -43,6 +44,8 @@ Travaille toujours sur des copies dans `$OUT/` ; les originaux restent intacts d
 Écrits pendant la vidéo témoignage V2. `align_check.py` a été testé sur un vrai storyboard ; `cutout_video.py` n'a été que compilé : vérifie son premier lot sur 2 ou 3 images avant un long calcul.
 - `python3 -I .claude/skills/media-lab/scripts/align_check.py PROD [--subjects z1] --info-gate` : alignement sujet/plaque image par image, `start` corrigé, crâne coupé (head_top plafonné ou qui saute). Échec = pas de rendu.
 - `python3 -I .claude/skills/media-lab/scripts/cutout_video.py --jobs travaux.txt --log lot.log` : détourage sur la plaque en lot (une ligne : plaque image0 nb u2net|rvm sortie), arrêt au premier défaut de tête. Remplace les lanceurs `run_*.sh`.
+- **Contrôle de bords d'un détourage** : pose le calque sur un fond rouge saturé (la couleur la plus éloignée d'une frange verte), puis sur un fond clair, et regarde à 200 % cheveux, mains et bord du costume aux images t−1, t, t+1 des bornes. Franges de couleur, morceaux de plaque ou lettre parasite = lot à refaire. Une option `--check-bg red|light` de `cutout_video.py` s'écrit si le geste revient deux fois.
+- **Fond vert filmé exprès** (jamais le cas des sources clients à ce jour) : `chromakey` avec similarité 0,30 et mélange 0,10, puis `despill` ; frange encore visible → similarité 0,36 ; objet transparent par endroits → 0,24 (valeurs de départ).
 
 ## Plans de profondeur (photos)
 

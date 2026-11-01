@@ -24,3 +24,24 @@ Méthode : 10 recherches web (12 derniers mois), outils vérifiés en local (ffm
 - Détecteurs de « contenu IA générique » : rien de publié ; notre grille « amateur / vidéo IA » reste manuelle.
 - Tendance « texte derrière le sujet » : technique documentée par des tutoriels, mais aucune donnée de tendance 2026 ; on garde le retour d'expérience V2 (effet « magazine » validé).
 - Guides de contenus des éditeurs d'outils vidéo IA (Dreamina) : publicité pour leur outil, critères biaisés.
+
+## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
+
+Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
+
+1. Test de l'image assise, image 0 posée, recouvrement à chaque changement de scène sur 3 images — `short-editing/SKILL.md` « Quality bar » (chaque temps agit, aucun fantôme de l'ancienne scène) ; `references/sub-agents.md` « Bar » — grille point 4 : OK / à corriger par scène ; à +0,3 s, opacité de l'ancienne scène ≤ 0,02.
+2. Zones sûres = gabarit unique, mesuré par le DOM — `shorts-codes.md` « Safe zones », « Mobile legibility » ; `sub-agents.md` « Bar » — le tableau du DA devient la seule référence (les fiches du producteur, du monteur, de l'artiste 3D y renvoient) ; listes `hors_zone` et `taille_min` à chaque image clé ; texte ≥ 38 px, sous-titres ≥ 58 px.
+3. Bornes hautes de mouvement — `scene-library.md` (zoom.keys, zoom.drift) ; `style-schema.md` ; `examples/kitchen-composants-premium` (un zoom de 1,3 et plus par seconde rejeté) — point 1 : punch-in ≤ 1,15 sur un visage, un par 4 s hors transitions, dérive ≤ 1 %/s ; au-delà, planche de 3 niveaux.
+4. Voile sur un visage ≤ 8 % — `sub-agents.md` « Bar » (Over the camera) ; `SKILL.md` « Quality bar » (Camera colors natural) — point 3 : dégradé local au lieu d'un voile général, luminance du visage avant et après (écart ≤ 8 %).
+5. Deux familles de mouvement — `design-system.md` « Motion » (ressort critique, appui de 5 %) ; `engine/lib/kit.js` — sophistication 5 : interface en ressort sans dépassement (0,3 à 0,45 s), gestes humains avec léger dépassement ; le pulse du CTA reste une décision de goût (planche de 3 niveaux).
+6. Cartes de taille constante — `scene-library.md` « Actors » ; `design-system.md` « Layout » (Cards never change size) — point 4 : étiquette au-dessus, carte seule centrée puis écartée, un demi-écran vide de plus d'une seconde est un défaut.
+7. Sous-titres courts en option — `scene-library.md` « captions » ; `shorts-codes.md` « Captions » — point 3 : goût tranché sur une planche A/B des mêmes 3 images clés, jamais imposé ; aucune ligne ne finit sur un mot faible, 1 ou 2 mots d'accent par phrase.
+8. Style imposé par une référence : comparer avant de montrer — `skills/steal/SKILL.md` §4 « Test it », §5 « Compare before showing », §2 « Zooms » ; `references/learnings.md` n°2, n°3 — nouveau point 9 : planche de comparaison de 15 vignettes, spectrogramme, hauteur du visage toutes les 0,5 s ; le demandeur ne doit jamais être celui qui repère l'écart.
+9. Netteté au maître 1080 — décision du demandeur du 27/10/2026 — sophistication 6 : « graphismes nets en 4K » devient « au maître 1080 (`--quality 100 --bt709`) ; 4K seulement sur demande explicite ».
+
+### Écarté
+
+- Suppression du pulse du CTA et sous-titres courts imposés : décisions de goût ; gardés comme options à trancher sur planche.
+- Clones des interfaces de plateformes (icônes, bannières, polices système) : fausse interface d'une marque tierce, déjà refusée au point 7 de la grille.
+- Mise en page unique du créateur : contredit « aucune mise en page unique imposée ».
+- Ressort sans dépassement et couleurs tirées des seules plaques : déjà couverts par le point 2 de la grille et par la sophistication 5.
