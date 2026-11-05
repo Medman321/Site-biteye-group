@@ -109,3 +109,4 @@ Le site (`index.html`, `favicon.svg`, `CNAME`) est publié par GitHub Pages sur 
 
 - **Devis envoyés d'office (décision du demandeur du 05/11/2026)** : tout devis généré à sa demande sur la plateforme de facturation est créé directement au statut « Envoyé » (`create_estimate` avec `draft: false`), jamais en brouillon, sauf s'il demande explicitement un brouillon.
 - Avant tout devis, suivre la méthode de la plateforme (`get_offer_skill`) : recherche du client, note client, termes de 30 jours, date d'expiration à J+30.
+- Après chaque `create_estimate` ou `create_invoice`, relire le document (`get_estimate` / `get_invoice`) : la plateforme enregistre souvent le total HT à la place du TTC. Renvoyer alors les mêmes lignes par `update_estimate` force le recalcul ; vérifier ensuite que le total vaut HT × 1,19.
