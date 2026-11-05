@@ -104,3 +104,8 @@ Clés et accès (ElevenLabs ou tout service) : jamais demandés ni collés dans 
 ## Site
 
 Le site (`index.html`, `favicon.svg`, `CNAME`) est publié par GitHub Pages sur biteye-group.com. N'y ajoute ni vidéos ni médias de clients ; les dossiers commençant par un point (`.claude/`, `.video-out/`) ne sont pas publiés.
+
+## Plateforme de facturation BitEye (devis, factures)
+
+- **Devis envoyés d'office (décision du demandeur du 05/11/2026)** : tout devis généré à sa demande sur la plateforme de facturation est créé directement au statut « Envoyé » (`create_estimate` avec `draft: false`), jamais en brouillon, sauf s'il demande explicitement un brouillon.
+- Avant tout devis, suivre la méthode de la plateforme (`get_offer_skill`) : recherche du client, note client, termes de 30 jours, date d'expiration à J+30.
