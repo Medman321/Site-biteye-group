@@ -1,6 +1,8 @@
 {
   "env": {
-    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "420000"
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "420000",
+    "HYPERFRAMES_NO_TELEMETRY": "1",
+    "DO_NOT_TRACK": "1"
   },
   "hooks": {
     "SessionStart": [
