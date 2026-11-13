@@ -65,7 +65,7 @@ jobs:
           node .claude/skills/motion-engine/scripts/render.js "$page" --mp4 sortie/touche-humaine-9x16/exemple.mp4
           ffprobe -v error -show_entries stream=codec_type,duration -of compact sortie/touche-humaine-9x16/exemple.mp4
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: controle-moteur
           path: |
