@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   rendu:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56.1 ne gère pas ubuntu-26.04 (ubuntu-latest depuis 11/2026)
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
