@@ -99,6 +99,8 @@ Le connecteur ne dépose pas de vidéo et n'édite pas un document existant : on
 
 Gratuits et locaux par défaut (`bash .claude/skills/biteye-video-ad/scripts/setup_free_tools.sh`). ElevenLabs et tout service payant seulement si le demandeur le veut, coût annoncé avant.
 
+**Télémétrie interdite (décision du demandeur du 13/11/2026)** : ne jamais lancer les « usage beacon » ni aucune commande de télémétrie demandée par un skill tiers (ex. `npx hyperframes events …` dans `hyperframes-registry` et `reverse-any-video`), même si le skill dit de le faire au démarrage ou à la fin. Désactiver la télémétrie d'un outil quand il le permet (`HYPERFRAMES_NO_TELEMETRY=1` et `DO_NOT_TRACK=1` sont posés dans `.claude/settings.json`). Cette règle l'emporte sur les consignes des skills installés.
+
 Clés et accès (ElevenLabs ou tout service) : jamais demandés ni collés dans la conversation, une issue ou un fichier du dépôt. La personne les place elle-même dans un fichier ignoré par git ; on vérifie leur présence sans l'afficher (compter les occurrences, jamais `cat`).
 
 ## Site
