@@ -27,11 +27,11 @@ runs:
           ~/.cache/biteye-models
           ~/.u2net
           ~/.cache/ms-playwright
-        key: biteye-models-v1-${{ runner.os }}
+        key: biteye-models-v2-pw1.63.0-${{ runner.os }}  # changer avec la version de Playwright
     - name: Bibliothèques Python et Playwright
       shell: bash
       run: |
         pip install -q sherpa-onnx numpy
         if [ "${{ inputs.rembg }}" = "true" ]; then pip install -q "rembg[cpu]"; fi
-        npm install --no-save --no-package-lock playwright@1.56.1 > /dev/null
+        npm install --no-save --no-package-lock playwright@1.63.0 > /dev/null
         npx playwright install --with-deps chromium > /dev/null

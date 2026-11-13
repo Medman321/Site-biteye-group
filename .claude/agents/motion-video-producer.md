@@ -46,7 +46,7 @@ Suis `biteye-video-ad` §3 et §4 (`.claude/skills/biteye-video-ad/SKILL.md`), a
 ## Notes moteur
 
 - Rendu : maître 1080 (`--quality 100 --bt709`, x264 crf 16, `yuv420p`, `+faststart` ; ≈ 0,19 à 0,47 s/image en 1080×1920 selon les filtres) + version WhatsApp ≤ 15 Mo ; 4K (`--scale 2 --master`, ≈ 1,4 à 1,9 s/image) seulement sur demande explicite du demandeur. Reprise : `render.js` ne réencode que les tranches de 5 s dont l'empreinte a changé ; vérifie dans son journal le nombre de tranches rendues. Si le texte fin ou l'arabe montre des artefacts, tester PNG sur une image clé avant de généraliser.
-- Le Chromium de rendu (Playwright 1.56.1, Chromium 141) ne lit pas H.264 : clips en WebM VP9 sans son, son via `audioMix`. Si le conteneur passe à Playwright ≥ 1.57 (builds Chrome for Testing), refaire un test `canPlayType` avant de retirer cette conversion.
+- Chromium de rendu : Playwright 1.63.0 (Chromium 153) dans la CI comme dans le conteneur de session. Mesure du 13/11/2026 : `canPlayType` H.264 = « probably » (le Chromium 141 de Playwright 1.56.1 ne le lisait pas). La conversion des clips en WebM VP9 sans son (son via `audioMix`) reste la règle tant qu’un rendu d’essai avec un clip H.264 n’a pas été comparé image par image.
 - Capture image par image par `page.screenshot` (jamais l'enregistreur vidéo de Playwright, non exact à l'image) ; ne pas migrer vers HyperFrames ou Remotion : le moteur maison fait le même travail (rendu = fonction pure du temps).
 
 ## Compte rendu (ta réponse)
