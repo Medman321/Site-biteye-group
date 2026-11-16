@@ -8,3 +8,6 @@ __pycache__/
 .claude/skills/motion-engine/examples/**/*.wav
 .claude/skills/motion-engine/examples/**/*.jpg
 .claude/skills/motion-engine/examples/**/*.png
+# logo-design : bibliothèque de 1 400 logos de marques tierces (référence locale, jamais publiée dans ce dépôt public)
+.claude/skills/logo-design/assets/library/svg/
+.claude/skills/logo-design/assets/library/gallery.html

@@ -11,4 +11,7 @@ REL=https://github.com/k2-fsa/sherpa-onnx/releases/download
 # Whisper turbo (transcription locale) : téléchargé à la première utilisation de transcribe_local.py --asr
 # Voix Piper : téléchargées à la première utilisation de voice_tts.py
 node -e "require('/opt/node-tools/node_modules/playwright')" 2>/dev/null || node -e "require('playwright')" 2>/dev/null || npm i -g playwright
+# Logo et identité visuelle (skills logo-design, canvas-design) : rendu SVG→PNG et polices arabes
+python3 -c "import cairosvg" 2>/dev/null || pip install -q cairosvg
+command -v rsvg-convert >/dev/null && fc-list | grep -qi 'NotoKufiArabic' || { apt-get install -y -q librsvg2-bin fonts-noto-core fonts-hosny-amiri >/dev/null 2>&1 || { apt-get update -q >/dev/null 2>&1 && apt-get install -y -q librsvg2-bin fonts-noto-core fonts-hosny-amiri >/dev/null 2>&1; }; }
 echo "Outils gratuits prêts."
