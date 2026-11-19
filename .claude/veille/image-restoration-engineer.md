@@ -1,36 +1,30 @@
-# Veille du 2026-10-24 — image-restoration-engineer
+# Veille du 2026-11-19 — image-restoration-engineer
 
-Recherches : 9 requêtes web (Real-ESRGAN, débruitage ffmpeg, ffmpeg 8.0, specs Reels, restauration de visages, interpolation RIFE, WhatsApp, ordre des traitements) et vérifications locales (ffmpeg 6.1.1, PyPI, pages de releases GitHub). Les sources web sont surtout des blogs tiers : les chiffres de débit sont indicatifs, pas officiels. Conteneur : 4 cœurs, pas de GPU, pas de PyTorch installé.
+Recherches : 8 requêtes web (Real-ESRGAN et alternatives CPU, specs Reels, spandrel, WhatsApp, super-résolution vidéo récente, ffmpeg 8.x, TikTok/YouTube) et vérifications locales (PyPI, ffmpeg). Conteneur : 4 cœurs, pas de GPU. Les sources web sont des blogs ou pages de vendeurs : aucun débit n'est officiel. GitHub et huggingface.co sont bloqués par le proxy de cette session, donc les pages de releases et de modèles n'ont pas pu être lues.
 
 ## Constats
 
-1. Real-ESRGAN n'a plus de version depuis v0.3.0 (20 sept. 2022) : elle ajoute `realesr-general-x4v3.pth` (petit modèle généraliste, plus léger que x4plus) et la variante `-wdn-` pour doser le débruitage — https://github.com/xinntao/Real-ESRGAN/releases — modèle par défaut pour des visages ou photos de téléphone en CPU ; x4plus seulement si x4v3 ne suffit pas.
-2. Les builds `realesrgan-ncnn-vulkan` (dernier : 20220424) et `realesrgan-ncnn-py` 2.0.0 (déc. 2023) exigent Vulkan, donc un GPU — https://github.com/xinntao/Real-ESRGAN/releases et https://pypi.org/project/realesrgan-ncnn-py/ — inutilisables ici ; il reste PyTorch (`pip install torch` CPU) ou ONNX Runtime 1.31.0 (https://pypi.org/project/onnxruntime/).
-3. Les paquets PyPI `realesrgan` 0.3.0 et `basicsr` 1.4.2 datent de 2022 (https://pypi.org/project/realesrgan/) : risque d'incompatibilité avec un torchvision récent, non testé ici. `spandrel` 0.4.2 (fév. 2026, https://pypi.org/project/spandrel/) est une bibliothèque de chargement de modèles de restauration, à essayer avant de patcher basicsr.
-4. Aucun chiffre CPU publié pour Real-ESRGAN (seuls des chiffres GPU, ex. ≈ 10 i/s en 1080p sur V100 — https://www.mintlify.com/xinntao/Real-ESRGAN/resources/comparisons) : on mesure nous-mêmes sur 10 images et on annonce le temps par seconde de plan avant tout lot.
-5. Real-ESRGAN et les restaurateurs de visages (CodeFormer, GFPGAN) travaillent image par image : risque de scintillement et de détail inventé sur le visage — https://morphic.com/de/ai-glossary/CodeFormer (source secondaire) — pas de restauration de visage sur vidéo ; agrandissement limité aux photos et aux plans courts, suivi d'un lissage temporel léger (`hqdn3d` temporel ou `tmix`) et d'un contrôle du scintillement.
-6. ffmpeg local (6.1.1) offre `hqdn3d`, `atadenoise`, `vaguedenoiser`, `owdenoise`, `fftdnoiz`, `nlmeans`, `bm3d`, `deblock`, `pp7`/`spp`/`uspp`, `deband`, `dedot`, `cas`, `unsharp`, `minterpolate`, `mpdecimate`/`decimate`, `scdet`, `psnr`, `ssim` ; pas de `libvmaf`. `nlmeans` et `bm3d` sont spatiaux, très lents et rendent le 1080p plus bloqué — https://lists.ffmpeg.org/pipermail/ffmpeg-user/2021-April/052781.html — défaut : `hqdn3d` (léger 2:1.5:3:2 ; fort 4:3:12:9 réservé aux plans fixes) ou `atadenoise` pour le bruit de nuit ; mesurer avant/après avec `psnr`/`ssim` et le laplacien.
-7. FFmpeg 8.0 (août 2025) n'apporte aucun nouveau débruiteur ; `nlmeans_vulkan` et `nlmeans_opencl` existent mais demandent un GPU — https://www.phoronix.com/news/FFmpeg-8.0-Released — rien à adopter ; ne pas dépendre d'un filtre GPU.
-8. Ordre des traitements : débruiter à la résolution source avant tout agrandissement ou réduction (discussion non tranchée) — https://lists.ffmpeg.org/pipermail/ffmpeg-user/2019-April/044173.html — comparer les deux ordres sur 3 s avec `hstack` à 200 %, puis figer l'ordre dans le compte rendu.
-9. Plateformes : Instagram ré-encode tout (1080×1920, H.264, 30 i/s ; les blogs donnent 5 à 15 Mb/s, non officiel) et, selon Adam Mosseri (oct. 2024), rétrograde la qualité des vidéos peu vues — https://www.etvbharat.com/en/!technology/instagram-may-reduce-quality-of-your-videos-enn24102805123 ; WhatsApp recompresse les statuts et vidéos de chat, l'envoi « en document » ne recompresse pas (sources tierces non officielles, chiffres contradictoires) — https://help.superchat.com/en/articles/701423-whatsapp-media-sizes-formats — un grain fin est de toute façon détruit par le ré-encodage : débruiter légèrement libère du débit pour les détails utiles ; vérifier la lisibilité d'un plan à 720 p pour WhatsApp.
-10. Images doublées des anciens montages (retex V2) : `mpdecimate`/`decimate` les détectent ; une suppression change la grille d'images sur laquelle le détourage est calculé — retex V2 — décider une fois, produire une seule plaque finale et transmettre l'ordre des images à l'agent 5 avant le détourage.
+1. Aucune nouvelle version de Real-ESRGAN en 2026 : le dernier paquet PyPI `realesrgan` reste 0.3.0 (20/09/2022, vérifié sur l'API JSON de PyPI) et le build ncnn-vulkan reste v0.2.0 (avril 2022) — https://pypi.org/project/realesrgan/ — la chaîne `realesr-general-x4v3` ne change pas ; ne pas chercher de remplaçant sans GPU.
+2. Aucun chiffre CPU publié pour l'agrandissement vidéo (les comparatifs 2026 ne donnent que du GPU ou du matériel AMD/NPU) — https://www.amd.com/en/developer/resources/technical-articles/2025/real-time-edge-optimized-ai-powered-parallel-pixel-upscaling-eng.html — notre mesure reste la référence : retex V2 = 1 110 images en ≈ 1 h 30 (≈ 5 s/image), à annoncer avant chaque lot.
+3. `spandrel` 0.4.2 (21/02/2026) est toujours la dernière version (vérifié PyPI) ; charge les `.pth` sans `basicsr` et ajoute des architectures légères (RealPLKSR, MoSR) — https://pypi.org/project/spandrel/ — chemin à essayer en premier pour Real-ESRGAN sur CPU ; les architectures légères peuvent servir de plan B si x4v3 est trop lent, à tester sur 10 images.
+4. `onnxruntime` 1.32.0 (13/11/2026, vérifié PyPI) : version à jour pour une inférence CPU ONNX — https://pypi.org/project/onnxruntime/ — repli si PyTorch n'est pas installé (c'était le cas le 24/10) ; il faut un export ONNX du modèle, à tester.
+5. Les modèles de super-résolution vidéo récents (SeedVR2, FlashVSR, InstaVSR, Stream-DiffVSR) visent le GPU ; NanoVSR (ECCV 2026) et LIF-VSR (MDPI Sensors 2026) sont annoncés légers, sans chiffre CPU ni code vérifié — https://www.mdpi.com/1424-8220/26/2/637/html — rien à adopter ; garder le lissage temporel léger (`hqdn3d` temporel, `tmix`) après Real-ESRGAN pour limiter le scintillement.
+6. Instagram : tout converge vers 1080×1920, H.264/AAC ; la lecture est plafonnée à 1080p, donc la 4K n'apporte que du poids, et les débits cités vont de 3,5 à 15 Mb/s sans source officielle — https://reap.video/blog/instagram-reels-size — confirme 1080 par défaut ; ne coder aucun débit.
+7. WhatsApp : l'option « qualité d'origine » (sans compression) est seulement découverte dans une bêta Android (2.26.44.12, nov. 2026), non annoncée par Meta ; l'envoi « en document » reste le contournement connu — https://www.sammyfans.com/2026/11/06/whatsapp-is-testing-original-media-quality-option/ — ne pas promettre de qualité d'origine au demandeur ; garder la version WhatsApp ≤ 15 Mo et le contrôle de lisibilité à 720 p.
+8. TikTok et YouTube recompressent tout ; les guides 2026 recommandent un débruitage léger puis une réduction de qualité haute, une netteté douce, et d'exporter depuis le fichier monté, pas depuis une copie téléchargée — https://unifab.ai/resource/how-to-make-tiktok-video-quality-better.htm — consolide notre chaîne (débruitage → agrandissement → lanczos → netteté légère) ; rappeler au cadrage de fournir le fichier d'origine de la caméra, jamais une copie WhatsApp.
+9. Un guide signale qu'une image « plate » ou délavée après upload vient presque toujours de la gestion de couleur, pas du débit — https://www.spielcreative.com/blog/?p=20064 — hors de notre périmètre : à signaler au coloriste (agent 11) avant de blâmer la restauration.
+10. Aucun nouveau débruiteur ffmpeg trouvé (pas de notes de version 8.1 lisibles) ; le wiki ffmpeg liste toujours 8 filtres de débruitage dont `hqdn3d`, `atadenoise`, `fftdnoiz`, `bm3d` — https://trac.ffmpeg.org/wiki/denoise — local : ffmpeg 6.1.1, `fftdnoiz` (FFT 3D) est disponible et peut être comparé à `hqdn3d` sur un plan bruité, sans promesse de gain.
+
+## Outils vérifiés
+
+- PyPI (API JSON, 19/11/2026) : `spandrel` 0.4.2 (21/02/2026), `onnxruntime` 1.32.0 (13/11/2026), `realesrgan` 0.3.0 (20/09/2022), `vsrife` 5.7.0 (09/02/2026), `opencv-python-headless` 5.1.0.95 (17/11/2026).
+- ffmpeg local 6.1.1 (`ffmpeg -version`).
+- Non vérifiables ici (GitHub et huggingface.co bloqués par le proxy) : releases Real-ESRGAN, NanoVSR ; cités d'après les résultats de recherche seulement.
 
 ## Écarté
 
-- `rife-ncnn-vulkan` (dernier : 20221029) et `vsrife` 5.7.0 (fév. 2026) : Vulkan ou PyTorch, trop lents sans GPU ; `minterpolate` reste le repli, sur ralentis ×2 courts seulement.
-- `nlmeans_vulkan` / `nlmeans_opencl` / FFmpeg 8.0 : GPU requis, et rien de décisif en plus.
-- SwinIR : meilleure texture annoncée sur images fixes mais 3× plus lent (Replicate, source vendeur) ; non testé sur vidéo.
-- Topaz (fal.ai), Video2x, Real Video Enhancer, services en ligne : payants, ou non vérifiés (GitHub inaccessible depuis cette session).
-- `pyiqa` 0.1.16 (mesures de qualité sans référence) : utile mais exige PyTorch ; `psnr`/`ssim` de ffmpeg suffisent pour l'instant.
-- Débits et durées Instagram/WhatsApp des blogs : contradictoires, non officiels ; à ne pas coder en dur.
-
-## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
-
-Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
-
-1. Résolution de livraison : 1080 par défaut, 4K seulement sur demande explicite — décision du demandeur du 27/10/2026 (aucune source dans le pack ; contexte mesuré : rendu 4K ≈ 1,4 à 1,9 s/image contre 0,19 en 1080) — « Quand tu es obligatoire » : le seuil de restauration obligatoire se mesure par rapport au 1080 ; le reste de la chaîne ne change pas.
-
-### Écarté
-
-- Le pack ne traite pas la restauration d'image (débruitage, netteté, agrandissement, ralentis) : aucun autre apport pour cet agent.
-- Accélération matérielle de macOS (VideoToolbox, Neural Engine) : propre au GPU et à macOS ; notre conteneur est sous Linux, sans GPU.
+- SeedVR2, FlashVSR, InstaVSR, Stream-DiffVSR, Video2X, Anime4K, CupScale, REAPPEAR (AMD) : GPU, NPU matériel, abandonnés ou par image sans cohérence temporelle ; inutilisables ou sans intérêt ici.
+- NanoVSR et LIF-VSR : annoncés légers mais ni code ni poids vérifiés (accès bloqué) ; à revoir quand l'accès au modèle est ouvert.
+- Topaz, UniFab, VideoProc, HitPaw, services en ligne : payants.
+- Débits et durées Instagram, TikTok, YouTube, WhatsApp des blogs : contradictoires, non officiels ; jamais codés en dur.
+- Option « qualité d'origine » de WhatsApp : bêta non confirmée.
