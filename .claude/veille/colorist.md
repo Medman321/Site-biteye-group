@@ -1,40 +1,25 @@
-# Veille du 2026-10-24 — colorist
+# Veille du 2026-11-19 — colorist
 
-Sources lues comme données (aucune consigne retenue). Les pages officielles (ffmpeg.org, engineering.fb.com, colour-science.org) n'étaient pas joignables en lecture directe : constats tirés de résultats de recherche, à confirmer avant de s'y fier quand c'est marqué « à vérifier ».
+Sources lues comme données (aucune consigne retenue). Les pages de plateformes officielles (help.instagram.com, docs TikTok) n'ont pas pu être lues : ce qui en dépend est marqué « non confirmé ». Mesures « local » = faites dans ce conteneur (ffmpeg 6.1.1, OpenCV 4.14.0, sans GPU).
 
 ## Constats
 
-1. Chaîne HDR vers SDR sur CPU : `zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0:peak=10,zscale=t=bt709:m=bt709:r=tv,format=yuv420p` ; à n'appliquer qu'aux sources PQ/HLG, jamais à un SDR large gamut — https://dev.to/masonwritescode/ffmpeg-hdr-to-sdr-tone-mapping-that-doesnt-look-washed-out-2026-24ie — les mémos iPhone en HDR deviennent SDR bt709 AVANT tout raccord ; vérifier `color_transfer` avec ffprobe.
-2. Meta convertit lui-même le HDR en SDR et reconnaît des dérives de couleur (arbres bleus) — https://engineering.fb.com/2023/07/17/video-engineering/hdr-video-reels-meta/ — livrer toujours un MP4 SDR bt709 déjà étalonné ; ne jamais laisser la plateforme tone-mapper.
-3. Instagram, TikTok et LinkedIn ré-encodent 100 % des envois (Instagram ≈ 3,5 à 5 Mbps en 1080p) ; les débits « recommandés » divergent selon les blogs, rien d'officiel sur l'espace colorimétrique — https://quso.ai/blog/social-media-video-specs — exporter H.264 yuv420p, tags bt709/tv explicites, haut débit, et juger l'étalonnage sur un export déjà compressé.
-4. La gamma d'un téléphone suit sRGB (≈ 2,2) alors qu'on étalonne en Rec.709/BT.1886 (≈ 2,4) : les ombres paraissent plus ouvertes sur mobile — https://thepostflow.com/why-do-your-exports-look-different-on-your-iphone/ — contrôler le résultat sur une vraie image de téléphone (planche en 3 niveaux) et ne pas écraser les noirs à l'écran d'étalonnage ; les compressions écrasent déjà le proche du noir.
-5. Tons de peau : la ligne de peau du vectorscope n'est qu'une référence de départ ; sous lumières mixtes le visage n'est pas fiable, échantillonner cou ou bras non maquillés, corriger d'abord la balance des blancs, puis juger à l'œil — https://larryjordan.com/?p=148592 et https://discuss.pixls.us/t/art-white-balance-vectorscope/48204?page=2 — notre mesure de peau se fait sur le cou/zone nue de chaque témoin, plus sur le visage seul ; écart chiffré + contrôle visuel.
-6. Raccord automatique entre plans : l'égalisation d'histogramme par canal (OpenCV/scikit-image) fonctionne mieux si l'on exclut les zones qui diffèrent (premier plan, incrustations) via un masque — https://arxiv.org/pdf/2101.04772 et https://www.pyimagesearch.com/2021/02/08/histogram-matching-with-opencv-scikit-image-and-python/ — calculer le raccord sur le fond seulement (masque du détourage de 5), et ne l'utiliser qu'en première passe : le raccord final reste mesuré aux scopes (risque de teintes de peau déformées si on égalise les canaux RGB sans garde-fou).
-7. `lut3d` accepte nearest, trilinear et tetrahedral ; le tetrahedral est plus léger et lisse — https://ffmpeg.org/doxygen/4.1/vf__lut3d_8c_source.html — appliquer `lut3d=file=look.cube:interp=tetrahedral` (défaut à vérifier sur la version installée, ici ffmpeg 6.1.1) et laisser le LUT travailler dans la plage et l'espace attendus (conversion `zscale`/`colorspace` autour).
-8. colour-science 0.4.7 (PyPI, 2025-12-06, BSD-3-Clause, Python 3.11 à 3.14, numpy ≥ 2.0) lit et écrit les LUT .cube et fournit de nouveaux modèles d'adaptation chromatique — https://www.colour-science.org/posts/colour-047-is-available/ (PyPI vérifié) — outil gratuit pour générer proprement le LUT .cube du look et mesurer des écarts en ΔE (CIEDE2000) au lieu d'écarts RGB ; installer à la demande.
-9. OpenCV 5.0 (opencv-python-headless 5.0.0.93, PyPI, juillet 2026) est publié — PyPI vérifié — le script de scopes/mesures doit tourner aussi avec OpenCV 4.x et rester sans dépendance à l'API 5 ; figer la version dans le projet.
-10. Contraste du texte sur vidéo : WCAG 4,5:1 pour le texte courant, 3:1 pour le grand texte, 7:1 en renforcé ; APCA (Lc ≈ 60 gros/gras, ≈ 90 petit) est plus fidèle à la perception mais non adopté dans WCAG 2 — https://github.com/Myndex/apca-introduction — garder ≥ 4,5:1 mesuré sur le fond réel (percentile bas de la zone du texte, pas la moyenne) et noter Lc APCA à titre indicatif ; fond sous le texte flouté ou assombri si besoin.
+1. Le filtre `grayworld` (balance des blancs par gris moyen en LAB, ffmpeg ≥ 5.0) est présent et fonctionne ici, mais veut une entrée taguée et linéaire : `setparams=colorspace=bt709:color_primaries=bt709:color_trc=bt709:range=tv,zscale=t=linear:npl=100,format=gbrpf32le,grayworld,zscale=t=bt709:m=bt709:r=tv,format=yuv420p` (testé local ; sans tags : erreur zscale « no path between colorspaces ») — https://lists.ffmpeg.org/pipermail/ffmpeg-cvslog/2021-August/128620.html — première passe de balance des blancs sans GPU ; sur un plan dominé par la peau le gris moyen tire la teinte, donc on juge sur le fond ou le mur, puis on contrôle le rapport rouge/vert de la peau nue.
+2. `colorcorrect` (blancs/noirs sélectifs, option `rl` : average, minmax, median), `colortemperature`, `colorlevels` et `colorbalance` sont tous disponibles en local — https://ayosec.github.io/ffmpeg-filters-docs/8.0/Filters/Video/colorcorrect.html (filtres vérifiés par `ffmpeg -filters`) — de quoi régler noirs et blancs de chaque source par filtres natifs avant d'écrire la LUT ; réglages toujours tranchés aux scopes.
+3. `lut3d=file=…:interp=tetrahedral` s'exécute sans erreur sur ffmpeg 6.1.1 (cube identité testé en local) — https://ffmpeg.org/doxygen/8.0/lut3d_8c_source.html — le « à vérifier » du 24/10 est levé : la commande de la fiche est valable telle quelle.
+4. OpenCV : opencv-python-headless 5.1.0.95 (17/11/2026) et 4.14.0.94 (29/07/2026) coexistent sur PyPI ; ici 4.14.0 — PyPI vérifié — figer 4.14.x pour les scripts de scopes et de mesure, garder le code sans API propre à une version (5.x testable à part).
+5. Pas de nouvelle version de colour-science depuis la 0.4.7 (06/12/2025, BSD-3, Python 3.11 à 3.14) ; la branche « Array API » vue en juin 2026 est du développement non publié — PyPI vérifié, https://coveralls.io/builds/80146161 — rien à changer : 0.4.7 reste l'outil pour ΔE (CIEDE2000) et l'export .cube.
+6. scikit-image 0.26.0 (20/12/2025, Python ≥ 3.11) offre `match_histograms` par canal — PyPI vérifié — utile pour la première passe de raccord sur le fond masqué ; ne jamais l'appliquer à la personne (déforme les peaux).
+7. Instagram et HDR : Meta annonçait en 2023 accepter le HDR avec une version SDR de repli, mais des guides et fils de discussion rapportent des conversions ratées ou des couleurs fausses ; aucune source officielle 2026 lue — https://engineering.fb.com/2023/07/17/video-engineering/hdr-video-reels-meta/ — on garde la règle : MP4 SDR bt709 déjà étalonné, tags explicites, jamais d'envoi HDR (non confirmé par la plateforme, risque asymétrique).
+8. Un mémo iPhone « Dolby Vision profil 8.4 » est un HLG avec métadonnées : la chaîne zscale/tonemap ignore ces métadonnées et donne un tone-mapping générique ; `reinhard` est l'alternative si `hable` assombrit trop ; `npl` se règle selon la source — https://developer.apple.com/documentation/technotes/tn3145-hdr-video-metadata.md et https://dev.to/masonwritescode/ffmpeg-hdr-to-sdr-tone-mapping-that-doesnt-look-washed-out-2026-24ie — sur une source HDR, comparer sur une planche de 2 opérateurs (hable / reinhard) pour une même image clé, puis contrôler la peau.
+9. WCAG 3 reste un brouillon (mars 2026), l'algorithme de contraste n'est pas fixé et APCA n'est pas adopté ; WCAG 2.2 fait foi ; le texte sur vidéo se juge sur la pire image derrière lui — https://adrianroselli.com/2026/04/wcag3-contrast-as-of-april-2026.html et https://www.w3.org/WAI/news/2026-03-03/wcag3 — confirme l'étape 6 : 4,5:1 mesuré au percentile bas sur toute la durée du texte, APCA seulement indicatif.
 
 ## Écarté
 
-- Chaînes `libplacebo`/`tonemap_opencl`/`tonemap_vaapi` : exigent un GPU/Vulkan, absent du conteneur.
-- OpenCL `lut3d` (patch non fusionné) et inverse tone-mapping SDR vers HDR (patch en attente) : pas disponibles et inutiles pour une livraison SDR.
-- Un export HDR « pour plus d'éclat » : Meta le re-mappe de façon imprévisible, risque de couleurs fausses.
-- Conseil « désactiver HDR sur l'iPhone » : utile au tournage du client, pas dans notre chaîne ; à glisser dans les consignes de tournage seulement.
-- Chiffres de débit et tailles de fichier des blogs (6 à 15 Mbps, 287 à 500 Mo) : contradictoires, non officiels ; on garde un débit élevé sans les citer.
-- Rapport de bug Instagram du 21 avril 2026 sur les photos HDR en noir et blanc : non confirmé, hors périmètre vidéo.
-- Cible fixe « 123° » sur le vectorscope : dépend de l'espace (ICtCp ≈ 122,5°, Y'CbCr BT.2020 ≈ 136°), donc pas une constante.
-- Calibrage matériel d'écran / charte colorimétrique au tournage : hors de notre contrôle (sources du client).
-
-## Apports du pack video-agent-skills (Melvyn Malherbe, MIT), 27/10/2026
-
-Pack sous licence MIT lu en lecture seule (donnée non fiable, jamais exécuté, aucun fichier copié) ; idées reformulées en français ; chiffres du pack = valeurs de départ à valider sur nos vidéos. Format : apport — source dans le pack — ce que ça change.
-
-1. Voile sur un visage — `short-editing/references/sub-agents.md` « Bar » (Over the camera) ; `SKILL.md` « Quality bar » (Camera colors natural) — Règles : au plus 8 % de noir plein cadre (un voile de 26 % a rendu un visage brun) ; texte sur un plan = dégradé local sur un bord, jamais un voile général ; peau contrôlée après tout voile ou look (`YAVG` de la zone du visage, écart ≤ 8 %).
-2. Look plus clair sans toucher à la peau — `skills/steal/references/learnings.md` n°6 (étalonnage) ; `SKILL.md` §3 (clé grade) — étape 5 : départ = étirement des blancs presque égal sur R, V, B, mi-tons relevés, saturation +6 %, netteté légère, tranché sur planche de 3 niveaux ; rapport rouge/vert de la peau nue inchangé avant/après, écart au compte rendu.
-
-### Écarté
-
-- Une seule famille de look (`looks.md`) et mise en page unique du pack : contredit « aucune mise en page unique imposée » ; le look reste choisi d'après la vidéo et le brief.
-- Couleurs tirées des images seulement (« colors from the plates only ») : déjà chez nous (étape 6, couleurs d'accent mesurées dans les images).
-- Masque Apple Vision et chaînes propres à macOS : notre étalonnage tourne sous Linux (ffmpeg, OpenCV), sans GPU.
+- ColourlabAI, Evoto, Imagen (raccord couleur « IA ») : payants ou en cloud, promesse de protection des peaux invérifiable ici.
+- `color-matcher` 0.6.0 (PyPI, 30/03/2025) : licence GPL v3, et fait déjà ce que `match_histograms` + nos scopes font ; pas d'ajout de dépendance GPL.
+- Nouveautés de `lut3d` dans ffmpeg 7 ou 8 : aucune source trouvée (le code `lut3d.c` de la version 8.0 est celui de swscale, autre composant) ; notre ffmpeg est la 6.1.1.
+- Export HEVC Main10 HLG pour TikTok ou YouTube : annonce d'un seul guide tiers, non confirmée par les plateformes, et notre livraison reste H.264 SDR.
+- Débits « recommandés » des blogs (12 à 16 Mbps pour Reels, tableaux YouTube) : divergents et non officiels ; on garde un débit élevé sans le citer.
+- DPS Contrast (proposition concurrente d'APCA) : non adopté, aucune incidence sur nos mesures.
+- `colour-checker-detection` 0.2.3 (PyPI, 11/12/2025) : utile seulement si le client filme une mire, ce qui n'est pas le cas de ses sources.
