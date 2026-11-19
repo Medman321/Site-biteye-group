@@ -14,6 +14,7 @@ SK=.claude/skills/transitions/scripts
 python3 -I $SK/transition_audit.py sources SOURCE.mp4 [--sheet src.jpg] [--json src.json]
 python3 -I $SK/transition_audit.py cuts VIDEO.mp4 --storyboard $OUT/transitions.json [--sheet planche.jpg] [--json mesures.json] [-v]
 python3 -I $SK/transition_audit.py cuts VIDEO.mp4 --cuts 5.57,10.03,13.00          # temps à la main
+python3 -I $SK/transition_audit.py cuts VIDEO.mp4 --storyboard SB.json --open --open-band 520:935 [--open-min 0.8]   # + ouverture S0
 ```
 Prérequis : ffmpeg, numpy, `pip install "opencv-python-headless<5"` (la branche 5 n'a plus les cascades Haar). Visages : MediaPipe s'il est installé, sinon YuNet (`~/.cache/biteye-transitions/face_detection_yunet_2023mar.onnx`, MIT, adresse dans `references/ressources-libres.md`), sinon Haar. Le détecteur utilisé est écrit en tête du rapport. ≈ 10 à 15 s pour 40 s de 1080×1920 ; aucun jeton de modèle.
 
@@ -87,6 +88,7 @@ Ce que l'outil contrôle à chaque coupe (seuils détaillés : `references/seuil
 | image fantôme | aucune (image isolée, coupe en deux temps, image mélangée seule) | fondu ≥ 6 images |
 | direction du mouvement | pas d'inversion de part et d'autre | whips, coupe sur l'action |
 | relâche, transition sans effet | signalées en note | `end` = `cut` (lu dans `cues.json` ou le storyboard), `matchCut` aux listes `a`/`b` vides |
+| ouverture S0 (transition déclarée à `cut`/`at` ≤ 1 image : mouvement d'entrée, pas une coupe) | avec `--open` : flux optique moyen des images 1 à 5 **≥ 0,8 px/img** (270×480) sur la bande `--open-band Y0:Y1` (px de la vidéo, hors calques fixes ; ex. 520:935 en 1080×1920) ; sens horizontal = signe du vx médian | sans `--open`, ligne « — » sans verdict (jamais « hors de la vidéo ») ; `--open` sans ouverture déclarée mesure quand même le début de la vidéo |
 
 Lecture : la coupe déclarée (`cut` du storyboard ou de `cues.json`, image `ceil(cut × fps)`) est gardée si elle est franche et suit un zoom fort continu, dont les images comptent alors comme rampe (V3, 17,17 : ×1,41 en 4 images). Avec `--cuts` (temps arrondis), la coupe est recalée sur le plus grand saut à ±3 images. Les yeux viennent de YuNet ou MediaPipe ; avec Haar, le centre de la boîte sert de repli (noté « boîte »). Un clignement rend les yeux moins sûrs (V3, 10,03 : −76 px mesurés en 540×960, −87 px en pleine résolution).
 
