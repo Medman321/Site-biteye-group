@@ -9,6 +9,8 @@ Toutes les mesures se font sur l'image réduite à 270×480 (écarts, flux, lumi
 | Bandes fixes | pixels figés (écart ≤ 1 sur toute la fenêtre de la coupe : barre de marque, cadre, sous-titre posé) exclus du flux, s'il reste ≥ 20 % de l'image | — | `--static` | ils diluaient le zoom mesuré (V3, 5,57) |
 | Relâche après | même calcul après la coupe | information (exigée ≥ 3 pour `maskReveal`, fondus) | — | — |
 | Référence calme | quartile bas de t−20 … t−6 (sans dépasser la coupe précédente) | — | — | évite qu'une transition voisine fausse la référence |
+| Netteté de référence | la plus basse de la médiane t−20 … t−6 et de la médiane des dernières images calmes t−8 … t−6 ; sert au flou de la rampe et au masquage du saut ; `-v` affiche les deux | — | — | pré-rendu du 19/11/2026 : voile clair fixe apparu dans la fenêtre, réf. 589 contre ≈ 430 sur le plan voilé, t−1 à 262 passait à 44 % au lieu de 61 % (saut masqué à tort) |
+| **Ouverture** (`--open`) | flux optique moyen des images 1 à 5, en 270×480, sur la bande `--open-band` si donnée | **≥ 0,8 px/img** | `--open-min`, `--open-band` | grammaire de la série (ouverture vivante) |
 | **Saut visible** | coupe franche d'écart ≥ 18 que ni le flou (netteté t−1 ≤ 0,5 × réf.) ni le mouvement (flux t−1 ≥ 3 px) ne masquent | aucun | `--visible`, `--mask-blur`, `--mask-flow` | V3 : 22,13 (32) et 29,67 (44) vus par le demandeur |
 | **Luminance** | écart de luminance moyenne entre t−1 et t | ≤ 12 ; au-delà, « brutal » seulement s'il fait plus de 2 × les sauts voisins (sinon « progressive », en note) | `--luma` | grille du DA (YAVG > 12 = à examiner) |
 | **Visage coupé** | boîte du visage à moins de 1 % du bord du cadre à t−1, t ou t+1 | aucun | — | retex V2 (visage coupé 9-14 s) |
