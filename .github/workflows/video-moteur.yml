@@ -39,6 +39,21 @@ jobs:
       - name: Scripts Python (syntaxe)
         run: python3 -m py_compile .claude/skills/*/scripts/*.py
 
+      - name: Audit des transitions (vidéo synthétique, ouverture à 0 s)
+        run: |
+          pip install -q "opencv-python-headless<5"
+          mkdir -p sortie/transitions && cd sortie/transitions
+          # plan A en zoom avant (ouverture vivante), coupe franche à 2 s vers un plan B
+          ffmpeg -v error -y -f lavfi -i "testsrc2=s=540x960:r=30:d=2" -f lavfi -i "testsrc=s=540x960:r=30:d=2" \
+            -filter_complex "[0]zoompan=z='1+0.01*on':d=1:s=540x960:fps=30[a];[a][1]concat=n=2:v=1[v]" -map "[v]" -pix_fmt yuv420p synth.mp4
+          echo '{"transitions":[{"cut":0.0,"type":"zoomPunch"},{"cut":2.0,"type":"zoomPunch"}]}' > transitions.json
+          set +e
+          python3 -I ../../.claude/skills/transitions/scripts/transition_audit.py cuts synth.mp4 --storyboard transitions.json \
+            -v --open --open-band 100,860 --faces none --json mesures.json | tee audit.txt
+          rc=${PIPESTATUS[0]}; set -e
+          [ "$rc" -le 1 ] || { echo "audit en erreur (code $rc)"; exit 1; }
+          grep -q "OUVERTURE" audit.txt && grep -q "^ouverture : flux moyen" audit.txt
+
       - name: Construire les exemples et leurs planches
         run: |
           set -e

@@ -16,7 +16,15 @@
                   sans effet (matchCut, whip… avec des listes a/b vides) ;
         fantôme = image isolée ou image mélangée A+B ; direction = sens du mouvement inversé de part et d'autre de la coupe.
       Verdict par coupe : OK ou À REVOIR (raisons). `--sheet` : une rangée de 7 images (t-4 … t+2) par coupe, visages encadrés.
-Code de sortie : 0 tout OK, 1 au moins une coupe À REVOIR (ou une coupe cachée trouvée en mode sources), 2 erreur.
+      Une transition d'ouverture (coupe à l'image 0, ex. zoomPunch sur la première scène) n'a pas d'image avant : verdict
+      OUVERTURE (« mesurer à part »), sans effet sur le code de sortie ; elle se contrôle avec `--open`.
+      --open [--open-band y0,y1] [--open-min 0.8] : ouverture vivante = flux optique moyen des images 1 à 5 (en 270x480)
+        ≥ open-min px/img ; `--open-band` restreint la mesure à une bande horizontale (px de la vidéo), car voiles et
+        textes fixes diluent la moyenne. Peut s'utiliser seul (sans --cuts ni --storyboard).
+      Netteté de référence (saut masqué par le flou) : la plus basse de la médiane t-20 … t-6 et de la médiane des
+        dernières images calmes t-8 … t-6 (un voile fixe qui apparaît dans la fenêtre gonfle la première, masque à tort le
+        saut et compte le voile comme rampe de flou) ; elle sert au flou de la rampe et au masquage ; `-v` donne les deux.
+Code de sortie : 0 tout OK, 1 au moins une coupe À REVOIR (ou une ouverture sous le seuil de --open) (ou une coupe cachée trouvée en mode sources), 2 erreur.
 Détecteur de visages (--faces auto) : MediaPipe (solutions, ou tâches avec --mp-model .tflite), sinon YuNet (OpenCV DNN, MIT,
 --yunet ou ~/.cache/biteye-transitions/face_detection_yunet_2023mar.onnx), sinon Haar (fourni avec opencv-python < 5).
 Coût : ≈ 10 à 30 s pour 40 s de vidéo 1080x1920, aucun jeton de modèle. Rien n'est écrit hors des chemins donnés."""
@@ -204,12 +212,12 @@ def load_cuts(a, fps):
 def cmd_cuts(a):
     W0, H0, fps, dur = probe(a.video); n_tot = int(round(dur * fps))
     FW, FH = size_for(W0, H0, 960); AW, AH = size_for(W0, H0, 480)
-    cuts = load_cuts(a, fps)
-    if not cuts: sys.exit('aucune coupe à contrôler')
+    cuts = load_cuts(a, fps) if (a.cuts or a.storyboard) else []
+    if not cuts and not a.open: sys.exit('aucune coupe à contrôler (donner --cuts, --storyboard ou --open)')
     img0 = lambda t, m: m.get('image', round(t * fps))   # image de la coupe déclarée
     win = [(max(0, img0(t, m) - 22), min(n_tot - 1, img0(t, m) + 12)) for t, _, m in cuts]
     merged = []
-    for s, e in sorted(win):
+    for s, e in sorted(win + ([(0, min(n_tot - 1, 5))] if a.open else [])):
         if merged and s <= merged[-1][1] + 1: merged[-1] = (merged[-1][0], max(e, merged[-1][1]))
         else: merged.append((s, e))
     F = dict(frames(a.video, FW, FH, select=merged))
@@ -249,8 +257,14 @@ def cmd_cuts(a):
     for (t, ty, meta), (s, e) in zip(cuts, win):
         n0 = img0(t, meta)
         if n0 not in F or n0 - 1 not in F:
-            rows.append({'t': t, 'type': ty, 'frame': n0, 'saut': 0, 'rampe_avant': 0, 'relache_apres': 0, 'lum': 0,
-                         'verdict': 'À REVOIR', 'raisons': ['coupe hors de la vidéo (%d images)' % n_tot], 'notes': []}); continue
+            base = {'t': t, 'type': ty, 'frame': n0, 'saut': 0, 'rampe_avant': 0, 'relache_apres': 0, 'lum': 0,
+                    'ecarts_avant': [], 'nettete_avant': [], 'flux_avant': [], 'zoom_avant': [], 'luma_fenetre': [], 'reference': {}}
+            if n0 <= 0:     # transition d'ouverture (première scène) : pas d'image avant, rien à comparer
+                rows.append({**base, 'verdict': 'OUVERTURE', 'raisons': [],
+                             'notes': ['ouverture : mesurer à part' + ('' if a.open else ' (--open)')]})
+            else:
+                rows.append({**base, 'verdict': 'À REVOIR', 'raisons': ['coupe hors de la vidéo (%d images)' % n_tot], 'notes': []})
+            continue
         cand = [k for k in range(n0 - 3, n0 + 4) if k in diff]
         c = max(cand, key=lambda k: diff[k]) if cand else n0
         # coupe déclarée gardée si elle est elle-même franche et du même ordre que le plus grand saut voisin :
@@ -271,7 +285,12 @@ def cmd_cuts(a):
         ref_d = q([diff[k] for k in ref])
         ref_fz = q([fzoom(k) for k in ref]) if fd.kind != 'aucun' else 0.0
         ref_sh = float(np.median([sharp[k] for k in ref])) if ref else max(sharp.get(c - 8, 0), 1)
-        def moving(k, ref_sh_=ref_sh, step=-1):
+        # netteté des dernières images calmes juste avant la rampe : un voile fixe qui apparaît (fondu) pendant t-20 … t-6
+        # gonfle la médiane de la fenêtre et masquerait à tort un saut visible ; le test de masquage prend la plus basse
+        calm = [sharp[k] for k in range(max(prev_c + 1, c - 8, s + 1), c - 5) if k in sharp]
+        ref_calm = float(np.median(calm)) if calm else ref_sh
+        ref_mask = min(ref_sh, ref_calm) if ref_calm > 0 else ref_sh
+        def moving(k, ref_sh_=ref_mask, step=-1):   # même référence calme : un voile qui apparaît ne fait pas une fausse rampe de flou
             f = FL(k)
             if f is None: return False
             sk, sp = sharp.get(k, ref_sh_), sharp.get(k + step, ref_sh_)   # flou : netteté sous la référence ET qui baisse vers la coupe
@@ -330,9 +349,9 @@ def cmd_cuts(a):
             notes.append('saut < %.0f : coupe douce ou fondu (rampe non exigée)' % a.hard)
         # saut visible : coupe franche nette (ni flou fort ni mouvement rapide à t-1 pour la masquer)
         f1m = FL(c - 1)
-        masked = (sharp.get(c - 1, ref_sh) <= a.mask_blur * ref_sh) or (f1m is not None and f1m[0] >= a.mask_flow)
+        masked = (sharp.get(c - 1, ref_mask) <= a.mask_blur * ref_mask) or (f1m is not None and f1m[0] >= a.mask_flow)
         if hard and diff.get(c, 0) >= a.visible and not masked:
-            reasons.append('saut visible %.0f non masqué (netteté t-1 à %d %% de la réf.)' % (diff[c], 100 * sharp.get(c - 1, 0) / max(ref_sh, 1)))
+            reasons.append('saut visible %.0f non masqué (netteté t-1 à %d %% de la réf.)' % (diff[c], 100 * sharp.get(c - 1, 0) / max(ref_mask, 1)))
         # voisins de la coupe ; pendant un zoom fort gardé comme rampe (run), toutes ses images comptent comme voisines
         nb = set((c - 1, c + 1)) | (set(range(run[0], run[1] + 1)) - {c} if run else set())
         steps = [abs(luma[k] - luma[k - 1]) for k in sorted(nb) if k in luma and k - 1 in luma]
@@ -370,28 +389,50 @@ def cmd_cuts(a):
                      'flux_avant': [round(FL(k)[0], 2) for k in range(c - 5, c) if FL(k)],
                      'zoom_avant': [round(FL(k)[3], 2) for k in range(c - 5, c) if FL(k)],
                      'luma_fenetre': [round(luma[k], 1) for k in range(c - 5, c + 3) if k in luma],
-                     'reference': {'ecart': round(ref_d, 1), 'flux': round(ref_mag, 2), 'zoom': round(ref_div, 2), 'nettete': round(ref_sh)},
+                     'reference': {'ecart': round(ref_d, 1), 'flux': round(ref_mag, 2), 'zoom': round(ref_div, 2), 'nettete': round(ref_sh),
+                                   'nettete_calme': round(ref_calm), 'nettete_masque': round(ref_mask)},
                      'visages': {str(k - c): [[round(v) for v in b[:4]] for b in faces(k)] for k in (c - 1, c, c + 1)} if fd.kind != 'aucun' else {},
                      'saut_visage': jump, 'fin_declaree': meta.get('end'),
                      'verdict': 'À REVOIR' if reasons else 'OK', 'raisons': reasons, 'notes': notes})
         prev_c = c
+    opening = None
+    if a.open:
+        band = None
+        if a.open_band:
+            try: y0, y1 = sorted(float(v) for v in a.open_band.split(','))
+            except ValueError: sys.exit('--open-band attend y0,y1 en px de la vidéo, ex. 600,1500')
+            r0b, r1b = int(round(y0 * AH / H0)), int(round(y1 * AH / H0))
+            if r1b - r0b < 8: sys.exit('--open-band trop étroite (< 8 lignes en %dx%d)' % (AW, AH))
+            band = np.zeros((AH, AW), bool); band[max(0, r0b):min(AH, r1b), :] = True
+        ks = [k for k in range(1, 6) if k in gray and k - 1 in gray]
+        mags = [flow_stats(gray[k - 1], gray[k], band)[0] for k in ks]
+        mean = float(np.mean(mags)) if mags else 0.0
+        ok = len(ks) == 5 and mean >= a.open_min
+        opening = {'images': ks, 'flux': [round(m, 2) for m in mags], 'flux_moyen': round(mean, 2), 'seuil': a.open_min,
+                   'bande_px': a.open_band, 'verdict': 'OK' if ok else 'À REVOIR'}
+        print('ouverture : flux moyen images 1-5 = %.2f px/img (%dx%d%s), seuil %.2f → %s%s'
+              % (mean, AW, AH, ', bande y %s px' % a.open_band if band is not None else '', a.open_min, opening['verdict'],
+                 '' if len(ks) == 5 else ' (vidéo trop courte : %d images)' % (len(ks) + 1)))
+        if a.verbose: print('        flux par image %s' % opening['flux'])
     print('détecteur de visages : %s%s | %d coupes | seuils : rampe ≥ %d img, saut franc ≥ %.0f, luminance ≤ %.0f'
           % (fd.kind, (' (' + fd.err + ')') if fd.kind != 'mediapipe' and fd.err else '', len(rows), a.ramp, a.hard, a.luma))
     print('%-7s %-11s %-6s %-6s %-6s %-6s %-5s %-9s %s' % ('t', 'type', 'image', 'saut', 'rampe', 'relâche', 'lum', 'verdict', 'raisons / notes'))
     for r in rows:
         print('%-7.2f %-11s %-6d %-6.1f %-6d %-7d %-5.1f %-9s %s' % (r['t'], (r['type'] or '-')[:11], r['frame'], r['saut'], r['rampe_avant'],
               r['relache_apres'], r['lum'], r['verdict'], ' ; '.join(r['raisons'] + r['notes'])))
-        if a.verbose:
+        if a.verbose and r['nettete_avant']:
             print('        écarts t-5…t-1 %s | netteté t-5…t %s | flux %s | zoom %s | luma t-5…t+2 %s | réf. %s' % (
                 r['ecarts_avant'], r['nettete_avant'], r['flux_avant'], r['zoom_avant'], r['luma_fenetre'], r['reference']))
-    if a.json: json.dump({'video': a.video, 'fps': fps, 'detecteur': fd.kind, 'coupes': rows}, open(a.json, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+            print('        netteté de référence : fenêtre t-20…t-6 %s, calme t-8…t-6 %s → masquage %s' % (
+                r['reference']['nettete'], r['reference']['nettete_calme'], r['reference']['nettete_masque']))
+    if a.json: json.dump({'video': a.video, 'fps': fps, 'detecteur': fd.kind, 'ouverture': opening, 'coupes': rows}, open(a.json, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
     if a.sheet: sheet(a.sheet, rows, F, faces, FW, FH, diff, luma)
-    return 1 if any(r['verdict'] != 'OK' for r in rows) else 0
+    return 1 if any(r['verdict'] == 'À REVOIR' for r in rows) or (opening and opening['verdict'] != 'OK') else 0
 
 
 def sheet(path, rows, F, faces, FW, FH, diff, luma):
     tw, th = 216, int(round(216 * FH / FW)); tiles = []
-    for r in [r for r in rows if r['frame'] in F]:
+    for r in [r for r in rows if r['frame'] in F and r['verdict'] != 'OUVERTURE']:
         c = r['frame']; line = []
         for k in range(c - 4, c + 3):
             im = cv2.resize(F[k], (tw, th), interpolation=cv2.INTER_AREA) if k in F else np.zeros((th, tw, 3), np.uint8)
@@ -409,6 +450,7 @@ def sheet(path, rows, F, faces, FW, FH, diff, luma):
                                                               'OK' if r['verdict'] == 'OK' else 'A REVOIR')
         cv2.putText(head, txt, (6, 18), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 220, 0) if r['verdict'] == 'OK' else (0, 80, 255), 1, cv2.LINE_AA)
         tiles.append(np.vstack([head, np.hstack(line)]))
+    if not tiles: print('planche : aucune coupe à montrer'); return
     cv2.imwrite(path, np.vstack(tiles), [cv2.IMWRITE_JPEG_QUALITY, 85])
     print('planche :', path)
 
@@ -471,7 +513,10 @@ def main():
     s.add_argument('--dup', type=float, default=0.3, help='écart sous lequel deux images sont doublées')
     s.add_argument('--json'); s.add_argument('--sheet', help='planche JPEG des paires t-1 | t')
     c = sp.add_parser('cuts'); c.add_argument('video')
-    g = c.add_mutually_exclusive_group(required=True); g.add_argument('--cuts'); g.add_argument('--storyboard')
+    g = c.add_mutually_exclusive_group(); g.add_argument('--cuts'); g.add_argument('--storyboard')
+    c.add_argument('--open', action='store_true', help='contrôle d\'ouverture : flux moyen des images 1 à 5 ≥ --open-min')
+    c.add_argument('--open-band', help='bande y0,y1 (px de la vidéo) où mesurer le flux d\'ouverture (voiles et textes fixes exclus)')
+    c.add_argument('--open-min', type=float, default=0.8, help='flux moyen minimal (px/img en 270x480) des images 1 à 5')
     c.add_argument('--ramp', type=int, default=3, help='images de rampe exigées avant une coupe franche')
     c.add_argument('--hard', type=float, default=12, help='écart moyen BGR (0-255, en 270x480) qui fait une coupe franche')
     c.add_argument('--luma', type=float, default=12, help='saut de luminance moyenne maximal à la coupe (0-255)')
